@@ -237,6 +237,7 @@
             <div class="modal-body">
                 <form action="{{ route('users.delete' ,$user->id) }}" method="POST" >
                     @csrf
+                    @method('DELETE')
                     <p>{{ trans('main_trans.delete_text') }}</p>
 
                     <div class="modal-footer">
