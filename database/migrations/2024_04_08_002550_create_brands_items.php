@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,21 +10,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('roles')->insert([
-            'id'=>1,
-            'role' => 'SuperAdmin',
+        DB::table('brands')->insert([
+            'id' => '1',
+            'brand' => 'Carrier',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        DB::table('roles')->insert([
-            'id'=>2,
-            'role' => 'Admin',
+
+        DB::table('brands')->insert([
+            'id' => '2',
+            'brand' => 'Coolex',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        DB::table('roles')->insert([
-            'id'=>3,
-            'role' => 'CompanyAdmin',
+
+        DB::table('brands')->insert([
+            'id' => '3',
+            'brand' => 'SKM',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

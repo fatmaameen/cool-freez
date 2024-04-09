@@ -35,4 +35,18 @@ class AdminClientsController extends Controller
         $client->delete();
         return response()->json(['Message'=>"Deleted Successfully"]);
     }
+
+    public function search(Request $request){
+        $request->validate([
+           'search' => ['required','string'],
+        ]);
+        $search = $request->search;
+        $clients = Client::where('name', 'LIKE', '%'. $search. '%')
+                            ->orWhere('email', 'LIKE', '%'. $search. '%')->get();
+        if ($clients){
+            return response()->json($clients);
+        }else{
+            return response()->json(['Message'=>"No Data Found"]);
+        }
+    }
 }
