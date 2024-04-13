@@ -18,8 +18,7 @@ class ClientInfoResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'password' => $this->password,
-            'phone_number' => $this->phone,
+            'phone_number' => $this->phone_number,
             'image' => $this->image,
             'address' => $this->address,
         ];

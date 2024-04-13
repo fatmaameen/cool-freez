@@ -32,4 +32,8 @@ class Client extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function maintenance(){
+        return $this->hasMany(Maintenance::class);
+    }
 }

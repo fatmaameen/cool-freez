@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Clients\Auth\clientController;
+use App\Http\Controllers\Clients\Maintenance\maintenanceController;
+use App\Http\Controllers\Clients\Profile\profileController;
+use App\Http\Controllers\Technicians\Maintenance\TechnicianMaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +22,41 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/clients/register', [App\Http\Controllers\Clients\clientController::class, 'register']);
+Route::post('/clients/register', [clientController::class, 'register']);
 
-Route::post('/clients/login', [App\Http\Controllers\Clients\clientController::class, 'login']);
+Route::post('/clients/login', [clientController::class, 'login']);
 
 
-Route::post('/clients/logout/{id}', [App\Http\Controllers\Clients\clientController::class, 'logout'])
+Route::post('/clients/logout/{id}', [clientController::class, 'logout'])
     ->middleware('auth:sanctum')
 ;
 
-Route::get('/clients/profile/{id}', [App\Http\Controllers\Clients\clientController::class, 'show'])
-->middleware('auth:sanctum')
+Route::post('/clients/find', [clientController::class, 'searchByMail']);
+Route::post('/clients/check', [clientController::class, 'checkCode']);
+Route::post('/clients/reset', [clientController::class, 'resetPassword']);
+Route::post('/clients/otp', [clientController::class, 'sendOTP']);
+
+Route::group(['prefix' => 'clients','middleware' => 'auth:sanctum'], function () {
+    Route::get('/profile/{id}', [profileController::class, 'show']);
+    Route::post('/update/{client}', [profileController::class, 'update']);
+    Route::delete('/{client}', [profileController::class, 'destroy']);
+});
+
+
+Route::post('/clients/maintenance', [maintenanceController::class, 'store'])
+    // ->middleware('auth:sanctum')
 ;
 
-Route::post('/clients/update/{client}', [App\Http\Controllers\Clients\clientController::class, 'update'])
-->middleware('auth:sanctum')
+Route::get('/clients/maintenance/{id}', [maintenanceController::class, 'show'])
+    // ->middleware('auth:sanctum')
 ;
 
-Route::delete('/clients/{client}', [App\Http\Controllers\Clients\clientController::class, 'destroy'])
-->middleware('auth:sanctum')
+
+// Technician Api --------------------------------------------------------------
+Route::get('/technician/maintenance/{id}', [TechnicianMaintenanceController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+Route::post('/technician/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
+    // ->middleware('auth:sanctum')
 ;

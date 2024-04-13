@@ -2,7 +2,7 @@
 
 return [
 'Dashboard'=>'Dashboard',
-'users'=>'Users',
+'admins'=>'Admins',
 'avatar'=>'Image',
  'number'=>'#',
  'user_name'=>' Name',
@@ -24,4 +24,7 @@ return [
 'password'=>'Password',
 'phone'=>'Phone Number',
 'delete_text'=>'Are you sure you want to delete this user?',
+'clients'=>'Clients',
+
+
 ];
