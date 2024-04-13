@@ -75,10 +75,11 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>
                                 <div class="ul-widget-app__profile-pic">
-                                    <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                                        src="{{ asset('assets/users_images'.$user->image) }}" alt="">
+                                    <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid" src="{{ asset('public/users_images/' . $user->image) }}" >
                                 </div>
                             </td>
+
+
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone_number }}</td>
@@ -237,6 +238,7 @@
             <div class="modal-body">
                 <form action="{{ route('users.delete' ,$user->id) }}" method="POST" >
                     @csrf
+                  @method('DELETE')
                     <p>{{ trans('main_trans.delete_text') }}</p>
 
                     <div class="modal-footer">
