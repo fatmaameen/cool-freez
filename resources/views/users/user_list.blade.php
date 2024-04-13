@@ -101,7 +101,7 @@
 <!-- row closed -->
 
 <!-- Create User Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -163,7 +163,7 @@
 
 <!-- Edit User Modals -->
 @foreach ($users as $user)
-<div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $user->id }}"
+<div class="modal fade" id="editModal{{ $user->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $user->id }}"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -214,7 +214,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
                         </button>
                         <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
@@ -224,13 +224,15 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id }}"
+
+
+<div class="modal fade" id="deleteModal{{ $user->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id }}"
     aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel{{ $user->id }}">{{ trans('main_trans.edit') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -278,7 +280,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     // عرض الرسالة بعد تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function() {
         var message = "{{ session('message') }}";
@@ -286,7 +288,7 @@
             alert(message);
         }
     });
-</script>
+</script> --}}
 <script>
     // Function to open delete modal
     function openDeleteModal(userId) {
