@@ -51,7 +51,7 @@ Route::group(
             Route::post('/store', [userController::class, 'store'])->middleware('SuperAdmin')->name('users.store');
             Route::post('/update/{id}', [userController::class, 'update'])->middleware('Admin')->name('users.update');
             Route::post('/updateRole/{user}', [userController::class, 'updateRole'])->middleware('SuperAdmin');
-            Route::post('/{id}', [userController::class, 'destroy'])->middleware('SuperAdmin')->name('users.delete');
+            Route::delete('/{id}', [userController::class, 'destroy'])->middleware('SuperAdmin')->name('users.delete');
         });
 
 

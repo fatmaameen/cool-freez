@@ -28,14 +28,14 @@ class maintenanceController extends Controller
         switch ($status){
             case 'waiting':
                 return response()->json(['message'=>'waiting']);
-                break;
+                // break;
             case 'confirmed':
                 $info = MaintenanceTrack::make($maintenance);
                 return response()->json(['message'=>'confirmed','data'=>$info]);
-                break;
+                // break;
             case'cancelled':
                 return response()->json(['message'=>'cancelled']);
-                break;
+                // break;
             default:
         }
     }
