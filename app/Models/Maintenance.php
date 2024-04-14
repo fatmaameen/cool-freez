@@ -23,6 +23,7 @@ class Maintenance extends Model
         'company_status',
         'technical',
         'technical_status',
+        'assigned',
     ];
 
     public function client(){

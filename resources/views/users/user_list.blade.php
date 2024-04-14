@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.users') }}
+{{ trans('main_trans.admins') }}
 @stop
 
 @section('page-header')
@@ -13,12 +13,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.users') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.admins') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.users') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.admins') }}</li>
             </ol>
         </div>
     </div>
@@ -75,10 +75,11 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>
                                 <div class="ul-widget-app__profile-pic">
-                                    <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                                        src="{{ asset('assets/users_images'.$user->image) }}" alt="">
+                                    <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid" src="{{ asset('public/users_images/' . $user->image) }}" >
                                 </div>
                             </td>
+
+
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone_number }}</td>

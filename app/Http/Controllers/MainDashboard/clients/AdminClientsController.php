@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MainDashboard\clients;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class AdminClientsController extends Controller
@@ -11,17 +12,18 @@ class AdminClientsController extends Controller
     public function index()
     {
         $clients = Client::all();
-        return response()->json($clients);
+
+        return view('clients.client_list' ,compact('clients'));
     }
 
-    public function update(Request $request,Client $client){
+    public function update(Request $request,$id){
         $request->validate([
             'is_banned' => ['required','boolean'],
         ]);
-        $client->update([
+        Client::find($id)->update([
             'is_banned' => $request->is_banned,
         ]);
-        return response()->json(['Message'=>"Updated Successfully"]);
+        return redirect()->back()->with(['Message'=>"Updated Successfully"]);
     }
 
     public function destroy(Client $client){

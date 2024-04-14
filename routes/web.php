@@ -58,41 +58,38 @@ Route::group(
 
 
         Route::group(['prefix' => 'clients', 'middleware' => ['auth', 'Admin']], function () {
-            Route::get('/', [AdminClientsController::class, 'index']);
-            Route::post('/{client}', [AdminClientsController::class, 'update']);
+            Route::get('/', [AdminClientsController::class, 'index'])->name('clients');
+            Route::post('/{id}', [AdminClientsController::class, 'update'])->name('clients.update');
             Route::delete('/{client}', [AdminClientsController::class, 'destroy']);
             Route::post('/search', [AdminClientsController::class, 'search']);
         });
+
+
+Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance')
+//->middleware('Admin')
+;
+
+Route::post('/maintenance/{id}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
+// ->middleware('Admin')
+;
+
+Route::delete('/maintenance/{id}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+// ->middleware('Admin')
+;
     }
 );
 
-Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])
-    // ->middleware('Admin')
-;
-
-Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::class, 'assign']);
-    // ->middleware('Admin')
-;
-
-Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])
-    // ->middleware('Admin')
-;
-
-Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy']);
-    // ->middleware('Admin')
-;
-
 
 // Company routes -------------------------------------------------------------------------
-Route::get('/company/maintenance', [CompanyMaintenanceController::class, 'index'])
+Route::get('/company/maintenance', [CompanyMaintenanceController::class, 'index'])->name('incomplete_maintenance')
     // ->middleware('CompanyAdmin')
 ;
 
-Route::get('/company/maintenance/completed', [CompanyMaintenanceController::class, 'completed']);
+Route::get('/company/maintenance/completed', [CompanyMaintenanceController::class, 'completed'])->name('complete_maintenance')
     // ->middleware('CompanyAdmin')
 ;
 
-Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController::class, 'update']);
+Route::post('/company/maintenance/{id}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
     // ->middleware('CompanyAdmin')
 ;
 

@@ -3,7 +3,7 @@
 return [
 
 'Dashboard'=>'الصفحة الرئيسية',
-'users'=>'المستخدمين ',
+'admins'=>'الادارة ',
 'avatar'=>' صورة شخصية',
 'number'=>'#',
 'user_name'=>'اسم',
@@ -24,7 +24,12 @@ return [
 'close'=>'اغلاق',
 'password'=>'كلمة المرور',
 'phone'=>'رقم الموبايل',
-'delete_text'=>'هل تريد حذف هذا المستخدم؟'
-
+'delete_text'=>'هل تريد الحذف بالفعل ؟',
+'clients'=>'العملاء',
+'client_create'=>'عميل جديد',
+'address'=>'عنوان',
+'edit_status'=>'تعديل الحالة',
+'block'=>'حظر',
+'maintenance'=>'الصيانة',
 
 ];

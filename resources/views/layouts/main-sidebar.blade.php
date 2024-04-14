@@ -11,29 +11,33 @@
                             </span></a>
                     </li>
                     <li>
-                        <a href="/users"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.users') }}
+                        <a href="/users"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.admins') }}
                             </span></a>
                     </li>
 
-                   
+
+
+                    <li>
+                        <a href="{{ route('clients') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.clients') }}
+                            </span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('maintenance') }}"><i class="ti-menu-alt"></i><span class="right-nav-text">{{ trans('main_trans.maintenance') }}
+                            </span> </a>
+                    </li>
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                             <div class="pull-left"><i class="ti-calendar"></i><span
-                                    class="right-nav-text">calendar</span></div>
+                                    class="right-nav-text">companyMaintenance</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="calendar.html">Events Calendar </a> </li>
-                            <li> <a href="calendar-list.html">List Calendar</a> </li>
+                            <li> <a href="{{ route('complete_maintenance') }}">complete maintenance </a> </li>
+                            <li> <a href="{{ route('incomplete_maintenance') }}">Incomplete maintenance </a> </li>
                         </ul>
                     </li>
-                    <!-- menu item todo-->
-                    <li>
-                        <a href="todo-list.html"><i class="ti-menu-alt"></i><span class="right-nav-text">Todo
-                                list</span> </a>
-                    </li>
-                    <!-- menu item chat-->
                     <li>
                         <a href="chat-page.html"><i class="ti-comments"></i><span class="right-nav-text">Chat
                             </span></a>
