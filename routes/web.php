@@ -8,9 +8,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\MainDashboard\Maintenance\AdminMaintenanceController;
 use App\Http\Controllers\CompanyDashboard\Maintenance\CompanyMaintenanceController;
-
-
-
+use App\Http\Controllers\MainDashboard\brands\AdminBrandsController;
+use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
+use App\Http\Controllers\MainDashboard\types\AdminTypesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +70,10 @@ Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])
     // ->middleware('Admin')
 ;
 
+Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::class, 'assign']);
+    // ->middleware('Admin')
+;
+
 Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])
     // ->middleware('Admin')
 ;
@@ -95,3 +99,37 @@ Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController:
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// brands routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'brands'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminBrandsController::class, 'index']);
+    Route::post('/', [AdminBrandsController::class, 'store']);
+    Route::post('/{brand}', [AdminBrandsController::class, 'update']);
+    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy']);
+});
+
+// brands routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'types'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminTypesController::class, 'index']);
+    Route::post('/', [AdminTypesController::class, 'store']);
+    Route::post('/{type}', [AdminTypesController::class, 'update']);
+    Route::delete('/{type}', [AdminTypesController::class, 'destroy']);
+});
+// Route::post('/offers', [AdminOffersController::class, 'store']);
+// offers routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'offer'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminOffersController::class, 'index']);
+    Route::post('/', [AdminOffersController::class, 'store']);
+    Route::post('/{offer}', [AdminOffersController::class, 'update']);
+    Route::delete('/{offer}', [AdminOffersController::class, 'destroy']);
+});
+

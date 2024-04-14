@@ -47,7 +47,8 @@ class profileController extends Controller
         return response()->json(['message' => 'client updated successfully'], 200);
     }
 
-    public function destroy(Client $client){
+    public function destroy(Client $client)
+    {
         $img = $client->image;
         $imagePath = public_path('clients_images/' . $img);
         if (file_exists($imagePath)) {

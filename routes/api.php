@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Clients\Auth\clientController;
+use App\Http\Controllers\Clients\brands\BrandsController;
 use App\Http\Controllers\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Clients\Profile\profileController;
+use App\Http\Controllers\Clients\services\ServicesController;
+use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Technicians\Maintenance\TechnicianMaintenanceController;
 
 /*
@@ -58,5 +61,21 @@ Route::get('/technician/maintenance/{id}', [TechnicianMaintenanceController::cla
 ;
 
 Route::post('/technician/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
+    // ->middleware('auth:sanctum')
+;
+
+
+// services ---------------------------------------------------------------------
+Route::get('/services', [ServicesController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// brands ----------------------------------------------------------------------
+Route::get('/brands', [BrandsController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// brands ----------------------------------------------------------------------
+Route::get('/offers', [AdminOffersController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;

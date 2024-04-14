@@ -18,6 +18,7 @@ class Maintenance extends Model
         'phone_number',
         'device_type',
         'type_of_malfunction',
+        'assigned',
         'admin_status',
         'company_status',
         'technical',

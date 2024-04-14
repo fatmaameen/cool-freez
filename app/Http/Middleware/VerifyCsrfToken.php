@@ -16,6 +16,11 @@ class VerifyCsrfToken extends Middleware
         'http://localhost:8000/users/update/5',
         'http://localhost:8000/users/5',
         'http://127.0.0.1:8000/clients/search',
-        'http://127.0.0.1:8000/maintenance/1'
+        'http://127.0.0.1:8000/maintenance/1',
+        'http://127.0.0.1:8000/brands',
+        'http://127.0.0.1:8000/brands/99',
+        'http://127.0.0.1:8000/brands/999',
+        'http://127.0.0.1:8000/offer',
+        'http://127.0.0.1:8000/offer/8'
     ];
 }
