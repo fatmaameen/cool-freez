@@ -23,8 +23,13 @@ return [
 'close'=>'Close',
 'password'=>'Password',
 'phone'=>'Phone Number',
-'delete_text'=>'Are you sure you want to delete this user?',
+'delete_text'=>'Are you sure you want to delete it?',
 'clients'=>'Clients',
+'client_create'=>'New Client',
+'address'=>'Address',
+'edit_status'=>'Edit Status',
+'block'=>'Bolck',
+'maintenance'=>'Maintenance'
 
 
 ];

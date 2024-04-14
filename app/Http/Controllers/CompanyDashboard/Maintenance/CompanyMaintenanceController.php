@@ -15,38 +15,37 @@ class CompanyMaintenanceController extends Controller
         ->where('technical_status', '!=','completed')
         ->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
-        return response()->json($maintenanceResources);
+        return view('company_maintenance/incompleted' ,compact('maintenanceResources'));
     }
 
     public function completed()
     {
-        $maintenances = Maintenance::where('technical_status', 'completed')
-        ->where('technical_status', '==','completed')
-        ->get();
+        $maintenances = Maintenance::where('technical_status', 'completed')->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
-        return response()->json($maintenanceResources);
+        return view('company_maintenance/completed', compact('maintenanceResources'));
     }
 
-    public function update(Request $request, Maintenance $maintenance)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'company_status' => ['required'],
-            'technical' => ['required'],
-            'expected_service_date' => ['required'],
-        ]);
+        return $request;
+        // $request->validate([
+        //     'company_status' => ['required'],
+        //     'technical' => ['required'],
+        //     'expected_service_date' => ['required'],
+        // ]);
 
-        try {
-            $maintenance->update([
-                'company_status' => $request->company_status,
-                'technical' => $request->technical,
-                'expected_service_date' => $request->expected_service_date,
-            ]);
+        // try {
+        //     Maintenance::find($id)->update([
+        //         'company_status' => $request->company_status,
+        //         'technical' => $request->technical,
+        //         'expected_service_date' => $request->expected_service_date,
+        //     ]);
 
-            // Notification here
+        //     // Notification here
 
-            return response()->json(['message' => 'Updated successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Update failed: ' . $e->getMessage()], 500);
-        }
+        //     return redirect()->back()->with(['message' => 'Updated successfully']);
+        // } catch (\Exception $e) {
+        //     return response()->json(['message' => 'Update failed: ' . $e->getMessage()], 500);
+        // }
     }
 }

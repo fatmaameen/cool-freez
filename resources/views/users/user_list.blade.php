@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.users') }}
+{{ trans('main_trans.admins') }}
 @stop
 
 @section('page-header')
@@ -13,12 +13,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.users') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.admins') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.users') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.admins') }}</li>
             </ol>
         </div>
     </div>
@@ -240,11 +240,7 @@
             <div class="modal-body">
                 <form action="{{ route('users.delete' ,$user->id) }}" method="POST" >
                     @csrf
-<<<<<<< HEAD
-                  @method('DELETE')
-=======
                     @method('DELETE')
->>>>>>> b3cdf356b2559f7ce621433d8233376bbe4bc0a3
                     <p>{{ trans('main_trans.delete_text') }}</p>
 
                     <div class="modal-footer">
