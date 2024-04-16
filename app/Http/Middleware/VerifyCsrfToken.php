@@ -21,6 +21,8 @@ class VerifyCsrfToken extends Middleware
         'http://127.0.0.1:8000/brands/99',
         'http://127.0.0.1:8000/brands/999',
         'http://127.0.0.1:8000/offer',
-        'http://127.0.0.1:8000/offer/8'
+        'http://127.0.0.1:8000/offer/8',
+        'http://127.0.0.1:8000/consultant',
+        'http://127.0.0.1:8000/consultant/4'
     ];
 }

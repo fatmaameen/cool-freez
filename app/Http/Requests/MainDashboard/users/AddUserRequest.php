@@ -27,7 +27,7 @@ class AddUserRequest extends FormRequest
             'email' => ['required', 'email', 'unique:App\Models\User,email'],
             'password' => ['required','nullable', 'string', 'max:250'],
             'phone_number' => ['required','unique:App\Models\User,phone_number'],
-            'image' => ['image', 'mimes:jpg,bmp,png'],
+            'image' => ['image', 'mimes:jpg,bmp,png,jpeg'],
             'is_active' => ['nullable', 'boolean'],
             'is_banned' => ['nullable', 'boolean'],
         ];

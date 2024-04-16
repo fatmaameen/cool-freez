@@ -8,33 +8,44 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Clients\Maintenance\MaintenanceRequest;
 use App\Helpers\CodeGeneration;
 use App\Http\Resources\Clients\Maintenance\MaintenanceTrack;
+use Illuminate\Support\Facades\Log;
 
 class maintenanceController extends Controller
 {
-    public function store(MaintenanceRequest $request){
-        $data = $request->validated();
-        do {
-            $code = CodeGeneration::generateCode();
-        } while (Maintenance::where('code', $code)->exists());
-        $data['code'] = $code;
-        Maintenance::create($data);
-        return response()->json(['message'=>'Created successfully']);
+    public function store(MaintenanceRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            do {
+                $code = CodeGeneration::generateCode();
+            } while (Maintenance::where('code', $code)->exists());
+            $data['code'] = $code;
+            Maintenance::create($data);
+            return response()->json(['message' => 'Created successfully']);
+        } catch (\Exception $e) {
+            Log::error("Error adding maintenance: " . $e->getMessage());
+            return response()->json(['message' => 'Error adding maintenance'], 500);
+        }
     }
 
-    public function show(string $id){
+    public function show(string $id)
+    {
         $maintenance = Maintenance::find($id);
 
-        $status = $maintenance->admin_status;
-        switch ($status){
-            case 'waiting':
-                return response()->json(['message'=>'waiting']);
+        $status = $maintenance->technical_status;
+        $info = MaintenanceTrack::make($maintenance);
+        switch ($status) {
+            case 'pending':
+                return response()->json(['message' => 'pending', 'data' => $info]);
                 // break;
             case 'confirmed':
-                $info = MaintenanceTrack::make($maintenance);
-                return response()->json(['message'=>'confirmed','data'=>$info]);
+                return response()->json(['message' => 'confirmed', 'data' => $info]);
                 // break;
-            case'cancelled':
-                return response()->json(['message'=>'cancelled']);
+            case 'out to service':
+                return response()->json(['message' => 'out to service', 'data' => $info]);
+                // break;
+            case 'completed':
+                return response()->json(['message' => 'completed', 'data' => $info]);
                 // break;
             default:
         }

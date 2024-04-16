@@ -36,4 +36,8 @@ class Client extends Authenticatable
     public function maintenance(){
         return $this->hasMany(Maintenance::class);
     }
+
+    public function review(){
+        return $this->hasMany(review::class);
+    }
 }

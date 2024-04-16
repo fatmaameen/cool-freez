@@ -39,11 +39,9 @@ class AdminMaintenanceController extends Controller
             'admin_status' => ['required'],
         ]);
 
-
         try {
             $maintenance->update([
                 'admin_status' => $request->admin_status,
-                'assigned'=>$request->assigned,
             ]);
 
             // Notification here
@@ -58,6 +56,6 @@ class AdminMaintenanceController extends Controller
     public function destroy(Maintenance $maintenance)
     {
         $maintenance->delete();
-        return response()->json(['message' => 'Deleted successfully']);
+        return  redirect()->back()->with(['message' => 'Deleted successfully']);
     }
 }

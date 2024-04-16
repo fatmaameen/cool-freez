@@ -31,7 +31,7 @@ Route::post('/clients/login', [clientController::class, 'login']);
 
 
 Route::post('/clients/logout/{id}', [clientController::class, 'logout'])
-    ->middleware('auth:sanctum')
+    // ->middleware('auth:sanctum')
 ;
 
 Route::post('/clients/find', [clientController::class, 'searchByMail']);
@@ -39,7 +39,10 @@ Route::post('/clients/check', [clientController::class, 'checkCode']);
 Route::post('/clients/reset', [clientController::class, 'resetPassword']);
 Route::post('/clients/otp', [clientController::class, 'sendOTP']);
 
-Route::group(['prefix' => 'clients','middleware' => 'auth:sanctum'], function () {
+Route::group(['prefix' => 'clients',
+// 'middleware' => 'auth:sanctum'
+],
+ function () {
     Route::get('/profile/{id}', [profileController::class, 'show']);
     Route::post('/update/{client}', [profileController::class, 'update']);
     Route::delete('/{client}', [profileController::class, 'destroy']);

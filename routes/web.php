@@ -9,8 +9,10 @@ use App\Http\Controllers\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\MainDashboard\Maintenance\AdminMaintenanceController;
 use App\Http\Controllers\CompanyDashboard\Maintenance\CompanyMaintenanceController;
 use App\Http\Controllers\MainDashboard\brands\AdminBrandsController;
+use App\Http\Controllers\MainDashboard\consultants\AdminConsultantsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\MainDashboard\types\AdminTypesController;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,11 +71,15 @@ Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('
 //->middleware('Admin')
 ;
 
-Route::post('/maintenance/{id}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
+Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
 // ->middleware('Admin')
 ;
 
-Route::delete('/maintenance/{id}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign')
+// ->middleware('Admin')
+;
+
+Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
 // ->middleware('Admin')
 ;
     }
@@ -118,7 +124,7 @@ Route::group([
     Route::post('/{type}', [AdminTypesController::class, 'update']);
     Route::delete('/{type}', [AdminTypesController::class, 'destroy']);
 });
-// Route::post('/offers', [AdminOffersController::class, 'store']);
+
 // offers routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'offer'
@@ -130,3 +136,40 @@ Route::group([
     Route::delete('/{offer}', [AdminOffersController::class, 'destroy']);
 });
 
+// consultants routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'consultant'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminConsultantsController::class, 'index']);
+    Route::post('/', [AdminConsultantsController::class, 'store']);
+    Route::post('/{consultant}', [AdminConsultantsController::class, 'update']);
+    Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy']);
+});
+
+//route to show clients images -------------------------------------------------------------
+Route::get('/clients_images/{filename}', function ($filename) {
+    $path = storage_path('../public/clients_images/' . $filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
+
+//route to show offers images----------------------------------------------------------------
+Route::get('/offers/{filename}', function ($filename) {
+    $path = storage_path('../public/offers/' . $filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
+
+//route to show admins images----------------------------------------------------------------
+Route::get('/users_images/{filename}', function ($filename) {
+    $path = storage_path('../public/users_images/' . $filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});

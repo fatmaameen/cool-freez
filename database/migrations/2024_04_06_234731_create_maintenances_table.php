@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('assigned')->default(false);
             $table->enum('company_status',['pending','confirmed','cancelled'])->default('pending');
             $table->unsignedBigInteger('technical')->default(0);
-            $table->date('expected_service_date')->default(null);
+            $table->date('expected_service_date')->default('2024-01-01');
             $table->enum('technical_status',['pending','confirmed','out to service','completed'])->default('pending');
             $table->timestamps();
         });

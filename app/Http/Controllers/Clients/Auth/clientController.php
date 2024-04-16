@@ -52,7 +52,7 @@ class clientController extends Controller
                 $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
                 $client_info = ClientInfoResource::make($client);
                 return response()->json(['token' => $token,'message'=>'Logged in successfully','client'=>$client_info]);
-                break;
+                // break;
                 case 'firebase':
                     $request->validate([
                         'uid' => 'required',
