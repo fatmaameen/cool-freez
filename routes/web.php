@@ -117,10 +117,10 @@ Route::group([
     'prefix' => 'types'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminTypesController::class, 'index']);
-    Route::post('/', [AdminTypesController::class, 'store']);
-    Route::post('/{type}', [AdminTypesController::class, 'update']);
-    Route::delete('/{type}', [AdminTypesController::class, 'destroy']);
+    Route::get('/', [AdminTypesController::class, 'index'])->name('types.types');
+    Route::post('/', [AdminTypesController::class, 'store'])->name('types.store');
+    Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
+    Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
 });
 
 // offers routes -------------------------------------------------------------------------

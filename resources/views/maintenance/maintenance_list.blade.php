@@ -216,66 +216,6 @@
                         </tbody>
                     </table>
                 </div>
-<<<<<<< HEAD
-=======
-
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-
-                            <th scope="col">{{ trans('main_trans.code') }}</th>
-                            <th scope="col">{{ trans('main_trans.address') }}</th>
-                            <th scope="col">{{ trans('main_trans.street_address') }}</th>
-                            <th scope="col">{{ trans('main_trans.phone') }}</th>
-                            <th scope="col">{{ trans('main_trans.device_type') }}</th>
-                            <th scope="col">{{ trans('main_trans.type_of_malfunction')}}</th>
-                            <th scope="col">{{ trans('main_trans.technical')}}</th>
-                            <th scope="col">{{ trans('main_trans.admin_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.company_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.technical_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.edit_status') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($maintenances as $maintenance)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-
-                            <td>{{ $maintenance->code }}</td>
-                            <td>{{ $maintenance->address }}</td>
-                            <td>{{ $maintenance->street_address }}</td>
-                            <td>{{ $maintenance->phone_number }}</td>
-                            <td>{{ $maintenance->device_type }}</td>
-                            <td>{{ $maintenance->type_of_malfunction }}</td>
-                            <td>{{ $maintenance->technical }}</td>
-
-                            <td>
-                             <span class="text-success" style="font-size: 20px">{{ $maintenance->admin_status}}</span>
-                            </td>
-                            <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->company_status}}</span>
-                               </td>
-                               <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->technical_status}}</span>
-                               </td>
-
-
-
-
-                            <td>
-                                <a href="#editModal{{ $maintenance->id }}" class="btn btn-primary"
-                                    data-toggle="modal">{{ trans('main_trans.edit') }}</a>
-
-    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $maintenance->id }}')">{{ trans('main_trans.delete') }}</a>
-</td>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
->>>>>>> 35f929d8d94d14f8817ace7e1adc89fd50c70398
             </div>
         </div>
     </div>
@@ -285,19 +225,6 @@
 
     <!-- Create User Modal -->
 
-<<<<<<< HEAD
-    <!-- Edit User Modals -->
-    @foreach ($maintenances as $maintenance)
-        <div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static"
-            tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel{{ $maintenance->id }}">{{ trans('main_trans.edit') }}
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-=======
 <!-- Edit User Modals -->
 @foreach ($maintenances as $maintenance)
 <div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}"
@@ -323,12 +250,11 @@
                         </select>
                     </div>
 
-                 
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
->>>>>>> 35f929d8d94d14f8817ace7e1adc89fd50c70398
                         </button>
                     </div>
                     <div class="modal-body">
