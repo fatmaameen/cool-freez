@@ -30,6 +30,7 @@ class profileController extends Controller
             $new_image->move(public_path('clients_images'), $image_name);
             $client->update([
                 'image' => $image_name,
+                //  'image' => url('clients_images/' . $image_name),
             ]);
         };
 

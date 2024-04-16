@@ -22,7 +22,7 @@ class TypesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'numeric'],
+            'id' => ['numeric'],
             'type' => ['required', 'string', 'max:250'],
         ];
     }

@@ -58,6 +58,6 @@ class AdminMaintenanceController extends Controller
     public function destroy(Maintenance $maintenance)
     {
         $maintenance->delete();
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()->back()->with(['message' => 'Deleted successfully']);
     }
 }

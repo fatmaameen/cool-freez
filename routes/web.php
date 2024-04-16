@@ -69,15 +69,13 @@ Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('
 //->middleware('Admin')
 ;
 
-Route::post('/maintenance/{id}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
+Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
 // ->middleware('Admin')
 ;
 
-Route::delete('/maintenance/{id}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
 // ->middleware('Admin')
 ;
-    }
-);
 
 
 // Company routes -------------------------------------------------------------------------
@@ -89,7 +87,7 @@ Route::get('/company/maintenance/completed', [CompanyMaintenanceController::clas
     // ->middleware('CompanyAdmin')
 ;
 
-Route::post('/company/maintenance/{id}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
+Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
     // ->middleware('CompanyAdmin')
 ;
 
@@ -102,31 +100,32 @@ Route::group([
     'prefix' => 'brands'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminBrandsController::class, 'index']);
-    Route::post('/', [AdminBrandsController::class, 'store']);
-    Route::post('/{brand}', [AdminBrandsController::class, 'update']);
-    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy']);
+    Route::get('/', [AdminBrandsController::class, 'index'])->name('brands.brands');
+    Route::post('/', [AdminBrandsController::class, 'store'])->name('brands.store');
+    Route::post('/{brand}', [AdminBrandsController::class, 'update'])->name('brands.update');
+    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy'])->name('brands.delete');
 });
-
 // brands routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'types'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminTypesController::class, 'index']);
-    Route::post('/', [AdminTypesController::class, 'store']);
-    Route::post('/{type}', [AdminTypesController::class, 'update']);
-    Route::delete('/{type}', [AdminTypesController::class, 'destroy']);
+    Route::get('/', [AdminTypesController::class, 'index'])->name('types.types');
+    Route::post('/', [AdminTypesController::class, 'store'])->name('types.store');
+    Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
+    Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
 });
-// Route::post('/offers', [AdminOffersController::class, 'store']);
+//  Route::post('/offers', [AdminOffersController::class, 'store']);
 // offers routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'offer'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminOffersController::class, 'index']);
-    Route::post('/', [AdminOffersController::class, 'store']);
-    Route::post('/{offer}', [AdminOffersController::class, 'update']);
-    Route::delete('/{offer}', [AdminOffersController::class, 'destroy']);
+    Route::get('/', [AdminOffersController::class, 'index'])->name('offer.offer');
+    Route::post('/', [AdminOffersController::class, 'store'])->name('offer.store');
+    Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
+    Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
 });
 
+}
+);

@@ -29,23 +29,27 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                             <div class="pull-left"><i class="ti-calendar"></i><span
-                                    class="right-nav-text">companyMaintenance</span></div>
+                                    class="right-nav-text">{{ trans('main_trans.companyMaintenance') }}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{ route('complete_maintenance') }}">complete maintenance </a> </li>
-                            <li> <a href="{{ route('incomplete_maintenance') }}">Incomplete maintenance </a> </li>
+                            <li> <a href="{{ route('complete_maintenance') }}">{{ trans('main_trans.complete_maintenance') }} </a> </li>
+                            <li> <a href="{{ route('incomplete_maintenance') }}">{{ trans('main_trans.Incomplete_maintenance') }} </a> </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="chat-page.html"><i class="ti-comments"></i><span class="right-nav-text">Chat
+                        <a href="{{ route('brands.brands') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.brands') }}
                             </span></a>
                     </li>
-                    <!-- menu item mailbox-->
+
                     <li>
-                        <a href="mail-box.html"><i class="ti-email"></i><span class="right-nav-text">Mail
-                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                        <a href="{{ route('types.types') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.types') }}
+                        </span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('offer.offer') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.offers') }}
+                        </span></a>
                     </li>
                     <!-- menu item Charts-->
                     <li>
@@ -81,7 +85,7 @@
                     <!-- menu item Widgets-->
                     <li>
                         <a href="widgets.html"><i class="ti-blackboard"></i><span class="right-nav-text">Widgets</span>
-                            <span class="badge badge-pill badge-danger float-right mt-1">59</span> </a>
+
                     </li>
                     <!-- menu item Form-->
                     <li>

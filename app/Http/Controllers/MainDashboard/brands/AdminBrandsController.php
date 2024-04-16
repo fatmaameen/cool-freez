@@ -12,26 +12,26 @@ class AdminBrandsController extends Controller
     public function index()
     {
         $brands = brand::all();
-        return response()->json($brands);
+        return view('brands/brand_list' ,compact('brands'));
     }
 
     public function store(BrandsRequest $request)
     {
         $data = $request->validated();
         brand::create($data);
-        return response()->json(['message' => 'Successfully added']);
+        return redirect()->back()->with(['message' => 'Successfully added']);
     }
 
     public function update(BrandsRequest $request, brand $brand)
     {
         $data = $request->validated();
         $brand->update($data);
-        return response()->json(['message' => 'Successfully updated']);
+        return redirect()->back()->with(['message' => 'Successfully updated']);
     }
 
     public function destroy(brand $brand)
     {
         $brand->delete();
-        return response()->json(['message' => 'Successfully deleted']);
+        return redirect()->back()->with(['message' => 'Successfully deleted']);
     }
 }

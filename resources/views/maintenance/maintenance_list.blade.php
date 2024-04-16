@@ -62,16 +62,16 @@
                         <tr>
                             <th>#</th>
 
-                            <th scope="col">code</th>
+                            <th scope="col">{{ trans('main_trans.code') }}</th>
                             <th scope="col">{{ trans('main_trans.address') }}</th>
-                            <th scope="col">street_address</th>
+                            <th scope="col">{{ trans('main_trans.street_address') }}</th>
                             <th scope="col">{{ trans('main_trans.phone') }}</th>
-                            <th scope="col">device_type</th>
-                            <th scope="col">type_of_malfunction</th>
-                            <th scope="col">technical</th>
-                            <th scope="col">admin_status</th>
-                            <th scope="col">company_status</th>
-                            <th scope="col">technical_status</th>
+                            <th scope="col">{{ trans('main_trans.device_type') }}</th>
+                            <th scope="col">{{ trans('main_trans.type_of_malfunction')}}</th>
+                            <th scope="col">{{ trans('main_trans.technical')}}</th>
+                            <th scope="col">{{ trans('main_trans.admin_status')}}</th>
+                            <th scope="col">{{ trans('main_trans.company_status')}}</th>
+                            <th scope="col">{{ trans('main_trans.technical_status')}}</th>
                             <th scope="col">{{ trans('main_trans.edit_status') }}</th>
                         </tr>
                     </thead>
@@ -139,7 +139,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="status">admin_status</label>
+                        <label for="status">{{  trans('main_trans.admin_status') }} </label>
                         <select class="form-select" aria-label="Default select example" name="admin_status">
                             <option value="waiting">waiting</option>
                             <option value="confirmed">confirmed</option>
@@ -147,14 +147,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="assigned">assigned</label><br>
-                        <!-- Hidden input with value 0 -->
-                        <input type="hidden" name="assigned" value="0">
-                        <!-- Checkbox, when checked updates the hidden input to 1 -->
-                        <input type="checkbox" id="assignedCheckbox">
-                        <label for="assignedCheckbox" class="switch"></label>
-                    </div>
+                 
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">

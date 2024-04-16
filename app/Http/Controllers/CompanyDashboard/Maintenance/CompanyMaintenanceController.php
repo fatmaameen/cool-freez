@@ -25,7 +25,7 @@ class CompanyMaintenanceController extends Controller
         return view('company_maintenance/completed', compact('maintenanceResources'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request,Maintenance $maintenance)
     {
         return $request;
         // $request->validate([
@@ -35,7 +35,7 @@ class CompanyMaintenanceController extends Controller
         // ]);
 
         // try {
-        //     Maintenance::find($id)->update([
+        //     $maintenance->update([
         //         'company_status' => $request->company_status,
         //         'technical' => $request->technical,
         //         'expected_service_date' => $request->expected_service_date,
@@ -45,7 +45,7 @@ class CompanyMaintenanceController extends Controller
 
         //     return redirect()->back()->with(['message' => 'Updated successfully']);
         // } catch (\Exception $e) {
-        //     return response()->json(['message' => 'Update failed: ' . $e->getMessage()], 500);
+        //     returnredirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
         // }
     }
 }
