@@ -12,26 +12,26 @@ class AdminTypesController extends Controller
     public function index()
     {
         $types = type::all();
-        return response()->json($types);
+        return view('types/types_list' ,compact('types'));
     }
 
     public function store(TypesRequest $request)
     {
         $data = $request->validated();
         type::create($data);
-        return response()->json(['message' => 'Successfully added']);
+        return redirect()->back()->with(['message' => 'Successfully added']);
     }
 
     public function update(TypesRequest $request, type $type)
     {
         $data = $request->validated();
         $type->update($data);
-        return response()->json(['message' => 'Successfully updated']);
+        return redirect()->back()->with(['message' => 'Successfully updated']);
     }
 
     public function destroy(type $type)
     {
         $type->delete();
-        return response()->json(['message' => 'Successfully deleted']);
+        return redirect()->back()->with(['message' => 'Successfully deleted']);
     }
 }

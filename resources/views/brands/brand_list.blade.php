@@ -1,3 +1,4 @@
+
 @extends('layouts.master')
 
 @section('css')
@@ -7,7 +8,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.Incomplete_maintenance') }}
+{{ trans('main_trans.brands') }}
 @stop
 
 @section('page-header')
@@ -15,12 +16,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.Incomplete_maintenance') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.brands') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.Incomplete_maintenance') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.brands') }}</li>
             </ol>
         </div>
     </div>
@@ -52,57 +53,33 @@
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                     <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
-
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                            {{ trans('main_trans.create') }}
+                        </button>
                     </div>
                 </div>
-
-
                 <table class="table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">{{ trans('main_trans.code') }} </th>
-                            <th scope="col">{{ trans('main_trans.address') }}</th>
-                            <th scope="col">{{ trans('main_trans.street_address') }}</th>
-                            <th scope="col">{{ trans('main_trans.phone') }}</th>
-                            <th scope="col">{{ trans('main_trans.device_type') }}</th>
-                            <th scope="col">{{ trans('main_trans.type_of_malfunction')}}</th>
-                            <th scope="col">{{ trans('main_trans.technical')}}</th>
-                            <th scope="col">{{ trans('main_trans.expected_service_date')}}</th>
-                            <th scope="col">{{ trans('main_trans.company_status')}}</th>
-                            <th scope="col"> {{ trans('main_trans.technical_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.edit_status') }}</th>
+
+                            <th scope="col">{{ trans('main_trans.user_name') }}</th>
+
+                            <th scope="col">{{ trans('main_trans.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($maintenanceResources as $maintenance)
+                        @foreach ($brands as $brand)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
 
-                            <td>{{ $maintenance->code }}</td>
-                            <td>{{ $maintenance->address }}</td>
-                            <td>{{ $maintenance->street_address }}</td>
-                            <td>{{ $maintenance->phone_number }}</td>
-                            <td>{{ $maintenance->device_type }}</td>
-                            <td>{{ $maintenance->type_of_malfunction }}</td>
-                            <td>{{ $maintenance->technical }}</td>
-                            <td>{{ $maintenance->expected_service_date }}</td>
+                            <td>{{ $brand->brand }}</td>
 
                             <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->company_status}}</span>
-                               </td>
-                               <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->technical_status}}</span>
-                               </td>
-
-
-
-
-                            <td>
-                                <a href="#editModal{{ $maintenance->id }}" class="btn btn-primary"
+                                <a href="#editModal{{ $brand->id }}" class="btn btn-primary"
                                     data-toggle="modal">{{ trans('main_trans.edit') }}</a>
 
-    {{-- <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $maintenance->id }}')">{{ trans('main_trans.delete') }}</a> --}}
+    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $brand->id }}')">{{ trans('main_trans.delete') }}</a>
 </td>
                             </td>
                         </tr>
@@ -115,49 +92,58 @@
 </div>
 <!-- row closed -->
 
-<!-- Create User Modal -->
+<!-- Create brand Modal -->
+<div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('brands.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="brand">{{ trans('main_trans.user_name') }}</label>
+                        <input type="text" class="form-control" id="brand" name="brand">
+                    </div>
 
-<!-- Create User Modal -->
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {{ trans('main_trans.close') }}
+                        </button>
+                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Edit User Modals -->
-@foreach ($maintenanceResources as $maintenance)
-<div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}"
+@foreach ($brands as $brand)
+<div class="modal fade" id="editModal{{ $brand->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $brand->id }}"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $maintenance->id }}">{{ trans('main_trans.edit') }}</h5>
+                <h5 class="modal-title" id="editModalLabel{{ $brand->id }}">{{ trans('main_trans.edit') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('company_maintenance.update', $maintenance->id) }}" method="POST">
+                <form action="{{ route('brands.update', $brand->id) }}" method="POST">
                     @csrf
 
                     <div class="form-group">
-                        <label for="status">{{ trans('main_trans.company_status')}}</label>
-                        <select class="form-select" aria-label="Default select example" name="company_status">
-                            <option value="pending">pending</option>
-                            <option value="confirmed">confirmed</option>
-                            <option value="cancelled">cancelled</option>
-                        </select>
+                        <label for="brand">{{ trans('main_trans.user_name') }}</label>
+                        <input type="text" class="form-control" id="brand" name="brand" value="{{ $brand->brand }}">
                     </div>
 
-                    {{-- <div class="form-group">
-                        <label for="role">technical</label>
-                        <select class="form-select" aria-label="Default select example" name="technical">
-                            <option selected>{{ trans('main_trans.open_menu') }}</option>
-                            @foreach ($technicals as $technical)
-                            <option value="{{ $technical->id }}">{{ $technical->name }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
-                    <div class="form-group">
-                        <label> {{ trans('main_trans.expected_service_date')}}</label>
-                        <input class="form-control fc-datepicker" name="expected_service_date" placeholder="YYYY-MM-DD"
-                            type="text" required>
-                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
@@ -173,18 +159,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal{{ $maintenance->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="deleteModalLabel{{ $maintenance->id }}"
+<div class="modal fade" id="deleteModal{{ $brand->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="deleteModalLabel{{ $brand->id }}"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $maintenance->id }}">{{ trans('main_trans.edit') }}</h5>
+                <h5 class="modal-title" id="editModalLabel{{ $brand->id }}">{{ trans('main_trans.edit') }}</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('maintenance.delete' ,$maintenance->id) }}" method="POST" >
+                <form action="{{ route('brands.delete' ,$brand->id) }}" method="POST" >
                     @csrf
                     @method('DELETE')
                     <p>{{ trans('main_trans.delete_text') }}</p>
@@ -246,5 +232,6 @@
         assignedInput.value = this.checked ? 1 : 0;
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+YE5O9wSFj/zIy4GfDMVNA/GpGFF93hXpG5KkN+" crossorigin="anonymous"></script>
 
 @endsection

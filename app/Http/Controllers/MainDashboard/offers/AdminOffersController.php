@@ -15,7 +15,7 @@ class AdminOffersController extends Controller
     public function index()
     {
         $offers = offer::all();
-        return response()->json($offers);
+        return view('offers.offer_list' ,compact('offers'));
     }
 
     public function store(OffersRequest $request)
@@ -34,7 +34,7 @@ class AdminOffersController extends Controller
             return response()->json(['message' => 'Successfully added']);
         } catch (\Exception $e) {
             Log::error("Error adding offer: " . $e->getMessage());
-            return response()->json(['message' => 'Error adding offer'], 500); // Internal Server Error
+            return redirect()->back()->with(['message' => 'Error adding offer'], 500); // Internal Server Error
         }
     }
 
@@ -49,9 +49,9 @@ class AdminOffersController extends Controller
                 'offer' => $new_offer,
                 'link' => $data['link'],
             ]);
-            return response()->json(['message' => 'Successfully updated']);
+            return  redirect()->back()->with(['message' => 'Successfully updated']);
         } else {
-            return response()->json(['message' => 'Something went wrong']);
+            return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 
@@ -60,9 +60,9 @@ class AdminOffersController extends Controller
         $old_image = $offer->offer;
         if ($this->remove($old_image, 'offers')) {
             $offer->delete();
-            return response()->json(['message' => 'Successfully deleted']);
+            return  redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {
-            return response()->json(['message' => 'Something went wrong']);
+            return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 }

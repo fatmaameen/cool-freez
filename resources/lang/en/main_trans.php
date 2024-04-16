@@ -18,7 +18,7 @@ return [
 'open_menu'=>'Select role',
 'edit'=>'edit',
 'delete'=>'delete',
-'create'=>'New Admin',
+'create'=>'Add New',
 'save'=>'Save',
 'close'=>'Close',
 'password'=>'Password',
@@ -29,7 +29,33 @@ return [
 'address'=>'Address',
 'edit_status'=>'Edit Status',
 'block'=>'Bolck',
-'maintenance'=>'Maintenance'
+'maintenance'=>'Maintenance',
+'code'=>'Code',
+'device_type'=>'Device Type',
+'type_of_malfunction'=>'Type of Malfunction',
+'technical'=>'Technical',
+'street_address'=>'Street Address',
+'admin_status'=>'Admin Status',
+'company_status'=>'Company Status',
+'technical_status'=>'Technical Status',
+'companyMaintenance'=>'Company Maintenance',
+'complete_maintenance'=>'Complete Maintenance',
+'Incomplete_maintenance'=>'Incomplete Maintenance',
+'expected_service_date'=>' Expected Service Date ',
+'brands'=>'Brands',
+'types'=>'Types',
+'offers'=>'Offers',
+'offer_image'=>'Offer Image',
+'offer_link'=>'Offer Link',
+
+
+
+
+
+
+
+
+
 
 
 ];

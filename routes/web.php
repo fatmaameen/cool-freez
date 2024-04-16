@@ -80,10 +80,9 @@ Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::cl
 ;
 
 Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
 // ->middleware('Admin')
 ;
-    }
-);
 
 
 // Company routes -------------------------------------------------------------------------
@@ -95,7 +94,7 @@ Route::get('/company/maintenance/completed', [CompanyMaintenanceController::clas
     // ->middleware('CompanyAdmin')
 ;
 
-Route::post('/company/maintenance/{id}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
+Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
     // ->middleware('CompanyAdmin')
 ;
 
@@ -108,12 +107,11 @@ Route::group([
     'prefix' => 'brands'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminBrandsController::class, 'index']);
-    Route::post('/', [AdminBrandsController::class, 'store']);
-    Route::post('/{brand}', [AdminBrandsController::class, 'update']);
-    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy']);
+    Route::get('/', [AdminBrandsController::class, 'index'])->name('brands.brands');
+    Route::post('/', [AdminBrandsController::class, 'store'])->name('brands.store');
+    Route::post('/{brand}', [AdminBrandsController::class, 'update'])->name('brands.update');
+    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy'])->name('brands.delete');
 });
-
 // brands routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'types'
@@ -130,12 +128,13 @@ Route::group([
     'prefix' => 'offer'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminOffersController::class, 'index']);
-    Route::post('/', [AdminOffersController::class, 'store']);
-    Route::post('/{offer}', [AdminOffersController::class, 'update']);
-    Route::delete('/{offer}', [AdminOffersController::class, 'destroy']);
+    Route::get('/', [AdminOffersController::class, 'index'])->name('offer.offer');
+    Route::post('/', [AdminOffersController::class, 'store'])->name('offer.store');
+    Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
+    Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
 });
-
+}
+);
 // consultants routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'consultant'

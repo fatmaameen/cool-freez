@@ -7,7 +7,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.maintenance') }}
+{{ trans('main_trans.complete_maintenance') }}
 @stop
 
 @section('page-header')
@@ -15,7 +15,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">complete Maintenance</h4>
+            <h4 class="mb-0">{{ trans('main_trans.complete_maintenance') }} </h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
@@ -61,16 +61,17 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">code</th>
+                            <th scope="col">{{ trans('main_trans.code') }} </th>
                             <th scope="col">{{ trans('main_trans.address') }}</th>
-                            <th scope="col">street_address</th>
+                            <th scope="col">{{ trans('main_trans.street_address') }}</th>
                             <th scope="col">{{ trans('main_trans.phone') }}</th>
-                            <th scope="col">device_type</th>
-                            <th scope="col">type_of_malfunction</th>
-                            <th scope="col">technical</th>
-                            <th scope="col">expected_service_date</th>
-                            <th scope="col">company_status</th>
-                            <th scope="col">technical_status</th>
+                            <th scope="col">{{ trans('main_trans.device_type') }}</th>
+                            <th scope="col">{{ trans('main_trans.type_of_malfunction')}}</th>
+                            <th scope="col">{{ trans('main_trans.technical')}}</th>
+
+                            <th scope="col">{{ trans('main_trans.expected_service_date')}}</th>
+                            <th scope="col">{{ trans('main_trans.company_status')}}</th>
+                            <th scope="col"> {{ trans('main_trans.technical_status')}}</th>
                             <th scope="col">{{ trans('main_trans.edit_status') }}</th>
                         </tr>
                     </thead>
@@ -136,7 +137,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="status">company_status</label>
+                        <label for="status">{{ trans('main_trans.company_status') }}</label>
                         <select class="form-select" aria-label="Default select example" name="company_status">
                             <option value="pending">pending</option>
                             <option value="confirmed">confirmed</option>
@@ -154,7 +155,7 @@
                         </select>
                     </div> --}}
                     <div class="form-group">
-                        <label> expected_service_date</label>
+                        <label>  <th scope="col">{{ trans('main_trans.expected_service_date')}}</th></label>
                         <input class="form-control fc-datepicker" name="expected_service_date" placeholder="YYYY-MM-DD"
                             type="text" required>
                     </div>
