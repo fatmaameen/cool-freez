@@ -96,6 +96,25 @@
                                             style="font-size: 20px">{{ $maintenance->admin_status }}</span>
                                     </td>
                                     <td>
+                                        {{-- <form id="updateForm" method="POST"
+                                            action="{{ route('maintenance.update', $maintenance->id) }}">
+                                            @csrf
+                                            <input type="hidden" name="assigned"
+                                                value="{{ $maintenance->assigned ? 1 : 0 }}">
+                                            <div class="form-check form-switch text-center">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="switchCheckDefault" @if ($maintenance->assigned) checked @endif
+                                                    onchange="updateColumn()">
+                                            </div>
+                                        </form>
+
+                                        <script>
+                                            function updateColumn() {
+                                                document.getElementById('updateForm').querySelector('input[name="assigned"]').value = document.getElementById(
+                                                    'switchCheckDefault').checked ? 1 : 0;
+                                                document.getElementById('updateForm').submit();
+                                            }
+                                        </script> --}}
 
                                         <form id="updateForm" method="POST"
                                             action="{{ route('maintenance.assign', $maintenance->id) }}">
@@ -197,9 +216,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -239,7 +255,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
->>>>>>> 35f929d8d94d14f8817ace7e1adc89fd50c70398
                         </button>
                     </div>
                     <div class="modal-body">
