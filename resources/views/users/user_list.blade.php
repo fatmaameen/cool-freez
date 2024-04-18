@@ -29,8 +29,8 @@
 @section('content')
 <!-- row -->
 <div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
+    <div class="col-md-11 mb-24">
+        <div class="card card-statistics h-60">
             <div class="card-body">
                 @if(session('message'))
                 <div class="alert alert-success">

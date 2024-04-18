@@ -31,7 +31,7 @@ class AdminOffersController extends Controller
                 'link' => $data['link'],
             ]);
 
-            return response()->json(['message' => 'Successfully added']);
+            return redirect()->back()->with(['message' => 'Successfully added']);
         } catch (\Exception $e) {
             Log::error("Error adding offer: " . $e->getMessage());
             return redirect()->back()->with(['message' => 'Error adding offer'], 500); // Internal Server Error

@@ -27,12 +27,12 @@ class userController extends Controller
     /**
      * Show Admin Info.
      */
-    public function show(string $id)
-    {
-        $user = User::find($id);
-        // return response()->json($user);
-        return UserInfoResource::make($user);
-    }
+    // public function show(string $id)
+    // {
+    //     $user = User::find($id);
+    //     // return response()->json($user);
+    //     return UserInfoResource::make($user);
+    // }
 
     /**
      * Store a newly created Admin.

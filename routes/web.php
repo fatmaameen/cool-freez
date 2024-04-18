@@ -67,6 +67,9 @@ Route::group(
         });
 
 
+     Route::post('/client/assign/{client}', [AdminClientsController::class, 'assign'])->name('clients.assign')
+        // ->middleware('Admin')
+        ;
 Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance')
 //->middleware('Admin')
 ;
@@ -117,10 +120,10 @@ Route::group([
     'prefix' => 'types'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminTypesController::class, 'index']);
-    Route::post('/', [AdminTypesController::class, 'store']);
-    Route::post('/{type}', [AdminTypesController::class, 'update']);
-    Route::delete('/{type}', [AdminTypesController::class, 'destroy']);
+    Route::get('/', [AdminTypesController::class, 'index'])->name('types.types');
+    Route::post('/', [AdminTypesController::class, 'store'])->name('types.store');
+    Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
+    Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
 });
 
 // offers routes -------------------------------------------------------------------------
@@ -133,17 +136,16 @@ Route::group([
     Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
     Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
 });
-}
-);
+
 // consultants routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'consultant'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminConsultantsController::class, 'index']);
-    Route::post('/', [AdminConsultantsController::class, 'store']);
-    Route::post('/{consultant}', [AdminConsultantsController::class, 'update']);
-    Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy']);
+    Route::get('/', [AdminConsultantsController::class, 'index'])->name('consultant.consultant');
+    Route::post('/', [AdminConsultantsController::class, 'store'])->name('consultant.store');
+    Route::post('/{consultant}', [AdminConsultantsController::class, 'update'])->name('consultant.update');
+    Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy'])->name('consultant.delete');
 });
 
 //route to show clients images -------------------------------------------------------------
@@ -154,7 +156,14 @@ Route::get('/clients_images/{filename}', function ($filename) {
     }
     return response()->file($path);
 });
-
+//route to show consultant images -------------------------------------------------------------
+Route::get('/consultants/{filename}', function ($filename) {
+    $path = storage_path('../public/consultants/' . $filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
 //route to show offers images----------------------------------------------------------------
 Route::get('/offers/{filename}', function ($filename) {
     $path = storage_path('../public/offers/' . $filename);
@@ -172,3 +181,5 @@ Route::get('/users_images/{filename}', function ($filename) {
     }
     return response()->file($path);
 });
+}
+);

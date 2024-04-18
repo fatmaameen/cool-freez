@@ -16,21 +16,22 @@ class AdminConsultantsController extends Controller
     public function index()
     {
         $consultants = consultant::all();
-        return response()->json($consultants);
+        return view( 'consultants/consultant_list',compact('consultants'));
     }
 
     public function store(ConsultantsRequest $request)
     {
+
         try {
             $data = $request->validated();
             $image_info = $request->file('image');
             $image = $this->upload($image_info, "consultants");
             $data['image'] = $image;
             consultant::create($data);
-            return response()->json(['message' => 'Successfully added']);
+            return redirect()->back()->with(['message' => 'Successfully added']);
         } catch (\Exception $e) {
             Log::error("Error adding consultant: " . $e->getMessage());
-            return response()->json(['message' => 'Error adding consultant'], 500);
+            return redirect()->back()->with(['message' => 'Error adding consultant'], 500);
         }
     }
 
@@ -49,10 +50,11 @@ class AdminConsultantsController extends Controller
                     'email' => $data['email'],
                     'phone_number' => $data['phone_number'],
                     'image' => $image,
+                    'rate'=>$data['rate']
                 ]);
-                return response()->json(['message' => 'Successfully updated']);
+                return  redirect()->back()->with(['message' => 'Successfully updated']);
             } else {
-                return response()->json(['message' => 'Something went wrong']);
+                return  redirect()->back()->with(['message' => 'Something went wrong']);
             }
         }else{
             $consultant->update([
@@ -60,8 +62,9 @@ class AdminConsultantsController extends Controller
                 'job_title' => $data['job_title'],
                 'email' => $data['email'],
                 'phone_number' => $data['phone_number'],
+                 'rate'=>$data['rate']
             ]);
-            return response()->json(['message' => 'Successfully updated']);
+            return  redirect()->back()->with(['message' => 'Successfully updated']);
         }
     }
 
@@ -70,9 +73,9 @@ class AdminConsultantsController extends Controller
         $old_image = $consultant->image;
         if ($this->remove($old_image, 'consultants')) {
             $consultant->delete();
-            return response()->json(['message' => 'Successfully deleted']);
+            return  redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {
-            return response()->json(['message' => 'Something went wrong']);
+            return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 }

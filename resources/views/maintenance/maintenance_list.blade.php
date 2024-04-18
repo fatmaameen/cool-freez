@@ -96,26 +96,7 @@
                                             style="font-size: 20px">{{ $maintenance->admin_status }}</span>
                                     </td>
                                     <td>
-                                        {{-- <form id="updateForm" method="POST"
-                                            action="{{ route('maintenance.update', $maintenance->id) }}">
-                                            @csrf
-                                            <input type="hidden" name="assigned"
-                                                value="{{ $maintenance->assigned ? 1 : 0 }}">
-                                            <div class="form-check form-switch text-center">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="switchCheckDefault" @if ($maintenance->assigned) checked @endif
-                                                    onchange="updateColumn()">
-                                            </div>
-                                        </form>
-
-                                        <script>
-                                            function updateColumn() {
-                                                document.getElementById('updateForm').querySelector('input[name="assigned"]').value = document.getElementById(
-                                                    'switchCheckDefault').checked ? 1 : 0;
-                                                document.getElementById('updateForm').submit();
-                                            }
-                                        </script> --}}
-
+                                       
                                         <form id="updateForm" method="POST"
                                             action="{{ route('maintenance.assign', $maintenance->id) }}">
                                             @csrf
@@ -216,66 +197,9 @@
                         </tbody>
                     </table>
                 </div>
-<<<<<<< HEAD
-=======
-
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-
-                            <th scope="col">{{ trans('main_trans.code') }}</th>
-                            <th scope="col">{{ trans('main_trans.address') }}</th>
-                            <th scope="col">{{ trans('main_trans.street_address') }}</th>
-                            <th scope="col">{{ trans('main_trans.phone') }}</th>
-                            <th scope="col">{{ trans('main_trans.device_type') }}</th>
-                            <th scope="col">{{ trans('main_trans.type_of_malfunction')}}</th>
-                            <th scope="col">{{ trans('main_trans.technical')}}</th>
-                            <th scope="col">{{ trans('main_trans.admin_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.company_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.technical_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.edit_status') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($maintenances as $maintenance)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-
-                            <td>{{ $maintenance->code }}</td>
-                            <td>{{ $maintenance->address }}</td>
-                            <td>{{ $maintenance->street_address }}</td>
-                            <td>{{ $maintenance->phone_number }}</td>
-                            <td>{{ $maintenance->device_type }}</td>
-                            <td>{{ $maintenance->type_of_malfunction }}</td>
-                            <td>{{ $maintenance->technical }}</td>
-
-                            <td>
-                             <span class="text-success" style="font-size: 20px">{{ $maintenance->admin_status}}</span>
-                            </td>
-                            <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->company_status}}</span>
-                               </td>
-                               <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->technical_status}}</span>
-                               </td>
 
 
 
-
-                            <td>
-                                <a href="#editModal{{ $maintenance->id }}" class="btn btn-primary"
-                                    data-toggle="modal">{{ trans('main_trans.edit') }}</a>
-
-    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $maintenance->id }}')">{{ trans('main_trans.delete') }}</a>
-</td>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
->>>>>>> 35f929d8d94d14f8817ace7e1adc89fd50c70398
             </div>
         </div>
     </div>
@@ -285,19 +209,6 @@
 
     <!-- Create User Modal -->
 
-<<<<<<< HEAD
-    <!-- Edit User Modals -->
-    @foreach ($maintenances as $maintenance)
-        <div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static"
-            tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel{{ $maintenance->id }}">{{ trans('main_trans.edit') }}
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-=======
 <!-- Edit User Modals -->
 @foreach ($maintenances as $maintenance)
 <div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}"
@@ -323,35 +234,8 @@
                         </select>
                     </div>
 
-                 
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            {{ trans('main_trans.close') }}
->>>>>>> 35f929d8d94d14f8817ace7e1adc89fd50c70398
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('maintenance.update', $maintenance->id) }}" method="POST">
-                            @csrf
 
-                            <div class="form-group">
-                                <label for="status">admin_status</label>
-                                <select class="form-select" aria-label="Default select example" name="admin_status">
-                                    <option value="waiting">waiting</option>
-                                    <option value="confirmed">confirmed</option>
-                                    <option value="cancelled">cancelled</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="assigned">assigned</label><br>
-                                <!-- Hidden input with value 0 -->
-                                <input type="hidden" name="assigned" value="0">
-                                <!-- Checkbox, when checked updates the hidden input to 1 -->
-                                <input type="checkbox" id="assignedCheckbox">
-                                <label for="assignedCheckbox" class="switch"></label>
-                            </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">

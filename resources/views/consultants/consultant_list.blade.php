@@ -8,7 +8,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.offers') }}
+{{ trans('main_trans.consultant') }}
 @stop
 
 @section('page-header')
@@ -16,12 +16,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.offers') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.consultant') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.offers') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.consultant') }}</li>
             </ol>
         </div>
     </div>
@@ -62,33 +62,43 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">  {{ trans('main_trans.offer_image') }}</th>
-                            <th scope="col">  {{ trans('main_trans.offer_link') }}</th>
+                            <th scope="col">  {{ trans('main_trans.avatar') }}</th>
+                            <th scope="col">  {{ trans('main_trans.user_name') }}</th>
+
+                            <th scope="col">  {{ trans('main_trans.job_title') }}</th>
+                            <th scope="col">  {{ trans('main_trans.email') }}</th>
+                            <th scope="col">  {{ trans('main_trans.phone') }}</th>
+
+                            <th scope="col">  {{ trans('main_trans.rate') }}</th>
                             <th scope="col">{{ trans('main_trans.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($offers as $offer)
+                        @foreach ($consultants as $consultant)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-
                             <td>
                                 <div class="ul-widget-app__profile-pic">
 
                                 <img class="rounded-circle"
-                                src="{{'http://127.0.0.1:8000/offers/'. $offer->offer}}"
+                                src="{{'http://127.0.0.1:8000/consultants/'. $consultant->image}}"
                                 width="60"
                                 height="60"
 >
                             </div>
                         </td>
+                            <td>{{ $consultant->name }}</td>
+                            <td>{{ $consultant->job_title }}</td>
+                            <td>{{ $consultant->email }}</td>
+                            <td>{{ $consultant->phone_number }}</td>
 
-                            <td>{{ $offer->link }}</td>
+
+                            <td>{{ $consultant->rate }}</td>
                             <td>
-                                <a href="#editModal{{ $offer->id }}" class="btn btn-primary"
+                                <a href="#editModal{{ $consultant->id }}" class="btn btn-primary"
                                     data-toggle="modal">{{ trans('main_trans.edit') }}</a>
 
-    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $offer->id }}')">{{ trans('main_trans.delete') }}</a>
+    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $consultant->id }}')">{{ trans('main_trans.delete') }}</a>
 </td>
                             </td>
                         </tr>
@@ -110,19 +120,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('offer.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('consultant.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="offer">{{ trans('main_trans.offer_image') }}</label>
-                        <input type="file" class="form-control" id="offer" name="offer">
+                        <label for="name">{{ trans('main_trans.user_name') }}</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="job_title">{{ trans('main_trans.job_title') }}</label>
+                        <input type="text" class="form-control" id="job_title" name="job_title">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{ trans('main_trans.email') }}</label>
+                        <input type="email" class="form-control" id="email" name="email">
                     </div>
 
                     <div class="form-group">
-                        <label for="offer">{{ trans('main_trans.offer_link') }}</label>
-                        <input type="url" class="form-control" id="link" name="link">
+                        <label for="phone">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control" id="phone_number" name="phone_number">
                     </div>
-
-
+                    <div class="form-group">
+                        <label for="rate">{{ trans('main_trans.rate') }}</label>
+                        <input type="number" class="form-control" id="rate" name="rate">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">{{ trans('main_trans.avatar') }}</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -138,29 +162,45 @@
 
 
 <!-- Edit User Modals -->
-@foreach ($offers as $offer)
-<div class="modal fade" id="editModal{{ $offer->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $offer->id }}"
+@foreach ($consultants as $consultant)
+<div class="modal fade" id="editModal{{ $consultant->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $consultant->id }}"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $offer->id }}">{{ trans('main_trans.edit') }}</h5>
+                <h5 class="modal-title" id="editModalLabel{{ $consultant->id }}">{{ trans('main_trans.edit') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('offer.update', $offer->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('consultant.update', $consultant->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
-                        <label for="offer">{{ trans('main_trans.offer_image') }}</label>
-                        <input type="file" class="form-control" id="offer" name="offer" value="{{ $offer->offer }}">
+                        <label for="name">{{ trans('main_trans.user_name') }}</label>
+                        <input type="text" class="form-control" id="name" name="name"  value="{{ $consultant->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="job_title">{{ trans('main_trans.job_title') }}</label>
+                        <input type="text" class="form-control" id="job_title" name="job_title"  value="{{ $consultant->job_title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{ trans('main_trans.email') }}</label>
+                        <input type="email" class="form-control" id="email" name="email"  value="{{ $consultant->email }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="offer">{{ trans('main_trans.offer_link') }}</label>
-                        <input type="url" class="form-control" id="link" name="link" value="{{ $offer->link }}">
+                        <label for="phone">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control" id="phone_number" name="phone_number" value="{{ $consultant->phone_number }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">{{ trans('main_trans.rate') }}</label>
+                        <input type="number" class="form-control" id="rate" name="rate" value="{{ $consultant->rate }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">{{ trans('main_trans.avatar') }}</label>
+                        <input type="file" class="form-control" id="image" name="image" value="{{ $consultant->image }}">
                     </div>
 
                     <div class="modal-footer">
@@ -178,18 +218,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal{{ $offer->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="deleteModalLabel{{ $offer->id }}"
+<div class="modal fade" id="deleteModal{{ $consultant->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="deleteModalLabel{{ $consultant->id }}"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $offer->id }}">{{ trans('main_trans.edit') }}</h5>
+                <h5 class="modal-title" id="editModalLabel{{ $consultant->id }}">{{ trans('main_trans.edit') }}</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('offer.delete' ,$offer->id) }}" method="POST" >
+                <form action="{{ route('consultant.delete' ,$consultant->id) }}" method="POST" >
                     @csrf
                     @method('DELETE')
                     <p>{{ trans('main_trans.delete_text') }}</p>
