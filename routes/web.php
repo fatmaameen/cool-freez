@@ -11,6 +11,7 @@ use App\Http\Controllers\CompanyDashboard\Maintenance\CompanyMaintenanceControll
 use App\Http\Controllers\MainDashboard\brands\AdminBrandsController;
 use App\Http\Controllers\MainDashboard\consultants\AdminConsultantsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
+use App\Http\Controllers\MainDashboard\Reviews\AdminReviewsController;
 use App\Http\Controllers\MainDashboard\types\AdminTypesController;
 use Illuminate\Support\Facades\File as FacadesFile;
 
@@ -145,6 +146,37 @@ Route::group([
     Route::post('/{consultant}', [AdminConsultantsController::class, 'update']);
     Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy']);
 });
+
+
+// consultants routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'reviews'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminReviewsController::class, 'index']);
+    Route::post('/{review}', [AdminReviewsController::class, 'update']);
+    Route::delete('/{review}', [AdminReviewsController::class, 'destroy']);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //route to show clients images -------------------------------------------------------------
 Route::get('/clients_images/{filename}', function ($filename) {

@@ -1,14 +1,20 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Clients\Auth\clientController;
 use App\Http\Controllers\Clients\brands\BrandsController;
-use App\Http\Controllers\Clients\Maintenance\maintenanceController;
+use App\Http\Controllers\Clients\Reviews\ReviewController;
 use App\Http\Controllers\Clients\Profile\profileController;
 use App\Http\Controllers\Clients\services\ServicesController;
+use App\Http\Controllers\Clients\Consultants\ConsultantsController;
+use App\Http\Controllers\Clients\Maintenance\maintenanceController;
+use App\Http\Controllers\Clients\offers\OffersController;
+use App\Http\Controllers\Clients\types\TypesController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Technicians\Maintenance\TechnicianMaintenanceController;
+use App\Models\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +35,7 @@ Route::post('/clients/register', [clientController::class, 'register']);
 
 Route::post('/clients/login', [clientController::class, 'login']);
 
+Route::post('/clients/check-token', [clientController::class, 'tokenValidation']);
 
 Route::post('/clients/logout/{id}', [clientController::class, 'logout'])
     // ->middleware('auth:sanctum')
@@ -50,11 +57,11 @@ Route::group(['prefix' => 'clients',
 
 
 Route::post('/clients/maintenance', [maintenanceController::class, 'store'])
-    // ->middleware('auth:sanctum')
+    ->middleware('auth:sanctum')
 ;
 
 Route::get('/clients/maintenance/{id}', [maintenanceController::class, 'show'])
-    // ->middleware('auth:sanctum')
+    ->middleware('auth:sanctum')
 ;
 
 
@@ -78,7 +85,24 @@ Route::get('/brands', [BrandsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
-// brands ----------------------------------------------------------------------
-Route::get('/offers', [AdminOffersController::class, 'index'])
+// types ----------------------------------------------------------------------
+Route::get('/types', [TypesController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
+
+// offers -----------------------------------------------------------------------
+Route::get('/offers', [OffersController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// consultants -------------------------------------------------------------------
+Route::get('/consultants', [ConsultantsController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// reviews -----------------------------------------------------------------------
+Route::post('/clients/review', [ReviewController::class, 'store'])
+    // ->middleware('auth:sanctum')
+;
+
+

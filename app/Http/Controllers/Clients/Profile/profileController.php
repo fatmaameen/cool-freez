@@ -30,7 +30,6 @@ class profileController extends Controller
             $new_image->move(public_path('clients_images'), $image_name);
             $client->update([
                 'image' => $image_name,
-                //  'image' => url('clients_images/' . $image_name),
             ]);
         };
 
@@ -45,7 +44,7 @@ class profileController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number
         ]);
-        return response()->json(['message' => 'client updated successfully'], 200);
+        return response()->json(['message' => 'client updated successfully']);
     }
 
     public function destroy(Client $client)
@@ -56,6 +55,6 @@ class profileController extends Controller
             unlink($imagePath);
         }
         $client->delete();
-        return response()->json(['message' => 'client deleted successfully'], 200);
+        return response()->json(['message' => 'client deleted successfully']);
     }
 }

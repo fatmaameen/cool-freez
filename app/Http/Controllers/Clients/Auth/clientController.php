@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Clients\AddNewClientRequest;
 use App\Http\Resources\Clients\ClientInfoResource;
+use Illuminate\Support\Facades\Auth;
 
 class clientController extends Controller
 {
@@ -27,7 +28,8 @@ class clientController extends Controller
             ]);
         };
         $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
-        return response()->json(['token' => $token,'message'=>'Successfully registered']);
+        $client_info = ClientInfoResource::make($client);
+        return response()->json(['token' => $token, 'message' => 'Successfully registered', 'client' => $client_info]);
     }
 
     public function login(Request $request)
@@ -51,59 +53,75 @@ class clientController extends Controller
 
                 $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
                 $client_info = ClientInfoResource::make($client);
-                return response()->json(['token' => $token,'message'=>'Logged in successfully','client'=>$client_info]);
+                return response()->json(['token' => $token, 'message' => 'Logged in successfully', 'client' => $client_info]);
                 // break;
-                case 'firebase':
-                    $request->validate([
-                        'uid' => 'required',
-                    ]);
-                    $uid = $request->get('uid');
-                    try {
-                        $auth = app('firebase.auth');
-                        $firebaseUser = $auth->getUser($uid);
+            case 'firebase':
+                $request->validate([
+                    'uid' => 'required',
+                ]);
+                $uid = $request->get('uid');
+                try {
+                    $auth = app('firebase.auth');
+                    $firebaseUser = $auth->getUser($uid);
 
-                        $email = $firebaseUser->email;
-                        $phone = $firebaseUser->phone_number;
+                    $email = $firebaseUser->email;
+                    $phone = $firebaseUser->phone_number;
 
-                        if(!empty($email)){
-                            $client = Client::firstOrCreate(['email' => $email]);
+                    if (!empty($email)) {
+                        $client = Client::firstOrCreate(['email' => $email]);
+                        if ($client->is_banned) {
+                            return response()->json(['message' => 'Your account is banned']);
+                        }
+
+                        $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
+
+                        return response()->json(['token' => $token, 'message' => 'Logged in successfully']);
+                    } else if (!empty($phone)) {
+                        $client = Client::where(['phone_number' => $phone]);
+
+                        if (!empty($client)) {
                             if ($client->is_banned) {
                                 return response()->json(['message' => 'Your account is banned']);
                             }
 
                             $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
 
-                            return response()->json(['token' => $token,'message'=>'Logged in successfully']);
-
-                        }else if(!empty($phone)){
-                            $client = Client::where(['phone_number' => $phone]);
-
-                            if(!empty($client)){
-                                if ($client->is_banned) {
-                                    return response()->json(['message' => 'Your account is banned']);
-                                }
-
-                                $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
-
-                                return response()->json(['token' => $token,'message'=>'Logged in successfully']);
-                            }else{
-                                return response()->json(['message' => 'Not registered client']);
-                            }
+                            return response()->json(['token' => $token, 'message' => 'Logged in successfully']);
+                        } else {
+                            return response()->json(['message' => 'Not registered client']);
                         }
-
-                    } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
-                        return response()->json([
-                            'message' => 'User Not Found'
-                        ]);
                     }
-                    default:
+                } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
                     return response()->json([
-                        'message' => 'Invalid Login Method'
+                        'message' => 'User Not Found'
                     ]);
+                }
+            default:
+                return response()->json([
+                    'message' => 'Invalid Login Method'
+                ]);
         };
     }
 
-    public function logout($id){
+    public function tokenValidation(Request $request)
+    {
+        try {
+            $token = $request->bearerToken();
+            if (!$token) {
+                return ['error' => 'Token not provided'];
+            }
+            $client = Auth::guard('sanctum')->user();
+            if (!$client) {
+                return ['error' => 'Invalid token'];
+            }
+            return ['message' => 'Token is valid'];
+        } catch (\Exception $e) {
+            return ['error' => 'Token validation failed' . $e->getMessage()];
+        }
+    }
+
+    public function logout($id)
+    {
         $client = Client::findOrFail($id)->first();
         $client->tokens()->delete();
         return response()->json(['message' => 'Successfully Logout']);
@@ -137,8 +155,8 @@ class clientController extends Controller
     public function checkCode(Request $request)
     {
         $request->validate([
-            'email' =>'required|string|email',
-            'code' =>'required|string',
+            'email' => 'required|string|email',
+            'code' => 'required|string',
         ]);
         $email = $request->email;
         $code = $request->code;
@@ -154,7 +172,7 @@ class clientController extends Controller
     {
         $request->validate([
             'password' => 'required|min:8',
-            'email' =>'required|string|email',
+            'email' => 'required|string|email',
         ]);
         $email = $request->email;
         $client = Client::where(['email' => $email])->first();
@@ -184,7 +202,7 @@ class clientController extends Controller
             } else {
                 return response()->json(['error' => 'Failed to send OTP'], 500);
             }
-        }else{
+        } else {
             return response()->json(['error' => 'number already register'], 500);
         }
     }
@@ -192,13 +210,13 @@ class clientController extends Controller
     public function checkOTP(Request $request)
     {
         $request->validate([
-            'phone_number' =>'required|string',
-            'OTP' =>'required|string',
+            'phone_number' => 'required|string',
+            'OTP' => 'required|string',
         ]);
         $OTP = $request->OTP;
         $phone_number = $request->phone_number;
         $client = Client::where(['phone_number' => $phone_number])->first();
-        if ($client->phone_confirmation_token == $OTP){;
+        if ($client->phone_confirmation_token == $OTP) {;
         } else {
             return response()->json(['message' => false]);
         }

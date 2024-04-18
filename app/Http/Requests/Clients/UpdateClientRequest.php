@@ -23,10 +23,10 @@ class UpdateClientRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:250'],
-            'email' => ['required', 'email', 'unique:App\Models\Client,email'],
-            'password' => ['string','min:8', 'max:250'],
-            'phone_number' => ['nullable','unique:App\Models\Client,phone_number'],
-            'image' => ['image', 'mimes:jpg,bmp,png'],
+            'email' => ['required', 'email'],
+            'password' => ['nullable','string','min:8', 'max:250'],
+            'phone_number' => ['nullable'],
+            'image' => ['nullable','image', 'mimes:jpg,bmp,png'],
             'address' => ['nullable', 'string', 'max:250'],
         ];
     }
