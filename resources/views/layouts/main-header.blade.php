@@ -100,10 +100,14 @@
                 <li class="nav-item dropdown mr-30">
                     <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button"
                       aria-haspopup="true" aria-expanded="false">
-        <div class="ul-widget-app__profile-pic">
-            <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                 src="{{ asset('assets/users_images/' . Auth::user()->image) }}" alt="">
-              </div>
+                      <div class="ul-widget-app__profile-pic">
+                        {{-- src="{{ asset('public/users_images/' . $user->image) }}" --}}
+                        <img class="rounded-circle"
+                        src="{{'http://127.0.0.1:8000/users_images/'. Auth::user()->image}}"
+                        width="60"
+                        height="60"
+                        >
+                    </div>
                  </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-header">
@@ -122,9 +126,11 @@
                                 class="badge badge-info">6</span> </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>Settings</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();"><i class="text-danger ti-unlock"></i>Logout</a>
+                        <a id="logout-link" class="dropdown-item" href="{{ route('logout') }}"
+    onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+    <i class="text-danger ti-unlock"></i>Logout
+    </a>
                     </div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -132,6 +138,16 @@
                 </li>
             </ul>
         </nav>
+        <script>
+            // Get the logout link element
+            var logoutLink = document.getElementById('logout-link');
 
+            // Add event listener to update href attribute
+            logoutLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                this.href = '{{ route('login') }}'; // Set the href to the login route
+                document.getElementById('logout-form').submit();
+            });
+        </script>
         <!--=================================
  header End-->

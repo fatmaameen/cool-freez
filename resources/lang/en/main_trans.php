@@ -47,8 +47,9 @@ return [
 'offers'=>'Offers',
 'offer_image'=>'Offer Image',
 'offer_link'=>'Offer Link',
-
-
+'consultant'=>'Consultants',
+'job_title'=>'Job Title',
+'rate'=>'Rate',
 
 
 

@@ -22,16 +22,18 @@ class UpdateConsultantsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'job_title' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
-            'phone_number' => ['required', 'string'],
+            'name' => ['nullable', 'string'],
+            'job_title' => ['nullable', 'string'],
+            'email' => ['nullable', 'email'],
+            'phone_number' => ['nullable', 'string'],
+
             'image' => [
                 'nullable',
                 'image' => [
                     'extensions' => ['jpeg', 'jpg', 'png', 'gif']
                 ]
             ],
+            'rate'=>['nullable'],
         ];
     }
 }

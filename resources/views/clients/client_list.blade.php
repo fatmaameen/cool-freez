@@ -66,7 +66,7 @@
                             <th scope="col">{{ trans('main_trans.phone') }}</th>
                             <th scope="col">{{ trans('main_trans.address') }}</th>
                             <th scope="col">{{ trans('main_trans.status') }}</th>
-                            <th scope="col">{{ trans('main_trans.edit_status') }}</th>
+                            {{-- <th scope="col">{{ trans('main_trans.edit_status') }}</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -78,29 +78,104 @@
                             <td>{{ $client->email }}</td>
                             <td>
                                 <div class="ul-widget-app__profile-pic">
-                                    <img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid" src="{{ asset('public/clients_images/' . $client->image) }}" >
-                                </div>
-                            </td>
+
+                                <img class="rounded-circle"
+                                src="{{'http://127.0.0.1:8000/clients_images/'. $client->image}}"
+                                width="60"
+                                height="60"
+>
+                            </div>
+                        </td>
 
 
                             <td>{{ $client->phone_number }}</td>
                             <td>{{ $client->address }}</td>
-                            <td>
+                            {{-- <td>
                                 @if ($client->is_banned == 1)
                                     <span class="text-success" style="font-size: 20px">&#10004;</span>
                                 @else
                                     <span class="text-danger" style="font-size: 20px">&#10060;</span>
                                 @endif
+                            </td> --}}
+                            <td>
+                                <form id="updateForm" method="POST" action="{{ route('clients.assign', $client->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="assigned" value="{{ $client->is_banned ? 1 : 0 }}">
+                                    <div class="form-check form-switch text-center">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="assignedCheckbox" @if ($client->is_banned) checked @endif>
+                                    </div>
+                                </form>
                             </td>
 
+                                <script>
+                                    function updateColumn() {
+                                        var form = document.getElementById('updateForm');
+                                        var assignedValue = document.getElementById('switchCheckDefault').checked ? 1 : 0;
+                                        form.querySelector('input[name="is_banned"]').value = assignedValue;
 
-                            <td>
+                                        fetch(form.action, {
+                                                method: 'POST',
+                                                body: new FormData(form)
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                var messageContainer = document.getElementById('messageContainer');
+                                                messageContainer.innerHTML = '';
+                                                var messageDiv = document.createElement('div');
+                                                messageDiv.classList.add('alert');
+                                                if (data.error) {
+                                                    messageDiv.classList.add('alert-danger');
+                                                } else {
+                                                    messageDiv.classList.add('alert-success');
+                                                }
+                                                messageDiv.textContent = data.message;
+                                                messageContainer.appendChild(messageDiv);
+                                                setTimeout(function() {
+                                                    messageDiv.remove();
+                                                }, 5000);
+                                            })
+                                            .catch(error => {
+                                                var messageContainer = document.getElementById('messageContainer');
+                                                messageContainer.innerHTML = '';
+                                                var messageDiv = document.createElement('div');
+                                                messageDiv.classList.add('alert');
+                                                messageDiv.classList.add('alert-danger');
+                                                messageDiv.textContent = 'Update failed. Please try again later.';
+                                                messageContainer.appendChild(messageDiv);
+                                                setTimeout(function() {
+                                                    messageDiv.remove();
+                                                }, 5000);
+                                            });
+                                    }
+                                </script>
+
+                                <style>
+                                    .form-check-input:checked {
+                                        background-color: rgb(248, 27, 75) !important;
+                                        border-color: rgb(250, 30, 30) !important;
+                                    }
+
+                                    .form-switch .form-check-input {
+                                        margin-right: 2em !important;
+                                        width: 4em;
+                                        height: 1.5em;
+                                        background-color: #575757;
+                                        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+                                    }
+
+                                    .form-switch {
+                                        margin-right: 1.7em !important;
+                                        ;
+                                    }
+                                </style>
+                            </td>
+                            {{-- <td>
                                 <a href="#editModal{{ $client->id }}" class="btn btn-primary"
                                     data-toggle="modal">{{ trans('main_trans.edit') }}</a>
 
 
-</td>
-                            </td>
+</td> --}}
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -196,5 +271,15 @@
         $(deleteModalId).modal('show');
     }
 </script>
-
+<script>
+    // Get the checkbox element
+    var assignedCheckbox = document.getElementById('assignedCheckbox');
+    // Add event listener to checkbox change
+    assignedCheckbox.addEventListener('change', function() {
+        // Get the hidden input element
+        var assignedInput = document.querySelector('input[name="is_banned"]');
+        // Update the value based on checkbox state
+        assignedInput.value = this.checked ? 1 : 0;
+    });
+</script>
 @endsection

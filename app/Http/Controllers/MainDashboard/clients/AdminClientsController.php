@@ -15,7 +15,24 @@ class AdminClientsController extends Controller
 
         return view('clients.client_list' ,compact('clients'));
     }
+    public function assign(Request $request, Client $client)
+    {
+        $request->validate([
+            'is_banned' => ['required'],
+        ]);
 
+        try {
+            $client->update([
+                'is_banned' => $request->assigned,
+            ]);
+
+            // Notification here
+
+            return redirect()->back()->with(['message' => 'Updated successfully']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
+        }
+    }
     public function update(Request $request,$id){
         $request->validate([
             'is_banned' => ['required','boolean'],
@@ -35,7 +52,7 @@ class AdminClientsController extends Controller
             }
         }
         $client->delete();
-        return response()->json(['Message'=>"Deleted Successfully"]);
+        return redirect()->back()->with(['Message'=>"Deleted Successfully"]);
     }
 
     public function search(Request $request){
@@ -46,9 +63,9 @@ class AdminClientsController extends Controller
         $clients = Client::where('name', 'LIKE', '%'. $search. '%')
                             ->orWhere('email', 'LIKE', '%'. $search. '%')->get();
         if ($clients){
-            return response()->json($clients);
+            return redirect()->back()->with($clients);
         }else{
-            return response()->json(['Message'=>"No Data Found"]);
+            return redirect()->back()->with(['Message'=>"No Data Found"]);
         }
     }
 }

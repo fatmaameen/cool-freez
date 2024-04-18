@@ -47,6 +47,18 @@ return [
 'offers'=>'العروض',
 'offer_image'=>'صورة العرض',
 'offer_link'=>'لينك ',
+'consultant'=>'المستشارين',
+'job_title'=>'العنوان الوظيفي',
+'rate'=>'معدل',
+
+
+
+
+
+
+
+
+
 
 
 ];

@@ -51,11 +51,15 @@
                         <a href="{{ route('offer.offer') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.offers') }}
                         </span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('consultant.consultant') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.consultant') }}
+                        </span></a>
+                    </li>
                     <!-- menu item Charts-->
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#chart">
+                        <a href="" data-toggle="collapse" data-target="#chart">
                             <div class="pull-left"><i class="ti-pie-chart"></i><span
-                                    class="right-nav-text">Charts</span></div>
+                                    class="right-nav-text">ospag</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
