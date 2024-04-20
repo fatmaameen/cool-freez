@@ -23,8 +23,7 @@ class maintenanceController extends Controller
             Maintenance::create($data);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
-            Log::error("Error adding maintenance: " . $e->getMessage());
-            return response()->json(['message' => 'Error adding maintenance'], 500);
+            return response()->json(['message' => 'Error adding maintenance'. $e->getMessage()], 500);
         }
     }
 

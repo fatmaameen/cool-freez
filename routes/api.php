@@ -13,6 +13,7 @@ use App\Http\Controllers\Clients\Consultants\ConsultantsController;
 use App\Http\Controllers\Clients\floors\floorsController;
 use App\Http\Controllers\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Clients\offers\OffersController;
+use App\Http\Controllers\Clients\pricing\PricingController;
 use App\Http\Controllers\Clients\types\TypesController;
 use App\Http\Controllers\Clients\usings\usingsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
@@ -79,27 +80,27 @@ Route::post('/technician/maintenance/{$maintenance}', [TechnicianMaintenanceCont
 
 
 // services ---------------------------------------------------------------------
-Route::get('/services', [ServicesController::class, 'index'])
+Route::get('/clients/services', [ServicesController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // brands ----------------------------------------------------------------------
-Route::get('/brands', [BrandsController::class, 'index'])
+Route::get('/clients/brands', [BrandsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // types ----------------------------------------------------------------------
-Route::get('/types', [TypesController::class, 'index'])
+Route::get('/clients/types', [TypesController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // offers -----------------------------------------------------------------------
-Route::get('/offers', [OffersController::class, 'index'])
+Route::get('/clients/offers', [OffersController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // consultants -------------------------------------------------------------------
-Route::get('/consultants', [ConsultantsController::class, 'index'])
+Route::get('/clients/consultants', [ConsultantsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
@@ -122,4 +123,10 @@ Route::get('/clients/floors', [floorsController::class, 'index'])
 Route::get('/clients/usings', [usingsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
+
+// pricing -----------------------------------------------------------------------
+Route::post('/clients/pricing/{client}/{service}', [PricingController::class, 'store'])
+    // ->middleware('auth:sanctum')
+;
+
 

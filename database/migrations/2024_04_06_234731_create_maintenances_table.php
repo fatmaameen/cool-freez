@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
             $table->uuid('code');
-            $table->unsignedBigInteger('client_id')->foreign()->references('id')->on('clients');
+            $table->unsignedBigInteger('client_id')->foreign()->references('id')->on('clients')->onDelete('cascade');
             $table->string('address');
             $table->string('street_address');
             $table->string('phone_number');
