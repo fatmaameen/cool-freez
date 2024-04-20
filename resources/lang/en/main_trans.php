@@ -51,12 +51,12 @@ return [
 'job_title'=>'Job Title',
 'rate'=>'Rate',
 
-
-
-
-
-
-
+'reviews'=>'Reviews',
+'client_data'=>'Client Data',
+'consultant_data'=>'Consultant Data',
+'files'=>'Files',
+'show'=>'Show',
+'review_details'=>'Review Details',
 
 
 ];

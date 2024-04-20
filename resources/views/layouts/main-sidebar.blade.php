@@ -55,6 +55,10 @@
                         <a href="{{ route('consultant.consultant') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.consultant') }}
                         </span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('reviews.reviews') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}
+                        </span></a>
+                    </li>
                     <!-- menu item Charts-->
                     <li>
                         <a href="" data-toggle="collapse" data-target="#chart">

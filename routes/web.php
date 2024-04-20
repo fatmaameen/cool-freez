@@ -150,35 +150,16 @@ Route::group([
 });
 
 
-// consultants routes -------------------------------------------------------------------------
+// reviews routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'reviews'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminReviewsController::class, 'index']);
-    Route::post('/{review}', [AdminReviewsController::class, 'update']);
-    Route::delete('/{review}', [AdminReviewsController::class, 'destroy']);
+    Route::get('/', [AdminReviewsController::class, 'index'])->name('reviews.reviews');
+    Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
+    Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
+    Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //route to show clients images -------------------------------------------------------------
 Route::get('/clients_images/{filename}', function ($filename) {
@@ -204,7 +185,13 @@ Route::get('/offers/{filename}', function ($filename) {
     }
     return response()->file($path);
 });
-
+Route::get('/reviews/{filename}', function ($filename) {
+    $path = storage_path('../public/reviews_files/'.$filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
 //route to show admins images----------------------------------------------------------------
 Route::get('/users_images/{filename}', function ($filename) {
     $path = storage_path('../public/users_images/' . $filename);

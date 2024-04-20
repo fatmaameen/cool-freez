@@ -241,25 +241,6 @@
                 <form action="{{ route('maintenance.update', $maintenance->id) }}" method="POST">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="status">{{  trans('main_trans.admin_status') }} </label>
-                        <select class="form-select" aria-label="Default select example" name="admin_status">
-                            <option value="waiting">waiting</option>
-                            <option value="confirmed">confirmed</option>
-                            <option value="cancelled">cancelled</option>
-                        </select>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            {{ trans('main_trans.close') }}
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('maintenance.update', $maintenance->id) }}" method="POST">
-                            @csrf
 
                             <div class="form-group">
                                 <label for="status">admin_status</label>
@@ -270,14 +251,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="assigned">assigned</label><br>
-                                <!-- Hidden input with value 0 -->
-                                <input type="hidden" name="assigned" value="0">
-                                <!-- Checkbox, when checked updates the hidden input to 1 -->
-                                <input type="checkbox" id="assignedCheckbox">
-                                <label for="assignedCheckbox" class="switch"></label>
-                            </div>
+
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">

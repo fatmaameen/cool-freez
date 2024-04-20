@@ -23,7 +23,7 @@ class AdminClientsController extends Controller
 
         try {
             $client->update([
-                'is_banned' => $request->assigned,
+                'is_banned' => $request->is_banned,
             ]);
 
             // Notification here

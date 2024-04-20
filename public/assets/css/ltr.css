@@ -20221,7 +20221,7 @@ ul.list-unstyled li {
   min-width: 320px; }
 
 .content-wrapper {
-  padding: 30px;
+  padding: 85px 30px 30px 30px;
   overflow: hidden;
   margin-left: 215px;
   min-height: 100vh;

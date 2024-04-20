@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\MainDashboard\Reviews;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\consultant;
 use App\Models\review;
 use Illuminate\Http\Request;
 use App\Traits\PDFUploadTrait;
@@ -12,7 +14,19 @@ class AdminReviewsController extends Controller
     use PDFUploadTrait;
     public function index(){
         $reviews = review::with('client', 'consultant')->get();
-        return response()->json($reviews);
+        return view('reviews/reviews_list' ,compact('reviews'));
+    }
+
+    public function show_details($id){
+
+        $review=review::findOrFail($id);
+
+        $client = Client::where('id', $review->client_id)->first();
+        $consultant = consultant::where('id', $review->consultant_id)->first();
+
+
+return view('reviews.details' ,compact('consultant' ,'client' ,'review' ));
+
     }
 
     public function update(Request $request, review $review)
@@ -39,9 +53,9 @@ class AdminReviewsController extends Controller
         $old_files = $review->building_files;
         if ($this->removePDF($old_files, 'reviews_files')) {
             $review->delete();
-            return response()->json(['message' => 'Successfully deleted']);
+            return redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {
-            return response()->json(['message' => 'Something went wrong']);
+            return redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 }
