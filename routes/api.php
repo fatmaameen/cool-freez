@@ -5,13 +5,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Clients\Auth\clientController;
 use App\Http\Controllers\Clients\brands\BrandsController;
+use App\Http\Controllers\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Clients\Reviews\ReviewController;
 use App\Http\Controllers\Clients\Profile\profileController;
 use App\Http\Controllers\Clients\services\ServicesController;
 use App\Http\Controllers\Clients\Consultants\ConsultantsController;
+use App\Http\Controllers\Clients\floors\floorsController;
 use App\Http\Controllers\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Clients\offers\OffersController;
 use App\Http\Controllers\Clients\types\TypesController;
+use App\Http\Controllers\Clients\usings\usingsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Technicians\Maintenance\TechnicianMaintenanceController;
 use App\Models\Client;
@@ -105,4 +108,18 @@ Route::post('/clients/review', [ReviewController::class, 'store'])
     // ->middleware('auth:sanctum')
 ;
 
+// BuildingTypes -----------------------------------------------------------------------
+Route::get('/clients/BuildingTypes', [BuildingTypeController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// floors -----------------------------------------------------------------------
+Route::get('/clients/floors', [floorsController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// usings -----------------------------------------------------------------------
+Route::get('/clients/usings', [usingsController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
 

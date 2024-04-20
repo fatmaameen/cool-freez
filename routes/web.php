@@ -9,10 +9,13 @@ use App\Http\Controllers\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\MainDashboard\Maintenance\AdminMaintenanceController;
 use App\Http\Controllers\CompanyDashboard\Maintenance\CompanyMaintenanceController;
 use App\Http\Controllers\MainDashboard\brands\AdminBrandsController;
+use App\Http\Controllers\MainDashboard\BuildingTypes\AdminBuildingTypeController;
 use App\Http\Controllers\MainDashboard\consultants\AdminConsultantsController;
+use App\Http\Controllers\MainDashboard\floors\AdminFloorsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\MainDashboard\Reviews\AdminReviewsController;
 use App\Http\Controllers\MainDashboard\types\AdminTypesController;
+use App\Http\Controllers\MainDashboard\usings\AdminUsingsController;
 use Illuminate\Support\Facades\File as FacadesFile;
 
 /*
@@ -161,8 +164,38 @@ Route::group([
 });
 
 
+// building types routes -----------------------------------------------------------------------
+Route::group([
+    'prefix' => 'buildingTypes'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminBuildingTypeController::class, 'index']);
+    Route::post('/', [AdminBuildingTypeController::class, 'store']);
+    Route::post('/{BuildingType}', [AdminBuildingTypeController::class, 'update']);
+    Route::delete('/{BuildingType}', [AdminBuildingTypeController::class, 'destroy']);
+});
 
+// floors routes -----------------------------------------------------------------------
+Route::group([
+    'prefix' => 'floors'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminFloorsController::class, 'index']);
+    Route::post('/', [AdminFloorsController::class, 'store']);
+    Route::post('/{floor}', [AdminFloorsController::class, 'update']);
+    Route::delete('/{floor}', [AdminFloorsController::class, 'destroy']);
+});
 
+// usings routes -----------------------------------------------------------------------
+Route::group([
+    'prefix' => 'using'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminUsingsController::class, 'index']);
+    Route::post('/', [AdminUsingsController::class, 'store']);
+    Route::post('/{using}', [AdminUsingsController::class, 'update']);
+    Route::delete('/{using}', [AdminUsingsController::class, 'destroy']);
+});
 
 
 
