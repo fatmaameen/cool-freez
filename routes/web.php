@@ -153,65 +153,16 @@ Route::group([
 });
 
 
-// consultants routes -------------------------------------------------------------------------
+// reviews routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'reviews'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminReviewsController::class, 'index']);
-    Route::post('/{review}', [AdminReviewsController::class, 'update']);
-    Route::delete('/{review}', [AdminReviewsController::class, 'destroy']);
+    Route::get('/', [AdminReviewsController::class, 'index'])->name('reviews.reviews');
+    Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
+    Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
+    Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
 });
-
-
-// building types routes -----------------------------------------------------------------------
-Route::group([
-    'prefix' => 'buildingTypes'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminBuildingTypeController::class, 'index']);
-    Route::post('/', [AdminBuildingTypeController::class, 'store']);
-    Route::post('/{BuildingType}', [AdminBuildingTypeController::class, 'update']);
-    Route::delete('/{BuildingType}', [AdminBuildingTypeController::class, 'destroy']);
-});
-
-// floors routes -----------------------------------------------------------------------
-Route::group([
-    'prefix' => 'floors'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminFloorsController::class, 'index']);
-    Route::post('/', [AdminFloorsController::class, 'store']);
-    Route::post('/{floor}', [AdminFloorsController::class, 'update']);
-    Route::delete('/{floor}', [AdminFloorsController::class, 'destroy']);
-});
-
-// usings routes -----------------------------------------------------------------------
-Route::group([
-    'prefix' => 'using'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminUsingsController::class, 'index']);
-    Route::post('/', [AdminUsingsController::class, 'store']);
-    Route::post('/{using}', [AdminUsingsController::class, 'update']);
-    Route::delete('/{using}', [AdminUsingsController::class, 'destroy']);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //route to show clients images -------------------------------------------------------------
 Route::get('/clients_images/{filename}', function ($filename) {
@@ -237,7 +188,13 @@ Route::get('/offers/{filename}', function ($filename) {
     }
     return response()->file($path);
 });
-
+Route::get('/reviews/{filename}', function ($filename) {
+    $path = storage_path('../public/reviews_files/'.$filename);
+    if (!FacadesFile::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
 //route to show admins images----------------------------------------------------------------
 Route::get('/users_images/{filename}', function ($filename) {
     $path = storage_path('../public/users_images/' . $filename);

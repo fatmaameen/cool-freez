@@ -34,6 +34,7 @@
             <div class="card-body">
                 @if(session('message'))
                 <div class="alert alert-success">
+                    <div id="messageContainer"></div>
                     {{ session('message') }}
                 </div>
                 @endif
@@ -90,17 +91,11 @@
 
                             <td>{{ $client->phone_number }}</td>
                             <td>{{ $client->address }}</td>
-                            {{-- <td>
-                                @if ($client->is_banned == 1)
-                                    <span class="text-success" style="font-size: 20px">&#10004;</span>
-                                @else
-                                    <span class="text-danger" style="font-size: 20px">&#10060;</span>
-                                @endif
-                            </td> --}}
+
                             <td>
                                 <form id="updateForm" method="POST" action="{{ route('clients.assign', $client->id) }}">
                                     @csrf
-                                    <input type="hidden" name="assigned" value="{{ $client->is_banned ? 1 : 0 }}">
+                                    <input type="hidden" name="is_banned" value="{{ $client->is_banned ? 1 : 0 }}">
                                     <div class="form-check form-switch text-center">
                                         <input class="form-check-input" type="checkbox" role="switch" id="assignedCheckbox" @if ($client->is_banned) checked @endif>
                                     </div>
@@ -255,15 +250,7 @@
     });
 </script>
 
-<script>
-    // عرض الرسالة بعد تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-        var message = "{{ session('message') }}";
-        if (message) {
-            alert(message);
-        }
-    });
-</script>
+
 <script>
     // Function to open delete modal
     function openDeleteModal(userId) {
@@ -272,14 +259,23 @@
     }
 </script>
 <script>
-    // Get the checkbox element
-    var assignedCheckbox = document.getElementById('assignedCheckbox');
-    // Add event listener to checkbox change
-    assignedCheckbox.addEventListener('change', function() {
-        // Get the hidden input element
-        var assignedInput = document.querySelector('input[name="is_banned"]');
-        // Update the value based on checkbox state
-        assignedInput.value = this.checked ? 1 : 0;
-    });
+   // Get the checkbox element
+var assignedCheckbox = document.getElementById('assignedCheckbox');
+
+// Add event listener to checkbox change
+assignedCheckbox.addEventListener('change', function() {
+    // Get the hidden input element
+    var assignedInput = document.querySelector('input[name="is_banned"]');
+
+    // Update the value based on checkbox state
+    assignedInput.value = this.checked ? 1 : 0;
+
+    // Get the form element
+    var updateForm = document.getElementById('updateForm');
+
+    // Submit the form
+    updateForm.submit();
+});
+
 </script>
 @endsection

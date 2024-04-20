@@ -50,13 +50,12 @@ return [
 'consultant'=>'المستشارين',
 'job_title'=>'العنوان الوظيفي',
 'rate'=>'معدل',
-
-
-
-
-
-
-
+'reviews'=>'مراجعات',
+'client_data'=>'بيانات العميل',
+'consultant_data'=>'بيانات المستشار',
+'files'=>'ملفات',
+'show'=>'عرض',
+'review_details'=>'تفاصيل المراجعة',
 
 
 
