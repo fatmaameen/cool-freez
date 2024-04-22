@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\MainDashboard\users\userController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\MainDashboard\clients\AdminClientsController;
@@ -130,7 +131,38 @@ Route::group(
             Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
             Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
         });
+// floors routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'floors'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminFloorsController::class, 'index'])->name('floors.floors');
+    Route::post('/', [AdminFloorsController::class, 'store'])->name('floors.store');
+    Route::post('/{floor}', [AdminFloorsController::class, 'update'])->name('floors.update');
+    Route::delete('/{floor}', [AdminFloorsController::class, 'destroy'])->name('floors.delete');
+});
 
+// usings routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'usings'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminUsingsController::class, 'index'])->name('usings.usings');
+    Route::post('/', [AdminUsingsController::class, 'store'])->name('usings.store');
+    Route::post('/{using}', [AdminUsingsController::class, 'update'])->name('usings.update');
+    Route::delete('/{using}', [AdminUsingsController::class, 'destroy'])->name('usings.delete');
+});
+
+// buildingTypes routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'buildingTypes'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminBuildingTypeController::class, 'index'])->name('buildingTypes.buildingTypes');
+    Route::post('/', [AdminBuildingTypeController::class, 'store'])->name('buildingTypes.store');
+    Route::post('/{BuildingType}', [AdminBuildingTypeController::class, 'update'])->name('buildingTypes.update');
+    Route::delete('/{BuildingType}', [AdminBuildingTypeController::class, 'destroy'])->name('buildingTypes.delete');
+});
         // offers routes -------------------------------------------------------------------------
         Route::group([
             'prefix' => 'offer'

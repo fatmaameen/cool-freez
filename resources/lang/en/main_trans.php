@@ -57,6 +57,15 @@ return [
 'files'=>'Files',
 'show'=>'Show',
 'review_details'=>'Review Details',
+'floors'=>'Floors',
+'floor_number'=>'Floor Number',
+'buildingTypes'=>'Building Types',
+'usings'=>'Usings',
+
+
+
+
+
 
 
 ];

@@ -56,6 +56,17 @@ return [
 'files'=>'ملفات',
 'show'=>'عرض',
 'review_details'=>'تفاصيل المراجعة',
+'floors'=>'طوابق',
+'floor_number'=>'رقم الدور',
+'buildingTypes'=>'أنواع المباني',
+'usings'=>'الاستخدامات',
+
+
+
+
+
+
+
 
 
 
