@@ -38,7 +38,7 @@
                             <div class="col-md-6">
                               <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $client->name }}</span>
+                                    <span>{{ $review->client->name }}</span>
                                 </div>
                             </div>
 
@@ -49,21 +49,21 @@
 
 
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $client->email }}</span>
+                                    <span>{{ $review->client->email }}</span>
                                    </div>
                             </div>
 
                             <div class="col-md-6">
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $client->phone_number }}</span>
+                                                                                        <span>{{ $review->client->phone_number }}</span>
                                                                                </div>
                             </div>
 
                             <div class="col-md-6">
                                    <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.address') }}:</label>
-                                    <span class="date">{{ $client->address }}</span>
+                                    <span class="date">{{ $review->client->address }}</span>
 
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
                                     <img class="rounded-circle"
-                                    src="{{'http://127.0.0.1:8000/clients_images/'. $client->image}}"
+                                    src="{{'http://127.0.0.1:8000/'. $review->client->image}}"
                                     width="60"
                                     height="60">
 
@@ -90,14 +90,14 @@
                             <div class="col-md-6">
                                 <div class="col-group">
                                       <label for="" class="font-weight-bold">{{ trans('main_trans.job_title') }}:</label>
-                                      <span>{{ $consultant->job_title }}</span>
+                                      <span>{{ $review->consultant->job_title }}</span>
                                   </div>
                               </div>
 
                             <div class="col-md-6">
                               <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $consultant->name }}</span>
+                                    <span>{{ $review->consultant->name }}</span>
                                 </div>
                             </div>
 
@@ -106,14 +106,14 @@
                                   <div class="col-group">
 
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $consultant->email }}</span>
+                                    <span>{{ $review->consultant->email }}</span>
                                    </div>
                             </div>
 
                             <div class="col-md-6">
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $consultant->phone_number }}</span>
+                                                                                        <span>{{ $review->consultant->phone_number }}</span>
                                                                                </div>
                             </div>
 
@@ -123,7 +123,7 @@
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
                                     <img class="rounded-circle"
-                                    src="{{'http://127.0.0.1:8000/consultants/'. $consultant->image}}"
+                                    src="{{'http://127.0.0.1:8000/'. $review->consultant->image}}"
                                     width="60"
                                     height="60">
 
@@ -135,7 +135,7 @@
                                 <div class="col-group">
 
                                   <label for="" class="font-weight-bold">{{ trans('main_trans.rate') }}:</label>
-                                  <span>{{ $consultant->rate }}</span>
+                                  <span>{{ $review->consultant->rate }}</span>
                                  </div>
                           </div>
                 </div>
