@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\MainDashboard\Reviews;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\consultant;
 use App\Models\review;
 use Illuminate\Http\Request;
 use App\Traits\PDFUploadTrait;
@@ -12,21 +10,16 @@ use App\Traits\PDFUploadTrait;
 class AdminReviewsController extends Controller
 {
     use PDFUploadTrait;
-    public function index(){
+    public function index()
+    {
         $reviews = review::with('client', 'consultant')->get();
-        return view('reviews/reviews_list' ,compact('reviews'));
+        return view('reviews/reviews_list', compact('reviews'));
     }
 
-    public function show_details($id){
-
-        $review=review::findOrFail($id);
-
-        $client = Client::where('id', $review->client_id)->first();
-        $consultant = consultant::where('id', $review->consultant_id)->first();
-
-
-return view('reviews.details' ,compact('consultant' ,'client' ,'review' ));
-
+    public function show_details($id)
+    {
+        $review = review::where('id', $id)->with('client', 'consultant')->get();
+        return view('reviews.details', compact('consultant', 'client', 'review'));
     }
 
     public function update(Request $request, review $review)

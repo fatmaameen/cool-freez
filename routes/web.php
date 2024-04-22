@@ -13,6 +13,7 @@ use App\Http\Controllers\MainDashboard\BuildingTypes\AdminBuildingTypeController
 use App\Http\Controllers\MainDashboard\consultants\AdminConsultantsController;
 use App\Http\Controllers\MainDashboard\floors\AdminFloorsController;
 use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
+use App\Http\Controllers\MainDashboard\pricing\AdminPricingController;
 use App\Http\Controllers\MainDashboard\Reviews\AdminReviewsController;
 use App\Http\Controllers\MainDashboard\types\AdminTypesController;
 use App\Http\Controllers\MainDashboard\usings\AdminUsingsController;
@@ -71,137 +72,188 @@ Route::group(
         });
 
 
-     Route::post('/client/assign/{client}', [AdminClientsController::class, 'assign'])->name('clients.assign')
-        // ->middleware('Admin')
+        Route::post('/client/assign/{client}', [AdminClientsController::class, 'assign'])->name('clients.assign')
+            // ->middleware('Admin')
         ;
-Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance')
-//->middleware('Admin')
-;
+        Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance')
+            //->middleware('Admin')
+        ;
 
-Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
-// ->middleware('Admin')
-;
+        Route::post('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update')
+            // ->middleware('Admin')
+        ;
 
-Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign')
-// ->middleware('Admin')
-;
+        Route::post('/maintenance/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign')
+            // ->middleware('Admin')
+        ;
 
-Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
-Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
-// ->middleware('Admin')
-;
-
-
-// Company routes -------------------------------------------------------------------------
-Route::get('/company/maintenance', [CompanyMaintenanceController::class, 'index'])->name('incomplete_maintenance')
-    // ->middleware('CompanyAdmin')
-;
-
-Route::get('/company/maintenance/completed', [CompanyMaintenanceController::class, 'completed'])->name('complete_maintenance')
-    // ->middleware('CompanyAdmin')
-;
-
-Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
-    // ->middleware('CompanyAdmin')
-;
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// brands routes -------------------------------------------------------------------------
-Route::group([
-    'prefix' => 'brands'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminBrandsController::class, 'index'])->name('brands.brands');
-    Route::post('/', [AdminBrandsController::class, 'store'])->name('brands.store');
-    Route::post('/{brand}', [AdminBrandsController::class, 'update'])->name('brands.update');
-    Route::delete('/{brand}', [AdminBrandsController::class, 'destroy'])->name('brands.delete');
-});
-// brands routes -------------------------------------------------------------------------
-Route::group([
-    'prefix' => 'types'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminTypesController::class, 'index'])->name('types.types');
-    Route::post('/', [AdminTypesController::class, 'store'])->name('types.store');
-    Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
-    Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
-});
-
-// offers routes -------------------------------------------------------------------------
-Route::group([
-    'prefix' => 'offer'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminOffersController::class, 'index'])->name('offer.offer');
-    Route::post('/', [AdminOffersController::class, 'store'])->name('offer.store');
-    Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
-    Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
-});
-
-// consultants routes -------------------------------------------------------------------------
-Route::group([
-    'prefix' => 'consultant'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminConsultantsController::class, 'index'])->name('consultant.consultant');
-    Route::post('/', [AdminConsultantsController::class, 'store'])->name('consultant.store');
-    Route::post('/{consultant}', [AdminConsultantsController::class, 'update'])->name('consultant.update');
-    Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy'])->name('consultant.delete');
-});
+        Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+        Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+            // ->middleware('Admin')
+        ;
 
 
-// reviews routes -------------------------------------------------------------------------
-Route::group([
-    'prefix' => 'reviews'
-    // ,'middleware' => ['auth', 'Admin']
-], function () {
-    Route::get('/', [AdminReviewsController::class, 'index'])->name('reviews.reviews');
-    Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
-    Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
-    Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
-});
+        // Company routes -------------------------------------------------------------------------
+        Route::get('/company/maintenance', [CompanyMaintenanceController::class, 'index'])->name('incomplete_maintenance')
+            // ->middleware('CompanyAdmin')
+        ;
 
-//route to show clients images -------------------------------------------------------------
-Route::get('/clients_images/{filename}', function ($filename) {
-    $path = storage_path('../public/clients_images/' . $filename);
-    if (!FacadesFile::exists($path)) {
-        abort(404);
+        Route::get('/company/maintenance/completed', [CompanyMaintenanceController::class, 'completed'])->name('complete_maintenance')
+            // ->middleware('CompanyAdmin')
+        ;
+
+        Route::post('/company/maintenance/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
+            // ->middleware('CompanyAdmin')
+        ;
+
+        // Auth::routes();
+
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+        // brands routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'brands'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminBrandsController::class, 'index'])->name('brands.brands');
+            Route::post('/', [AdminBrandsController::class, 'store'])->name('brands.store');
+            Route::post('/{brand}', [AdminBrandsController::class, 'update'])->name('brands.update');
+            Route::delete('/{brand}', [AdminBrandsController::class, 'destroy'])->name('brands.delete');
+        });
+        // brands routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'types'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminTypesController::class, 'index'])->name('types.types');
+            Route::post('/', [AdminTypesController::class, 'store'])->name('types.store');
+            Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
+            Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
+        });
+
+        // offers routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'offer'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminOffersController::class, 'index'])->name('offer.offer');
+            Route::post('/', [AdminOffersController::class, 'store'])->name('offer.store');
+            Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
+            Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
+        });
+
+        // consultants routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'consultant'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminConsultantsController::class, 'index'])->name('consultant.consultant');
+            Route::post('/', [AdminConsultantsController::class, 'store'])->name('consultant.store');
+            Route::post('/{consultant}', [AdminConsultantsController::class, 'update'])->name('consultant.update');
+            Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy'])->name('consultant.delete');
+        });
+
+
+        // reviews routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'reviews'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminReviewsController::class, 'index'])->name('reviews.reviews');
+            Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
+            Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
+            Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //route to show clients images -------------------------------------------------------------
+        Route::get('/{filename}', function ($filename) {
+            $path = storage_path('../public/' . $filename);
+            if (!FacadesFile::exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        });
+        //route to show consultant images -------------------------------------------------------------
+        Route::get('/{filename}', function ($filename) {
+            $path = storage_path('../public/' . $filename);
+            if (!FacadesFile::exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        });
+        //route to show offers images----------------------------------------------------------------
+        Route::get('/{filename}', function ($filename) {
+            $path = storage_path('../public/' . $filename);
+            if (!FacadesFile::exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        });
+        //route to show reviews files----------------------------------------------------------------
+        Route::get('/reviews/{filename}', function ($filename) {
+            $path = storage_path('../public/reviews_files/' . $filename);
+            if (!FacadesFile::exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        });
+        //route to show admins images----------------------------------------------------------------
+        Route::get('/users_images/{filename}', function ($filename) {
+            $path = storage_path('../public/users_images/' . $filename);
+            if (!FacadesFile::exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        });
     }
-    return response()->file($path);
-});
-//route to show consultant images -------------------------------------------------------------
-Route::get('/consultants/{filename}', function ($filename) {
-    $path = storage_path('../public/consultants/' . $filename);
-    if (!FacadesFile::exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
-});
-//route to show offers images----------------------------------------------------------------
-Route::get('/offers/{filename}', function ($filename) {
-    $path = storage_path('../public/offers/' . $filename);
-    if (!FacadesFile::exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
-});
-Route::get('/reviews/{filename}', function ($filename) {
-    $path = storage_path('../public/reviews_files/'.$filename);
-    if (!FacadesFile::exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
-});
-//route to show admins images----------------------------------------------------------------
-Route::get('/users_images/{filename}', function ($filename) {
-    $path = storage_path('../public/users_images/' . $filename);
-    if (!FacadesFile::exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
-});
-}
 );
+
+
+
+
+
+// pricing routes -------------------------------------------------------------------------
+Route::group([
+    'prefix' => 'pricing'
+    // ,'middleware' => ['auth', 'Admin']
+], function () {
+    Route::get('/', [AdminPricingController::class, 'index']);
+    Route::post('/{pricing}', [AdminPricingController::class, 'update']);
+    Route::delete('/{pricing}', [AdminPricingController::class, 'destroy']);
+    Route::get('/{id}', [AdminPricingController::class, 'show']);
+});

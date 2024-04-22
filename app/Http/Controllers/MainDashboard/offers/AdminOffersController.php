@@ -42,7 +42,7 @@ class AdminOffersController extends Controller
     {
         $data = $request->validated();
         $old_image = $offer->offer;
-        if ($this->remove($old_image, 'offers')) {
+        if ($this->remove($old_image)) {
             $image = $request->file('offer');
             $new_offer = $this->upload($image, 'offers');
             $offer->update([
@@ -58,7 +58,7 @@ class AdminOffersController extends Controller
     public function destroy(offer $offer)
     {
         $old_image = $offer->offer;
-        if ($this->remove($old_image, 'offers')) {
+        if ($this->remove($old_image)) {
             $offer->delete();
             return  redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {

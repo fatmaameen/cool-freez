@@ -41,7 +41,7 @@ class AdminConsultantsController extends Controller
 
         if ($request->has('image')) {
             $old_image = $consultant->image;
-            if ($this->remove($old_image, 'consultants')) {
+            if ($this->remove($old_image)) {
                 $image_info = $request->file('image');
                 $image = $this->upload($image_info, "consultants");
                 $consultant->update([
@@ -71,7 +71,7 @@ class AdminConsultantsController extends Controller
     public function destroy(consultant $consultant)
     {
         $old_image = $consultant->image;
-        if ($this->remove($old_image, 'consultants')) {
+        if ($this->remove($old_image)) {
             $consultant->delete();
             return  redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {

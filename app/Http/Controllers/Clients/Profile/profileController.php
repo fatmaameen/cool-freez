@@ -21,7 +21,7 @@ class profileController extends Controller
     {
         if ($request->has('image')) {
             $img = $client->image;
-            $imagePath = public_path('clients_images/' . $img);
+            $imagePath = public_path( $img);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -29,7 +29,7 @@ class profileController extends Controller
             $image_name = time() . $new_image->getClientOriginalName();
             $new_image->move(public_path('clients_images'), $image_name);
             $client->update([
-                'image' => $image_name,
+                'image' => 'clients_images'.'/'.$image_name,
             ]);
         };
 
@@ -50,7 +50,7 @@ class profileController extends Controller
     public function destroy(Client $client)
     {
         $img = $client->image;
-        $imagePath = public_path('clients_images/' . $img);
+        $imagePath = public_path($img);
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
