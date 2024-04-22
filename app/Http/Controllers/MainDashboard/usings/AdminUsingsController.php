@@ -12,7 +12,7 @@ class AdminUsingsController extends Controller
     public function index()
     {
         $usings = using::all();
-        return response()->json($usings);
+        return view('usings.usings_list' , compact('usings'));
     }
 
     public function store(usingRequest $request)

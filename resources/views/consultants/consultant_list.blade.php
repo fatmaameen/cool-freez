@@ -2,9 +2,9 @@
 @extends('layouts.master')
 
 @section('css')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 @endsection
 
 @section('title')
@@ -98,9 +98,9 @@
                                 <a href="#editModal{{ $consultant->id }}" class="btn btn-primary"
                                     data-toggle="modal">{{ trans('main_trans.edit') }}</a>
 
-    <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $consultant->id }}')">{{ trans('main_trans.delete') }}</a>
-</td>
-                            </td>
+                             <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $consultant->id }}')">{{ trans('main_trans.delete') }}</a>
+                               </td>
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -117,7 +117,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createUserModalLabel">  {{ trans('main_trans.create') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('consultant.store') }}" method="POST" enctype="multipart/form-data">
@@ -246,8 +248,9 @@
     </div>
 </div>
 @endforeach
+@endsection
 <!-- Edit User Modals -->
-
+@section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>

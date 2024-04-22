@@ -1,11 +1,13 @@
 @extends('layouts.master')
 
 @section('css')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 @endsection
 
 @section('title')
-{{ trans('main_trans.admins') }}
+      {{ trans('main_trans.admins') }}
 @stop
 
 @section('page-header')
@@ -29,11 +31,12 @@
 @section('content')
 <!-- row -->
 <div class="row">
-    <div class="col-md-11 mb-24">
-        <div class="card card-statistics h-60">
+    <div class="col-md-12 mb-30">
+        <div class="card card-statistics h-100">
             <div class="card-body">
                 @if(session('message'))
                 <div class="alert alert-success">
+                    <div id="messageContainer"></div>
                     {{ session('message') }}
                 </div>
                 @endif
@@ -112,7 +115,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
@@ -261,7 +266,8 @@
 </div>
 @endforeach
 <!-- Edit User Modals -->
-
+@endsection
+@section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
