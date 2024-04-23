@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Clients\AddNewClientRequest;
 use App\Http\Resources\Clients\ClientInfoResource;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class clientController extends Controller
 {
     public function register(AddNewClientRequest $request)
     {
+
         $data = $request->validated();
         $client = Client::create($data);
         if ($request->has('image')) {
@@ -29,7 +31,7 @@ class clientController extends Controller
         };
         $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
         $client_info = ClientInfoResource::make($client);
-        return response()->json(['token' => $token, 'message' => 'Successfully registered', 'client' => $client_info]);
+      return response()->json(['token' => $token, 'message' => 'Successfully registered', 'client' => $client_info]);
     }
 
     public function login(Request $request)
@@ -91,7 +93,7 @@ class clientController extends Controller
                             return response()->json(['message' => 'Not registered client']);
                         }
                     }
-                } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
+                } catch (Exception $e) {
                     return response()->json([
                         'message' => 'User Not Found'
                     ]);

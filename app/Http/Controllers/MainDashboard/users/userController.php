@@ -60,7 +60,7 @@ class userController extends Controller
              // If no image is provided, set image name to null
              $image_name = null;
          }
-
+       
          // Create a new user instance
          $user = new User();
          $user->name = $validatedData['name'];

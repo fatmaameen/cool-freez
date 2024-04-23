@@ -60,15 +60,13 @@ return [
 'floor_number'=>'رقم الدور',
 'buildingTypes'=>'أنواع المباني',
 'usings'=>'الاستخدامات',
-
-
-
-
-
-
-
-
-
+'pricing'=>'التسعير',
+'pricing_details'=>'تفاصيل التسعير',
+'building_type'=>'نوع المبني',
+'floor'=>'طابق',
+'brand'=>'ماركة',
+'air_conditioning_type'=>'نوع_تكييف الهواء',
+'drawing_of_building'=>'رسم المبنى',
 
 
 ];

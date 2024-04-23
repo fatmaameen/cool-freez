@@ -2,7 +2,7 @@
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 @section('title')
-{{ trans('main_trans.reviews') }}
+{{ trans('main_trans.pricing_details') }}
 @stop
 @endsection
 @section('page-header')
@@ -10,12 +10,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.reviews') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.pricing_details') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.reviews') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.pricing_details') }}</li>
             </ol>
         </div>
     </div>
@@ -38,7 +38,7 @@
                             <div class="col-md-6">
                               <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $review->client->name }}</span>
+                                    <span>{{ $pricing->client->name }}</span>
                                 </div>
                             </div>
 
@@ -47,21 +47,21 @@
                                   <div class="col-group">
 
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $review->client->email }}</span>
+                                    <span>{{ $pricing->client->email }}</span>
                                    </div>
                             </div>
 
                             <div class="col-md-6">
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $review->client->phone_number }}</span>
+                                                                                        <span>{{ $pricing->client->phone_number }}</span>
                                                                                </div>
                             </div>
 
                             <div class="col-md-6">
                                    <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.address') }}:</label>
-                                    <span class="date">{{ $review->client->address }}</span>
+                                    <span class="date">{{ $pricing->client->address }}</span>
 
                                 </div>
                             </div>
@@ -70,32 +70,34 @@
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
                                     <img class="rounded-circle"
-                                    src="{{ url('clients_images/' . $review->client->image) }}"
+                                    src="{{ url('clients_images/' . $pricing->client->image) }}"
                                     width="60"
-                                    height="60">
+                                    height="60"
+                                >
 
+
+                                                                                      </div>
                             </div>
-                            </div>
 
-
+{{-- ////////////////////////////////////////////////////////////////////////////////// --}}
 
                 </div>
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                       <h5> {{ trans('main_trans.consultant_data') }}</h5>
+                       <h5> {{ trans('main_trans.pricing_details') }}</h5>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-group">
-                                      <label for="" class="font-weight-bold">{{ trans('main_trans.job_title') }}:</label>
-                                      <span>{{ $review->consultant->job_title }}</span>
+                                      <label for="" class="font-weight-bold">{{ trans('main_trans.building_type') }}:</label>
+                                      <span>{{ $pricing->details->first()->building_type }}</span>
                                   </div>
                               </div>
 
                             <div class="col-md-6">
                               <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $review->consultant->name }}</span>
+                                    <label for="" class="font-weight-bold">{{ trans('main_trans.floor') }}:</label>
+                                    <span>{{ $pricing->details->first()->floor }}</span>
                                 </div>
                             </div>
 
@@ -103,66 +105,39 @@
                             <div class="col-md-6">
                                   <div class="col-group">
 
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $review->consultant->email }}</span>
+                                    <label for="" class="font-weight-bold">{{ trans('main_trans.brand') }}:</label>
+                                    <span>{{ $pricing->details->first()->brand }}</span>
                                    </div>
                             </div>
 
                             <div class="col-md-6">
                                   <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $review->consultant->phone_number }}</span>
+                                    <label for="" class="font-weight-bold">{{ trans('main_trans.air_conditioning_type') }} :</label>
+                                                                                        <span>{{ $pricing->details->first()->air_conditioning_type }}</span>
                                                                                </div>
                             </div>
 
 
 
-                            <div class="col-md-6">
-                                  <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
-                                    <img class="rounded-circle"
-                                    src="{{url('consultants/'. $review->consultant->image)}}"
-                                    width="60"
-                                    height="60">
-
-                                                                                      </div>
-                            </div>
 
 
-                            <div class="col-md-6">
-                                <div class="col-group">
-
-                                  <label for="" class="font-weight-bold">{{ trans('main_trans.rate') }}:</label>
-                                  <span>{{ $review->consultant->rate }}</span>
-                                 </div>
-                          </div>
-                </div>
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                       <h5> {{ trans('main_trans.files') }}</h5>
+                       <h5> {{ trans('main_trans.drawing_of_building') }}</h5>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-group">
                                     @php
-
-                                    $files = json_decode($review->building_files, true);
+                                    // Get the drawing_of_building attribute from the pricing details
+                                    $file = $pricing->details->first()->drawing_of_building;
                                     @endphp
 
-
-                                        @foreach ($files as $file)
-                                            <a href="{{ url('reviews_files/' . $file) }}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
-                                        @endforeach
-
-
+                                        <!-- Create a hyperlink to the file in the public/pricing_files directory -->
+                                        <a href="{{ url('pricing_files/' . $file) }}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
 
                                   </div>
                               </div>
-
-
-
-
-
                 </div>
             </div>
         </div>

@@ -71,6 +71,10 @@
                         <a href="{{ route('usings.usings') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.usings') }}
                         </span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('pricing.pricing') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.pricing') }}
+                        </span></a>
+                    </li>
 
                     <!-- menu item Charts-->
                     {{-- <li>

@@ -200,92 +200,89 @@ Route::group([
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //route to show clients images -------------------------------------------------------------
-        Route::get('/{filename}', function ($filename) {
-            $path = storage_path('../public/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show consultant images -------------------------------------------------------------
-        Route::get('/{filename}', function ($filename) {
-            $path = storage_path('../public/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show offers images----------------------------------------------------------------
-        Route::get('/{filename}', function ($filename) {
-            $path = storage_path('../public/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show reviews files----------------------------------------------------------------
-        Route::get('/reviews/{filename}', function ($filename) {
-            $path = storage_path('../public/reviews_files/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show admins images----------------------------------------------------------------
-        Route::get('/users_images/{filename}', function ($filename) {
-            $path = storage_path('../public/users_images/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-    }
-);
-
-
-
-
-
 // pricing routes -------------------------------------------------------------------------
 Route::group([
     'prefix' => 'pricing'
     // ,'middleware' => ['auth', 'Admin']
 ], function () {
-    Route::get('/', [AdminPricingController::class, 'index']);
-    Route::post('/{pricing}', [AdminPricingController::class, 'update']);
-    Route::delete('/{pricing}', [AdminPricingController::class, 'destroy']);
-    Route::get('/{id}', [AdminPricingController::class, 'show']);
+    Route::get('/', [AdminPricingController::class, 'index'])->name('pricing.pricing');
+    Route::post('/{pricing}', [AdminPricingController::class, 'update'])->name('pricing.update');
+    Route::delete('/{pricing}', [AdminPricingController::class, 'destroy'])->name('pricing.destroy');
+    Route::get('/{id}', [AdminPricingController::class, 'show'])->name('pricing.show');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // //route to show clients images -------------------------------------------------------------
+        // Route::get('/{filename}', function ($filename) {
+        //     $path = storage_path('../public/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+        // //route to show consultant images -------------------------------------------------------------
+        // Route::get('/{filename}', function ($filename) {
+        //     $path = storage_path('../public/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+
+        // //route to show offers images----------------------------------------------------------------
+        // Route::get('/{filename}', function ($filename) {
+        //     $path = storage_path('../public/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+
+        //route to show admins images----------------------------------------------------------------
+        // Route::get('/users_images/{filename}', function ($filename) {
+        //     $path = storage_path('../public/users_images/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+
+
+
+
+    }
+);
+
+

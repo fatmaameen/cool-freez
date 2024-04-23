@@ -61,11 +61,11 @@ return [
 'floor_number'=>'Floor Number',
 'buildingTypes'=>'Building Types',
 'usings'=>'Usings',
-
-
-
-
-
-
-
+'pricing'=>'pricing',
+'pricing_details'=>'Pricing Details',
+'building_type'=>'Building Type',
+'floor'=>'Floor',
+'brand'=>'Brand',
+'air_conditioning_type'=>'Air Conditioning Type',
+'drawing_of_building'=>'Drawing Of Building',
 ];
