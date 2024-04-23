@@ -83,8 +83,7 @@
                                 <img class="rounded-circle"
                                 src="{{$consultant->image}}"
                                 width="60"
-                                height="60"
->
+                                height="60">
                             </div>
                         </td>
                             <td>{{ $consultant->name }}</td>

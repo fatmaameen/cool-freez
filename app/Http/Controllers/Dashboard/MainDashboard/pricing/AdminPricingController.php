@@ -14,13 +14,13 @@ class AdminPricingController extends Controller
     public function index()
     {
         $pricing = pricing::latest()->get();
-        return response()->json($pricing);
+        return view('pricing.pricing_list' ,compact('pricing'));
     }
 
     public function show($id)
     {
         $pricing = pricing::where('id', $id)->with('client', 'details')->first();
-        return response()->json($pricing);
+        return view('pricing.details',compact('pricing'));
     }
 
     public function update(Request $request, pricing $pricing)
