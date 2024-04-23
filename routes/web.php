@@ -2,22 +2,22 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Dashboard\Auth\LoginController;
 
-use App\Http\Controllers\MainDashboard\users\userController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Controllers\MainDashboard\clients\AdminClientsController;
-use App\Http\Controllers\MainDashboard\Maintenance\AdminMaintenanceController;
-use App\Http\Controllers\CompanyDashboard\Maintenance\CompanyMaintenanceController;
-use App\Http\Controllers\MainDashboard\brands\AdminBrandsController;
-use App\Http\Controllers\MainDashboard\BuildingTypes\AdminBuildingTypeController;
-use App\Http\Controllers\MainDashboard\consultants\AdminConsultantsController;
-use App\Http\Controllers\MainDashboard\floors\AdminFloorsController;
-use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
-use App\Http\Controllers\MainDashboard\pricing\AdminPricingController;
-use App\Http\Controllers\MainDashboard\Reviews\AdminReviewsController;
-use App\Http\Controllers\MainDashboard\types\AdminTypesController;
-use App\Http\Controllers\MainDashboard\usings\AdminUsingsController;
+use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
+use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
+use App\Http\Controllers\Dashboard\CompanyDashboard\Maintenance\CompanyMaintenanceController;
+use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
+use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
+use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
+use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
+use App\Http\Controllers\Dashboard\MainDashboard\floors\AdminFloorsController;
+use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
+use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
+use App\Http\Controllers\Dashboard\MainDashboard\Reviews\AdminReviewsController;
+use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
+use App\Http\Controllers\Dashboard\MainDashboard\usings\AdminUsingsController;
 use Illuminate\Support\Facades\File as FacadesFile;
 
 /*
@@ -37,29 +37,30 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [LoginController::class, 'login']);
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/', function () {
             return redirect()->route('login');
         });
+        // Route::get('/register', function () {
+        //     return redirect()->route('login');
+        // });
 
-        Route::get('/register', function () {
-            return redirect()->route('login');
-        });
+        // Auth::routes();
+        // Auth::routes(['register' => false]);
 
-
-        Auth::routes(['register' => false]);
-
-        Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-
+        Route::get('/dashboard', [App\Http\Controllers\Dashboard\Auth\HomeController::class, 'index'])->name('dashboard');
 
 
-        Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
-            Route::get('/', [userController::class, 'index'])->middleware('SuperAdmin');
+
+        Route::group(['prefix' => 'admins', 'middleware' => 'auth'], function () {
+            Route::get('/', [AdminsController::class, 'index'])->middleware('SuperAdmin');
             // Route::get('/{id}', [userController::class, 'show'])->middleware('Admin');
-            Route::post('/store', [userController::class, 'store'])->middleware('SuperAdmin')->name('users.store');
-            Route::post('/update/{id}', [userController::class, 'update'])->middleware('Admin')->name('users.update');
-            Route::post('/updateRole/{user}', [userController::class, 'updateRole'])->middleware('SuperAdmin');
-            Route::delete('/{id}', [userController::class, 'destroy'])->middleware('SuperAdmin')->name('users.delete');
+            Route::post('/store', [AdminsController::class, 'store'])->middleware('SuperAdmin')->name('users.store');
+            Route::post('/update/{id}', [AdminsController::class, 'update'])->middleware('Admin')->name('users.update');
+            Route::post('/updateRole/{admin}', [AdminsController::class, 'updateRole'])->middleware('SuperAdmin');
+            Route::delete('/{admin}', [AdminsController::class, 'destroy'])->middleware('SuperAdmin')->name('users.delete');
         });
 
 
@@ -240,38 +241,38 @@ Route::group([
             }
             return response()->file($path);
         });
-        //route to show consultant images -------------------------------------------------------------
-        Route::get('/{filename}', function ($filename) {
-            $path = storage_path('../public/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show offers images----------------------------------------------------------------
-        Route::get('/{filename}', function ($filename) {
-            $path = storage_path('../public/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show reviews files----------------------------------------------------------------
-        Route::get('/reviews/{filename}', function ($filename) {
-            $path = storage_path('../public/reviews_files/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
-        //route to show admins images----------------------------------------------------------------
-        Route::get('/users_images/{filename}', function ($filename) {
-            $path = storage_path('../public/users_images/' . $filename);
-            if (!FacadesFile::exists($path)) {
-                abort(404);
-            }
-            return response()->file($path);
-        });
+        // //route to show consultant images -------------------------------------------------------------
+        // Route::get('/{filename}', function ($filename) {
+        //     $path = storage_path('../public/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+        // //route to show offers images----------------------------------------------------------------
+        // Route::get('/{filename}', function ($filename) {
+        //     $path = storage_path('../public/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+        // //route to show reviews files----------------------------------------------------------------
+        // Route::get('/reviews/{filename}', function ($filename) {
+        //     $path = storage_path('../public/reviews_files/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
+        // //route to show admins images----------------------------------------------------------------
+        // Route::get('/admins_images/{filename}', function ($filename) {
+        //     $path = storage_path('../public/admins_images/' . $filename);
+        //     if (!FacadesFile::exists($path)) {
+        //         abort(404);
+        //     }
+        //     return response()->file($path);
+        // });
     }
 );
 

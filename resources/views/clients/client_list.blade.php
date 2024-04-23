@@ -84,7 +84,7 @@
                                 <div class="ul-widget-app__profile-pic">
 
                                 <img class="rounded-circle"
-                                src="{{'http://127.0.0.1:8000/'. $client->image}}"
+                                src="{{$client->image}}"
                                 width="60"
                                 height="60"
 >

@@ -3,21 +3,20 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Clients\Auth\clientController;
-use App\Http\Controllers\Clients\brands\BrandsController;
-use App\Http\Controllers\Clients\BuildingTypes\BuildingTypeController;
-use App\Http\Controllers\Clients\Reviews\ReviewController;
-use App\Http\Controllers\Clients\Profile\profileController;
-use App\Http\Controllers\Clients\services\ServicesController;
-use App\Http\Controllers\Clients\Consultants\ConsultantsController;
-use App\Http\Controllers\Clients\floors\floorsController;
-use App\Http\Controllers\Clients\Maintenance\maintenanceController;
-use App\Http\Controllers\Clients\offers\OffersController;
-use App\Http\Controllers\Clients\pricing\PricingController;
-use App\Http\Controllers\Clients\types\TypesController;
-use App\Http\Controllers\Clients\usings\usingsController;
-use App\Http\Controllers\MainDashboard\offers\AdminOffersController;
-use App\Http\Controllers\Technicians\Maintenance\TechnicianMaintenanceController;
+use App\Http\Controllers\Api\Clients\Auth\clientController;
+use App\Http\Controllers\Api\Clients\brands\BrandsController;
+use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
+use App\Http\Controllers\Api\Clients\Reviews\ReviewController;
+use App\Http\Controllers\Api\Clients\Profile\profileController;
+use App\Http\Controllers\Api\Clients\services\ServicesController;
+use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
+use App\Http\Controllers\Api\Clients\floors\floorsController;
+use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
+use App\Http\Controllers\Api\Clients\offers\OffersController;
+use App\Http\Controllers\Api\Clients\pricing\PricingController;
+use App\Http\Controllers\Api\Clients\types\TypesController;
+use App\Http\Controllers\Api\Clients\usings\usingsController;
+use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
 use App\Models\Client;
 
 /*

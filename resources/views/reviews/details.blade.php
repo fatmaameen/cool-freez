@@ -72,7 +72,7 @@
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
                                     <img class="rounded-circle"
-                                    src="{{'http://127.0.0.1:8000/'. $review->client->image}}"
+                                    src="{{$review->client->image}}"
                                     width="60"
                                     height="60">
 
@@ -123,7 +123,7 @@
                                   <div class="col-group">
                                     <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
                                     <img class="rounded-circle"
-                                    src="{{'http://127.0.0.1:8000/'. $review->consultant->image}}"
+                                    src="{{$review->consultant->image}}"
                                     width="60"
                                     height="60">
 
@@ -150,7 +150,7 @@
                                     $files = json_decode($review->building_files, true);
                                     @endphp
                                     @foreach ($files as $file)
-                                    <a href="{{'http://127.0.0.1:8000/reviews_files/'.$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
+                                    <a href="{{$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
                                     @endforeach
 
                                     {{-- <a href="{{'http://127.0.0.1:8000/reviews_files/'. json_decode($review->building_files, true)}}" class="btn btn-primary">{{ trans('main_trans.show') }}</a> --}}

@@ -80,7 +80,7 @@
                                 <div class="ul-widget-app__profile-pic">
                                     {{-- src="{{ asset('public/users_images/' . $user->image) }}" --}}
                                     <img class="rounded-circle"
-                                    src="{{'http://127.0.0.1:8000/users_images/'. $user->image}}"
+                                    src="{{$user->image}}"
                                     width="60"
                                     height="60"
                                     >
