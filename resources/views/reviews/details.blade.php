@@ -1,6 +1,20 @@
 @extends('layouts.master')
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style>
+    /* Increase font size and line height for text within tab content */
+    .tab-content {
+        font-size: 1.2rem; /* Adjust the font size as desired */
+        margin-bottom: 20px; /* Add space between tab content */
+        line-height: 1.6; /* Add line height for spacing between lines */
+    }
+
+    /* Increase line height for other text elements */
+    .col-group, .col-md-6 {
+        line-height: 1.6; /* Add line height for better spacing between lines */
+    }
+</style>
 @section('title')
 {{ trans('main_trans.reviews') }}
 @stop
@@ -32,7 +46,7 @@
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                       <h5> {{ trans('main_trans.client_data') }}</h5>
+                        <h5 style="background-color: green; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.client_data') }}</h5>
                         <div class="row">
 
                             <div class="col-md-6">
@@ -83,7 +97,8 @@
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                       <h5> {{ trans('main_trans.consultant_data') }}</h5>
+                        <h5 style="background-color: green; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.consultant_data') }}</h5>
+                      
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-group">
