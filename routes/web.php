@@ -281,19 +281,19 @@ Route::group([
         //     return response()->file($path);
         // });
 
-        //route to show admins images----------------------------------------------------------------
-        // Route::get('/users_images/{filename}', function ($filename) {
-        //     $path = storage_path('../public/users_images/' . $filename);
-        //     if (!FacadesFile::exists($path)) {
-        //         abort(404);
-        //     }
-        //     return response()->file($path);
-        // });
+        // route to show admins images----------------------------------------------------------------
 
 
+
+//  Route::get('/{filename}', function ($filename) {
+//             $path = storage_path('../public/' . $filename);
+//             if (!FacadesFile::exists($path)) {
+//                 abort(404);
+//             }
+//             return response()->file($path);
+//         });
 
 
     }
 );
-
 

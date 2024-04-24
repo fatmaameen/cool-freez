@@ -77,6 +77,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
+  direction: ltr;
   -webkit-tap-highlight-color: transparent; }
 
 @-ms-viewport {
@@ -17653,6 +17654,9 @@ ol.ui.list ol li,
   flex: 1 0 auto;
   width: 0px; }
 
+  .scrollbar {
+    overflow-x: hidden; }
+
 /*--------------------
    Types of Messages
 ---------------------*/
@@ -20419,6 +20423,8 @@ ul.list-unstyled li {
       background: rgba(0, 0, 0, 0.2); }
       .side-menu-fixed .side-menu li a[aria-expanded="true"] i {
         color: #ffffff; }
+        .side-menu-fixed .side-menu li a[aria-expanded="true"] .pull-right {
+            float: left; }
       .side-menu-fixed .side-menu li a[aria-expanded="true"] .pull-right i:before {
         content: '\e622'; }
     .side-menu-fixed .side-menu li a {
@@ -20433,6 +20439,8 @@ ul.list-unstyled li {
       color: rgba(255, 255, 255, 0.7);
       padding: 12px 15px 12px 20px;
       font-size: 13px; }
+      .side-menu-fixed .side-menu li a .pull-left {
+        float: left; }
       .side-menu-fixed .side-menu li a .pull-left i {
         font-size: 14px;
         width: 20px;
@@ -20470,7 +20478,7 @@ ul.list-unstyled li {
   background: rgba(0, 0, 0, 0.2); }
 
 .side-menu-fixed .side-menu li ul li a {
-  padding: 7px 15px 7px 50px;
+  padding: 7px 50px 7px 15px;
   display: block;
   color: rgba(255, 255, 255, 0.7);
   font-size: 12px;

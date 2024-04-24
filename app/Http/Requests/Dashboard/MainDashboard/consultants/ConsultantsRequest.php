@@ -26,6 +26,7 @@ class ConsultantsRequest extends FormRequest
             'job_title' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
             'phone_number' => ['required', 'string'],
+            'rate'=>['required'],
             'image' => [
                 'required',
                 'image' => [
