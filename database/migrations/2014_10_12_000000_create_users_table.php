@@ -1,14 +1,20 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
      */
+    protected $appUrl;
+    public function __construct()
+    {
+        $this->appUrl = Config::get('app.url');
+    }
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -20,7 +26,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('phone_confirmation_token')->nullable();
-            $table->string('image')->default('admin.png');
+            $table->string('image')->default($this->appUrl.'/'.'defaults_images'.'/'.'image.png');
             $table->boolean('is_active')->default(true);
             $table->boolean('is_banned')->default(false);
             $table->rememberToken();

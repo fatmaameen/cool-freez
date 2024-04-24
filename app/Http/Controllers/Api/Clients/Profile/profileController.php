@@ -14,6 +14,11 @@ use App\Traits\ImageUploadTrait;
 class profileController extends Controller
 {
     use ImageUploadTrait;
+    protected $appUrl;
+    public function __construct()
+    {
+        $this->appUrl = Config::get('app.url');
+    }
     public function show(string $id)
     {
         $client = Client::find($id);
@@ -24,12 +29,19 @@ class profileController extends Controller
     {
         if ($request->has('image')) {
             $old_image = $client->image;
-            if ($this->remove($old_image)){
-                $new_image = $request->file('image');
-                $image_name = $this->upload($new_image, 'clients_images');
+            $image = $request->file('image');
+            if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
+                $image_name = $this->upload($image, 'clients_images');
                 $client->update([
                     'image' => $image_name,
                 ]);
+            } else {
+                if ($this->remove($old_image)) {
+                    $image_name = $this->upload($image, 'clients_images');
+                    $client->update([
+                        'image' => $image_name,
+                    ]);
+                }
             }
         };
 
@@ -49,12 +61,17 @@ class profileController extends Controller
 
     public function destroy(Client $client)
     {
-        $image = $client->image;
-        if ($this->remove($image)){
+        $old_image = $client->image;
+        if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
             $client->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+            return  response()->json(['message' => 'Successfully deleted']);
         } else {
-            return  redirect()->back()->with(['message' => 'Something went wrong']);
+            if ($this->remove($old_image)) {
+                $client->delete();
+                return  response()->json(['message' => 'Successfully deleted']);
+            } else {
+                return  response()->json(['message' => 'Something went wrong']);
+            }
         }
     }
 }

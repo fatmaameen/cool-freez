@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 
 class Maintenance extends Model
 {
-    use HasFactory,Notifiable;
+    use HasFactory, Notifiable;
 
-    protected $fillable=[
+    protected $fillable = [
         'code',
         'client_id',
         'address',
@@ -26,7 +26,13 @@ class Maintenance extends Model
         'assigned',
     ];
 
-    public function client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
+    }
+
+    public function technician()
+    {
+        return $this->belongsTo(technician::class);
     }
 }

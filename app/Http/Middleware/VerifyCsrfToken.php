@@ -27,6 +27,8 @@ class VerifyCsrfToken extends Middleware
         'http://127.0.0.1:8000/reviews/8',
         'http://127.0.0.1:8000/pricing',
         'http://127.0.0.1:8000/pricing/4',
+        'http://127.0.0.1:8000/customer-service/reply/1',
+        'http://127.0.0.1:8000/customer-service/1',
 
     ];
 }

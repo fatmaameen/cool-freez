@@ -16,7 +16,6 @@ return new class extends Migration
             'password'  => bcrypt('123456789'),
             'email'     => 'admin@admin.com',
             'phone_number'     => '0123456789',
-            'image' => 'user.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

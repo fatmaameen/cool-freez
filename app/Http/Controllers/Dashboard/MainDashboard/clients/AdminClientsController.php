@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers\Dashboard\MainDashboard\clients;
 
-use App\Http\Controllers\Controller;
-use App\Models\Client;
 use App\Models\Role;
+use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 
 class AdminClientsController extends Controller
 {
+    use ImageUploadTrait;
+    protected $appUrl;
+    public function __construct()
+    {
+        $this->appUrl = Config::get('app.url');
+    }
     public function index()
     {
         $clients = Client::all();
 
-        return view('clients.client_list' ,compact('clients'));
+        return view('clients.client_list', compact('clients'));
     }
     public function assign(Request $request, Client $client)
     {
@@ -33,39 +41,45 @@ class AdminClientsController extends Controller
             return redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
         }
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
-            'is_banned' => ['required','boolean'],
+            'is_banned' => ['required', 'boolean'],
         ]);
         Client::find($id)->update([
             'is_banned' => $request->is_banned,
         ]);
-        return redirect()->back()->with(['Message'=>"Updated Successfully"]);
+        return redirect()->back()->with(['Message' => "Updated Successfully"]);
     }
 
-    public function destroy(Client $client){
-        if (!empty($client->image)) {
-            $img = $client->image;
-            $imagePath = public_path('clients_images/' . $img);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+    public function destroy(Client $client)
+    {
+        $old_image = $client->image;
+        if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
+            $client->delete();
+            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+        } else {
+            if ($this->remove($old_image)) {
+                $client->delete();
+                return  redirect()->back()->with(['message' => 'Successfully deleted']);
+            } else {
+                return  redirect()->back()->with(['message' => 'Something went wrong']);
             }
         }
-        $client->delete();
-        return redirect()->back()->with(['Message'=>"Deleted Successfully"]);
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $request->validate([
-           'search' => ['required','string'],
+            'search' => ['required', 'string'],
         ]);
         $search = $request->search;
-        $clients = Client::where('name', 'LIKE', '%'. $search. '%')
-                            ->orWhere('email', 'LIKE', '%'. $search. '%')->get();
-        if ($clients){
+        $clients = Client::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+        if ($clients) {
             return redirect()->back()->with($clients);
-        }else{
-            return redirect()->back()->with(['Message'=>"No Data Found"]);
+        } else {
+            return redirect()->back()->with(['Message' => "No Data Found"]);
         }
     }
 }

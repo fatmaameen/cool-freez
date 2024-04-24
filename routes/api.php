@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Clients\Reviews\ReviewController;
 use App\Http\Controllers\Api\Clients\Profile\profileController;
 use App\Http\Controllers\Api\Clients\services\ServicesController;
 use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
+use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
 use App\Http\Controllers\Api\Clients\floors\floorsController;
 use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Api\Clients\offers\OffersController;
@@ -125,6 +126,11 @@ Route::get('/clients/usings', [usingsController::class, 'index'])
 
 // pricing -----------------------------------------------------------------------
 Route::post('/clients/pricing/{client}/{service}', [PricingController::class, 'store'])
+    // ->middleware('auth:sanctum')
+;
+
+// Customer Service ---------------------------------------------------------------
+Route::post('/clients/customer-service', [CustomerServiceController::class, 'store'])
     // ->middleware('auth:sanctum')
 ;
 

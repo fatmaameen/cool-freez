@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
 use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
 use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
 use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
+use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
 use App\Http\Controllers\Dashboard\MainDashboard\floors\AdminFloorsController;
 use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
@@ -213,7 +214,16 @@ Route::group([
 });
 
 
-
+        // reviews routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'customer-service'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminCustomerServiceController::class, 'index']);
+            Route::post('/{message}', [AdminCustomerServiceController::class, 'update']);
+            Route::delete('/{message}', [AdminCustomerServiceController::class, 'destroy']);
+            Route::post('/reply/{message}', [AdminCustomerServiceController::class, 'sendEmail']);
+        });
 
 
 
