@@ -68,4 +68,11 @@ return [
 'brand'=>'Brand',
 'air_conditioning_type'=>'Air Conditioning Type',
 'drawing_of_building'=>'Drawing Of Building',
+'customer_service'=>'Customer Service',
+'description'=>'Description',
+'reply'=>'Reply',
+
+
+
+
 ];

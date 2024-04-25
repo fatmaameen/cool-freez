@@ -26,7 +26,7 @@
                         <a href="{{ route('maintenance') }}"><i class="ti-menu-alt"></i><span class="right-nav-text">{{ trans('main_trans.maintenance') }}
                             </span> </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                             <div class="pull-left"><i class="ti-calendar"></i><span
                                     class="right-nav-text">{{ trans('main_trans.companyMaintenance') }}</span></div>
@@ -37,7 +37,7 @@
                             <li> <a href="{{ route('complete_maintenance') }}">{{ trans('main_trans.complete_maintenance') }} </a> </li>
                             <li> <a href="{{ route('incomplete_maintenance') }}">{{ trans('main_trans.Incomplete_maintenance') }} </a> </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('brands.brands') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.brands') }}
                             </span></a>
@@ -73,6 +73,10 @@
                     </li>
                     <li>
                         <a href="{{ route('pricing.pricing') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.pricing') }}
+                        </span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('customer_service.customer_service') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.customer_service') }}
                         </span></a>
                     </li>
 

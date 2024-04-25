@@ -43,140 +43,106 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
+
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                        <h5 style="background-color: green; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.client_data') }}</h5>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                              <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $review->client->name }}</span>
-                                </div>
-                            </div>
+                     <h5 style="background-color:  rgb(83, 178, 241); color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.client_data') }}</h5>
 
 
-                            <div class="col-md-6">
-                                  <div class="col-group">
+                     <table class="table table-bordered  w-100">
+                        <thead class="bg-light">
+                            <tr>
 
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $review->client->email }}</span>
-                                   </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                  <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $review->client->phone_number }}</span>
-                                                                               </div>
-                            </div>
+                                <th scope="col">{{ trans('main_trans.user_name') }}</th>
+                                <th scope="col">{{ trans('main_trans.email') }}</th>
+                                <th scope="col">{{ trans('main_trans.phone') }}</th>
+                                <th scope="col">{{ trans('main_trans.address') }}</th>
+                                <th scope="col">{{ trans('main_trans.avatar') }}</th>
 
-                            <div class="col-md-6">
-                                   <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.address') }}:</label>
-                                    <span class="date">{{ $review->client->address }}</span>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                  <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
-                                    <img class="rounded-circle"
+                            <tr>
+                                <td scope="row">{{ $review->client->name }}</td>
+                                <td scope="row">{{ $review->client->email }}</td>
+                                <td scope="row">{{ $review->client->phone_number }}</td>
+                                <td scope="row">{{ $review->client->address }}</td>
+                                <td scope="row"> <img class="rounded-circle"
                                     src="{{$review->client->image}}"
                                     width="60"
-                                    height="60">
+                                    height="60"></td>
 
-                            </div>
-                            </div>
+                    </tr>
 
+                </tbody>
+            </table>
 
-
+                    </div>
                 </div>
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                        <h5 style="background-color: green; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.consultant_data') }}</h5>
-                      
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-group">
-                                      <label for="" class="font-weight-bold">{{ trans('main_trans.job_title') }}:</label>
-                                      <span>{{ $review->consultant->job_title }}</span>
-                                  </div>
-                              </div>
+                        <h5 style="background-color: rgb(83, 178, 241); color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.consultant_data') }}</h5>
+                        <table class="table table-bordered  w-100">
+                            <thead class="bg-light">
+                                <tr>
 
-                            <div class="col-md-6">
-                              <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.user_name') }}:</label>
-                                    <span>{{ $review->consultant->name }}</span>
-                                </div>
-                            </div>
+                                    <th scope="col">{{ trans('main_trans.job_title') }}</th>
+                                    <th scope="col">{{ trans('main_trans.user_name') }}</th>
+                                    <th scope="col">{{ trans('main_trans.email') }}</th>
+                                    <th scope="col">{{ trans('main_trans.phone') }}</th>
+                                    <th scope="col">{{ trans('main_trans.rate') }}</th>
+                                    <th scope="col">{{ trans('main_trans.avatar') }}</th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                            <div class="col-md-6">
-                                  <div class="col-group">
+                                <tr>
+                                    <td scope="row">{{  $review->consultant->job_title}}</td>
+                                    <td scope="row">{{ $review->consultant->name }}</td>
+                                    <td scope="row">{{ $review->consultant->email }}</td>
+                                    <td scope="row">{{ $review->consultant->phone_number }}</td>
+                                    <td scope="row">{{ $review->consultant->rate }}</td>
+                                    <td scope="row"> <img class="rounded-circle"
+                                        src="{{$review->consultant->image}}"
+                                        width="60"
+                                        height="60"></th>
 
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.email') }}:</label>
-                                    <span>{{ $review->consultant->email }}</span>
-                                   </div>
-                            </div>
+                        </tr>
 
-                            <div class="col-md-6">
-                                  <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.phone') }} :</label>
-                                                                                        <span>{{ $review->consultant->phone_number }}</span>
-                                                                               </div>
-                            </div>
-
-
-
-                            <div class="col-md-6">
-                                  <div class="col-group">
-                                    <label for="" class="font-weight-bold">{{ trans('main_trans.avatar') }} :</label>
-                                    <img class="rounded-circle"
-                                    src="{{$review->consultant->image}}"
-                                    width="60"
-                                    height="60">
-
+                    </tbody>
+                </table>
                                                                                       </div>
                             </div>
 
+                            <div class="tab-content">
 
-                            <div class="col-md-6">
-                                <div class="col-group">
+                                <div role="tabpanel" class="tab-pane active" id="information">
+                                   <h5> {{ trans('main_trans.files') }}</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-group">
+                                                @php
 
-                                  <label for="" class="font-weight-bold">{{ trans('main_trans.rate') }}:</label>
-                                  <span>{{ $review->consultant->rate }}</span>
-                                 </div>
-                          </div>
-                </div>
-                <div class="tab-content">
-
-                    <div role="tabpanel" class="tab-pane active" id="information">
-                       <h5> {{ trans('main_trans.files') }}</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-group">
-                                    @php
-
-                                    $files = json_decode($review->building_files, true);
-                                    @endphp
-                                    @foreach ($files as $file)
-                                    <a href="{{$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
-                                    @endforeach
+                                                $files = json_decode($review->building_files, true);
+                                                @endphp
+                                                @foreach ($files as $file)
+                                                <a href="{{$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
+                                                @endforeach
 
 
 
-                                  </div>
-                              </div>
+                                              </div>
+                                          </div>
 
 
 
 
 
-                </div>
             </div>
         </div>
     </div>

@@ -19,7 +19,8 @@ class AdminReviewsController extends Controller
     public function show_details($id)
     {
         $review = review::where('id', $id)->with('client', 'consultant')->first();
-        return view('reviews.details', compact('review'));
+
+      return view('reviews.details', compact('review'));
     }
 
     public function update(Request $request, review $review)

@@ -91,7 +91,7 @@ Route::group(
         ;
 
         Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
-        Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+      
             // ->middleware('Admin')
         ;
 
@@ -219,10 +219,10 @@ Route::group([
             'prefix' => 'customer-service'
             // ,'middleware' => ['auth', 'Admin']
         ], function () {
-            Route::get('/', [AdminCustomerServiceController::class, 'index']);
-            Route::post('/{message}', [AdminCustomerServiceController::class, 'update']);
-            Route::delete('/{message}', [AdminCustomerServiceController::class, 'destroy']);
-            Route::post('/reply/{message}', [AdminCustomerServiceController::class, 'sendEmail']);
+            Route::get('/', [AdminCustomerServiceController::class, 'index'])->name('customer_service.customer_service');
+            Route::post('/{message}', [AdminCustomerServiceController::class, 'update'])->name('customer_service.update');
+            Route::delete('/{message}', [AdminCustomerServiceController::class, 'destroy'])->name('customer_sevices.delete');
+            Route::post('/reply/{message}', [AdminCustomerServiceController::class, 'sendEmail'])->name('customer_sevices.sendemail');
         });
 
 

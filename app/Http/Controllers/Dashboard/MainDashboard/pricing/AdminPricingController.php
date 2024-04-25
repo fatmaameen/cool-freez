@@ -20,7 +20,8 @@ class AdminPricingController extends Controller
     public function show($id)
     {
         $pricing = pricing::where('id', $id)->with('client', 'details')->first();
-        return view('pricing.details',compact('pricing'));
+
+         return view('pricing.details',compact('pricing'));
     }
 
     public function update(Request $request, pricing $pricing)
