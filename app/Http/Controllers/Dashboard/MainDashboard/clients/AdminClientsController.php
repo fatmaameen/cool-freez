@@ -23,7 +23,7 @@ class AdminClientsController extends Controller
 
         return view('clients.client_list', compact('clients'));
     }
-    public function assign(Request $request, Client $client)
+    public function banned(Request $request, Client $client)
     {
         $request->validate([
             'is_banned' => ['required'],
@@ -38,7 +38,7 @@ class AdminClientsController extends Controller
 
             return redirect()->back()->with(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
+            return redirect()->back()->with(['message' => 'Something went wrong' . $e->getMessage()], 500);
         }
     }
     public function update(Request $request, $id)
@@ -49,7 +49,7 @@ class AdminClientsController extends Controller
         Client::find($id)->update([
             'is_banned' => $request->is_banned,
         ]);
-        return redirect()->back()->with(['Message' => "Updated Successfully"]);
+        return redirect()->back()->with(['Message' => "Updated successfully"]);
     }
 
     public function destroy(Client $client)

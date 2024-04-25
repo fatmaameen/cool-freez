@@ -8,6 +8,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
 use App\Http\Controllers\Dashboard\CompanyDashboard\Maintenance\CompanyMaintenanceController;
+use App\Http\Controllers\Dashboard\CompanyDashboard\Technicians\AdminTechnicianController;
 use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
 use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
 use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
@@ -227,7 +228,17 @@ Route::group([
 
 
 
-
+        // reviews routes -------------------------------------------------------------------------
+        Route::group([
+            'prefix' => 'technician'
+            // ,'middleware' => ['auth', 'Admin']
+        ], function () {
+            Route::get('/', [AdminTechnicianController::class, 'index']);
+            Route::post('/', [AdminTechnicianController::class, 'store']);
+            Route::post('/{technician}', [AdminTechnicianController::class, 'update']);
+            Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy']);
+            Route::post('/search', [AdminTechnicianController::class,'search']);
+        });
 
 
 

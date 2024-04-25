@@ -1,24 +1,25 @@
 <?php
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Clients\Auth\clientController;
+use App\Http\Controllers\Api\Clients\types\TypesController;
 use App\Http\Controllers\Api\Clients\brands\BrandsController;
-use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
+use App\Http\Controllers\Api\Clients\floors\floorsController;
+use App\Http\Controllers\Api\Clients\offers\OffersController;
+use App\Http\Controllers\Api\Clients\usings\usingsController;
 use App\Http\Controllers\Api\Clients\Reviews\ReviewController;
+use App\Http\Controllers\Api\Clients\pricing\PricingController;
 use App\Http\Controllers\Api\Clients\Profile\profileController;
 use App\Http\Controllers\Api\Clients\services\ServicesController;
 use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
-use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
-use App\Http\Controllers\Api\Clients\floors\floorsController;
 use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
-use App\Http\Controllers\Api\Clients\offers\OffersController;
-use App\Http\Controllers\Api\Clients\pricing\PricingController;
-use App\Http\Controllers\Api\Clients\types\TypesController;
-use App\Http\Controllers\Api\Clients\usings\usingsController;
+use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
+use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
+use App\Http\Controllers\Api\Technicians\Auth\AuthTechnicianController;
 use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
-use App\Models\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,17 +68,6 @@ Route::post('/clients/maintenance', [maintenanceController::class, 'store'])
 Route::get('/clients/maintenance/{id}', [maintenanceController::class, 'show'])
     ->middleware('auth:sanctum')
 ;
-
-
-// Technician Api --------------------------------------------------------------
-Route::get('/technician/maintenance/{id}', [TechnicianMaintenanceController::class, 'index'])
-    // ->middleware('auth:sanctum')
-;
-
-Route::post('/technician/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
-    // ->middleware('auth:sanctum')
-;
-
 
 // services ---------------------------------------------------------------------
 Route::get('/clients/services', [ServicesController::class, 'index'])
@@ -134,4 +124,22 @@ Route::post('/clients/customer-service', [CustomerServiceController::class, 'sto
     // ->middleware('auth:sanctum')
 ;
 
+// Technicians App -----------------------------------------------------------------
 
+Route::post('/technicians/login', [AuthTechnicianController::class, 'login']);
+
+Route::post('/technicians/check-token', [AuthTechnicianController::class, 'tokenValidation']);
+
+Route::post('/technicians/logout/{technician}', [AuthTechnicianController::class, 'logout'])
+    // ->middleware('auth:sanctum')
+;
+
+// Technician all maintenance --------------------------------------------------------------
+Route::get('/technicians/maintenance/{id}', [TechnicianMaintenanceController::class, 'index'])
+    // ->middleware('auth:sanctum')
+;
+
+// Technician update maintenance --------------------------------------------------------------
+Route::post('/technicians/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
+    // ->middleware('auth:sanctum')
+;

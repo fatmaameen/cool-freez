@@ -19,7 +19,7 @@ class AdminPricingController extends Controller
 
     public function show($id)
     {
-        $pricing = pricing::where('id', $id)->with('client', 'details')->first();
+        $pricing = pricing::where('id', $id)->with(['client', 'details'])->first();
         return view('pricing.details',compact('pricing'));
     }
 
@@ -38,7 +38,7 @@ class AdminPricingController extends Controller
 
             return redirect()->back()->with(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return  redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
+            return  redirect()->back()->with(['error' => 'Update failed: ' . $e->getMessage()], 500);
         }
     }
 

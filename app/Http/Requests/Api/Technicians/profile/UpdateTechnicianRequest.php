@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\CompanyDashboard\Technician;
+namespace App\Http\Requests\Api\Technicians\profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TechnicianRequest extends FormRequest
+class UpdateTechnicianRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,10 @@ class TechnicianRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:250'],
-            'email' => ['required', 'email', 'unique:App\Models\technician,email'],
-            'password' => ['required', 'string', 'max:250'],
-            'phone_number' => ['required','unique:App\Models\technician,phone_number'],
-            'image' => ['required','image', 'mimes:jpg,bmp,png,jpeg'],
+            'email' => ['required', 'email'],
+            'password' => ['nullable','string','min:8', 'max:250'],
+            'phone_number' => ['nullable'],
+            'image' => ['nullable','image', 'mimes:jpg,bmp,png'],
         ];
     }
 }

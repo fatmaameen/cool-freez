@@ -19,9 +19,8 @@ class profileController extends Controller
     {
         $this->appUrl = Config::get('app.url');
     }
-    public function show(string $id)
+    public function show(Client $client)
     {
-        $client = Client::find($id);
         return ClientInfoResource::make($client);
     }
 
