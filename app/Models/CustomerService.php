@@ -14,5 +14,6 @@ class CustomerService extends Model
         'phone_number',
         'email',
         'description',
+        'status'
     ];
 }

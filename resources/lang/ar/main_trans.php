@@ -67,6 +67,19 @@ return [
 'brand'=>'ماركة',
 'air_conditioning_type'=>'نوع_تكييف الهواء',
 'drawing_of_building'=>'رسم المبنى',
+'customer_service'=>'خدمة العملاء',
+'description'=>'وصف',
+
+'reply'=>'رد',
+
+
+
+
+
+
+
+
+
 
 
 ];

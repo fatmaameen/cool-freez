@@ -14,33 +14,35 @@ class AdminCustomerServiceController extends Controller
     public function index()
     {
         $messages = CustomerService::all();
-        return response()->json($messages);
+        return view('customer_service.customer_list',compact('messages'));
     }
 
     public function update(Request $request, CustomerService $message)
     {
+
         $message->update([
             'status' => $request->status
         ]);
-        return response()->json(['message' => 'Successfully updated']);
+        return redirect()->back()->with(['message' => 'Successfully updated']);
     }
 
     public function sendEmail(ReplyCustomerServiceRequest $request, CustomerService $message)
     {
+
         $data = $request->validated();
         if (Mail::to($data['email'])->send(new mailer($data))) {
             $message->update([
                 'status' => 'Replied'
             ]);
-            return response()->json(['message' => 'Sent successfully']);
+            return redirect()->back()->with(['message' => 'Sent successfully']);
         } else {
-            return response()->json(['message' => 'Something went wrong']);
+            return redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 
     public function destroy(CustomerService $message)
     {
         $message->delete();
-        return response()->json(['message' => 'Successfully deleted']);
+        return redirect()->back()->with(['message' => 'Successfully deleted']);
     }
 }
