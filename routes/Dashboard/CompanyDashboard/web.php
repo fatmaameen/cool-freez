@@ -29,7 +29,7 @@ Route::group(
             ],
             function () {
                 // Company dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
-                Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+                Route::get('/', [HomeController::class, 'index'])->name('company-dashboard');
                 // Company dashboard maintenances routes----------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'maintenance'

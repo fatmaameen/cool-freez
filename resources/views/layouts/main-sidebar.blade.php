@@ -11,7 +11,7 @@
                             </span></a>
                     </li>
                     <li>
-                        <a href="/admins"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.admins') }}
+                        <a href="{{ route('users.user_list') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.admins') }}
                             </span></a>
                     </li>
 

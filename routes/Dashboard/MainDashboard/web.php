@@ -44,7 +44,7 @@ Route::group(
         });
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'main-dashboard/admins', ['middleware' => 'auth','SuperAdmin']], function () {
-            Route::get('/', [AdminsController::class, 'index']);
+            Route::get('/', [AdminsController::class, 'index'])->name('users.user_list');
             // Route::get('/{id}', [userController::class, 'show'])->middleware('Admin');
             Route::post('/store', [AdminsController::class, 'store'])->name('users.store');
             Route::post('/update/{id}', [AdminsController::class, 'update'])->name('users.update');
@@ -105,10 +105,10 @@ Route::group(
                 Route::group([
                     'prefix' => 'customer-service'
                 ], function () {
-                    Route::get('/', [AdminCustomerServiceController::class, 'index']);
-                    Route::post('/{message}', [AdminCustomerServiceController::class, 'update']);
-                    Route::delete('/{message}', [AdminCustomerServiceController::class, 'destroy']);
-                    Route::post('/reply/{message}', [AdminCustomerServiceController::class, 'sendEmail']);
+                    Route::get('/',[AdminCustomerServiceController::class, 'index'])->name('customer_service.customer_service');
+                    Route::post('/{message}',[AdminCustomerServiceController::class, 'update'])->name('customer_service.update');
+                    Route::delete('/{message}',[AdminCustomerServiceController::class, 'destroy'])->name('customer_sevices.delete');
+                    Route::post('/reply/{message}',[AdminCustomerServiceController::class, 'sendEmail'])->name('customer_sevices.sendemail');
                 });
                 // Admin offers routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
