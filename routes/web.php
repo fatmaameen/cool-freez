@@ -91,7 +91,7 @@ Route::group(
         ;
 
         Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
-      
+
             // ->middleware('Admin')
         ;
 

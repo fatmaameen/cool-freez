@@ -47,7 +47,7 @@
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                     <h5 style="background-color:  rgb(83, 178, 241); color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.client_data') }}</h5>
+                     <h5 style="background-color: #91c5d0; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 100%;">{{ trans('main_trans.client_data') }}</h5>
 
 
                      <table class="table table-bordered  w-100">
@@ -85,7 +85,7 @@
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active" id="information">
-                        <h5 style="background-color: rgb(83, 178, 241); color: white; text-align: center; padding: 10px; margin: 10px auto; width: 80%;">{{ trans('main_trans.consultant_data') }}</h5>
+                        <h5 style="background-color:#91c5d0; color: white; text-align: center; padding: 10px; margin: 10px auto; width: 100%;">{{ trans('main_trans.consultant_data') }}</h5>
                         <table class="table table-bordered  w-100">
                             <thead class="bg-light">
                                 <tr>
