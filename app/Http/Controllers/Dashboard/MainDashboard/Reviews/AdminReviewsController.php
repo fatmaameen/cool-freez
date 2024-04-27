@@ -13,14 +13,14 @@ class AdminReviewsController extends Controller
     public function index()
     {
         $reviews = review::with('client', 'consultant')->get();
-        return view('reviews/reviews_list', compact('reviews'));
+        return view('MainDashboard.reviews/reviews_list', compact('reviews'));
     }
 
     public function show_details($id)
     {
         $review = review::where('id', $id)->with('client', 'consultant')->first();
 
-      return view('reviews.details', compact('review'));
+      return view('MainDashboard.reviews.details', compact('review'));
     }
 
     public function update(Request $request, review $review)

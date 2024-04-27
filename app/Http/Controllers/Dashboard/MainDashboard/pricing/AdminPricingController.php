@@ -14,14 +14,13 @@ class AdminPricingController extends Controller
     public function index()
     {
         $pricing = pricing::latest()->get();
-        return view('pricing.pricing_list' ,compact('pricing'));
+        return view('MainDashboard.pricing.pricing_list' ,compact('pricing'));
     }
 
     public function show($id)
     {
-        $pricing = pricing::where('id', $id)->with('client', 'details')->first();
-
-         return view('pricing.details',compact('pricing'));
+        $pricing = pricing::where('id', $id)->with(['client', 'details'])->first();
+        return view('MainDashboard.pricing.details',compact('pricing'));
     }
 
     public function update(Request $request, pricing $pricing)
@@ -39,7 +38,7 @@ class AdminPricingController extends Controller
 
             return redirect()->back()->with(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return  redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
+            return  redirect()->back()->with(['error' => 'Update failed: ' . $e->getMessage()], 500);
         }
     }
 
@@ -50,10 +49,10 @@ class AdminPricingController extends Controller
             if ($this->remove($item['drawing_of_building'])) {
                 $item->delete();
             } else {
-                return response()->json(['message' => 'Failed to delete file']);
+                return redirect()->back()->with(['message' => 'Failed to delete file']);
             }
         }
         $pricing->delete();
-        return response()->json(['message' => 'Successfully deleted']);
+        return redirect()->back()->with(['message' => 'Successfully deleted']);
     }
 }

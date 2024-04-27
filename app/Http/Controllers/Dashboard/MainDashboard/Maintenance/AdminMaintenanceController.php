@@ -11,7 +11,7 @@ class AdminMaintenanceController extends Controller
     public function index()
     {
         $maintenances = Maintenance::all();
-        return view('maintenance.maintenance_list' ,compact('maintenances'));
+        return view('MainDashboard.maintenance.maintenance_list' ,compact('maintenances'));
     }
 
     public function assign(Request $request, Maintenance $maintenance)
@@ -27,9 +27,9 @@ class AdminMaintenanceController extends Controller
 
             // Notification here
 
-            return response()->json(['message' => 'Updated successfully']);
+            return redirect()->back()->with(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Update failed: ' . $e->getMessage()], 500);
+            return redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()], 500);
         }
     }
 

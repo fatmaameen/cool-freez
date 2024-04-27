@@ -12,7 +12,7 @@ class AdminUsingsController extends Controller
     public function index()
     {
         $usings = using::all();
-        return view('usings.usings_list' , compact('usings'));
+        return view('MainDashboard.usings.usings_list' , compact('usings'));
     }
 
     public function store(usingRequest $request)

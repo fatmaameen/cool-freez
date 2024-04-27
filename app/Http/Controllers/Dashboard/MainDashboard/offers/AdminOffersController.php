@@ -15,7 +15,7 @@ class AdminOffersController extends Controller
     public function index()
     {
         $offers = offer::all();
-        return view('offers.offer_list' ,compact('offers'));
+        return view('MainDashboard.offers.offer_list' ,compact('offers'));
     }
 
     public function store(OffersRequest $request)

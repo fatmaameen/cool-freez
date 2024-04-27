@@ -28,8 +28,9 @@ class AdminsController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return view('users.user_list', compact('users', 'roles'));
-        //return response()->json($users);
+        return view('MainDashboard.users.user_list' ,compact('users', 'roles'));
+      
+
     }
     /**
      * Show Admin Info.
