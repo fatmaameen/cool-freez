@@ -43,7 +43,7 @@ Route::group(
             return redirect()->route('login');
         });
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
-        Route::group(['prefix' => 'main-dashboard/admins', ['middleware' => 'auth','SuperAdmin']], function () {
+        Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
             Route::get('/', [AdminsController::class, 'index'])->name('users.user_list');
             // Route::get('/{id}', [userController::class, 'show'])->middleware('Admin');
             Route::post('/store', [AdminsController::class, 'store'])->name('users.store');
@@ -54,7 +54,7 @@ Route::group(
 
         Route::group(
             [
-                'prefix' => 'main-dashboard', 'middleware' => ['auth', 'Admin']
+                'prefix' => 'main-dashboard', 'middleware' => ['auth','Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,10 +105,10 @@ Route::group(
                 Route::group([
                     'prefix' => 'customer-service'
                 ], function () {
-                    Route::get('/',[AdminCustomerServiceController::class, 'index'])->name('customer_service.customer_service');
-                    Route::post('/{message}',[AdminCustomerServiceController::class, 'update'])->name('customer_service.update');
-                    Route::delete('/{message}',[AdminCustomerServiceController::class, 'destroy'])->name('customer_sevices.delete');
-                    Route::post('/reply/{message}',[AdminCustomerServiceController::class, 'sendEmail'])->name('customer_sevices.sendemail');
+                    Route::get('/', [AdminCustomerServiceController::class, 'index'])->name('customer_service.customer_service');
+                    Route::post('/{message}', [AdminCustomerServiceController::class, 'update'])->name('customer_service.update');
+                    Route::delete('/{message}', [AdminCustomerServiceController::class, 'destroy'])->name('customer_sevices.delete');
+                    Route::post('/reply/{message}', [AdminCustomerServiceController::class, 'sendEmail'])->name('customer_sevices.sendemail');
                 });
                 // Admin offers routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([

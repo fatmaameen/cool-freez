@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class IsAdmin
 {
     /**
@@ -15,9 +16,9 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role_id !== 2 || auth()->user()->role_id !== 1) {
-            return redirect()->back();
+        if (auth()->check() && (auth()->user()->role_id === 1 || auth()->user()->role_id === 2)) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->back();
     }
 }
