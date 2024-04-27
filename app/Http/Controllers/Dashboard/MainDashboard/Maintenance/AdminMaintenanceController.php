@@ -11,7 +11,7 @@ class AdminMaintenanceController extends Controller
     public function index()
     {
         $maintenances = Maintenance::all();
-        return view('maintenance.maintenance_list' ,compact('maintenances'));
+        return view('MainDashboard.maintenance.maintenance_list' ,compact('maintenances'));
     }
 
     public function assign(Request $request, Maintenance $maintenance)

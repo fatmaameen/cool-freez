@@ -12,7 +12,7 @@ class AdminBrandsController extends Controller
     public function index()
     {
         $brands = brand::all();
-        return view('brands/brand_list' ,compact('brands'));
+        return view('MainDashboard.brands/brand_list' ,compact('brands'));
     }
 
     public function store(BrandsRequest $request)

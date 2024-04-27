@@ -30,7 +30,7 @@ Route::group(
             function () {
                 // Company dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::get('/', function () {
-                    return "company-dashboard";
+                    return view('CompanyDashboard.dashboard');
                 })->name('company-dashboard');
                 // Company dashboard maintenances routes----------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
@@ -44,11 +44,11 @@ Route::group(
                 Route::group([
                     'prefix' => 'technician'
                 ], function () {
-                    Route::get('/', [AdminTechnicianController::class, 'index']);
-                    Route::post('/', [AdminTechnicianController::class, 'store']);
-                    Route::post('/{technician}', [AdminTechnicianController::class, 'update']);
-                    Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy']);
-                    Route::post('/search', [AdminTechnicianController::class, 'search']);
+                    Route::get('/', [AdminTechnicianController::class, 'index'])->name('technician');
+                    Route::post('/', [AdminTechnicianController::class, 'store'])->name('technician.store');
+                    Route::post('/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
+                    Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');
+                    Route::post('/search', [AdminTechnicianController::class, 'search'])->name('technician.search');
                 });
             }
         );

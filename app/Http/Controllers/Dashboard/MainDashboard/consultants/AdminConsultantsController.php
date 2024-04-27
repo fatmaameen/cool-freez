@@ -16,7 +16,8 @@ class AdminConsultantsController extends Controller
     public function index()
     {
         $consultants = consultant::all();
-        return view( 'consultants/consultant_list',compact('consultants'));
+       
+        return view('MainDashboard.consultants.consultant_list' ,compact('consultants'));
     }
 
     public function store(ConsultantsRequest $request)

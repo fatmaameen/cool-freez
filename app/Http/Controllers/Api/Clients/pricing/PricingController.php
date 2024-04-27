@@ -24,15 +24,15 @@ class PricingController extends Controller
         $pricing_info['service_id'] = $service;
         $pricing = pricing::create($pricing_info);
         foreach ($data as $item) {
-            $pdf = $item->file('drawing_of_building');
-            $pdf_name = $this->upload($pdf, "pricing_files");
+            // $pdf = $item->file('drawing_of_building');
+            // $pdf_name = $this->upload($pdf, "pricing_files");
             $new_pricing = new pricingDetail;
             $new_pricing->pricing_id = $pricing->id;
             $new_pricing->building_type = $item['building_type'];
             $new_pricing->floor = $item['floor'];
             $new_pricing->brand = $item['brand'];
             $new_pricing->air_conditioning_type = $item['air_conditioning_type'];
-            $new_pricing->drawing_of_building = $pdf_name;
+            $new_pricing->drawing_of_building = '$pdf_name';
             $new_pricing->save();
         }
 

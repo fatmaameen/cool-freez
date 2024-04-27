@@ -15,14 +15,14 @@ class CompanyMaintenanceController extends Controller
         ->where('technical_status', '!=','completed')
         ->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
-        return view('company_maintenance/incompleted' ,compact('maintenanceResources'));
+        return view('CompanyDashboard.company_maintenance/incompleted' ,compact('maintenanceResources'));
     }
 
     public function completed()
     {
         $maintenances = Maintenance::where('technical_status', 'completed')->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
-        return view('company_maintenance/completed', compact('maintenanceResources'));
+        return view('CompanyDashboard.company_maintenance/completed', compact('maintenanceResources'));
     }
 
     public function update(Request $request,Maintenance $maintenance)

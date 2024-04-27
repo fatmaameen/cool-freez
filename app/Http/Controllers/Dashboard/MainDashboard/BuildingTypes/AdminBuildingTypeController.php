@@ -12,7 +12,7 @@ class AdminBuildingTypeController extends Controller
     public function index()
     {
         $BuildingTypes = BuildingType::all();
-        return view('BuildingTypes.BuildingTypes_list' ,compact('BuildingTypes'));
+        return view('MainDashboard.BuildingTypes.BuildingTypes_list' ,compact('BuildingTypes'));
     }
 
     public function store(BuildingTypeRequest $request)

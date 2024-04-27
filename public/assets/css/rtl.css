@@ -21271,7 +21271,7 @@ ul.list-unstyled li {
   .side-menu-fixed .side-menu-bg {
     height: 100%;
     width: 100%;
-    background: #282a39; }
+    background: #91c5d0; }
   .side-menu-fixed .side-menu {
     border: none;
     height: auto;
@@ -21279,7 +21279,7 @@ ul.list-unstyled li {
     position: relative;
     border-radius: 0;
     margin: 0;
-    background-color: #282a39;
+    background-color: #91c5d0;
     backface-visibility: hidden;
     padding-top: 20px; }
     .side-menu-fixed .side-menu li {
@@ -21314,9 +21314,9 @@ ul.list-unstyled li {
       -o-transition: all 0.3s ease;
       transition: all 0.3s ease;
       display: block;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(6 6 6 / 70%);
       padding: 12px 20px 12px 15px;
-      font-size: 13px; }
+      font-size: 16px; }
       .side-menu-fixed .side-menu li a .pull-left {
         float: right; }
         .side-menu-fixed .side-menu li a .pull-left i {

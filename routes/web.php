@@ -93,6 +93,10 @@ require __DIR__.'/Dashboard/CompanyDashboard/web.php';
 //             // ->middleware('Admin')
 //         ;
 
+        Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+
+            // ->middleware('Admin')
+        ;
 //         Route::delete('/maintenance/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
 
 //             // ->middleware('Admin')

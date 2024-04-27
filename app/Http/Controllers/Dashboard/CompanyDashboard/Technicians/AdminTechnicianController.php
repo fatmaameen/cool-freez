@@ -15,7 +15,7 @@ class AdminTechnicianController extends Controller
     public function index()
     {
         $technicians = technician::latest()->get();
-        return response()->json($technicians);
+        return view('CompanyDashboard.technician.technician_list' ,compact('technicians'));
     }
 
     public function store(TechnicianRequest $request)
@@ -26,9 +26,9 @@ class AdminTechnicianController extends Controller
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
             technician::create($data);
-            return response()->json(['message' => 'Created Successfully']);
+            return redirect()->back()->with(['message' => 'Created Successfully']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Something went wrong' . $e->getMessage()]);
+            return redirect()->back()->with(['error' => 'Something went wrong' . $e->getMessage()]);
         }
     }
 
@@ -42,10 +42,10 @@ class AdminTechnicianController extends Controller
                 $technician->update([
                     'is_banned' => $request->is_banned
                 ]);
-                return response()->json(['message' => 'Successfully updated']);
+                return redirect()->back()->with(['message' => 'Successfully updated']);
             };
         } catch (\Exception $e) {
-            return response()->json(['error' => 'something went wrong' . $e->getMessage()]);
+            return redirect()->back()->with(['error' => 'something went wrong' . $e->getMessage()]);
         }
     }
 
@@ -54,9 +54,9 @@ class AdminTechnicianController extends Controller
         $old_image = $technician->image;
         if ($this->remove($old_image)) {
             $technician->delete();
-            return  response()->json(['message' => 'Successfully deleted']);
+            return redirect()->back()->with(['message' => 'Successfully deleted']);
         } else {
-            return  response()->json(['message' => 'Something went wrong']);
+            return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
 

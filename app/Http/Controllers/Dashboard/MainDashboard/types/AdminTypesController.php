@@ -12,7 +12,7 @@ class AdminTypesController extends Controller
     public function index()
     {
         $types = type::all();
-        return view('types/types_list' ,compact('types'));
+        return view('MainDashboard.types/types_list' ,compact('types'));
     }
 
     public function store(TypesRequest $request)

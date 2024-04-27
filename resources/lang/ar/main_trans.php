@@ -10,17 +10,17 @@ return [
 
 'email'=>'بريد الكتروني',
 'actions'=>'العمليات',
-'add grade'=>'اضافة مرحلة دراسية جديدة',
+'send '=>'ارسال',
 'active'=>'نشط',
 'inactive'=>' غير نشط',
 'status'=>'حالة',
 'role'=>'دور',
 'Assign_Role'=>'تحديد الدور',
 'open_menu'=>'اختر دور',
-'edit'=>'تعديل ',
+'edit'=>'  تعديل هذا العنصر',
 'delete'=>'حذف ',
 'create'=>'اضافة جديد',
-'save'=>'اضافة',
+'save'=>'حفظ',
 'close'=>'اغلاق',
 'password'=>'كلمة المرور',
 'phone'=>'رقم الموبايل',
@@ -38,6 +38,8 @@ return [
 'companyMaintenance'=>'صيانة الشركة',
 'admin_status'=>'حالة الادمن',
 'company_status'=>'حالة الشركة',
+'technical'=>'الفني',
+'assigned'=>'تعيين',
 'technical_status'=>'حالة الفني',
 'complete_maintenance'=>'طلبات الصيانة المكتملة',
 'Incomplete_maintenance'=>'طلبات الصيانة الغير مكتملة',
@@ -72,8 +74,11 @@ return [
 
 'reply'=>'رد',
 
-
-
+'title'=>'عنوان',
+'subject'=>'موضوع',
+'massage'=>'رسالة',
+'send_reply'=>'ارسال رد',
+'technician'=>'',
 
 
 

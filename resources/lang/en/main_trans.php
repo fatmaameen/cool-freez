@@ -16,8 +16,8 @@ return [
 'role'=>'role',
 'Assign_Role'=>'Assign_Role',
 'open_menu'=>'Select role',
-'edit'=>'edit',
-'delete'=>'delete',
+'edit'=>'Edit this element...',
+'delete'=>'Delete',
 'create'=>'Add New',
 'save'=>'Save',
 'close'=>'Close',
@@ -34,6 +34,7 @@ return [
 'device_type'=>'Device Type',
 'type_of_malfunction'=>'Type of Malfunction',
 'technical'=>'Technical',
+'assigned'=>'Assigned',
 'street_address'=>'Street Address',
 'admin_status'=>'Admin Status',
 'company_status'=>'Company Status',
@@ -73,6 +74,10 @@ return [
 'reply'=>'Reply',
 
 
-
-
+'title'=>'Title',
+'subject'=>'Subject',
+'massage'=>'Massage',
+'send'=>'Send',
+'send_reply'=>'Send Reply',
+'technician'=>'Technician',
 ];

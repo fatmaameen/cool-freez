@@ -12,7 +12,7 @@ class AdminFloorsController extends Controller
     public function index()
     {
         $floors = floor::all();
-        return view('floors.floors_list',compact('floors'));
+        return view('MainDashboard.floors.floors_list',compact('floors'));
     }
 
     public function store(floorRequest $request)

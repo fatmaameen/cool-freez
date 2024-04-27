@@ -21,7 +21,7 @@ class AdminClientsController extends Controller
     {
         $clients = Client::all();
 
-        return view('clients.client_list', compact('clients'));
+        return view('MainDashboard.clients.client_list', compact('clients'));
     }
     public function banned(Request $request, Client $client)
     {

@@ -14,7 +14,7 @@ class AdminCustomerServiceController extends Controller
     public function index()
     {
         $messages = CustomerService::all();
-        return view('customer_service.customer_list',compact('messages'));
+        return view('MainDashboard.customer_service.customer_list',compact('messages'));
     }
 
     public function update(Request $request, CustomerService $message)
