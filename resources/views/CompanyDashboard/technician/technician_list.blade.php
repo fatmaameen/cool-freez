@@ -90,7 +90,7 @@
                     <thead class="bg-light">
                         <tr>
                             <th>#</th>
-                            <th scope="col">{{ trans('main_trans.image') }}</th>
+                            <th scope="col">{{ trans('main_trans.avatar') }}</th>
                             <th scope="col">{{ trans('main_trans.user_name') }}</th>
                             <th scope="col">{{ trans('main_trans.email') }}</th>
                             <th scope="col">{{ trans('main_trans.phone') }}</th>
@@ -105,7 +105,10 @@
                         @foreach ($technicians as $technician)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $technician->image }}</td>
+                                <td>
+                                <div class="ul-widget-app__profile-pic">
+                                    <img class="rounded-circle" src="{{ $technician->image }}" width="60" height="60">
+                                </div></td>
                                 <td>{{ $technician->name }}</td>
                                 <td>{{ $technician->email }}</td>
                                 <td>{{ $technician->phone_number }}</td>

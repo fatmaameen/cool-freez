@@ -79,6 +79,14 @@ return [
 'massage'=>'رسالة',
 'send_reply'=>'ارسال رد',
 'technician'=>'',
+'total_clients'=>'إجمالي العملاء',
+
+'total_maintenance'=>'اجمالي الصيانة ',
+'total_offer'=>'إجمالي العروض',
+'Just Updated'=>'اخر المراجعات',
+'enter_password'=>'ادخل كلمة المرور',
+
+
 
 
 

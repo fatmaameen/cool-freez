@@ -10,7 +10,7 @@
                         <a href="{{ route('dashboard') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.Dashboard')}}
                             </span></a>
                     </li>
-                    
+
                     @if (Auth::user()->role_id ==1)
                     <li>
                         <a href="{{ route('users.user_list') }}"><i class="ti-comments"></i><span class="right-nav-text">{{ trans('main_trans.admins') }}
@@ -60,18 +60,18 @@
                         <a href="{{ route('reviews.reviews') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}
                         </span></a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('floors.floors') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.floors') }}
                         </span></a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('buildingTypes.buildingTypes') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.buildingTypes') }}
                         </span></a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('usings.usings') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.usings') }}
                         </span></a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('pricing.pricing') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.pricing') }}
                         </span></a>

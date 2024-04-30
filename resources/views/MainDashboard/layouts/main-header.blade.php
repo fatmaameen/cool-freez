@@ -71,7 +71,7 @@
                                 days</small> </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown ">
+                {{-- <li class="nav-item dropdown ">
                     <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                         aria-expanded="true"> <i class=" ti-view-grid"></i> </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-big">
@@ -96,7 +96,7 @@
                             </a>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown mr-30">
                     <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button"
                       aria-haspopup="true" aria-expanded="false">

@@ -72,12 +72,38 @@ return [
 'customer_service'=>'Customer Service',
 'description'=>'Description',
 'reply'=>'Reply',
-
-
+'total_clients'=>'Total Clients',
+'total_maintenance'=>'Total Maintenance',
 'title'=>'Title',
 'subject'=>'Subject',
 'massage'=>'Massage',
 'send'=>'Send',
 'send_reply'=>'Send Reply',
 'technician'=>'Technician',
+'total_offer'=>'Total Offer',
+'Just Updated'=>'Just Updated',
+'enter_password'=>'Enter Password',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ];

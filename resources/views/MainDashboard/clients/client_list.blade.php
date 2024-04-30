@@ -2,9 +2,8 @@
 
 @section('css')
 
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<style>/* Customize the table's border color and row colors */
+<style>
 .table-bordered {
     border-color: #ADD8E6; /* Light blue */
 }

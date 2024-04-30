@@ -36,7 +36,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4 class="mb-0"> Dashboard</h4>
+                        <h4 class="mb-0"> {{ trans('main_trans.Dashboard') }}</h4>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
@@ -56,13 +56,21 @@
                                     </span>
                                 </div>
                                 <div class="float-right text-right">
-                                    <p class="card-text text-dark">Visitors</p>
-                                    <h4>65,650</h4>
+                                   <h5> <p class="card-text text-dark">{{ trans('main_trans.clients') }}</p></h5>
+                                    @php
+                                    use App\Models\Client; // Correct the namespace
+
+                                    $clientcount = Client::count(); // Get all clients
+                                @endphp
+
+
+                                    <h4>{{ $clientcount }}</h4> <!-- Display each client's ID -->
+
                                 </div>
                             </div>
                             <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                <i class="fa fa-exclamation-circle mr-1" aria-hidden="true"></i> 81% lower
-                                growth
+                            <h5>{{ trans('main_trans.total_clients') }}</h5>
+
                             </p>
                         </div>
                     </div>
@@ -77,12 +85,19 @@
                                     </span>
                                 </div>
                                 <div class="float-right text-right">
-                                    <p class="card-text text-dark">Orders</p>
-                                    <h4>656</h4>
+                                    <h5> <p class="card-text text-dark">{{ trans('main_trans.maintenance') }}</p> </h5>
+                                    @php
+                                    use App\Models\Maintenance; // Correct the namespace
+
+                                    $maintenancecount= Maintenance::count(); // Get all clients
+                                @endphp
+
+                                    <h4>{{$maintenancecount }}</h4> <!-- Display each client's ID -->
+
                                 </div>
                             </div>
                             <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                <i class="fa fa-bookmark-o mr-1" aria-hidden="true"></i> Total sales
+                                <h5><i class="fa fa-bookmark-o mr-1" aria-hidden="true"></i> {{ trans('main_trans.total_maintenance') }}</h5>
                             </p>
                         </div>
                     </div>
@@ -97,12 +112,19 @@
                                     </span>
                                 </div>
                                 <div class="float-right text-right">
-                                    <p class="card-text text-dark">Revenue</p>
-                                    <h4>$65656</h4>
+                                    <h5> <p class="card-text text-dark">{{ trans('main_trans.offers') }}</p></h5>
+                                    @php
+                                    use App\Models\offer; // Correct the namespace
+                                    $offerCount = offer::count();
+                                @endphp
+
+
+                                    <h4>{{$offerCount }}</h4> <!-- Display each client's ID -->
+
                                 </div>
                             </div>
                             <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                <i class="fa fa-calendar mr-1" aria-hidden="true"></i> Sales Per Week
+                               <h5> <i class="fa fa-calendar mr-1" aria-hidden="true"></i> {{ trans('main_trans.total_offer') }}</h5>
                             </p>
                         </div>
                     </div>
@@ -117,12 +139,19 @@
                                     </span>
                                 </div>
                                 <div class="float-right text-right">
-                                    <p class="card-text text-dark">Followers</p>
-                                    <h4>62,500+</h4>
+                                    <h5><p class="card-text text-dark">{{ trans('main_trans.reviews') }}</p></h5>
+                                    @php
+                                    use App\Models\review; // Correct the namespace
+                                    $reviewscount = review::count();
+                                @endphp
+
+
+                                    <h4>{{$reviewscount }}</h4> <!-- Display each client's ID -->
+
                                 </div>
                             </div>
                             <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                <i class="fa fa-repeat mr-1" aria-hidden="true"></i> Just Updated
+                                <h5> <i class="fa fa-repeat mr-1" aria-hidden="true"></i> {{ trans('main_trans.Just Updated') }}</h5>
                             </p>
                         </div>
                     </div>
@@ -578,24 +607,36 @@
                     <div class="col-lg-3">
                         <div class="row">
                             <div class="col-12 sm-mb-30">
-                                <a href="#" data-toggle="modal" data-target="#add-category"
+                                {{-- <a href="#" data-toggle="modal" data-target="#add-category"
                                     class="btn btn-primary btn-block m-t-20">
                                     <i class="fa fa-plus pr-2"></i> Create New
-                                </a>
+                                </a> --}}
                                 <div id="external-events" class="m-t-20">
                                     <br>
-                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>
+                                    {{-- <p class="text-muted">Drag and drop your event or click in the calendar</p> --}}
                                     <div class="external-event bg-success fc-event">
-                                        <i class="fa fa-circle mr-2 vertical-middle"></i>New Theme Release
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i> {{ trans('main_trans.admins') }}
                                     </div>
                                     <div class="external-event bg-info fc-event">
-                                        <i class="fa fa-circle mr-2 vertical-middle"></i>My Event
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.clients') }}
                                     </div>
                                     <div class="external-event bg-warning fc-event">
-                                        <i class="fa fa-circle mr-2 vertical-middle"></i>Meet manager
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.maintenance') }}
                                     </div>
                                     <div class="external-event bg-danger fc-event">
-                                        <i class="fa fa-circle mr-2 vertical-middle"></i>Create New theme
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.brands') }}
+                                    </div>
+                                    <div class="external-event bg-success fc-event">
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.types') }}
+                                    </div>
+                                    <div class="external-event bg-info fc-event">
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.offers') }}
+                                    </div>
+                                    <div class="external-event bg-warning fc-event">
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.consultant') }}
+                                    </div>
+                                    <div class="external-event bg-danger fc-event">
+                                        <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.pricing') }}
                                     </div>
                                 </div>
                             </div>

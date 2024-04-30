@@ -58,7 +58,9 @@ Route::group(
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
-                Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+                Route::get('/', function (){
+                    return view('MainDashboard.dashboard');
+                })->name('dashboard');
                 // Admin clients routes ------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group(['prefix' => 'clients'], function () {
                     Route::get('/', [AdminClientsController::class, 'index'])->name('clients');
