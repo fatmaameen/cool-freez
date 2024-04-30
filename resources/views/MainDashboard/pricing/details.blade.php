@@ -195,7 +195,7 @@
                                     $file =  $detail['drawing_of_building'];
                                     @endphp
 <td>
-                <a href="{{ url('pricing_files/' . $file) }}" class="circular-link" target="_blank">
+                <a href="{{$file}}" class="circular-link" target="_blank">
                    <i class="fa-solid fa-file"></i></a>
 </td>
             </tr>

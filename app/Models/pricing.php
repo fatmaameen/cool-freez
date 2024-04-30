@@ -23,4 +23,9 @@ class pricing extends Model
     public function details(){
         return $this->hasMany(pricingDetail::class);
     }
+
+    public function service()
+    {
+        return $this->belongsTo(service::class);
+    }
 }

@@ -5,27 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class review extends Model
+class loadCalculation extends Model
 {
     use HasFactory;
-    protected $fillable=[
+
+    protected $fillable = [
         'code',
         'client_id',
-        'consultant_id',
-        'building_files',
+        'service_id',
+        'model_id',
         'admin_status',
     ];
 
-    public function client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
-    }
-
-    public function consultant(){
-        return $this->belongsTo(consultant::class);
     }
 
     public function service()
     {
         return $this->belongsTo(service::class);
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(DataSheet::class);
     }
 }

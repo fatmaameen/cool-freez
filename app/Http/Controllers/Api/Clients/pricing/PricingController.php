@@ -13,29 +13,41 @@ use Illuminate\Http\Request;
 class PricingController extends Controller
 {
     use ImageUploadTrait;
-    public function store(pricingRequest $request,$client,$service)
+    public function store(pricingRequest $request, $client, $service)
     {
-        $data = $request->validated();
-        do {
-            $code = CodeGeneration::generateCode();
-        } while (pricing::where('code', $code)->exists());
-        $pricing_info['code'] = $code;
-        $pricing_info['client_id'] = $client;
-        $pricing_info['service_id'] = $service;
-        $pricing = pricing::create($pricing_info);
-        foreach ($data as $item) {
-            // $pdf = $item->file('drawing_of_building');
-            // $pdf_name = $this->upload($pdf, "pricing_files");
-            $new_pricing = new pricingDetail;
-            $new_pricing->pricing_id = $pricing->id;
-            $new_pricing->building_type = $item['building_type'];
-            $new_pricing->floor = $item['floor'];
-            $new_pricing->brand = $item['brand'];
-            $new_pricing->air_conditioning_type = $item['air_conditioning_type'];
-            $new_pricing->drawing_of_building = '$pdf_name';
-            $new_pricing->save();
-        }
+        try {
+            $data = $request->validated();
+            $length = count($data['building_type']);
+            foreach ($data as $item) {
+                if (count($item) !== $length) {
+                    return response()->json(['message' => 'Not completed data']);
+                }
+            }
 
-        return response()->json(['message' => 'Prices added successfully!'], 201);
+            do {
+                $code = CodeGeneration::generateCode();
+            } while (pricing::where('code', $code)->exists());
+
+            $pricing_info['code'] = $code;
+            $pricing_info['client_id'] = $client;
+            $pricing_info['service_id'] = $service;
+            $pricing = pricing::create($pricing_info);
+
+            for ($i = 0; $i < $length; $i++) {
+                $pdf = $data['drawing_of_building'][$i];
+                $pdf_name = $this->upload($pdf, "pricing_files");
+                $new_pricing = new pricingDetail();
+                $new_pricing->pricing_id = $pricing->id;
+                $new_pricing->building_type = $data['building_type'][$i];
+                $new_pricing->floor = $data['floor'][$i];
+                $new_pricing->brand = $data['brand'][$i];
+                $new_pricing->air_conditioning_type = $data['air_conditioning_type'][$i];
+                $new_pricing->drawing_of_building = $pdf_name;
+                $new_pricing->save();
+            }
+            return response()->json(['message' => 'Created successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'something went wrong' . $e->getMessage()]);
+        }
     }
 }

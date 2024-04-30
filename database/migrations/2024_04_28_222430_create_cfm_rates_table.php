@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('floors', function (Blueprint $table) {
+        Schema::create('cfm_rates', function (Blueprint $table) {
             $table->id();
-            $table->string('floor_number');
+            $table->decimal('poor_from', 5, 2);
+            $table->decimal('poor_to', 5, 2);
+            $table->decimal('good_from', 5, 2);
+            $table->decimal('good_to', 5, 2);
+            $table->decimal('excellent_from', 5, 2);
+            $table->decimal('excellent_to', 5, 2);
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('floors');
+        Schema::dropIfExists('cfm_rates');
     }
 };

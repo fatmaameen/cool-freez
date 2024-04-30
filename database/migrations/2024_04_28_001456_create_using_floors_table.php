@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usings', function (Blueprint $table) {
+        Schema::create('using_floors', function (Blueprint $table) {
             $table->id();
-            $table->string('using_name');
+            $table->json('floor');
+            $table->json('using');
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usings');
+        Schema::dropIfExists('using_floors');
     }
 };

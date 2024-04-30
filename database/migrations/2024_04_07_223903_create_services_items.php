@@ -19,7 +19,7 @@ return new class extends Migration
         ]);
 
         DB::table('services')->insert([
-            'id' => '11',
+            'id' => '2',
             'service_name' => 'Pricing',
             'cover' => 'Pricing.png',
             'created_at' => now(),
@@ -27,15 +27,15 @@ return new class extends Migration
         ]);
 
         DB::table('services')->insert([
-            'id' => '111',
+            'id' => '3',
             'service_name' => 'Review',
             'cover' => 'Review.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('services')->insert([
-            'id' => '1111',
+            'id' => '4',
             'service_name' => 'Load calculation',
             'cover' => 'Load.png',
             'created_at' => now(),

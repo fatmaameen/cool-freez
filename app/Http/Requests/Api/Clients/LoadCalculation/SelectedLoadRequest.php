@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\MainDashboard\floors;
+namespace App\Http\Requests\Api\Clients\LoadCalculation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class floorRequest extends FormRequest
+class SelectedLoadRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    // public function authorize(): bool
-    // {
-    //     return false;
-    // }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +22,9 @@ class floorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'floor_number' => ['required', 'string','max:50'],
+            'client_id' => ['required','numeric',],
+            'service_id' => ['required','numeric'],
+            'model_id' => ['required','numeric'],
         ];
     }
 }

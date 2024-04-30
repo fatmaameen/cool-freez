@@ -47,4 +47,9 @@ class Client extends Authenticatable
     {
         return $this->hasMany(pricing::class);
     }
+
+    public function loadCalculation()
+    {
+        return $this->hasMany(loadCalculation::class);
+    }
 }
