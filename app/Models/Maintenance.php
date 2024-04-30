@@ -35,4 +35,9 @@ class Maintenance extends Model
     {
         return $this->belongsTo(technician::class);
     }
+
+    public function service()
+    {
+        return $this->belongsTo(service::class);
+    }
 }

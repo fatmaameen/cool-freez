@@ -32,47 +32,5 @@ return new class extends Migration
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-
-
-        DB::table('floors')->insert([
-            'id' => '1',
-            'floor_number' => 'basement',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('floors')->insert([
-            'id' => '2',
-            'floor_number' => '1',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('floors')->insert([
-            'id' => '3',
-            'floor_number' => '2',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('floors')->insert([
-            'id' => '4',
-            'floor_number' => '3',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-
-        
-        DB::table('usings')->insert([
-            'id' => '1',
-            'using_name' => 'diwaniyah',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('usings')->insert([
-            'id' => '2',
-            'using_name' => 'state',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
     }
 };

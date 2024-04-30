@@ -46,7 +46,7 @@ Route::group(['prefix' => 'clients'], function () {
 Route::group(
     [
         'prefix' => 'clients',
-        'middleware' => 'auth:sanctum'
+        'middleware' => 'auth:sanctum',
     ],
     function () {
         Route::post('/logout/{id}', [clientController::class, 'logout']);

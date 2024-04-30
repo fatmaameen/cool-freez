@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Clients\Reviews\ReviewRequest;
 use App\Helpers\CodeGeneration;
 use App\Models\review;
-use Illuminate\Support\Facades\Log;
 use App\Traits\PDFUploadTrait;
-use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
@@ -28,7 +26,7 @@ class ReviewController extends Controller
             review::create($data);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error adding review' . $e->getMessage()], 500);
+            return response()->json(['message' => 'something went wrong' . $e->getMessage()], 500);
         }
     }
 }

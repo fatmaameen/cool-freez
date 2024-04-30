@@ -10,13 +10,15 @@ use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
 use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
 use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
 use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
-use App\Http\Controllers\Dashboard\MainDashboard\floors\AdminFloorsController;
 use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
 use App\Http\Controllers\Dashboard\MainDashboard\Reviews\AdminReviewsController;
 use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
-use App\Http\Controllers\Dashboard\MainDashboard\usings\AdminUsingsController;
 use App\Http\Controllers\Dashboard\Auth\HomeController;
+use App\Http\Controllers\Dashboard\MainDashboard\cfmRates\AdminCfmRatesController;
+use App\Http\Controllers\Dashboard\MainDashboard\DataSheet\AdminDataSheetController;
+use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
+use App\Http\Controllers\Dashboard\MainDashboard\UsingFloors\AdminUsingFloorDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +56,7 @@ Route::group(
 
         Route::group(
             [
-                'prefix' => 'main-dashboard', 'middleware' => ['auth','Admin']
+                'prefix' => 'main-dashboard', 'middleware' => ['auth', 'Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -139,24 +141,6 @@ Route::group(
                     Route::post('/{type}', [AdminTypesController::class, 'update'])->name('types.update');
                     Route::delete('/{type}', [AdminTypesController::class, 'destroy'])->name('types.delete');
                 });
-                // Admin floors routes ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-                Route::group([
-                    'prefix' => 'floors'
-                ], function () {
-                    Route::get('/', [AdminFloorsController::class, 'index'])->name('floors.floors');
-                    Route::post('/', [AdminFloorsController::class, 'store'])->name('floors.store');
-                    Route::post('/{floor}', [AdminFloorsController::class, 'update'])->name('floors.update');
-                    Route::delete('/{floor}', [AdminFloorsController::class, 'destroy'])->name('floors.delete');
-                });
-                // Admin usings routes ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-                Route::group([
-                    'prefix' => 'usings'
-                ], function () {
-                    Route::get('/', [AdminUsingsController::class, 'index'])->name('usings.usings');
-                    Route::post('/', [AdminUsingsController::class, 'store'])->name('usings.store');
-                    Route::post('/{using}', [AdminUsingsController::class, 'update'])->name('usings.update');
-                    Route::delete('/{using}', [AdminUsingsController::class, 'destroy'])->name('usings.delete');
-                });
                 // Admin building types routes --------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'buildingTypes'
@@ -165,6 +149,40 @@ Route::group(
                     Route::post('/', [AdminBuildingTypeController::class, 'store'])->name('buildingTypes.store');
                     Route::post('/{BuildingType}', [AdminBuildingTypeController::class, 'update'])->name('buildingTypes.update');
                     Route::delete('/{BuildingType}', [AdminBuildingTypeController::class, 'destroy'])->name('buildingTypes.delete');
+                });
+                // Admin cfmRates routes --------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'cfmRates'
+                ], function () {
+                    Route::get('/', [AdminCfmRatesController::class, 'index']);
+                    Route::post('/{rate}', [AdminCfmRatesController::class, 'update']);
+                });
+                // Admin UsingFloors routes -----------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'usingFloors'
+                ], function () {
+                    Route::get('/', [AdminUsingFloorDataController::class, 'index']);
+                    Route::post('/', [AdminUsingFloorDataController::class, 'store']);
+                    Route::get('/download', [AdminUsingFloorDataController::class, 'downloadFile']);
+                });
+                // Admin data sheet routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'dataSheet'
+                ], function () {
+                    Route::get('/', [AdminDataSheetController::class, 'index']);
+                    Route::post('/', [AdminDataSheetController::class, 'store']);
+                    Route::get('/download', [AdminDataSheetController::class, 'downloadFile']);
+                    Route::post('/search', [AdminDataSheetController::class, 'search']);
+                });
+                // Admin load calculation routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'loadCalculation'
+                ], function () {
+                    Route::get('/', [AdminLoadCalculationsController::class, 'index']);
+                    Route::get('/{id}', [AdminLoadCalculationsController::class, 'show']);
+                    Route::post('/{load}', [AdminLoadCalculationsController::class, 'update']);
+                    Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy']);
+                    Route::post('/search', [AdminLoadCalculationsController::class, 'search']);
                 });
             }
         );

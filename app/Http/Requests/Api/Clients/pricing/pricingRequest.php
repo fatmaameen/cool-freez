@@ -24,11 +24,12 @@ class pricingRequest extends FormRequest
         return [
             // '*.client_id' => 'required|unsignedBigInteger',
             // '*.service_id' => 'required|unsignedBigInteger',
-            '*.building_type' => 'required|string',
-            '*.floor' => 'required|string',
-            '*.brand' => 'required|string',
-            '*.air_conditioning_type' => 'required|string',
-            // '*.drawing_of_building' => 'required|string',
+            'building_type' => ['required', 'array', 'min:1'],
+            'floor' => ['required', 'array', 'min:1'],
+            'brand' => ['required', 'array', 'min:1'],
+            'air_conditioning_type' => ['required', 'array', 'min:1'],
+            'drawing_of_building' => ['required', 'array', 'min:1'],
+            'drawing_of_building.*' => ['required', 'file', 'mimes:pdf'],
         ];
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +17,10 @@ use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
 use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
+use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
 use App\Http\Controllers\Api\Technicians\Auth\AuthTechnicianController;
 use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
+use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,12 +106,12 @@ Route::get('/clients/BuildingTypes', [BuildingTypeController::class, 'index'])
 ;
 
 // floors -----------------------------------------------------------------------
-Route::get('/clients/floors', [floorsController::class, 'index'])
+Route::get('/clients/floors/{appLocale}', [floorsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // usings -----------------------------------------------------------------------
-Route::get('/clients/usings', [usingsController::class, 'index'])
+Route::get('/clients/usings/{appLocale}', [usingsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
@@ -141,5 +142,13 @@ Route::get('/technicians/maintenance/{id}', [TechnicianMaintenanceController::cl
 
 // Technician update maintenance --------------------------------------------------------------
 Route::post('/technicians/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
+    // ->middleware('auth:sanctum')
+;
+
+
+Route::post('/clients/load-calculation', [LoadCalculationController::class, 'loadCalculation']);
+
+
+Route::post('/clients/selected-load', [SelectedLoadController::class, 'store'])
     // ->middleware('auth:sanctum')
 ;
