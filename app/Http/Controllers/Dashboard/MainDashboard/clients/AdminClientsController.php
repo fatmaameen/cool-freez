@@ -36,9 +36,9 @@ class AdminClientsController extends Controller
 
             // Notification here
 
-            return redirect()->back()->with(['message' => 'Updated successfully']);
+            return response()->json(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return redirect()->back()->with(['message' => 'Something went wrong' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Something went wrong' . $e->getMessage()], 500);
         }
     }
     public function update(Request $request, $id)
