@@ -27,9 +27,9 @@ class AdminMaintenanceController extends Controller
 
             // Notification here
 
-            return redirect()->back()->with(['message' => 'Updated successfully']);
+            return response()->json(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
-            return  redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()]);
+            return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 500);
         }
     }
 

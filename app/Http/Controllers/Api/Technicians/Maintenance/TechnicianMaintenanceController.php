@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Api\Technicians\Maintenance;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Technicians\Maintenance\TechnicianMaintenanceResource;
+use App\Http\Resources\Api\Technicians\Maintenance\TechnicianMaintenanceResource;
 
 class TechnicianMaintenanceController extends Controller
 {
     public function index($id)
     {
         $maintenances = Maintenance::where('company_status', 'confirmed')
-            ->where('technical', $id)
+            ->where('technical_id', $id)
             ->where('technical_status', '!=','completed')
             ->get();
 

@@ -25,8 +25,11 @@ class MaintenanceRequest extends FormRequest
     {
         return [
             'client_id'=>['required'],
+            'service_id'=>['required'],
             'address'=>['required', 'string'],
             'street_address'=>['required', 'string'],
+            'lat'=>['required'],
+            'long'=>['required'],
             'phone_number'=>['required', 'string'],
             'device_type'=>['required', 'string'],
             'type_of_malfunction'=>['required','string'],

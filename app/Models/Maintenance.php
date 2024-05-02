@@ -13,8 +13,11 @@ class Maintenance extends Model
     protected $fillable = [
         'code',
         'client_id',
+        'service_id',
         'address',
         'street_address',
+        'lat',
+        'long',
         'phone_number',
         'device_type',
         'type_of_malfunction',

@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
 use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
+use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
 use App\Http\Controllers\Api\Technicians\Auth\AuthTechnicianController;
 use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
 use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
@@ -150,5 +151,9 @@ Route::post('/clients/load-calculation', [LoadCalculationController::class, 'loa
 
 
 Route::post('/clients/selected-load', [SelectedLoadController::class, 'store'])
+    // ->middleware('auth:sanctum')
+;
+
+Route::get('/clients/history/{id}', [HistoryController::class, 'index']);
     // ->middleware('auth:sanctum')
 ;

@@ -23,6 +23,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'client_id' => ['required', 'integer'],
+            'service_id' => ['required', 'integer'],
             'consultant_id' => ['required', 'integer'],
             'building_files' => ['required', 'array', 'min:1'],
             'building_files.*' => ['required', 'file', 'mimes:pdf'],

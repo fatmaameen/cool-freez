@@ -1,24 +1,25 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
+use App\Http\Controllers\Dashboard\Auth\ResetPasswordController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
-use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
 use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
+use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
 use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
-use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
-use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
-use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
 use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
+use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
 use App\Http\Controllers\Dashboard\MainDashboard\Reviews\AdminReviewsController;
-use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
-use App\Http\Controllers\Dashboard\Auth\HomeController;
 use App\Http\Controllers\Dashboard\MainDashboard\cfmRates\AdminCfmRatesController;
 use App\Http\Controllers\Dashboard\MainDashboard\DataSheet\AdminDataSheetController;
-use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
+use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
+use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
+use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
 use App\Http\Controllers\Dashboard\MainDashboard\UsingFloors\AdminUsingFloorDataController;
+use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
+use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::group(
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/', function () {
             return redirect()->route('login');
+        });
+        Route::group(['prefix' => 'password'], function () {
+            Route::get('/reset', [ForgotPasswordController::class,'showLinkRequestForm'])->name('forgotPassword');
+            Route::post('/email', [ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
+            Route::get('/reset/{token}', [ResetPasswordController::class,'showResetForm'])->name('password.reset');
+            Route::post('/reset', [ResetPasswordController::class,'reset'])->name('password.update');
         });
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
@@ -75,7 +82,7 @@ Route::group(
                 Route::group(['prefix' => 'maintenance'], function () {
                     Route::get('/', [AdminMaintenanceController::class, 'index'])->name('maintenance');
                     Route::post('/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update');
-                    Route::get('/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign');
+                    Route::post('/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign');
                     Route::delete('/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
                 });
                 // Admin pricing routes ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -188,3 +195,4 @@ Route::group(
         );
     }
 );
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

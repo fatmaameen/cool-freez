@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->uuid('code');
-            $table->unsignedBigInteger('client_id')->foreign()->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->unsignedBigInteger('consultant_id')->foreign()->references('id')->on('consultants');
             $table->json('building_files')->nullable();
             $table->enum('admin_status',  ['waiting','confirmed','cancelled'])->default('waiting');            $table->timestamps();

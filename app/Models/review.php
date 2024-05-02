@@ -11,6 +11,7 @@ class review extends Model
     protected $fillable=[
         'code',
         'client_id',
+        'service_id',
         'consultant_id',
         'building_files',
         'admin_status',

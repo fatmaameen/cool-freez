@@ -21,6 +21,8 @@ class TechnicianMaintenanceResource extends JsonResource
             'device_type' => $this->device_type,
             'address' => $this->address,
             'street_address'=>$this->street_address,
+            'lat' => $this->lat,
+            'long' => $this->long,
             'phone_number'=>$this->phone_number,
             // 'expected_service_date' => $this->expected_service_date,
             'technical_status' => $this->technical_status,
