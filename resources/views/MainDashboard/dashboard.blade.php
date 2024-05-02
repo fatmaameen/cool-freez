@@ -59,7 +59,7 @@
                                    <h5> <p class="card-text text-dark">{{ trans('main_trans.clients') }}</p></h5>
                                     @php
                                     use App\Models\Client; // Correct the namespace
-
+$clients=Client::orderBy('id', 'desc')->take(5)->get();
                                     $clientcount = Client::count(); // Get all clients
                                 @endphp
 
@@ -161,30 +161,22 @@
             <div class="row">
                 <div class="col-xl-4 mb-30">
                     <div class="card card-statistics h-100">
-                        <!-- action group -->
-                        <div class="btn-group info-drop">
-                            <button type="button" class="dropdown-toggle-split text-muted" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="ti-more"></i></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="text-primary ti-reload"></i>Refresh</a>
-                                <a class="dropdown-item" href="#"><i class="text-secondary ti-eye"></i>View
-                                    all</a>
-                            </div>
-                        </div>
+
+
                         <div class="card-body">
-                            <h5 class="card-title">Market summary</h5>
-                            <h4>$50,500 </h4>
+                            <h5 class="card-title"> {{ trans('main_trans.summary') }}</h5>
+                            <h4>50% </h4>
                             <div class="row mt-20">
                                 <div class="col-4">
-                                    <h6>Apple</h6>
+                                    <h6>{{  trans('main_trans.maintenance')  }}</h6>
                                     <b class="text-info">+ 82.24 % </b>
                                 </div>
                                 <div class="col-4">
-                                    <h6>Instagram</h6>
+                                    <h6>{{  trans('main_trans.pricing')  }}</h6>
                                     <b class="text-danger">- 12.06 % </b>
                                 </div>
                                 <div class="col-4">
-                                    <h6>Google</h6>
+                                    <h6>{{  trans('main_trans.reviews')  }}</h6>
                                     <b class="text-warning">+ 24.86 % </b>
                                 </div>
                             </div>
@@ -194,27 +186,19 @@
                 </div>
                 <div class="col-xl-8 mb-30">
                     <div class="card h-100">
-                        <div class="btn-group info-drop">
-                            <button type="button" class="dropdown-toggle-split text-muted" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="ti-more"></i></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="text-primary ti-reload"></i>Refresh</a>
-                                <a class="dropdown-item" href="#"><i class="text-secondary ti-eye"></i>View
-                                    all</a>
-                            </div>
-                        </div>
+
                         <div class="card-body">
                             <div class="d-block d-md-flexx justify-content-between">
                                 <div class="d-block">
-                                    <h5 class="card-title">Site Visits Growth </h5>
+                                    <h5 class="card-title">{{  trans('main_trans.App Visits Growth')  }} </h5>
                                 </div>
                                 <div class="d-flex">
                                     <div class="clearfix mr-30">
-                                        <h6 class="text-success">Income</h6>
+                                        <h6 class="text-success">{{  trans('main_trans.income')  }} </h6>
                                         <p>+584</p>
                                     </div>
                                     <div class="clearfix  mr-50">
-                                        <h6 class="text-danger"> Outcome</h6>
+                                        <h6 class="text-danger"> {{  trans('main_trans.outcome')  }} </h6>
                                         <p>-255</p>
                                     </div>
                                 </div>
@@ -228,11 +212,11 @@
                 <div class="col-xl-4 mb-30">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Customer Feedback </h5>
+                            <h5 class="card-title">{{  trans('main_trans.reviews')  }}</h5>
                             <div class="row mb-30">
                                 <div class="col-md-6">
                                     <div class="clearfix">
-                                        <p class="mb-10 float-left">Positive</p>
+                                        <p class="mb-10 float-left">{{  trans('main_trans.positive')  }}</p>
                                         <i class="mb-10 text-success float-right fa fa-arrow-up"> </i>
                                     </div>
                                     <div class="progress progress-small">
@@ -243,7 +227,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="clearfix">
-                                        <p class="mb-10 float-left">Negative</p>
+                                        <p class="mb-10 float-left">{{  trans('main_trans.nagative')  }}</p>
                                         <i class="mb-10 text-danger float-right fa fa-arrow-down"> </i>
                                     </div>
                                     <div class="progress progress-small">
@@ -267,188 +251,55 @@
                             <div class="tab nav-border" style="position: relative;">
                                 <div class="d-block d-md-flex justify-content-between">
                                     <div class="d-block w-100">
-                                        <h5 class="card-title">Best Sellers</h5>
+                                        <h5 class="card-title">{{  trans('main_trans.last_clients')  }}</h5>
                                     </div>
-                                    <div class="d-block d-md-flex nav-tabs-custom">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active show" id="months-tab" data-toggle="tab"
-                                                    href="#months" role="tab" aria-controls="months"
-                                                    aria-selected="true"> Months</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="year-tab" data-toggle="tab" href="#year"
-                                                    role="tab" aria-controls="year" aria-selected="false">Year
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade active show" id="months" role="tabpanel"
-                                        aria-labelledby="months-tab">
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/05.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">Supercharge your motivation</h6>
-                                                <p class="sm-mb-5 d-block">I truly believe Augustine’s words are
-                                                    true. </p>
-                                                <span class="mb-0">by - <b class="text-info">PotenzaUser</b></span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-primary mb-0"><b>45,436</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-secondary mb-0"><b>$05,236</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/02.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">Helen keller a teller seller</h6>
-                                                <p class="sm-mb-5 d-block">We also know those epic stories,
-                                                    those modern.</p>
-                                                <span class="mb-0">by - <b class="text-warning">WebminUser</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-success mb-0"><b>23,462</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-danger mb-0"><b>$166</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/03.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">The other virtues practice</h6>
-                                                <p class="sm-mb-5 d-block">One of the most difficult aspects of
-                                                    achieving. </p>
-                                                <span class="mb-0">by - <b class="text-danger">TheCorps</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-warning mb-0"><b>5,566</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-info mb-0"><b>$4,126</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/04.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">You will begin to realise</h6>
-                                                <p class="sm-mb-5 d-block">Remind yourself you have nowhere to
-                                                    go except. </p>
-                                                <span class="mb-0">by - <b class="text-success">PGSinfotech</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-dark mb-0"><b>5,446</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-success mb-0"><b>$436</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="year" role="tabpanel" aria-labelledby="year-tab">
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/09.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">Walk out 10 years into</h6>
-                                                <p class="sm-mb-5 d-block">Understanding the price and having
-                                                    the willingness to pay. </p>
-                                                <span class="mb-0">by - <b class="text-danger">TheZayka</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-dark mb-0"><b>12,549</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="theme-color mb-0"><b>$1,656</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/06.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">Step out on to the path</h6>
-                                                <p class="sm-mb-5 d-block">Success to you and then pull it out
-                                                    when you are.</p>
-                                                <span class="mb-0">by - <b class="text-info">CarDealer</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-primary mb-0"><b>1,366</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-secondary mb-0"><b>$4,536</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-30">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/07.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">Briefly imagine that you</h6>
-                                                <p class="sm-mb-5 d-block">Motivators for your personality and
-                                                    your personal goals. </p>
-                                                <span class="mb-0">by - <b class="text-success">SamMartin</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-success mb-0"><b>465</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-danger mb-0"><b>$499</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2 col-sm-6">
-                                                <img class="img-fluid" src="images/blog/08.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h6 class="mb-0 sm-mt-5">You continue doing what</h6>
-                                                <p class="sm-mb-5 d-block">The first thing to remember about
-                                                    success is that. </p>
-                                                <span class="mb-0">by - <b class="text-warning">Cosntro</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-warning mb-0"><b>4,456</b></h5>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-6 sm-mt-20">
-                                                <h5 class="text-info mb-0"><b>$6,485</b></h5>
-                                                <span>Revenue</span>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    <table class="table table-bordered  w-100">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th>#</th>
+
+                                                <th scope="col">{{ trans('main_trans.user_name') }}</th>
+                                                <th scope="col">{{ trans('main_trans.email') }}</th>
+                                                <th scope="col">{{ trans('main_trans.avatar') }}</th>
+                                                <th scope="col">{{ trans('main_trans.phone') }}</th>
+                                                <th scope="col">{{ trans('main_trans.address') }}</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($clients as $client)
+                                            <tr>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+
+                                                <td>{{ $client->name }}</td>
+                                                <td>{{ $client->email }}</td>
+                                                <td>
+                                                    <div class="ul-widget-app__profile-pic">
+
+                                                    <img class="rounded-circle"
+                                                    src="{{$client->image}}"
+                                                    width="60"
+                                                    height="60"
+                    >
+                                                </div>
+                                            </td>
+
+
+                                                <td>{{ $client->phone_number }}</td>
+                                                <td>{{ $client->address }}</td>
+
+
+
+
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -459,17 +310,37 @@
                 <div class="col-xl-4 mb-30">
                     <div class="card card-statistics h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Best Selling Items</h5>
+                          <style>  .tab .nav.nav-tabs li a.active {
+                                background:#91c5d0;
+                                color: #130101;
+                                border-color: transparent;
+                            }
+                            .tab .nav.nav-tabs li a.active:focus {
+    background: #91c5d0;
+    color: #130101;
+    border-color: transparent;
+}
+                            </style>
+                            <h5 class="card-title">{{  trans('main_trans.summary')  }}</h5>
                             <ul class="list-unstyled">
+                                @php
+                                use App\Models\brand;
+                                use App\Models\CustomerService;
+
+                                $brands = brand::count();
+
+                                $CustomerService = CustomerService::count();
+                            @endphp
+
                                 <li class="mb-20">
                                     <div class="media">
                                         <div class="position-relative">
                                             <img class="img-fluid mr-15 avatar-small" src="images/item/01.png" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="mt-0 mb-0">Car dealer <span class="float-right text-danger">
-                                                    8,561</span> </h6>
-                                            <p>Automotive WordPress Theme </p>
+                                            <h6 class="mt-0 mb-0">{{  trans('main_trans.brand')  }} <span class="float-right text-danger">
+                                                   {{ $brands }}</span> </h6>
+
                                         </div>
                                     </div>
                                     <div class="divider dotted mt-20"></div>
@@ -480,9 +351,9 @@
                                             <img class="img-fluid mr-15 avatar-small" src="images/item/02.png" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="mt-0 mb-0">Webster <span class="float-right text-warning">
-                                                    6,213</span> </h6>
-                                            <p>Multi-purpose HTML5 Template </p>
+                                            <h6 class="mt-0 mb-0">{{  trans('main_trans.reviews')  }} <span class="float-right text-warning">
+                                                    {{ $CustomerService }}</span> </h6>
+
                                         </div>
                                     </div>
                                     <div class="divider dotted mt-20"></div>
@@ -493,9 +364,9 @@
                                             <img class="img-fluid mr-15 avatar-small" src="images/item/03.png" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="mt-0 mb-0">The corps <span class="float-right text-success">
-                                                    2,926</span> </h6>
-                                            <p> Multi-Purpose WordPress Theme </p>
+                                            <h6 class="mt-0 mb-0">{{ trans('main_trans.maintenance') }} <span class="float-right text-success">
+                                                {{$maintenancecount }}</span> </h6>
+
                                         </div>
                                     </div>
                                     <div class="divider dotted mt-20"></div>
@@ -506,9 +377,9 @@
                                             <img class="img-fluid mr-15 avatar-small" src="images/item/04.png" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="mt-0 mb-0">Sam martin <span
-                                                    class="float-right text-warning">6,213 </span></h6>
-                                            <p>Personal vCard Resume WordPress Theme </p>
+                                            <h6 class="mt-0 mb-0">{{ trans('main_trans.clients') }} <span
+                                                    class="float-right text-warning">{{ $clientcount }} </span></h6>
+
                                         </div>
                                     </div>
                                 </li>
@@ -516,26 +387,42 @@
                         </div>
                     </div>
                 </div>
+            <style>   .fc-today-button {
+                    background: #91c5d0;
+                    color: #160202;
+                }
+                .fc-state-active {
+    background: #91c5d0;
+    color: #160202;
+}
+.bg-gray,
+.bg-gray * {
+    background-color: #91c5d0; /* لون الخلفية الرمادية */
+    color: #000; /* لون النص الأسود */
+}
+
+.fc-unthemed td.fc-today {
+    background: #91c5d0;
+}
+.fc-event, .fc-event:hover {
+    color: #000; /* لون النص أسود */
+    text-decoration: none;
+}
+
+
+                </style>
                 <div class="col-xl-4 mb-30">
                     <div class="card h-100">
-                        <div class="btn-group info-drop">
-                            <button type="button" class="dropdown-toggle-split text-muted" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="ti-more"></i></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="text-primary ti-reload"></i>Refresh</a>
-                                <a class="dropdown-item" href="#"><i class="text-secondary ti-eye"></i>View
-                                    all</a>
-                            </div>
-                        </div>
+
                         <div class="card-body">
-                            <h5 class="card-title">Site Visits Growth </h5>
+                            <h5 class="card-title">{{  trans('main_trans.App Visits Growth')  }} </h5>
                             <div class="row">
                                 <div class="col-6">
-                                    <h6 class="text-danger">Income</h6>
+                                    <h6 class="text-danger">{{  trans('main_trans.income')  }}</h6>
                                     <p class="text-danger">+584</p>
                                 </div>
                                 <div class="col-6">
-                                    <h6 class="text-info">Outcome</h6>
+                                    <h6 class="text-info">{{  trans('main_trans.outcome')  }}</h6>
                                     <p class="text-info">-255</p>
                                 </div>
                             </div>
@@ -546,43 +433,17 @@
                 <div class="col-xl-4 mb-30">
                     <div class="card card-statistics h-100">
                         <div class="p-4 text-center bg" style="background: url(images/bg/01.jpg);">
-                            <h5 class="mb-70 text-white position-relative">Michael Bean </h5>
-                            <div class="btn-group info-drop">
-                                <button type="button" class="dropdown-toggle-split text-white" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"><i class="ti-more"></i></button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="text-primary ti-files"></i> Add
-                                        task</a>
-                                    <a class="dropdown-item" href="#"><i class="text-dark ti-pencil-alt"></i>
-                                        Edit Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="text-success ti-user"></i> View
-                                        Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="text-secondary ti-info"></i>
-                                        Contact Info</a>
-                                </div>
-                            </div>
+                            <h5 class="mb-70 text-white position-relative">{{ Auth::user()->name }} </h5>
+
                         </div>
                         <div class="card-body text-center position-relative">
                             <div class="avatar-top">
-                                <img class="img-fluid w-25 rounded-circle " src="images/team/13.jpg" alt="">
+                                <img class="img-fluid w-25 rounded-circle " src="{{Auth::user()->image }}" alt="">
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4 mt-30">
-                                    <b>Files Saved</b>
-                                    <h4 class="text-success mt-10">1582</h4>
-                                </div>
-                                <div class="col-sm-4 mt-30">
-                                    <b>Memory Used </b>
-                                    <h4 class="text-danger mt-10">58GB</h4>
-                                </div>
-                                <div class="col-sm-4 mt-30">
-                                    <b>Spent Money</b>
-                                    <h4 class="text-warning mt-10">352,6$</h4>
-                                </div>
-                            </div>
+
                             <div class="divider mt-20"></div>
-                            <p class="mt-30">17504 Carlton Cuevas Rd, Gulfport, MS, 39503</p>
-                            <p class="mt-10">michael@webmin.com</p>
+
+                            <h5 class="mt-10">{{ Auth::user()->email }}</h5>
                             <div class="social-icons color-icon mt-20">
                                 <ul>
                                     <li class="social-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
@@ -614,28 +475,29 @@
                                 <div id="external-events" class="m-t-20">
                                     <br>
                                     {{-- <p class="text-muted">Drag and drop your event or click in the calendar</p> --}}
-                                    <div class="external-event bg-success fc-event">
+                                    <div class="external-event bg-gray fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i> {{ trans('main_trans.admins') }}
                                     </div>
                                     <div class="external-event bg-info fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.clients') }}
                                     </div>
-                                    <div class="external-event bg-warning fc-event">
+                                    <div class="external-event bg-gray fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.maintenance') }}
                                     </div>
-                                    <div class="external-event bg-danger fc-event">
+                                    <div class="external-event bg-info fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.brands') }}
                                     </div>
-                                    <div class="external-event bg-success fc-event">
+                                    <div class="external-event bg-gray fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.types') }}
                                     </div>
                                     <div class="external-event bg-info fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.offers') }}
                                     </div>
-                                    <div class="external-event bg-warning fc-event">
+                                    <div class="external-event bg-gray fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.consultant') }}
                                     </div>
-                                    <div class="external-event bg-danger fc-event">
+
+                                    <div class="external-event bg-info fc-event">
                                         <i class="fa fa-circle mr-2 vertical-middle"></i>{{ trans('main_trans.pricing') }}
                                     </div>
                                 </div>

@@ -32,7 +32,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.floors') }}
+{{ trans('main_trans.usingFloors') }}
 @stop
 
 @section('page-header')
@@ -40,14 +40,15 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.floors') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.usingFloors') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.floors') }}</li>
+                <li class="breadcrumb-item active">{{ trans('main_trans.usingFloors') }}</li>
             </ol>
         </div>
+
     </div>
 </div>
 <!-- breadcrumb -->
@@ -80,8 +81,11 @@
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                     <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
                         <button type="button" class="blue-button" data-bs-toggle="modal" data-bs-target="#createUserModal">
-                            <i class="fa-solid fa-plus"></i> {{ trans('main_trans.create') }}
+                            <i class="fa-solid fa-plus"></i> {{ trans('main_trans.upload') }}
                         </button>
+                        <a href="{{ route('usingFloors.download') }}" type="button" class="blue-button" >
+                            <i class="fa-solid fa-plus"></i> {{ trans('main_trans.download') }}
+                        </a>
                     </div>
                 </div>
 
@@ -91,17 +95,22 @@
                         <tr>
                             <th>#</th>
 
-                            <th scope="col">{{ trans('main_trans.floor_number') }}</th>
-                            <th scope="col">{{ trans('main_trans.actions') }}</th>
+                            <th scope="col">{{ trans('main_trans.floor') }}</th>
+                            <th scope="col">{{ trans('main_trans.using') }}</th>
+                            <th scope="col">{{ trans('main_trans.value') }}</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($floors as $floor)
+                        @foreach ($filteredData as $data)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $floor->floor_number }}</td>
-                                <td>
+                                <td>{{ $data['floor'] }}</td>
+                                <td>{{ $data['using'] }}</td>
+                                <td>{{ $data['value'] }}</td>
+
+                                {{-- <td>
                                     <!-- Edit Button -->
                                     <a href="#"  data-toggle="modal" data-target="#editModal{{ $floor->id }}">
                                         <i class="fas fa-pen-to-square fa-2xl" ></i>
@@ -111,7 +120,7 @@
                                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $floor->id }}">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
@@ -130,17 +139,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
+                <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.upload') }}</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
+            <h5 class="text-white bg-danger p-2">{{ trans('main_trans.text') }}</h5>
+
+
             <div class="modal-body">
-                <form action="{{ route('floors.store') }}" method="POST" >
+                <form action="{{ route('usingFloors.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="floor_number">{{ trans('main_trans.floor_number') }}</label>
-                        <input type="text" class="form-control" id="floor_number" name="floor_number">
+                        <label for="file">{{ trans('main_trans.file') }}</label>
+                        <input type="file" class="form-control" id="file" name="file">
                     </div>
                 </div>
 
@@ -156,7 +169,7 @@
     </div>
 </div>
 <!-- Create User Modal -->
-@foreach ($floors as $floor)
+{{-- @foreach ($floors as $floor)
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal{{ $floor->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $floor->id }}" aria-hidden="true">
         <div class="modal-dialog">
@@ -208,7 +221,7 @@
             </div>
         </div>
     </div>
-@endforeach
+@endforeach --}}
 
 @endsection
 @section('js')

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->unsignedBigInteger('model_id');
-            $table->foreign('model_id')->references('id')->on('data_sheets')->onDelete('cascade');
+            $table->unsignedBigInteger('model_id')->references('id')->on('data_sheets')->onDelete('cascade');;
+            // $table->foreign('model_id')->references('id')->on('data_sheets')->onDelete('cascade');
             $table->enum('admin_status',  ['waiting','confirmed','cancelled'])->default('waiting');
             $table->timestamps();
         });

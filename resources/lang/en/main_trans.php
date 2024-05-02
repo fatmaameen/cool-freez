@@ -51,7 +51,7 @@ return [
 'consultant'=>'Consultants',
 'job_title'=>'Job Title',
 'rate'=>'Rate',
-
+'using'=>'Using',
 'reviews'=>'Reviews',
 'client_data'=>'Client Data',
 'consultant_data'=>'Consultant Data',
@@ -59,9 +59,11 @@ return [
 'show'=>'Show',
 'review_details'=>'Review Details',
 'floors'=>'Floors',
+'value'=>'Value',
+
 'floor_number'=>'Floor Number',
 'buildingTypes'=>'Building Types',
-'usings'=>'Usings',
+'usingFloors'=>'Using and Floors',
 'pricing'=>'pricing',
 'pricing_details'=>'Pricing Details',
 'building_type'=>'Building Type',
@@ -83,24 +85,28 @@ return [
 'total_offer'=>'Total Offer',
 'Just Updated'=>'Just Updated',
 'enter_password'=>'Enter Password',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'upload'=>'Upload File',
+'App Visits Growth'=>'App Visits Growth',
+'file'=>'File',
+'summary'=>'Summary',
+'text'=>'note : If you upload a new file, the old file will be deleted and replaced with it.',
+'download'=>'Download',
+'income'=>'Income',
+'outcome'=>'Outcome',
+'dataSheet'=>'Data Sheet',
+'loadCalculation'=>'load Calculation',
+'type'=>'Type',
+'details'=>'Details',
+'model'=>'Model',
+'search'=>'Search',
+'btu'=>'BTU',
+'cfm'=>'CFM',
+'gas'=>'GAS',
+'made_in'=>'MADE_IN',
+'positive'=>'Positive',
+'nagative'=>'Nagative',
+'language'=>'Language',
+'last_clients'=>'Last Clients',
 
 
 

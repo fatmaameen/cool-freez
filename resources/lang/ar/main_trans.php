@@ -61,7 +61,7 @@ return [
 'floors'=>'طوابق',
 'floor_number'=>'رقم الدور',
 'buildingTypes'=>'أنواع المباني',
-'usings'=>'الاستخدامات',
+'usingFloors'=>'الاستخدامات والطوابق',
 'pricing'=>'التسعير',
 'pricing_details'=>'تفاصيل التسعير',
 'building_type'=>'نوع المبني',
@@ -71,24 +71,44 @@ return [
 'drawing_of_building'=>'رسم المبنى',
 'customer_service'=>'خدمة العملاء',
 'description'=>'وصف',
-
+'using'=>'استخدام',
 'reply'=>'رد',
-
+'value'=>'قيمة',
 'title'=>'عنوان',
 'subject'=>'موضوع',
 'massage'=>'رسالة',
 'send_reply'=>'ارسال رد',
-'technician'=>'',
+'technician'=>'الفنيين',
 'total_clients'=>'إجمالي العملاء',
 
 'total_maintenance'=>'اجمالي الصيانة ',
 'total_offer'=>'إجمالي العروض',
 'Just Updated'=>'اخر المراجعات',
 'enter_password'=>'ادخل كلمة المرور',
+'upload'=>'رفع ملف',
+'file'=>'ملف',
+'text'=>' ملحوظة : إذا قمت برفع ملف جديد، سيتم حذف الملف القديم واستبداله به.',
 
+'download'=>'تنزيل',
+'dataSheet'=>'مجموعة البيانات',
+'loadCalculation'=>'حساب الأحمال',
+'details'=>'تفاصيل ',
+'type'=>'نوع',
+'model'=>'نموذج',
 
-
-
+'income'=>'دخل',
+'outcome'=>'خرج',
+'btu'=>'BTU',
+'cfm'=>'CFM',
+'gas'=>'GAS',
+'made_in'=>'MADE_IN',
+'search'=>'بحث',
+'App Visits Growth'=>' زيارات البرنامج',
+'summary'=>'اخر التحديثات',
+'positive'=>'ايجابي',
+'nagative'=>'سلبي',
+'language'=>'اللغة',
+'last_clients'=>'احدث العملاء',
 
 
 
