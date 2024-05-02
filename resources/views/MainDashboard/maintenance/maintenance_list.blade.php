@@ -120,13 +120,19 @@
                                     </td>
                                     <td>
                                         {{ $maintenance->assigned }}</td>
-                                        @php
 
+                                      @php
+    // جلب الفني باستخدام المعرف
+    $technical = App\Models\Technician::find($maintenance->technical);
+@endphp
 
-                                        // Fetch the technician with the given id
-                                        $technical = App\Models\technician::find($maintenance->technical);
-                                    @endphp
-                                    <td>{{ $technical->name }}</td>
+<td>
+    @if ($technical)
+        {{ $technical->name }}
+    @else
+        No found
+    @endif
+</td>
                                     <td>
                                         <span class="text-success"
                                             style="font-size: 20px">{{ $maintenance->company_status }}</span>

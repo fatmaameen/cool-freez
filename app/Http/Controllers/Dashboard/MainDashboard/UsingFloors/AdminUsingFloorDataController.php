@@ -26,7 +26,7 @@ class AdminUsingFloorDataController extends Controller
                 'value' => $usingFloor->value,
             ];
         }
-        return response()->json($filteredData);
+        return view('MainDashboard.floors.floors_list' ,compact('filteredData'));
     }
 
     public function store(request $request)
@@ -67,9 +67,9 @@ class AdminUsingFloorDataController extends Controller
                 }
             }
             $this->upload($file, 'usingFloorsExcelFile');
-            return response()->json(['message' => 'Data imported successfully']);
+            return redirect()->back()->with(['message' => 'Data imported successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
+            return redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
         }
     }
 
@@ -79,7 +79,7 @@ class AdminUsingFloorDataController extends Controller
         if ($file) {
             return response()->download($file);
         } else {
-            return response()->json(['error' => 'No files found in the folder']);
+            return redirect()->back()->with(['error' => 'No files found in the folder']);
         }
     }
 }

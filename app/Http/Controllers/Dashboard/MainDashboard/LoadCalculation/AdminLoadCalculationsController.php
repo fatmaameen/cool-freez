@@ -12,14 +12,15 @@ class AdminLoadCalculationsController extends Controller
     public function index()
     {
         $loads = loadCalculation::latest()->get();
-        return response()->json($loads);
+        return view('MainDashboard.loadCalculation.loadCalculation_list' ,compact('loads'));
     }
 
     public function show($id)
     {
         $load = loadCalculation::where('id', $id)->with(['client','model'])->first();
         $data = loadInfoResource::make($load);
-        return response()->json($data);
+         return view('MainDashboard.loadCalculation.details' ,compact('data'));
+        //return response()->json($data);
     }
 
     public function update(Request $request, loadCalculation $load)
@@ -35,15 +36,15 @@ class AdminLoadCalculationsController extends Controller
 
             // Notification here
 
-            return response()->json(['message' => 'updated successfully']);
+            return redirect()->back()->with(['message' => 'updated successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Something went wrong: ' . $e->getMessage()]);
+            return redirect()->back()->with(['message' => 'Something went wrong: ' . $e->getMessage()]);
         }
     }
     public function destroy(loadCalculation $load)
     {
         $load->delete();
-        return response()->json(['message' => 'deleted successfully']);
+        return redirect()->back()->with(['message' => 'deleted successfully']);
     }
 
     public function search(Request $request)

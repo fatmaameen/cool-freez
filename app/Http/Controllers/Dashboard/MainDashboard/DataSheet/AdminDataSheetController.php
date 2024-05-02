@@ -14,7 +14,8 @@ class AdminDataSheetController extends Controller
     public function index()
     {
         $dataSheet = DataSheet::paginate(10);
-        return response()->json($dataSheet);
+        return view('MainDashboard.dataSheet.dataSheet' ,compact('dataSheet'));
+
     }
 
     public function store(Request $request)
@@ -40,7 +41,7 @@ class AdminDataSheetController extends Controller
                 if ($row->getRowIndex() > 1) {
                     if (array_filter($rowData, null) === []) {
                         $this->upload($file, 'DataSheetExcelFile');
-                        return response()->json(['message' => 'Data imported successfully']);
+                        return redirect()->back()->with(['message' => 'Data imported successfully']);
                     } else {
                         DataSheet::create([
                             'brand' => $rowData[0],
@@ -55,7 +56,7 @@ class AdminDataSheetController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'something went wrong' . $e->getMessage()]);
+            return redirect()->back()->with(['message' => 'something went wrong' . $e->getMessage()]);
         }
     }
 
@@ -65,7 +66,7 @@ class AdminDataSheetController extends Controller
         if ($file) {
             return response()->download($file);
         } else {
-            return response()->json(['error' => 'No files found in the folder']);
+            return redirect()->back()->with(['error' => 'No files found in the folder']);
         }
     }
 

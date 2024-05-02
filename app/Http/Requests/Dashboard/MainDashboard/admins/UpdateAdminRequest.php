@@ -22,11 +22,11 @@ class UpdateAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:250'],
+            'name' => ['nullable', 'string', 'max:250'],
             // 'role_id' => ['required'],
-            'email' => ['required', 'email', 'unique:App\Models\User,email'],
-            'password' => ['required','nullable', 'string', 'max:250'],
-            'phone_number' => ['required','unique:App\Models\User,phone_number'],
+            'email' => ['nullable', 'email', 'unique:App\Models\User,email'],
+            'password' => ['nullable','nullable', 'string', 'max:250'],
+            'phone_number' => ['nullable','unique:App\Models\User,phone_number'],
             'image' => ['image', 'mimes:jpg,bmp,png'],
             'is_active' => ['nullable', 'boolean'],
             'is_banned' => ['nullable', 'boolean'],

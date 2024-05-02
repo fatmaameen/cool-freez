@@ -161,27 +161,27 @@ Route::group(
                 Route::group([
                     'prefix' => 'usingFloors'
                 ], function () {
-                    Route::get('/', [AdminUsingFloorDataController::class, 'index']);
-                    Route::post('/', [AdminUsingFloorDataController::class, 'store']);
-                    Route::get('/download', [AdminUsingFloorDataController::class, 'downloadFile']);
+                    Route::get('/', [AdminUsingFloorDataController::class, 'index'])->name('usingFloors');
+                    Route::post('/', [AdminUsingFloorDataController::class, 'store'])->name('usingFloors.store');
+                    Route::get('/download', [AdminUsingFloorDataController::class, 'downloadFile'])->name('usingFloors.download');
                 });
                 // Admin data sheet routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'dataSheet'
                 ], function () {
-                    Route::get('/', [AdminDataSheetController::class, 'index']);
-                    Route::post('/', [AdminDataSheetController::class, 'store']);
-                    Route::get('/download', [AdminDataSheetController::class, 'downloadFile']);
-                    Route::post('/search', [AdminDataSheetController::class, 'search']);
+                    Route::get('/', [AdminDataSheetController::class, 'index'])->name('dataSheet');
+                    Route::post('/', [AdminDataSheetController::class, 'store'])->name('dataSheet.store');
+                    Route::get('/download', [AdminDataSheetController::class, 'downloadFile'])->name('dataSheet.download');
+                    Route::post('/search', [AdminDataSheetController::class, 'search'])->name('dataSheet.search');
                 });
                 // Admin load calculation routes -------------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'loadCalculation'
                 ], function () {
-                    Route::get('/', [AdminLoadCalculationsController::class, 'index']);
-                    Route::get('/{id}', [AdminLoadCalculationsController::class, 'show']);
-                    Route::post('/{load}', [AdminLoadCalculationsController::class, 'update']);
-                    Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy']);
+                    Route::get('/', [AdminLoadCalculationsController::class, 'index'])->name('loadCalculation');
+                    Route::get('/{id}', [AdminLoadCalculationsController::class, 'show'])->name('loadCalculation.show');
+                    Route::post('/{load}', [AdminLoadCalculationsController::class, 'update'])->name('loadCalculation.update');
+                    Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy'])->name('loadCalculation.destroy');
                     Route::post('/search', [AdminLoadCalculationsController::class, 'search']);
                 });
             }
