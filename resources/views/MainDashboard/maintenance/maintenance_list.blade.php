@@ -164,7 +164,7 @@
                                             .checkbox label {
                                                 width: 68px;
                                                 height: 18px;
-                                                background: #ccc;
+                                                background: #cccccc;
                                                 position: relative;
                                                 display: inline-block;
                                                 border-radius: 46px;
