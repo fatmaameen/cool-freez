@@ -279,13 +279,7 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
 
-$('#replyyModal{{ $massage->id }}').on('hidden.bs.modal', function () {
-    console.log('Modal is closed');
-});
-
-</script>
 
 @endsection
 

@@ -51,6 +51,8 @@ Route::group(
             Route::get('/reset/{token}', [ResetPasswordController::class,'showResetForm'])->name('password.reset');
             Route::post('/reset', [ResetPasswordController::class,'reset'])->name('password.update');
         });
+
+ Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
             Route::get('/', [AdminsController::class, 'index'])->name('users.user_list');
@@ -161,8 +163,8 @@ Route::group(
                 Route::group([
                     'prefix' => 'cfmRates'
                 ], function () {
-                    Route::get('/', [AdminCfmRatesController::class, 'index']);
-                    Route::post('/{rate}', [AdminCfmRatesController::class, 'update']);
+                    Route::get('/', [AdminCfmRatesController::class, 'index'])->name('cfmRates');
+                    Route::post('/{rate}', [AdminCfmRatesController::class, 'update'])->name('cfmRates.update');
                 });
                 // Admin UsingFloors routes -----------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
@@ -191,8 +193,9 @@ Route::group(
                     Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy'])->name('loadCalculation.destroy');
                     Route::post('/search', [AdminLoadCalculationsController::class, 'search']);
                 });
+
+
             }
         );
     }
 );
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

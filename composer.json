@@ -15,7 +15,8 @@
         "mcamara/laravel-localization": "^2.0",
         "phpoffice/phpspreadsheet": "^2.0",
         "spatie/laravel-translatable": "^6.6",
-        "twilio/sdk": "^8.0"
+        "twilio/sdk": "^8.0",
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

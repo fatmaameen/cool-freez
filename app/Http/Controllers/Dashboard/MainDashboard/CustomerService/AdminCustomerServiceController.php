@@ -28,14 +28,16 @@ class AdminCustomerServiceController extends Controller
 
     public function sendEmail(ReplyCustomerServiceRequest $request, CustomerService $message)
     {
+try{
 
-        $data = $request->validated();
-        if (Mail::to($data['email'])->send(new mailer($data))) {
-            $message->update([
-                'status' => 'Replied'
-            ]);
-            return redirect()->back()->with(['message' => 'Sent successfully']);
-        } else {
+    $data = $request->validated();
+    if (Mail::to($data['email'])->send(new mailer($data))) {
+        $message->update([
+            'status' => 'Replied'
+        ]);
+        return redirect()->back()->with(['message' => 'Sent successfully']);
+}
+} catch (\Exception $e) {
             return redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }

@@ -197,7 +197,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
                         </button>
-                        <button type="submit" class="btn btn-danger">{{ trans('main_trans.save') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
                     </div>
                 </form>
 
@@ -228,7 +228,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             {{ trans('main_trans.close') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.delete') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
                     </div>
                 </form>
             </div>

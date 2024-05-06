@@ -22,7 +22,7 @@
                     <a id="button-toggle" class="button-toggle-nav inline-block ml-20 pull-left"
                         href="javascript:void(0);"><i class="zmdi zmdi-menu ti-align-right"></i></a>
                 </li>
-               
+
             </ul>
             <style>
        /* أنماط القائمة المنسدلة */
@@ -170,17 +170,16 @@
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="text-secondary ti-reload"></i>Activity</a>
-                        <a class="dropdown-item" href="#"><i class="text-success ti-email"></i>Messages</a>
-                        <a class="dropdown-item" href="#"><i class="text-warning ti-user"></i>Profile</a>
-                        <a class="dropdown-item" href="#"><i class="text-dark ti-layers-alt"></i>Projects <span
-                                class="badge badge-info">6</span> </a>
+
+                        <a class="dropdown-item" href="{{ route('profile') }}"><i class="text-warning ti-user"></i>{{ trans('main_trans.profile') }}</a>
+
+
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>Settings</a>
+
                         <a id="logout-link" class="dropdown-item" href="{{ route('logout') }}"
     onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-    <i class="text-danger ti-unlock"></i>Logout
+    <i class="text-danger ti-unlock"></i>{{ trans('main_trans.logout') }}
     </a>
                     </div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

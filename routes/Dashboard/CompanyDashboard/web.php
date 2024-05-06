@@ -40,6 +40,9 @@ Route::group(
                     Route::get('/completed', [CompanyMaintenanceController::class, 'completed'])->name('complete_maintenance');
                     Route::post('/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
                 });
+                Route::get('/profile', [AdminTechnicianController::class, 'profile'])->name('company_profile');
+                Route::post('/update/{id}', [AdminTechnicianController::class, 'update_user'])->name('users.update');
+
                 // Company dashboard technicians routes----------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'technician'
@@ -47,6 +50,7 @@ Route::group(
                     Route::get('/', [AdminTechnicianController::class, 'index'])->name('technician');
                     Route::post('/', [AdminTechnicianController::class, 'store'])->name('technician.store');
                     Route::post('/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
+                    Route::post('/banned/{technician}', [AdminTechnicianController::class, 'banned'])->name('technician.assign');
                     Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');
                     Route::post('/search', [AdminTechnicianController::class, 'search'])->name('technician.search');
                 });
