@@ -75,7 +75,7 @@
                         </button>
                     </div>
                 </div> --}}
-
+                @if (count($messages)>0)
                 <table class="table table-bordered  w-100">
                     <thead class="bg-light">
                         <tr>
@@ -116,8 +116,10 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
+                @else
+                <h3>{{ trans('main_trans.no_messages') }}</h3>
+                @endif
             </div>
         </div></div>
     </div>
@@ -280,11 +282,11 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-
+@if (count($messages)>0)
 $('#replyyModal{{ $massage->id }}').on('hidden.bs.modal', function () {
     console.log('Modal is closed');
 });
-
+@endif
 </script>
 
 @endsection

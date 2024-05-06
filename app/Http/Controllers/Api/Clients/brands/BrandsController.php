@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class BrandsController extends Controller
 {
-    public function index()
+    public function index($appLocale)
     {
         $brands = brand::all();
-        return response()->json($brands);
+        $filteredData = [];
+        foreach ($brands as $brandRow) {
+            $brand = $brandRow->getTranslation('brand', $appLocale);
+            $filteredData[] = [
+                'id' => $brandRow->id,
+                'brand' => $brand,
+            ];
+        }
+        return response()->json($filteredData);
     }
 }

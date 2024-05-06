@@ -63,7 +63,8 @@ Route::group(
 
         Route::group(
             [
-                'prefix' => 'main-dashboard', 'middleware' => ['auth', 'Admin']
+                'prefix' => 'main-dashboard',
+                // 'middleware' => ['auth', 'Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------

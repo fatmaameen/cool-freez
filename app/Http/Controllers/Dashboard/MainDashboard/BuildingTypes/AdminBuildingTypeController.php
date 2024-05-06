@@ -11,27 +11,47 @@ class AdminBuildingTypeController extends Controller
 {
     public function index()
     {
+        $appLocale = app()->getLocale();
         $BuildingTypes = BuildingType::all();
-        return view('MainDashboard.BuildingTypes.BuildingTypes_list' ,compact('BuildingTypes'));
+        $filteredData = [];
+        foreach ($BuildingTypes as $type) {
+            $rowData = $type->getTranslation('name', $appLocale);
+            $name_en = $type->getTranslation('name', 'en');
+            $name_ar = $type->getTranslation('name', 'ar');
+            $filteredData[] = [
+                'id' => $type->id,
+                'name' => $rowData,
+                'name_en' => $name_en,
+                'name_ar' => $name_ar,
+            ];
+        }
+        return view('MainDashboard.BuildingTypes.BuildingTypes_list' ,compact('filteredData'));
     }
 
     public function store(BuildingTypeRequest $request)
     {
         $data = $request->validated();
-        BuildingType::create($data);
-        return redirect()->back()->with(['message' => 'Successfully added']);
+        $type = new BuildingType();
+        $type
+            ->setTranslation('name', 'en', strtolower($data['name_en']))
+            ->setTranslation('name', 'ar', $data['name_ar']);
+        $type->save();
+        return redirect()->back()->with(['message' =>__('main_trans.successfully_added')]);
     }
 
     public function update(BuildingTypeRequest $request, BuildingType $BuildingType)
     {
         $data = $request->validated();
-        $BuildingType->update($data);
-        return redirect()->back()->with(['message' => 'Successfully updated']);
+        $BuildingType
+            ->setTranslation('name', 'en', strtolower($data['name_en']))
+            ->setTranslation('name', 'ar', $data['name_ar']);
+            $BuildingType->save();
+        return redirect()->back()->with(['message' =>__('main_trans.successfully_updated')]);
     }
 
     public function destroy(BuildingType $BuildingType)
     {
         $BuildingType->delete();
-        return redirect()->back()->with(['message' => 'Successfully deleted']);
+        return redirect()->back()->with(['message' => __('main_trans.successfully_deleted')]);
     }
 }

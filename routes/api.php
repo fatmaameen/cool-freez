@@ -77,12 +77,12 @@ Route::get('/clients/services', [ServicesController::class, 'index'])
 ;
 
 // brands ----------------------------------------------------------------------
-Route::get('/clients/brands', [BrandsController::class, 'index'])
+Route::get('/clients/brands/{appLocale}', [BrandsController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
 // types ----------------------------------------------------------------------
-Route::get('/clients/types', [TypesController::class, 'index'])
+Route::get('/clients/types/{appLocale}', [TypesController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 
@@ -102,7 +102,7 @@ Route::post('/clients/review', [ReviewController::class, 'store'])
 ;
 
 // BuildingTypes -----------------------------------------------------------------------
-Route::get('/clients/BuildingTypes', [BuildingTypeController::class, 'index'])
+Route::get('/clients/BuildingTypes/{appLocale}', [BuildingTypeController::class, 'index'])
     // ->middleware('auth:sanctum')
 ;
 

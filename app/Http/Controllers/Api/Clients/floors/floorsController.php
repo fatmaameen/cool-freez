@@ -17,7 +17,7 @@ class floorsController extends Controller
             if (!in_array($using, $uniqueUsings)) {
                 $filteredData[] = [
                     'id' => $floorRow->id,
-                    'using' => $using,
+                    'floor' => $using,
                 ];
                 $uniqueUsings[] = $using;
             }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Clients\Reviews;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Clients\Reviews\ReviewRequest;
 use App\Helpers\CodeGeneration;
+use App\Helpers\sendNotification;
 use App\Models\review;
 use App\Traits\PDFUploadTrait;
 
@@ -22,8 +23,8 @@ class ReviewController extends Controller
             } while (review::where('code', $code)->exists());
             $data['code'] = $code;
             $data['building_files'] = json_encode($pdf_names);;
-
-            review::create($data);
+            $newRow = review::create($data);
+            sendNotification::reviewNotify($newRow);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'something went wrong' . $e->getMessage()], 500);

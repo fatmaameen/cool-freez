@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\MainDashboard\Maintenance;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Helpers\sendNotification;
 
 class AdminMaintenanceController extends Controller
 {
@@ -24,9 +25,7 @@ class AdminMaintenanceController extends Controller
             $maintenance->update([
                 'assigned' => $request->assigned,
             ]);
-
-            // Notification here
-
+            sendNotification::assignNotify();
             return response()->json(['message' => 'Updated successfully']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 500);

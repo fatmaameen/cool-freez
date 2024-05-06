@@ -22,8 +22,8 @@ class LoadCalculationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'string'],
-            'brand' => ['required', 'string'],
+            'type_id' => ['required'],
+            'brand_id' => ['required'],
             'length' => ['required', 'string'],
             'width' => ['required', 'string'],
             'floor' => ['required', 'string'],

@@ -12,21 +12,21 @@ return new class extends Migration
     {
         DB::table('brands')->insert([
             'id' => '1',
-            'brand' => 'Carrier',
+            'brand' => '{"en":"carrier","ar":"كارير"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('brands')->insert([
             'id' => '2',
-            'brand' => 'Coolex',
+            'brand' => '{"en":"coolex","ar":"كوليكس"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('brands')->insert([
             'id' => '3',
-            'brand' => 'SKM',
+            'brand' => '{"en":"smk","ar":"إس لإم كى"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

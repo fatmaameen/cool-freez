@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class BuildingTypeController extends Controller
 {
-    public function index()
+    public function index($appLocale)
     {
         $BuildingTypes = BuildingType::all();
-        return response()->json($BuildingTypes);
+        $filteredData = [];
+        foreach ($BuildingTypes as $rowData) {
+            $name = $rowData->getTranslation('name', $appLocale);
+                $filteredData[] = [
+                    'id' => $rowData->id,
+                    'name' => $name,
+                ];
+        }
+        return response()->json($filteredData);
     }
 }

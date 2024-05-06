@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class TypesController extends Controller
 {
-    public function index()
+    public function index($appLocale)
     {
         $types = type::all();
-        return response()->json($types);
+        $filteredData = [];
+        foreach ($types as $typeRow) {
+            $type = $typeRow->getTranslation('type', $appLocale);
+            $filteredData[] = [
+                'id' => $typeRow->id,
+                'type' => $type,
+            ];
+        }
+        return response()->json($filteredData);
     }
 }

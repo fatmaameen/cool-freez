@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Shared\LoadCalculations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Shared\LoadCalculations\LoadCalculationRequest;
+use App\Models\brand;
 use App\Models\cfmRate;
 use App\Models\DataSheet;
+use App\Models\type;
 use App\Models\UsingFloor;
 
 class LoadCalculationController extends Controller
@@ -15,7 +17,9 @@ class LoadCalculationController extends Controller
         try {
             $data = $request->validated();
             $btu = self::getBTU($data['floor'], $data['using'], $data['appLocal'], $data['length'], $data['width']);
-            $models = self::getModels($btu, $data['brand'], $data['type']);
+            $type = self::getType($data['type_id']);
+            $brand = self::getBrand($data['brand_id']);
+            $models = self::getModels($btu, $brand, $type);
             if ($models) {
                 $final_data = self::getData($models, $data['length'], $data['width']);
                 return response()->json($final_data);
@@ -83,5 +87,17 @@ class LoadCalculationController extends Controller
         } elseif ($cfmPerSqM > $rate_data->excellent_to) {
             return 'EXCELLENT';
         }
+    }
+
+    private static function getType($id){
+        $type = type::where('id', $id)->first();
+        $type = $type->getTranslation('type', 'en');
+        return $type;
+    }
+
+    private static function getBrand($id){
+        $brand = brand::where('id', $id)->first();
+        $brand = $brand->getTranslation('brand', 'en');
+        return $brand;
     }
 }

@@ -10,25 +10,25 @@ return new class extends Migration
     {
         DB::table('building_types')->insert([
             'id' => '1',
-            'name' => 'villa',
+            'name' => '{"en":"villa","ar":"ڤيلا"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('building_types')->insert([
             'id' => '2',
-            'name' => 'office',
+            'name' => '{"en":"office","ar":"مكتب"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('building_types')->insert([
             'id' => '3',
-            'name' => 'home',
+            'name' => '{"en":"home","ar":"منزل"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('building_types')->insert([
             'id' => '4',
-            'name' => 'residential building',
+            'name' => '{"en":"residential building","ar":"عمارة سكنية"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -102,14 +102,21 @@ return [
 'btu'=>'BTU',
 'cfm'=>'CFM',
 'gas'=>'GAS',
-'made_in'=>'MADE_IN',
+'made_in'=>'MADE IN',
 'positive'=>'Positive',
 'nagative'=>'Nagative',
 'language'=>'Language',
 'last_clients'=>'Last Clients',
-
-
-
-
+'en_name'=>'Name In English',
+'ar_name'=>'Name In Arabic',
+'successfully_updated'=>'Successfully updated',
+'successfully_deleted'=>'Successfully deleted',
+'successfully_added'=>'Successfully added',
+'data_imported'=>'Data imported successfully',
+'brand_or_type_not_found'=>'Brand or type not found in their table check the file again',
+'upload_valid_file'=>'Please upload a valid file formate',
+'no_messages'=>'There are no messages',
+'mark_as'=>'Mark as readed',
+'no_notification'=>'You have no unread notifications',
 
 ];

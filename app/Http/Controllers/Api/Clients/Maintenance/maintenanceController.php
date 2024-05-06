@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Clients\Maintenance\MaintenanceRequest;
 use App\Helpers\CodeGeneration;
+use App\Helpers\sendNotification;
 use App\Http\Resources\Api\Clients\Maintenance\MaintenanceTrack;
-use Illuminate\Support\Facades\Log;
 
 class maintenanceController extends Controller
 {
@@ -20,7 +20,8 @@ class maintenanceController extends Controller
                 $code = CodeGeneration::generateCode();
             } while (Maintenance::where('code', $code)->exists());
             $data['code'] = $code;
-            Maintenance::create($data);
+            $newRow = Maintenance::create($data);
+            sendNotification::maintenanceNotify($newRow);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error adding maintenance'. $e->getMessage()], 500);

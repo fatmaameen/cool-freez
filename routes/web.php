@@ -1,26 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\Auth\LoginController;
-
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
-use App\Http\Controllers\Dashboard\CompanyDashboard\Maintenance\CompanyMaintenanceController;
-use App\Http\Controllers\Dashboard\CompanyDashboard\Technicians\AdminTechnicianController;
-use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
-use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
-use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingTypeController;
-use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
-use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
-use App\Http\Controllers\Dashboard\MainDashboard\floors\AdminFloorsController;
-use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
-use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
-use App\Http\Controllers\Dashboard\MainDashboard\Reviews\AdminReviewsController;
-use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
-use App\Http\Controllers\Dashboard\MainDashboard\usings\AdminUsingsController;
-use Illuminate\Support\Facades\File as FacadesFile;
+use App\Http\Controllers\Dashboard\shared\notification\dashboardNotificationController;
 
 require __DIR__.'/Dashboard/MainDashboard/web.php';
 require __DIR__.'/Dashboard/CompanyDashboard/web.php';
@@ -34,6 +16,7 @@ require __DIR__.'/Dashboard/CompanyDashboard/web.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/notifications/{id}',[dashboardNotificationController::class,'read'])->name('markAsRead');
 
 // Route::group(
 //     [

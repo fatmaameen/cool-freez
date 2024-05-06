@@ -8,7 +8,7 @@ use App\Http\Requests\Api\Clients\pricing\pricingRequest;
 use App\Models\pricing;
 use App\Models\pricingDetail;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Http\Request;
+use App\Helpers\sendNotification;
 
 class PricingController extends Controller
 {
@@ -45,6 +45,7 @@ class PricingController extends Controller
                 $new_pricing->drawing_of_building = $pdf_name;
                 $new_pricing->save();
             }
+            sendNotification::pricingNotify($pricing);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'something went wrong' . $e->getMessage()]);

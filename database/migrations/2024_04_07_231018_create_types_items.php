@@ -12,14 +12,14 @@ return new class extends Migration
     {
         DB::table('types')->insert([
             'id' => '1',
-            'type' => 'split',
+            'type' => '{"en":"split","ar":"سبليت"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('types')->insert([
             'id' => '2',
-            'type' => 'packaged',
+            'type' => '{"en":"packaged","ar":"باكج"}',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

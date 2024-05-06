@@ -18,6 +18,18 @@ trait ExcelFileTrait
         }
     }
 
+        public function find($folderName)
+    {
+        $folderPath = public_path($folderName);
+        $files = File::files($folderPath);
+        if (!empty($files)) {
+            $filePath = $files[0];
+            return $filePath;
+        } else {
+            return false;
+        }
+    }
+
     public function upload($file, $folderName)
     {
         $fileName = $file->getClientOriginalName();

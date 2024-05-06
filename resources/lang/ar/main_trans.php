@@ -101,7 +101,7 @@ return [
 'btu'=>'BTU',
 'cfm'=>'CFM',
 'gas'=>'GAS',
-'made_in'=>'MADE_IN',
+'made_in'=>'صنع في',
 'search'=>'بحث',
 'App Visits Growth'=>' زيارات البرنامج',
 'summary'=>'اخر التحديثات',
@@ -109,10 +109,17 @@ return [
 'nagative'=>'سلبي',
 'language'=>'اللغة',
 'last_clients'=>'احدث العملاء',
-
-
-
-
+'en_name'=>'الإسم بالإنجليزية',
+'ar_name'=>'الإسم بالعربية',
+'successfully_updated'=>'تم التحديث بنجاح',
+'successfully_deleted'=>'تم الحذف بنجاح',
+'successfully_added'=>'تمت الإضافة بنجاح',
+'data_imported'=>'تم تحميل البيانات بنجاح',
+'brand_or_type_not_found'=>'هناك ماركة أو نوع غير موجود في جدول البيانات الخاص بهم تأكد من البيانات مرة أخرى',
+'upload_valid_file'=>'قم بتحميل ملف صالح',
+'no_messages'=>'لا توجد رسائل',
+'mark_as'=>'تمييز كمقروء',
+'no_notification'=>'ليس لديك إشعارات جديده',
 
 
 ];
