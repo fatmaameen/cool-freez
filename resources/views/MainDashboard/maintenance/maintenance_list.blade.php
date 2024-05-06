@@ -164,7 +164,7 @@
                                             .checkbox label {
                                                 width: 68px;
                                                 height: 18px;
-                                                background: #ccc;
+                                                background: #cccccc;
                                                 position: relative;
                                                 display: inline-block;
                                                 border-radius: 46px;
@@ -346,6 +346,15 @@
                         <form action="{{ route('maintenance.update', $maintenance->id) }}" method="POST">
                             @csrf
 
+
+                            <div class="form-group">
+                                <h4> <label for="status">{{ trans('main_trans.tech') }}</label></h4>
+                                <select class="form-select" aria-label="Default select example" name="admin_status">
+                                    <option value="waiting">waiting</option>
+                                    <option value="confirmed">confirmed</option>
+                                    <option value="cancelled">cancelled</option>
+                                </select>
+                            </div>
 
                             <div class="form-group">
                                 <h4> <label for="status">{{ trans('main_trans.admin_status') }}</label></h4>

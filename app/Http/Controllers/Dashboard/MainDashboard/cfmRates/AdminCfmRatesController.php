@@ -12,8 +12,9 @@ class AdminCfmRatesController extends Controller
 {
     public function index()
     {
-        $data = cfmRate::first();
-        return response()->json($data);
+        $data = cfmRate::all();
+
+        return view('MainDashboard.cfmRate.cfmRate_list' ,compact('data'));
     }
 
     public function update(cfmRatesRequest $request, cfmRate $rate)
@@ -21,9 +22,9 @@ class AdminCfmRatesController extends Controller
         try {
             $data = $request->Validated();
             $rate->update($data);
-            return response()->json(['message' => 'updated successfully']);
+            return redirect()->back()->with(['message' => 'updated successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
+            return  redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
         }
     }
 }

@@ -112,7 +112,171 @@
                                 <td>{{ $technician->name }}</td>
                                 <td>{{ $technician->email }}</td>
                                 <td>{{ $technician->phone_number }}</td>
-                                <td>{{ $technician->is_banned }}</td>
+
+                            <td id="td">
+                                <style>
+                                    *,
+                                    *:after,
+                                    *:before {
+                                        box-sizing: border-box;
+                                    }
+                                    #td {
+                                        text-align: center;
+                                    }
+                                    section {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+
+                                    .checkbox {
+                                        position: relative;
+                                        display: inline-block;
+                                    }
+
+                                    .checkbox:after,
+                                    .checkbox:before {
+                                        font-family: FontAwesome;
+                                        font-feature-settings: normal;
+                                        -webkit-font-kerning: auto;
+                                        font-kerning: auto;
+                                        font-language-override: normal;
+                                        font-stretch: normal;
+                                        font-style: normal;
+                                        font-synthesis: weight style;
+                                        font-variant: normal;
+                                        font-weight: normal;
+                                        text-rendering: auto;
+                                    }
+                                    .checkbox label {
+                                        width: 68px;
+                                        height: 18px;
+                                        background: #ccc;
+                                        position: relative;
+                                        display: inline-block;
+                                        border-radius: 46px;
+                                        transition: 0.4s;
+                                        margin: 0 !important;
+                                    }
+                                    .checkbox label:after {
+                                        content: '';
+                                        position: absolute;
+                                        width: 50px;
+                                        height: 50px;
+                                        border-radius: 100%;
+                                        left: 0;
+                                        top: -5px;
+                                        z-index: 2;
+                                        background: #fff;
+                                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+                                        transition: 0.4s;
+                                    }
+                                    .checkbox input {
+                                        position: absolute;
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        z-index: 5;
+                                        opacity: 0;
+                                        cursor: pointer;
+                                        background: #3fb454;
+                                    }
+                                    .checkbox input:hover+label:after {
+                                        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+                                    }
+                                    .checkbox input:checked+label:after {
+                                        left: 40px;
+                                    }
+                                    .model-7 .checkbox label {
+                                        background: none;
+                                        border: 2.5px solid #329043;
+                                        height: 19.5px;
+                                    }
+                                    .model-7 .checkbox label:after {
+                                        background: #329043;
+                                        box-shadow: none;
+                                        top: 2px;
+                                        left: 2px;
+                                        width: 12px;
+                                        height: 12px;
+                                    }
+                                    .model-7 .checkbox input:checked+label {
+                                        border-color: #a82626;
+                                    }
+                                    .model-7 .checkbox input:checked+label:after {
+                                        background: #a82626;
+                                        left: 50px;
+                                    }
+                                </style>
+                                <section class="model-7">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="switchCheckDefault{{ $technician->id }}"
+                                            {{ $technician->is_banned ? 'checked' : '' }}
+                                            data-technician-id="{{ $technician->id }}"
+                                            onchange="updateColumn(this)" />
+                                        <label></label>
+                                    </div>
+                                </section>
+
+                                <script>
+                                    function updateColumn(checkbox) {
+                                        var technicianId = checkbox.dataset.technicianId;
+                                        var assignedValue = checkbox.checked ? 1 : 0;
+
+                                        fetch('/company-dashboard/technician/banned/'+ technicianId,  {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                },
+                                                body: JSON.stringify({
+                                                    is_banned: assignedValue
+                                                })
+                                            })
+                                            .then(response => {
+                                                if (!response.ok) {
+                                                    throw new Error('Network response was not ok');
+                                                }
+                                                return response.json();
+                                            })
+                                            .then(data => {
+                                                var messageContainer = document.getElementById('messageContainer');
+                                                messageContainer.innerHTML = '';
+                                                var messageDiv = document.createElement('div');
+                                                messageDiv.classList.add('alert');
+                                                if (data.error) {
+                                                    messageDiv.classList.add('alert-danger');
+                                                    messageDiv.textContent = 'Update failed. Please try again later.';
+                                                } else {
+                                                    messageDiv.classList.add('alert-success');
+                                                    messageDiv.textContent = data.message;
+                                                }
+                                                messageContainer.appendChild(messageDiv);
+                                                setTimeout(function() {
+                                                    messageDiv.remove();
+                                                }, 5000);
+                                            })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                                var messageContainer = document.getElementById('messageContainer');
+                                                messageContainer.innerHTML = '';
+                                                var messageDiv = document.createElement('div');
+                                                messageDiv.classList.add('alert');
+                                                messageDiv.classList.add('alert-danger');
+                                                messageDiv.textContent = 'Update failed. Please try again later.';
+                                                messageContainer.appendChild(messageDiv);
+                                                setTimeout(function() {
+                                                    messageDiv.remove();
+                                                }, 5000);
+                                            });
+                                    }
+                                </script>
+
+
+
+                            </td>
+
                                 <td>
                                     <!-- Edit Button -->
                                     <a href="#"  data-toggle="modal" data-target="#editModal{{ $technician->id }}">
@@ -292,6 +456,26 @@
         }
     });
 </script>
+<script>
+    // Get the checkbox element
+ var assignedCheckbox = document.getElementById('assignedCheckbox');
+
+ // Add event listener to checkbox change
+ assignedCheckbox.addEventListener('change', function() {
+     // Get the hidden input element
+     var assignedInput = document.querySelector('input[name="is_banned"]');
+
+     // Update the value based on checkbox state
+     assignedInput.value = this.checked ? 1 : 0;
+
+     // Get the form element
+     var updateForm = document.getElementById('updateForm');
+
+     // Submit the form
+     updateForm.submit();
+ });
+
+ </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
 

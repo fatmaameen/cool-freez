@@ -12,6 +12,7 @@ use App\Traits\ImageUploadTrait;
 use App\Http\Requests\Dashboard\MainDashboard\admins\AddAdminRequest;
 use App\Http\Requests\Dashboard\MainDashboard\admins\UpdateAdminRequest;
 use App\Http\Resources\Dashboard\MainDashboard\admins\AdminInfoResource;
+use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
 {
@@ -24,12 +25,25 @@ class AdminsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+
+    public function profile(){
+$user=Auth::user();
+
+        return view('MainDashboard.users.profile',compact('user') );
+    }
+
+
+
+
+
+
+     public function index()
     {
         $users = User::all();
         $roles = Role::all();
         return view('MainDashboard.users.user_list' ,compact('users', 'roles'));
-      
+
 
     }
     /**

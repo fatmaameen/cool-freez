@@ -79,6 +79,13 @@
                         <a href="{{ route('loadCalculation') }}"><i class="ti-email"></i><span class="ti-calculator">{{ trans('main_trans.loadCalculation') }}
                         </span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('cfmRates') }}">
+                            <i class="fas fa-calculator"></i>
+                            <span>{{ trans('main_trans.cfmRates') }}</span>
+                        </a>
+                    </li>
+
 
                 </ul>
             </div>

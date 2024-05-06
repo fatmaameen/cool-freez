@@ -6,11 +6,28 @@ return [
 'admins'=>'الادارة ',
 'avatar'=>' صورة شخصية',
 'number'=>'#',
-'user_name'=>'اسم',
-
-'email'=>'بريد الكتروني',
+'user_name'=>'الاسم',
+'cfmRates'=>'نسبة CFM',
+'email'=>'البريد الكتروني',
 'actions'=>'العمليات',
 'send '=>'ارسال',
+
+
+
+'poor_from'=>'مقبول من',
+'poor_to'=>'مقبول الي',
+'good_from'=>'جيد من',
+'good_to'=>'جيد الي',
+'excellent_from'=>'ممتاز من',
+'excellent_to'=>' ممتاز الي',
+
+
+
+
+
+
+
+
 'active'=>'نشط',
 'inactive'=>' غير نشط',
 'status'=>'حالة',
@@ -80,7 +97,7 @@ return [
 'send_reply'=>'ارسال رد',
 'technician'=>'الفنيين',
 'total_clients'=>'إجمالي العملاء',
-
+'profile'=>'الملف الشخصي ',
 'total_maintenance'=>'اجمالي الصيانة ',
 'total_offer'=>'إجمالي العروض',
 'Just Updated'=>'اخر المراجعات',
@@ -88,7 +105,7 @@ return [
 'upload'=>'رفع ملف',
 'file'=>'ملف',
 'text'=>' ملحوظة : إذا قمت برفع ملف جديد، سيتم حذف الملف القديم واستبداله به.',
-
+'logout'=>'تسجيل خروج',
 'download'=>'تنزيل',
 'dataSheet'=>'مجموعة البيانات',
 'loadCalculation'=>'حساب الأحمال',

@@ -281,6 +281,7 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
 <script>
 @if (count($messages)>0)
 $('#replyyModal{{ $massage->id }}').on('hidden.bs.modal', function () {
@@ -288,6 +289,9 @@ $('#replyyModal{{ $massage->id }}').on('hidden.bs.modal', function () {
 });
 @endif
 </script>
+=======
+
+>>>>>>> 9ccce764db5694e2151a20ac0b685e72b3b6ce20
 
 @endsection
 

@@ -293,7 +293,7 @@ thead.bg-light {
 
 <!-- Edit User Modals -->
 @foreach ($clients as $client)
-<div class="modal fade" id="editModal{{ $client->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $client->id }}"
+{{-- <div class="modal fade" id="editModal{{ $client->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $client->id }}"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -326,7 +326,7 @@ thead.bg-light {
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 @endforeach

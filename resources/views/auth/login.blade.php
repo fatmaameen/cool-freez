@@ -176,7 +176,7 @@
                                     @enderror
 
                                 </div>
-                                <div class="section-field">
+                                {{-- <div class="section-field">
                                     <div class="remember-checkbox mb-30">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember">
@@ -185,7 +185,7 @@
 
                                         <a href="{{ route('forgotPassword') }}" class="float-right">{{ __('Forgot Your Password') }}</a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <button class="button login_btn"><span> {{ __('Login') }}</span></button>
                             </form>
                         </div>
