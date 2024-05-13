@@ -23,8 +23,8 @@ class TypesRequest extends FormRequest
     {
         return [
             'id' => ['numeric'],
-            'type_en' => ['required', 'string', 'max:250'],
-            'type_ar' => ['required', 'string', 'max:250'],
+            'type_en' => ['required', 'string', 'max:50','min:2'],
+            'type_ar' => ['required', 'string', 'max:50','min:2'],
         ];
     }
 }

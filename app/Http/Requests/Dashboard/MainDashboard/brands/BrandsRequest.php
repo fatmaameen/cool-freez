@@ -23,8 +23,8 @@ class BrandsRequest extends FormRequest
     {
         return [
             'id' => [ 'numeric'],
-            'brand_en' => ['required', 'string', 'max:250'],
-            'brand_ar' => ['required', 'string', 'max:250'],
+            'brand_en' => ['required', 'string', 'max:50','min:2'],
+            'brand_ar' => ['required', 'string', 'max:50','min:2'],
         ];
     }
 }

@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 use App\Traits\ImageUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
+use App\Http\Resources\Api\Clients\ordersHistory\loadHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\maintenanceHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\pricingHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\reviewHistoryResource;
 use App\Models\loadCalculation;
 use App\Models\Maintenance;
 use App\Models\pricing;
 use App\Models\review;
-use App\Http\Resources\Dashboard\MainDashboard\loadCalculation\loadInfoResource;
+
 
 class AdminClientsController extends Controller
 {
@@ -33,13 +37,6 @@ class AdminClientsController extends Controller
 
     {
 
-        $maintenances = Maintenance::where('client_id', $id)->get();
-        $pricings = pricing::where('client_id', $id)->with([ 'details'])->get();
-        $reviews = review::where('client_id', $id)->with('consultant')->get();
-        $load = loadCalculation::where('id', $id)->with(['model'])->get();
-        $data = loadInfoResource::make($load);
-
-      return view('MainDashboard.clients.details' ,compact('maintenances','data' ,'pricings' ,'reviews'));
 
     }
 
