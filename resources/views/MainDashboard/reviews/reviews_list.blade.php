@@ -1,6 +1,8 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>.circular-link {
     display: inline-block;
@@ -86,13 +88,8 @@
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
             <div class="card-body">
-                @if(session('message'))
-                <div class="alert alert-success">
-                    <div id="messageContainer"></div>
-                    {{ session('message') }}
-                </div>
-                @endif
-                @if ($errors->any())
+
+                {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -100,7 +97,7 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
                 <br><br>
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -436,5 +433,32 @@ assignedCheckbox.addEventListener('change', function() {
         var deleteModalId = '#deleteModal' + reviewId;
         $(deleteModalId).modal('show');
     }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+            var audio = new Audio('audio.mp3');
+            audio.play();
+            break;
+    }
+@endif
+
 </script>
 @endsection

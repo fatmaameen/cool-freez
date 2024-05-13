@@ -44,33 +44,18 @@ $user=Auth::user();
         $roles = Role::all();
         return view('MainDashboard.users.user_list' ,compact('users', 'roles'));
 
-
     }
-    /**
-     * Show Admin Info.
-     */
-    // public function show(string $id)
-    // {
-    //     $user = User::find($id);
-    //     // return response()->json($user);
-    //     return UserInfoResource::make($user);
-    // }
-
-    /**
-     * Store a newly created Admin.
-     */
 
     public function store(Request $request)
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
+            'name' => 'required|string|regex:/^[a-zA-Z\s]+$/|max:50|min:2',
+           'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            'phone' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required'
-            // Adjust the file size limit as needed
+            'phone' => 'required|string|max:15', // Assuming phone number is a string and has a maximum length of 15
+         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+         'role' => 'required|exists:roles,id', // Assuming role is a foreign key that exists in the roles table
         ]);
 
         // Handle file upload if image is provided
@@ -95,7 +80,14 @@ $user=Auth::user();
         // Save the user to the database
         $user->save();
 
-        return redirect()->back()->with(['message' => 'User created successfully']);
+        $notification = array(
+            'message' => trans('main_trans.adding'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
+
     }
 
     /**
@@ -103,14 +95,15 @@ $user=Auth::user();
      */
     public function update(Request $request, $id)
     {
+
         // Validate the incoming request data
         $validatedData = $request->validate([
-            'name' => 'nullable|string',
-            'email' => 'nullable|email|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:6',
-            'phone' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'nullable|exists:roles,id', // Validate that the role exists in the roles table
+            'name' => 'nullable|string|regex:/^[a-zA-Z\s]+$/|max:50|min:2',
+            'email' => 'nullable|email|unique:users,email' .$id,
+             'password' => 'nullable|string|min:6',
+             'phone' => 'nullable|string|max:15', // Assuming phone number is a string and has a maximum length of 15
+          'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+          'role' => 'nullable|exists:roles,id', // Assuming role is a foreign key that exists in the roles table
         ]);
 
         // Fetch the user from the database
@@ -141,7 +134,13 @@ $user=Auth::user();
         // Save the updated user to the database
         $admin->save();
 
-        return redirect()->back()->with(['message' => 'User updated successfully']);
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
 
@@ -167,7 +166,12 @@ $user=Auth::user();
         $old_image = $admin->image;
         if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
             $admin->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+
+        $notification = array(
+          'message' => trans('main_trans.deleting'),
+        'alert-type' => 'error'
+          );
+            return redirect()->back()->with($notification);
         } else {
             if ($this->remove($old_image)) {
                 $admin->delete();

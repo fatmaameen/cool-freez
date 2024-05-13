@@ -85,7 +85,16 @@
                          <!-- top bar right -->
                          <ul class="nav navbar-nav ml-auto">
                              <div class="language-selector">
-                                 <button class="dropdown-button"> {{ trans('main_trans.language') }}</button>
+                                <button class="dropdown-button">
+                                    @if (app()->getLocale() == 'en')
+                                        <img src="{{ asset('assets/images/en-flag.png') }}" width="32px" alt="">&nbsp; <i
+                                            class="fa-solid fa-caret-down"></i>
+                                    @else
+                                        <img src="{{ asset('assets/images/ar-flag.png') }}" width="32px" alt="">&nbsp; <i
+                                            class="fa-solid fa-caret-down"></i>
+                                    @endif
+                                    {{-- {{ trans('main_trans.language') }} --}}
+                                </button>
                                  <ul class="dropdown-menu">
                                      @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                          <li>
@@ -102,27 +111,44 @@
                     <a id="btnFullscreen" href="#" class="nav-link"><i class="ti-fullscreen"></i></a>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ti-bell"></i>
+                    <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-bell"></i>
+                    @if (auth()->user()->unreadNotifications->count() > 0)
                         <span class="badge badge-danger notification-status"> </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications">
+                    @endif
+                </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications pb-0">
                         <div class="dropdown-header notifications">
                             <strong>Notifications</strong>
-                            <span class="badge badge-pill badge-warning">05</span>
+                            <span
+                                class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">New registered user <small
-                                class="float-right text-muted time">Just now</small> </a>
-                        <a href="#" class="dropdown-item">New invoice received <small
-                                class="float-right text-muted time">22 mins</small> </a>
-                        <a href="#" class="dropdown-item">Server error report<small
-                                class="float-right text-muted time">7 hrs</small> </a>
-                        <a href="#" class="dropdown-item">Database report<small class="float-right text-muted time">1
-                                days</small> </a>
-                        <a href="#" class="dropdown-item">Order confirmation<small class="float-right text-muted time">2
-                                days</small> </a>
+                        @if (auth()->user()->unreadNotifications->count() > 0)
+                        <audio autoplay>
+                            <source src="{{ asset('assets/notify.wav') }}" type="audio/mpeg">
+                        </audio>
+                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                <div class="dropdown-item" style="display: flex; align-items: center;">
+                                    @if (array_key_exists('image', $notification->data) && $notification->data['image'])
+                                    <img src="{{ $notification->data['image'] }}" width="30px" alt="" srcset="">
+                                @endif
+
+                                    <a href="{{ $notification->data['url'] }}">
+                                        {{ $notification->data['message'] }}
+                                    </a>
+                                </div>
+                            @endforeach
+                            <div class="text-center bg-secondary">
+                                <a href="{{ route('markAsRead', auth()->user()->id) }}" class="dropdown-item">
+                                    {{ trans('main_trans.mark_as') }}</a>
+                            </div>
+                        @else
+                            <div class="text-center">
+                                <p>{{ trans('main_trans.no_notification') }}</p>
+                            </div>
+                        @endif
                     </div>
                 </li>
 

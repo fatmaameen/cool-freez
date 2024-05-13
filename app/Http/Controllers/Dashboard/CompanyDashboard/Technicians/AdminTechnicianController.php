@@ -22,7 +22,7 @@ class AdminTechnicianController extends Controller
         return view('CompanyDashboard.technician.technician_list' ,compact('technicians'));
     }
     public function profile(){
-        
+
         $user=Auth::user();
 
                 return view('CompanyDashboard.profile',compact('user') );
@@ -68,7 +68,13 @@ class AdminTechnicianController extends Controller
                 // Save the updated user to the database
                 $admin->save();
 
-                return redirect()->back()->with(['message' => 'User updated successfully']);
+                $notification = array(
+                    'message' => trans('main_trans.editing'),
+                    'alert-type' => 'success'
+                     );
+
+
+                return redirect()->back()->with($notification);
             }
 
 
@@ -81,7 +87,13 @@ class AdminTechnicianController extends Controller
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
             technician::create($data);
-            return redirect()->back()->with(['message' => 'Created Successfully']);
+            $notification = array(
+                'message' => trans('main_trans.adding'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => 'Something went wrong' . $e->getMessage()]);
         }
@@ -97,7 +109,13 @@ class AdminTechnicianController extends Controller
                 $technician->update([
                     'is_banned' => $request->is_banned
                 ]);
-                return response()->json(['message' => 'Successfully updated']);
+                $notification = array(
+                    'message' => trans('main_trans.editing'),
+                    'alert-type' => 'success'
+                     );
+
+
+                return redirect()->back()->with($notification);
             };
         } catch (\Exception $e) {
             return response()->json(['error' => 'something went wrong' . $e->getMessage()]);
@@ -140,7 +158,13 @@ class AdminTechnicianController extends Controller
         $technician->save();
 
         // Redirect back with a success message
-        return redirect()->back()->with(['message' => 'Technician updated successfully']);
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(technician $technician)
@@ -148,7 +172,13 @@ class AdminTechnicianController extends Controller
         $old_image = $technician->image;
         if ($this->remove($old_image)) {
             $technician->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+                'alert-type' => 'error'
+                 );
+
+
+            return redirect()->back()->with($notification);
         } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);
         }

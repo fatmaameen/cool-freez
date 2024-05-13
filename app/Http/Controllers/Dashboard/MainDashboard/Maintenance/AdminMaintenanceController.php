@@ -26,7 +26,11 @@ class AdminMaintenanceController extends Controller
                 'assigned' => $request->assigned,
             ]);
             sendNotification::assignNotify();
-            return response()->json(['message' => 'Updated successfully']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 500);
         }
@@ -43,9 +47,11 @@ class AdminMaintenanceController extends Controller
                 'admin_status' => $request->admin_status,
             ]);
 
-            // Notification here
-
-            return redirect()->back()->with(['message' => 'Updated successfully']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return  redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()]);
         }
@@ -55,6 +61,10 @@ class AdminMaintenanceController extends Controller
     public function destroy(Maintenance $maintenance)
     {
         $maintenance->delete();
-        return redirect()->back()->with(['message' => 'Deleted successfully']);
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+              return redirect()->back()->with($notification);  
     }
 }

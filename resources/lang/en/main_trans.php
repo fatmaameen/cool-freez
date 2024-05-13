@@ -11,17 +11,26 @@ return [
 'email'=>'Email',
 'actions'=>'Actions',
 'cfmRates'=>'CFM Rates',
-
+'dont_have'=>'Don\'t Have',
 'poor_from'=>'Poor From',
 'poor_to'=>'Poor To',
 'good_from'=>'Good From',
 'good_to'=>'Good To',
 'excellent_from'=>'Excellent From',
 'excellent_to'=>'Excellent To',
-
+'adding'=>'Added Successfully',
 'status'=>'status',
 'active'=>'active',
 'inactive'=>'inactive',
+'editing'=>'Modified Successfully',
+'deleting'=>'Deleted Successfully',
+
+
+
+
+
+
+
 'role'=>'role',
 'Assign_Role'=>'Assign_Role',
 'open_menu'=>'Select role',

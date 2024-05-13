@@ -16,7 +16,7 @@ class AdminConsultantsController extends Controller
     public function index()
     {
         $consultants = consultant::all();
-       
+
         return view('MainDashboard.consultants.consultant_list' ,compact('consultants'));
     }
 
@@ -29,8 +29,13 @@ class AdminConsultantsController extends Controller
             $image = $this->upload($image_info, "consultants");
             $data['image'] = $image;
             consultant::create($data);
-            return redirect()->back()->with(['message' => 'Successfully added']);
-        } catch (\Exception $e) {
+            $notification = array(
+                'message' => trans('main_trans.adding'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);        } catch (\Exception $e) {
             Log::error("Error adding consultant: " . $e->getMessage());
             return redirect()->back()->with(['message' => 'Error adding consultant'], 500);
         }
@@ -53,7 +58,13 @@ class AdminConsultantsController extends Controller
                     'image' => $image,
                     'rate'=>$data['rate']
                 ]);
-                return  redirect()->back()->with(['message' => 'Successfully updated']);
+                $notification = array(
+                    'message' => trans('main_trans.editing'),
+                    'alert-type' => 'success'
+                     );
+
+
+                return redirect()->back()->with($notification);
             } else {
                 return  redirect()->back()->with(['message' => 'Something went wrong']);
             }
@@ -65,7 +76,11 @@ class AdminConsultantsController extends Controller
                 'phone_number' => $data['phone_number'],
                  'rate'=>$data['rate']
             ]);
-            return  redirect()->back()->with(['message' => 'Successfully updated']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         }
     }
 
@@ -74,8 +89,11 @@ class AdminConsultantsController extends Controller
         $old_image = $consultant->image;
         if ($this->remove($old_image)) {
             $consultant->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
-        } else {
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+              'alert-type' => 'error'
+                );
+                  return redirect()->back()->with($notification);           } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }

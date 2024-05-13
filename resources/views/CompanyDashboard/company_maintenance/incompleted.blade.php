@@ -1,10 +1,38 @@
 @extends('CompanyDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    .blue-button {
+        background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
+        color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
+        border: none; /* لإزالة الحدود */
+        padding: 10px 20px; /* يمكنك تعديل حجم الوسادة */
+        border-radius: 5px; /* يمكنك تعديل نصف القطر للإطار */
+        cursor: pointer; /* لإظهار مؤشر اليد */
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>/* Customize the table's border color and row colors */
+    .table-bordered {
+        border-color: #ADD8E6; /* Light blue */
+    }
 
+    .table-bordered th,
+    .table-bordered td {
+        border-color: #ADD8E6; /* Light blue */
+    }
+
+    /* Customize the header background color */
+    thead.bg-light {
+        background-color: #E0F7FA; /* Light cyan */
+    }
+    </style>
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 @endsection
+
 
 @section('title')
 {{ trans('main_trans.Incomplete_maintenance') }}
@@ -33,13 +61,8 @@
 <div class="row">
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
-            <div class="card-body">
-                @if(session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
-                @endif
-                @if ($errors->any())
+
+                {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -47,7 +70,7 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
                 <br><br>
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -85,7 +108,17 @@
                             <td>{{ $maintenance->phone_number }}</td>
                             <td>{{ $maintenance->device_type }}</td>
                             <td>{{ $maintenance->type_of_malfunction }}</td>
-                            <td>{{ $maintenance->technical }}</td>
+                            <td>
+                                @if($maintenance->technical_id)
+                                    @php
+                                        $name=App\Models\technician::where('id' ,$maintenance->technical_id)->first();
+                                    @endphp
+                                    {{ $name->name }}
+                                @else
+                                    {{ trans('main_trans.dont_have') }}
+                                @endif
+                            </td>
+
                             <td>{{ $maintenance->expected_service_date }}</td>
 
                             <td>
@@ -99,10 +132,12 @@
 
 
                             <td>
-                                <a href="#editModal{{ $maintenance->id }}" class="btn btn-primary"
-                                    data-toggle="modal">{{ trans('main_trans.edit') }}</a>
-
-    {{-- <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $maintenance->id }}')">{{ trans('main_trans.delete') }}</a> --}}
+                                <a href="#editModal{{ $maintenance->id }}"
+                                    data-toggle="modal"> <i class="fas fa-pen-to-square fa-2xl" ></i></a>
+ <!-- Delete Button -->
+ <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{  $maintenance->id}}">
+    <i class="fa-solid fa-trash-can"></i>
+</a>
 </td>
                             </td>
                         </tr>
@@ -134,29 +169,38 @@
             <div class="modal-body">
                 <form action="{{ route('company_maintenance.update', $maintenance->id) }}" method="POST">
                     @csrf
-
+                    <style>
+                        .form-select {
+                            width: 100%; /* يجعل العرض 100% من حجم الحاوية */
+                            font-size: 16px; /* لتكبير حجم النص داخل العنصر */
+                        }
+                    </style>
                     <div class="form-group">
-                        <label for="status">{{ trans('main_trans.company_status')}}</label>
+                        <h5><label for="status">{{ trans('main_trans.company_status')}}:</label></h5>
                         <select class="form-select" aria-label="Default select example" name="company_status">
                             <option value="pending">pending</option>
                             <option value="confirmed">confirmed</option>
                             <option value="cancelled">cancelled</option>
                         </select>
                     </div>
-
-                    {{-- <div class="form-group">
-                        <label for="role">technical</label>
-                        <select class="form-select" aria-label="Default select example" name="technical">
-                            <option selected>{{ trans('main_trans.open_menu') }}</option>
-                            @foreach ($technicals as $technical)
-                            <option value="{{ $technical->id }}">{{ $technical->name }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     <div class="form-group">
-                        <label> {{ trans('main_trans.expected_service_date')}}</label>
+                        <h5><label for="role">{{ trans('main_trans.technical') }}:</label></h5>
+                        <select class="form-select" aria-label="Default select example" name="technical">
+                            @php
+                            $technicals = App\Models\technician::all();
+                            @endphp
+                            @foreach ($technicals as $technical)
+                                <option value="{{ $technical->id }}">{{ $technical->name }}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h5><label> {{ trans('main_trans.expected_service_date')}}:</label></h5>
                         <input class="form-control fc-datepicker" name="expected_service_date" placeholder="YYYY-MM-DD"
-                            type="text" required>
+                            type="text">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -246,5 +290,34 @@
         assignedInput.value = this.checked ? 1 : 0;
     });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+            var audio = new Audio('audio.mp3');
+            audio.play();
+            break;
+    }
+@endif
+
+</script>
+
 
 @endsection

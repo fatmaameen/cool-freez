@@ -1,8 +1,32 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>.circular-link {
+    display: inline-block;
+    width: 40px; /* يمكنك ضبط العرض حسب رغبتك */
+    height: 40px; /* يمكنك ضبط الارتفاع حسب رغبتك */
+    line-height: 40px; /* يجعل النص والأيقونة في منتصف العنصر */
+    border-radius: 50%; /* يجعل العنصر دائري الشكل */
+    background-color: lightblue; /* لون الخلفية اللبني */
+    color: rgb(17, 17, 17); /* لون النص والأيقونة */
+    text-align: center; /* محاذاة النص والأيقونة في الوسط */
+    text-decoration: none; /* لإزالة أي خطوط تحتية من الرابط */
+}
+
+
+
+
+/* إضافة تأثير التحويم (hover) لتحسين التصميم */
+.circular-link {
+    margin-right: 40px; /* تضيف مساحة على اليمين */
+}
+
+
+</style>
 <style>
 .table-bordered {
     border-color: #ADD8E6; /* Light blue */
@@ -49,13 +73,8 @@ thead.bg-light {
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-                <div id="messageContainer"></div>
-                @if(session('message'))
-                <div class="alert alert-success">
-                    <div id="messageContainer"></div>
-                    {{ session('message') }}
-                </div>
-                @endif
+
+{{--
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -64,7 +83,7 @@ thead.bg-light {
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
                 <br><br>
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -85,6 +104,7 @@ thead.bg-light {
                             <th scope="col">{{ trans('main_trans.phone') }}</th>
                             <th scope="col">{{ trans('main_trans.address') }}</th>
                             <th id="td" scope="col">{{ trans('main_trans.status') }}</th>
+                            <th id="td" scope="col">{{ trans('main_trans.actions') }}</th>
 
                         </tr>
                     </thead>
@@ -270,8 +290,14 @@ thead.bg-light {
                                             });
                                     }
                                 </script>
-
-
+                            </td>
+                            <td>
+                                <a href="{{ route('clients.history', $client->id) }}" class="circular-link">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $client->id }}')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
 
                             </td>
 
@@ -293,40 +319,33 @@ thead.bg-light {
 
 <!-- Edit User Modals -->
 @foreach ($clients as $client)
-{{-- <div class="modal fade" id="editModal{{ $client->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $client->id }}"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $client->id }}">{{ trans('main_trans.edit') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('clients.update' ,$client->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+<div class="modal fade" id="deleteModal{{ $client['id'] }}" data-bs-backdrop="static" tabindex="-1"
+aria-labelledby="deleteModalLabel{{ $client['id'] }}" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel{{ $client['id'] }}"></h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('clients.delete', $client['id']) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <h5>{{ trans('main_trans.delete_text') }}</h5>
 
-
-                    <div class="form-group">
-                        <label for="status">{{ trans('main_trans.status') }}</label>
-                        <select class="form-select" aria-label="Default select example" name="is_banned">
-                            <option value="1" {{ $client->is_banned == 1 ? 'selected' : '' }}>{{ trans('main_trans.active') }}</option>
-                            <option value="0" {{ $client->is_banned == 0 ? 'selected' : '' }}>{{ trans('main_trans.block') }}</option>
-                        </select>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            {{ trans('main_trans.close') }}
-                        </button>
-                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ trans('main_trans.close') }}
+                    </button>
+                    <button type="submit" class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
+                </div>
+            </form>
         </div>
     </div>
-</div> --}}
+</div>
+</div>
 
 
 @endforeach
@@ -385,6 +404,40 @@ assignedCheckbox.addEventListener('change', function() {
     // Submit the form
     updateForm.submit();
 });
+
+</script>
+<script>
+    // Function to open delete modal
+    function openDeleteModal(clientId) {
+        var deleteModalId = '#deleteModal' + clientId;
+        $(deleteModalId).modal('show');
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+            var audio = new Audio('audio.mp3');
+            audio.play();
+            break;
+    }
+@endif
 
 </script>
 @endsection

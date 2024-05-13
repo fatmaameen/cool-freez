@@ -36,7 +36,13 @@ class AdminTypesController extends Controller
             ->setTranslation('type', 'en', strtolower($data['type_en']))
             ->setTranslation('type', 'ar', $data['type_ar']);
         $type->save();
-        return redirect()->back()->with(['message' => __('main_trans.successfully_added')]);
+        $notification = array(
+            'message' => trans('main_trans.adding'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     public function update(TypesRequest $request, type $type)
@@ -46,12 +52,22 @@ class AdminTypesController extends Controller
             ->setTranslation('type', 'en', strtolower($data['type_en']))
             ->setTranslation('type', 'ar', $data['type_ar']);
         $type->save();
-        return redirect()->back()->with(['message' => __('main_trans.successfully_updated')]);
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(type $type)
     {
         $type->delete();
-        return redirect()->back()->with(['message' => __('main_trans.successfully_deleted')]);
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+              return redirect()->back()->with($notification);
     }
 }

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Traits\ImageUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
+use App\Models\loadCalculation;
+use App\Models\Maintenance;
+use App\Models\pricing;
+use App\Models\review;
+use App\Http\Resources\Dashboard\MainDashboard\loadCalculation\loadInfoResource;
 
 class AdminClientsController extends Controller
 {
@@ -23,6 +28,23 @@ class AdminClientsController extends Controller
 
         return view('MainDashboard.clients.client_list', compact('clients'));
     }
+
+    public function history($id)
+
+    {
+
+        $maintenances = Maintenance::where('client_id', $id)->get();
+        $pricings = pricing::where('client_id', $id)->with([ 'details'])->get();
+        $reviews = review::where('client_id', $id)->with('consultant')->get();
+        $load = loadCalculation::where('id', $id)->with(['model'])->get();
+        $data = loadInfoResource::make($load);
+
+      return view('MainDashboard.clients.details' ,compact('maintenances','data' ,'pricings' ,'reviews'));
+
+    }
+
+
+
     public function banned(Request $request, Client $client)
     {
         $request->validate([
@@ -49,7 +71,14 @@ class AdminClientsController extends Controller
         Client::find($id)->update([
             'is_banned' => $request->is_banned,
         ]);
-        return redirect()->back()->with(['Message' => "Updated successfully"]);
+
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(Client $client)
@@ -57,7 +86,12 @@ class AdminClientsController extends Controller
         $old_image = $client->image;
         if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
             $client->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+              'alert-type' => 'error'
+                );
+                  return redirect()->back()->with($notification);
         } else {
             if ($this->remove($old_image)) {
                 $client->delete();

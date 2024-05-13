@@ -24,9 +24,10 @@ class Maintenance extends Model
         'assigned',
         'admin_status',
         'company_status',
-        'technical',
+        'technical_id',
         'technical_status',
         'assigned',
+        'expected_service_date',
     ];
 
     public function client()
