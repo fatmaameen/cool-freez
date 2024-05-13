@@ -396,7 +396,6 @@
                                 <input type="email" class="form-control" id="email{{ $technician->id }}" name="email"
                                     value="{{ $technician->email }}">
                             </div>
-
                             <div class="form-group">
                                 <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
                                 <div class="position-relative auth-pass-inputgroup">
