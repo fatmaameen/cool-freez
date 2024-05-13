@@ -36,7 +36,13 @@ class AdminReviewsController extends Controller
 
             // Notification here
 
-            return redirect()->back()->with(['message' => 'Updated successfully']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return  redirect()->back()->with(['message' => 'Something went wrong: ' . $e->getMessage()], 500);
         }
@@ -47,7 +53,12 @@ class AdminReviewsController extends Controller
         $old_files = $review->building_files;
         if ($this->removePDF($old_files, 'reviews_files')) {
             $review->delete();
-            return redirect()->back()->with(['message' => 'deleted successfully']);
+
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+              'alert-type' => 'error'
+                );
+                  return redirect()->back()->with($notification);
         } else {
             return redirect()->back()->with(['message' => 'Something went wrong']);
         }

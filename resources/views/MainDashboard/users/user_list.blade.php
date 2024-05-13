@@ -1,8 +1,15 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+    .error-message {
+    font-size: 1.1rem; /* يمكنك تعديل حجم الخط حسب الحاجة */
+    color: red; /* أو أي لون تفضله */
+    /* أي خصائص أخرى تريدها */
+}
+
     .blue-button {
         background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
         color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
@@ -67,13 +74,17 @@ thead.bg-light {
         <div class="card card-statistics h-70">
             <div class="card-body">
                 <div id="messageContainer"></div>
-                @if(session('message'))
+                {{-- @if (session('success'))
                 <div class="alert alert-success">
-                    <div id="messageContainer"></div>
-                    {{ session('message') }}
+                {{ session('success') }}
                 </div>
-                @endif
-                @if ($errors->any())
+               @endif
+               @if (session('error'))
+               <div class="alert alert-error">
+                   {{ session('error') }}
+               </div>
+               @endif --}}
+                {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -81,7 +92,7 @@ thead.bg-light {
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
                 <br><br>
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -226,41 +237,63 @@ thead.bg-light {
                     @csrf
                     <div class="form-group">
                         <label for="name">{{ trans('main_trans.user_name') }}</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
+                        @error('name')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
+
+
                     <div class="form-group">
                         <label for="email">{{ trans('main_trans.email') }}</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email">
+                        @error('email')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
                         <div class="position-relative auth-pass-inputgroup">
-                            <input type="password" class="form-control pe-5 password-input" placeholder="{{ trans('main_trans.enter_password') }}"  name="password" id="password-input">
+                            <input type="password" class="form-control pe-5 password-input @error('password') is-invalid @enderror" placeholder="{{ trans('main_trans.enter_password') }}"  name="password" id="password-input">
                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
                                 <i class="ri-eye-fill align-middle" id="eye-icon"></i>
                             </button>
                         </div>
+                        @error('password')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
-
 
                     <div class="form-group">
-                        <label for="phone_number">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control" id="phone_number" name="phone_number">
+                        <label for="phone">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone">
+                        @error('phone')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="form-group">
                         <label for="image">{{ trans('main_trans.avatar') }}</label>
-                        <input type="file" class="form-control" id="image" name="image">
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                        @error('image')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="form-group">
-                       <h6> <label for="role_id">{{ trans('main_trans.role') }}</label></h6>
-                        <select class="form-select" aria-label="Default select example" name="role_id">
+                        <h6><label for="role">{{ trans('main_trans.role') }}</label></h6>
+                        <select class="form-select @error('role') is-invalid @enderror" aria-label="Default select example" name="role">
                             <option selected>{{ trans('main_trans.open_menu') }}</option>
                             @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                <option value="{{ $role->id }}">{{ $role->role }}</option>
                             @endforeach
                         </select>
+                        @error('role')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             {{ trans('main_trans.close') }}
@@ -268,6 +301,7 @@ thead.bg-light {
                         <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -287,46 +321,66 @@ thead.bg-light {
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('users.updateInfo' ,$user->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="name">{{ trans('main_trans.user_name') }}</label>
-                        <input type="text" class="form-control" id="username" name="name" value="{{ $user->name }}">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}">
+                        @error('name')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">{{ trans('main_trans.email') }}</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}">
+                        @error('email')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
                         <div class="position-relative auth-pass-inputgroup">
-                            <input type="password" class="form-control pe-5 password-input"   name="password" id="password-input">
+                            <input type="password" class="form-control pe-5 password-input @error('password') is-invalid @enderror" name="password" id="password-input">
                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
                                 <i class="ri-eye-fill align-middle" id="eye-icon"></i>
                             </button>
                         </div>
+                        @error('password')
+
+                        <span class="error-message">{{ $message }}</span>
+
+                        @enderror
                     </div>
 
-
                     <div class="form-group">
-                        <label for="phone_number">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control" id="phone_number" name="phone_number" value="{{ $user->phone_number }}">
+                        <label for="phone">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone_number) }}">
+                        @error('phone')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="image">{{ trans('main_trans.avatar') }}</label>
-                        <input type="file" class="form-control" id="image" name="image" value="{{ $user->image }}">
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                        @error('image')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
 
-                    {{-- <div class="form-group">
-                       <label for="role">{{ trans('main_trans.role') }}</label>
-                        <select class="form-select" aria-label="Default select example" name="role">
+                    <div class="form-group">
+                        <label for="role">{{ trans('main_trans.role') }}</label>
+                        <select class="form-select @error('role') is-invalid @enderror" aria-label="Default select example" name="role">
                             <option selected>{{ trans('main_trans.open_menu') }}</option>
                             @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                <option value="{{ $role->id }}">{{ $role->role }}</option>
                             @endforeach
                         </select>
-                    </div> --}}
+                        @error('role')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
@@ -334,6 +388,7 @@ thead.bg-light {
                         <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -360,7 +415,7 @@ thead.bg-light {
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             {{ trans('main_trans.close') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.delete') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
                     </div>
                 </form>
             </div>
@@ -375,7 +430,6 @@ thead.bg-light {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
-
 <script>
     const passwordInput = document.getElementById('password-input');
     const eyeIcon = document.getElementById('eye-icon');
@@ -396,21 +450,39 @@ thead.bg-light {
     });
 </script>
 
-{{-- <script>
-    // عرض الرسالة بعد تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-        var message = "{{ session('message') }}";
-        if (message) {
-            alert(message);
-        }
-    });
-</script> --}}
 <script>
     // Function to open delete modal
     function openDeleteModal(userId) {
         var deleteModalId = '#deleteModal' + userId;
         $(deleteModalId).modal('show');
     }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+            var audio = new Audio('audio.mp3');
+            audio.play();
+            break;
+    }
+@endif
+
 </script>
 
 @endsection

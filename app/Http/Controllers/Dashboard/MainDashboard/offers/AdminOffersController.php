@@ -31,7 +31,13 @@ class AdminOffersController extends Controller
                 'link' => $data['link'],
             ]);
 
-            return redirect()->back()->with(['message' => 'Successfully added']);
+            $notification = array(
+                'message' => trans('main_trans.adding'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             Log::error("Error adding offer: " . $e->getMessage());
             return redirect()->back()->with(['message' => 'Error adding offer'], 500); // Internal Server Error
@@ -49,7 +55,13 @@ class AdminOffersController extends Controller
                 'offer' => $new_offer,
                 'link' => $data['link'],
             ]);
-            return  redirect()->back()->with(['message' => 'Successfully updated']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);
         } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
@@ -60,8 +72,11 @@ class AdminOffersController extends Controller
         $old_image = $offer->offer;
         if ($this->remove($old_image)) {
             $offer->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
-        } else {
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+              'alert-type' => 'error'
+                );
+                  return redirect()->back()->with($notification);        } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }

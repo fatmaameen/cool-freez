@@ -1,32 +1,23 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .circular-link {
-            display: inline-block;
-            width: 40px;
-            /* يمكنك ضبط العرض حسب رغبتك */
-            height: 40px;
-            /* يمكنك ضبط الارتفاع حسب رغبتك */
-            line-height: 40px;
-            /* يجعل النص والأيقونة في منتصف العنصر */
-            border-radius: 50%;
-            /* يجعل العنصر دائري الشكل */
-            background-color: lightblue;
-            /* لون الخلفية اللبني */
-            color: rgb(17, 17, 17);
-            /* لون النص والأيقونة */
-            text-align: center;
-            /* محاذاة النص والأيقونة في الوسط */
-            text-decoration: none;
-            /* لإزالة أي خطوط تحتية من الرابط */
-        }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 
-        .button-container {
-            text-align: center;
-            /* لمحاذاة العنصر إلى اليمين داخل العنصر */
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>.circular-link {
+    display: inline-block;
+    width: 40px; /* يمكنك ضبط العرض حسب رغبتك */
+    height: 40px; /* يمكنك ضبط الارتفاع حسب رغبتك */
+    line-height: 40px; /* يجعل النص والأيقونة في منتصف العنصر */
+    border-radius: 50%; /* يجعل العنصر دائري الشكل */
+    background-color: lightblue; /* لون الخلفية اللبني */
+    color: rgb(17, 17, 17); /* لون النص والأيقونة */
+    text-align: center; /* محاذاة النص والأيقونة في الوسط */
+    text-decoration: none; /* لإزالة أي خطوط تحتية من الرابط */
+}
+.button-container {
+    text-align: center; /* لمحاذاة العنصر إلى اليمين داخل العنصر */
+}
 
 
 
@@ -557,4 +548,31 @@ assignedCheckbox.addEventListener('change', function() {
             });
         }
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+            var audio = new Audio('audio.mp3');
+            audio.play();
+            break;
+    }
+@endif
+
+</script>
 @endsection

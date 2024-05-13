@@ -53,6 +53,9 @@ Route::group(
         });
 
  Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
+
+
+
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
             Route::get('/', [AdminsController::class, 'index'])->name('users.user_list');
@@ -77,9 +80,9 @@ Route::group(
                     Route::get('/', [AdminClientsController::class, 'index'])->name('clients');
                     Route::post('/{id}', [AdminClientsController::class, 'update'])->name('clients.update');
                     Route::post('/banned/{client}', [AdminClientsController::class, 'banned'])->name('clients.assign');
-                    Route::delete('/{client}', [AdminClientsController::class, 'destroy']);
+                    Route::delete('/{client}', [AdminClientsController::class, 'destroy'])->name('clients.delete');
                     Route::get('/search/{search}', [AdminClientsController::class, 'search']);
-                    Route::get('/history/{id}', [AdminClientsController::class,'orderHistory'])->name('clients.orderHistory');
+                    Route::get('/history/{id}', [AdminClientsController::class,'history'])->name('clients.history');
                 });
                 // Admin maintenance routes --------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group(['prefix' => 'maintenance'], function () {

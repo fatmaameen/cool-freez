@@ -57,7 +57,14 @@ class AdminClientsController extends Controller
         Client::find($id)->update([
             'is_banned' => $request->is_banned,
         ]);
-        return redirect()->back()->with(['Message' => "Updated successfully"]);
+
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(Client $client)
@@ -65,7 +72,12 @@ class AdminClientsController extends Controller
         $old_image = $client->image;
         if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
             $client->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+              'alert-type' => 'error'
+                );
+                  return redirect()->back()->with($notification);
         } else {
             if ($this->remove($old_image)) {
                 $client->delete();
@@ -76,7 +88,7 @@ class AdminClientsController extends Controller
         }
     }
 
-    public function orderHistory($id)
+    public function history($id)
     {
         $maintenances = Maintenance::where('client_id', $id)->with('service')->get();
         $pricing = pricing::where('client_id', $id)->with('service')->get();

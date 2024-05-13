@@ -23,8 +23,11 @@ class AdminCustomerServiceController extends Controller
         $message->update([
             'status' => $request->status
         ]);
-        return redirect()->back()->with(['message' => 'Successfully updated']);
-    }
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+          'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);    }
 
     public function sendEmail(ReplyCustomerServiceRequest $request, CustomerService $message)
     {
@@ -35,8 +38,11 @@ try{
         $message->update([
             'status' => 'Replied'
         ]);
-        return redirect()->back()->with(['message' => 'Sent successfully']);
-}
+        $notification = array(
+            'message' => trans('main_trans.adding'),
+          'alert-type' => 'success'
+            );
+              return redirect()->back()->with($notification);  }
 } catch (\Exception $e) {
             return redirect()->back()->with(['message' => 'Something went wrong']);
         }
@@ -45,6 +51,9 @@ try{
     public function destroy(CustomerService $message)
     {
         $message->delete();
-        return redirect()->back()->with(['message' => 'Successfully deleted']);
-    }
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+              return redirect()->back()->with($notification);      }
 }

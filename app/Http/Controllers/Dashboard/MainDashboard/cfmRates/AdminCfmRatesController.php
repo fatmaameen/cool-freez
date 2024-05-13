@@ -22,7 +22,11 @@ class AdminCfmRatesController extends Controller
         try {
             $data = $request->Validated();
             $rate->update($data);
-            return redirect()->back()->with(['message' => 'updated successfully']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return  redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
         }

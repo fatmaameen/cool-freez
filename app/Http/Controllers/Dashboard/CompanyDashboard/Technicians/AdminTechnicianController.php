@@ -21,54 +21,61 @@ class AdminTechnicianController extends Controller
         $technicians = technician::latest()->get();
         return view('CompanyDashboard.technician.technician_list', compact('technicians'));
     }
+
     public function profile()
     {
         $user = Auth::user();
         return view('CompanyDashboard.profile', compact('user'));
     }
 
-    // public function update_user(Request $request, $id)
-    // {
-    //     // Validate the incoming request data
-    //     $validatedData = $request->validate([
-    //         'name' => 'nullable|string',
-    //         'email' => 'nullable|email|unique:users,email,' . $id,
-    //         'password' => 'nullable|string|min:6',
-    //         'phone' => 'nullable|string',
-    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'role' => 'nullable|exists:roles,id', // Validate that the role exists in the roles table
-    //     ]);
+    public function update_user(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'nullable|string',
+            'email' => 'nullable|email|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:6',
+            'phone' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'role' => 'nullable|exists:roles,id', // Validate that the role exists in the roles table
+        ]);
 
-    //     // Fetch the user from the database
-    //     $admin = User::findOrFail($id);
+        // Fetch the user from the database
+        $admin = User::findOrFail($id);
 
-    //     // Handle file upload if image is provided
-    //     if ($request->hasFile('image')) {
-    //         global $new_image;
-    //         $image = $request->file('image');
-    //         if ($admin->image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
-    //             $new_image = $this->upload($image, 'admins_images');
-    //         } else {
-    //             if ($this->remove($admin->image)) {
-    //                 $new_image = $this->upload($image, 'admins_images');
-    //             }
-    //         }
-    //     } else {
-    //         $new_image = $admin->image;
-    //     }
-    //     // Update user attributes
-    //     $admin->name = $validatedData['name'] ?? $admin->name;
-    //     $admin->email = $validatedData['email'] ?? $admin->email;
-    //     $admin->password = isset($validatedData['password']) ? Hash::make($validatedData['password']) : $admin->password;
-    //     $admin->phone_number = $validatedData['phone'] ?? $admin->phone_number;
-    //     $admin->image = $new_image;
-    //     $admin->role_id = $validatedData['role'] ?? $admin->role_id;
+        // Handle file upload if image is provided
+        if ($request->hasFile('image')) {
+            global $new_image;
+            $image = $request->file('image');
+            if ($admin->image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
+                $new_image = $this->upload($image, 'admins_images');
+            } else {
+                if ($this->remove($admin->image)) {
+                    $new_image = $this->upload($image, 'admins_images');
+                }
+            }
+        } else {
+            $new_image = $admin->image;
+        }
+        // Update user attributes
+        $admin->name = $validatedData['name'] ?? $admin->name;
+        $admin->email = $validatedData['email'] ?? $admin->email;
+        $admin->password = isset($validatedData['password']) ? Hash::make($validatedData['password']) : $admin->password;
+        $admin->phone_number = $validatedData['phone'] ?? $admin->phone_number;
+        $admin->image = $new_image;
+        $admin->role_id = $validatedData['role'] ?? $admin->role_id;
 
-    //     // Save the updated user to the database
-    //     $admin->save();
+        // Save the updated user to the database
+        $admin->save();
 
-    //     return redirect()->back()->with(['message' => 'User updated successfully']);
-    // }
+                $notification = array(
+                    'message' => trans('main_trans.editing'),
+                    'alert-type' => 'success'
+                     );
+
+
+        return redirect()->back()->with($notification);
+    }
 
 
 
@@ -80,7 +87,11 @@ class AdminTechnicianController extends Controller
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
             technician::create($data);
-            return redirect()->back()->with(['message' => __('main_trans.successfully_added')]);
+            $notification = array(
+                'message' => trans('main_trans.adding'),
+                'alert-type' => 'success'
+                 );
+            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => 'Something went wrong' . $e->getMessage()]);
         }
@@ -119,7 +130,11 @@ class AdminTechnicianController extends Controller
         $old_image = $technician->image;
         if ($this->remove($old_image)) {
             $technician->delete();
-            return  redirect()->back()->with(['message' => __('main_trans.successfully_deleted')]);
+            $notification = array(
+                'message' => trans('main_trans.deleting'),
+                'alert-type' => 'error'
+                 );
+            return redirect()->back()->with($notification);
         } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);
         }

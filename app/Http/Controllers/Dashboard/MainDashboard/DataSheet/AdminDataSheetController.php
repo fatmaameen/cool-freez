@@ -44,7 +44,11 @@ class AdminDataSheetController extends Controller
                     if (array_filter($rowData, null) === []) {
                         $this->delete('DataSheetExcelFile');
                         $this->upload($file, 'DataSheetExcelFile');
-                        return redirect()->back()->with(['message' => __('main_trans.data_imported')]);
+                        $notification = array(
+                            'message' => trans('main_trans.adding'),
+                          'alert-type' => 'success'
+                            );
+                              return redirect()->back()->with($notification);
                     } elseif (!in_array(strtolower($rowData[0]), $brands) || !in_array(strtolower($rowData[1]), $types)) {
                         if ($this->restore()) {
                             return redirect()->back()->withErrors(['errors' => __('main_trans.brand_or_type_not_found')]);

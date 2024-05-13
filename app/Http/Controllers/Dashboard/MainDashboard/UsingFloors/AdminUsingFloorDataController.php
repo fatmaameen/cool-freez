@@ -67,7 +67,11 @@ class AdminUsingFloorDataController extends Controller
                 }
             }
             $this->upload($file, 'usingFloorsExcelFile');
-            return redirect()->back()->with(['message' => 'Data imported successfully']);
+            $notification = array(
+                'message' => trans('main_trans.adding'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
         }

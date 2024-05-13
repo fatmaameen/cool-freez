@@ -108,7 +108,12 @@ class AdminsController extends Controller
         $old_image = $admin->image;
         if ($old_image == $this->appUrl . '/' . 'defaults_images' . '/' . 'image.png') {
             $admin->delete();
-            return  redirect()->back()->with(['message' => 'Successfully deleted']);
+
+        $notification = array(
+          'message' => trans('main_trans.deleting'),
+        'alert-type' => 'error'
+          );
+            return redirect()->back()->with($notification);
         } else {
             if ($this->remove($old_image)) {
                 $admin->delete();

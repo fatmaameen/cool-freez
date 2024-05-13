@@ -36,8 +36,13 @@ class AdminBuildingTypeController extends Controller
             ->setTranslation('name', 'en', strtolower($data['name_en']))
             ->setTranslation('name', 'ar', $data['name_ar']);
         $type->save();
-        return redirect()->back()->with(['message' =>__('main_trans.successfully_added')]);
-    }
+        $notification = array(
+            'message' => trans('main_trans.adding'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);        }
 
     public function update(BuildingTypeRequest $request, BuildingType $BuildingType)
     {
@@ -46,12 +51,21 @@ class AdminBuildingTypeController extends Controller
             ->setTranslation('name', 'en', strtolower($data['name_en']))
             ->setTranslation('name', 'ar', $data['name_ar']);
             $BuildingType->save();
-        return redirect()->back()->with(['message' =>__('main_trans.successfully_updated')]);
-    }
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+                'alert-type' => 'success'
+                 );
+
+
+            return redirect()->back()->with($notification);    }
 
     public function destroy(BuildingType $BuildingType)
     {
         $BuildingType->delete();
-        return redirect()->back()->with(['message' => __('main_trans.successfully_deleted')]);
-    }
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);    
+        }
 }

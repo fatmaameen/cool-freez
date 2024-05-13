@@ -34,9 +34,13 @@ class AdminPricingController extends Controller
                 'admin_status' => $request->admin_status,
             ]);
 
-            // Notification here
 
-            return redirect()->back()->with(['message' => 'Updated successfully']);
+
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return  redirect()->back()->with(['error' => 'Update failed: ' . $e->getMessage()], 500);
         }
@@ -53,6 +57,10 @@ class AdminPricingController extends Controller
             }
         }
         $pricing->delete();
-        return redirect()->back()->with(['message' => 'Successfully deleted']);
-    }
+        
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+              return redirect()->back()->with($notification);       }
 }

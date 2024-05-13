@@ -1,14 +1,36 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-    <style>
-        .table-bordered {
-            border-color: #ADD8E6;
-            /* Light blue */
-        }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>.circular-link {
+    display: inline-block;
+    width: 40px; /* يمكنك ضبط العرض حسب رغبتك */
+    height: 40px; /* يمكنك ضبط الارتفاع حسب رغبتك */
+    line-height: 40px; /* يجعل النص والأيقونة في منتصف العنصر */
+    border-radius: 50%; /* يجعل العنصر دائري الشكل */
+    background-color: lightblue; /* لون الخلفية اللبني */
+    color: rgb(17, 17, 17); /* لون النص والأيقونة */
+    text-align: center; /* محاذاة النص والأيقونة في الوسط */
+    text-decoration: none; /* لإزالة أي خطوط تحتية من الرابط */
+}
+
+
+
+
+/* إضافة تأثير التحويم (hover) لتحسين التصميم */
+.circular-link {
+    margin-right: 40px; /* تضيف مساحة على اليمين */
+}
+
+
+</style>
+<style>
+.table-bordered {
+    border-color: #ADD8E6; /* Light blue */
+}
 
         .table-bordered th,
         .table-bordered td {
@@ -281,44 +303,39 @@
 
     <!-- Create User Modal -->
 
-    <!-- Edit User Modals -->
-    @foreach ($clients as $client)
-        {{-- <div class="modal fade" id="editModal{{ $client->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $client->id }}"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $client->id }}">{{ trans('main_trans.edit') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('clients.update' ,$client->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+<!-- Edit User Modals -->
+@foreach ($clients as $client)
+<div class="modal fade" id="deleteModal{{ $client['id'] }}" data-bs-backdrop="static" tabindex="-1"
+aria-labelledby="deleteModalLabel{{ $client['id'] }}" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel{{ $client['id'] }}"></h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('clients.delete', $client['id']) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <h5>{{ trans('main_trans.delete_text') }}</h5>
 
-
-                    <div class="form-group">
-                        <label for="status">{{ trans('main_trans.status') }}</label>
-                        <select class="form-select" aria-label="Default select example" name="is_banned">
-                            <option value="1" {{ $client->is_banned == 1 ? 'selected' : '' }}>{{ trans('main_trans.active') }}</option>
-                            <option value="0" {{ $client->is_banned == 0 ? 'selected' : '' }}>{{ trans('main_trans.block') }}</option>
-                        </select>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            {{ trans('main_trans.close') }}
-                        </button>
-                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ trans('main_trans.close') }}
+                    </button>
+                    <button type="submit" class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
+                </div>
+            </form>
         </div>
     </div>
-</div> --}}
-    @endforeach
-    <!-- Edit User Modals -->
+</div>
+</div>
+
+
+@endforeach
+<!-- Edit User Modals -->
 
 @endsection
 

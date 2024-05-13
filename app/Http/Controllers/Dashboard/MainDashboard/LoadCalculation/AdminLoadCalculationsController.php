@@ -36,7 +36,11 @@ class AdminLoadCalculationsController extends Controller
 
             // Notification here
 
-            return redirect()->back()->with(['message' => 'updated successfully']);
+            $notification = array(
+                'message' => trans('main_trans.editing'),
+              'alert-type' => 'success'
+                );
+                  return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return redirect()->back()->with(['message' => 'Something went wrong: ' . $e->getMessage()]);
         }
@@ -44,7 +48,11 @@ class AdminLoadCalculationsController extends Controller
     public function destroy(loadCalculation $load)
     {
         $load->delete();
-        return redirect()->back()->with(['message' => 'deleted successfully']);
+        $notification = array(
+            'message' => trans('main_trans.deleting'),
+          'alert-type' => 'error'
+            );
+              return redirect()->back()->with($notification);
     }
 
     public function search($search)

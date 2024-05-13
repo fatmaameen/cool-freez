@@ -1,6 +1,8 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -75,13 +77,8 @@
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
             <div class="card-body">
-                @if(session('message'))
-                <div class="alert alert-success">
-                    <div id="messageContainer"></div>
-                    {{ session('message') }}
-                </div>
-                @endif
-                @if ($errors->any())
+
+                {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -89,7 +86,7 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
                 <br><br>
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -249,9 +246,9 @@
             </div>
         </div>
         @endforeach
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script> --}}
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -261,4 +258,29 @@
         $(deleteModalId).modal('show');
     }
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'error') }}";
+    toastr.options.timeOut = 10000;
+    var message = "{{ Session::get('message') }}";
+
+    switch (type) {
+        case 'info':
+            toastr.info(message);
+            break;
+        case 'success':
+            toastr.success(message);
+            break;
+        case 'warning':
+            toastr.warning(message);
+            break;
+        case 'error':
+            toastr.error(message);
+            break;
+    }
+@endif
+</script>
+
 @endsection
