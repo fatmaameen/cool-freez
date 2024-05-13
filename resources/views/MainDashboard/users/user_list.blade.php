@@ -18,7 +18,7 @@
         font-size: 16px; /* لتكبير حجم النص داخل العنصر */
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 <style>/* Customize the table's border color and row colors */
 .table-bordered {
     border-color: #12aee2; /* Light blue */
@@ -66,7 +66,7 @@ thead.bg-light {
     <div class="col-md-15 mb-30">
         <div class="card card-statistics h-70">
             <div class="card-body">
-
+                <div id="messageContainer"></div>
                 @if(session('message'))
                 <div class="alert alert-success">
                     <div id="messageContainer"></div>
@@ -116,7 +116,82 @@ thead.bg-light {
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone_number }}</td>
-                            <td>{{ App\Models\Role::where('id', $user->role_id)->value('role') }}</td>
+                            {{-- <td>{{ App\Models\Role::where('id', $user->role_id)->value('role') }}</td> --}}
+                            <style>
+                                .form-select{
+                                    background-color: #94deec;
+                                    padding: 5px !important;
+                                }
+                            </style>
+                            <td>
+                                <select id="select_{{ $user->id }}" class="form-select form-select-sm" aria-label="Small select example" onchange="updateUserRole({{ $user->id }})">
+                                    @if ($user->role_id == 1)
+                                        <option id="option" value="1" selected>SuperAdmin</option>
+                                    @else
+                                        <option id="option" value="1">SuperAdmin</option>
+                                    @endif
+                                    @if ($user->role_id == 2)
+                                        <option id="option" value="2" selected>Admin</option>
+                                    @else
+                                        <option id="option" value="2">Admin</option>
+                                    @endif
+                                    @if ($user->role_id == 3)
+                                        <option id="option" value="3" selected>CompanyAdmin</option>
+                                    @else
+                                        <option id="option" value="3">CompanyAdmin</option>
+                                    @endif
+                                </select>
+
+                                <script>
+                                    function updateUserRole(userId) {
+                                        var role = document.getElementById('select_' + userId).value;
+                                        fetch('/dash/admins/updateRole/'+userId, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                            },
+                                            body: JSON.stringify({ role_id: role })
+                                        })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                                        var messageContainer = document.getElementById('messageContainer');
+                                                        messageContainer.innerHTML = '';
+                                                        var messageDiv = document.createElement('div');
+                                                        messageDiv.classList.add('alert');
+                                                        if (data.error) {
+                                                            messageDiv.classList.add('alert-danger');
+                                                            messageDiv.textContent = 'Update failed. Please try again later.';
+                                                        } else {
+                                                            messageDiv.classList.add('alert-success');
+                                                            messageDiv.textContent = data.message;
+                                                        }
+                                                        messageContainer.appendChild(messageDiv);
+                                                        setTimeout(function() {
+                                                            messageDiv.remove();
+                                                        }, 5000);
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        var messageContainer = document.getElementById('messageContainer');
+                                                        messageContainer.innerHTML = '';
+                                                        var messageDiv = document.createElement('div');
+                                                        messageDiv.classList.add('alert');
+                                                        messageDiv.classList.add('alert-danger');
+                                                        messageDiv.textContent = 'Update failed. Please try again later.';
+                                                        messageContainer.appendChild(messageDiv);
+                                                        setTimeout(function() {
+                                                            messageDiv.remove();
+                                                        }, 5000);
+                                                    });
+                                    }
+                                </script>
+                            </td>
                             <td>
                                 <a href="#editModal{{ $user->id }}"  data-toggle="modal">
                                     <i class="fas fa-pen-to-square fa-2xl" ></i>
@@ -170,16 +245,16 @@ thead.bg-light {
 
 
                     <div class="form-group">
-                        <label for="phone">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control" id="phone" name="phone">
+                        <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control" id="phone_number" name="phone_number">
                     </div>
                     <div class="form-group">
                         <label for="image">{{ trans('main_trans.avatar') }}</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <div class="form-group">
-                       <h6> <label for="role">{{ trans('main_trans.role') }}</label></h6>
-                        <select class="form-select" aria-label="Default select example" name="role">
+                       <h6> <label for="role_id">{{ trans('main_trans.role') }}</label></h6>
+                        <select class="form-select" aria-label="Default select example" name="role_id">
                             <option selected>{{ trans('main_trans.open_menu') }}</option>
                             @foreach ($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->role }}</option>
@@ -212,11 +287,11 @@ thead.bg-light {
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('users.update' ,$user->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('users.updateInfo' ,$user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="username">{{ trans('main_trans.user_name') }}</label>
-                        <input type="text" class="form-control" id="username" name="username" value="{{ $user->name }}">
+                        <label for="name">{{ trans('main_trans.user_name') }}</label>
+                        <input type="text" class="form-control" id="username" name="name" value="{{ $user->name }}">
                     </div>
                     <div class="form-group">
                         <label for="email">{{ trans('main_trans.email') }}</label>
@@ -235,15 +310,15 @@ thead.bg-light {
 
 
                     <div class="form-group">
-                        <label for="phone">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control" id="phone" name="phone" value="{{ $user->phone_number }}">
+                        <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                        <input type="number" class="form-control" id="phone_number" name="phone_number" value="{{ $user->phone_number }}">
                     </div>
                     <div class="form-group">
                         <label for="image">{{ trans('main_trans.avatar') }}</label>
                         <input type="file" class="form-control" id="image" name="image" value="{{ $user->image }}">
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                        <label for="role">{{ trans('main_trans.role') }}</label>
                         <select class="form-select" aria-label="Default select example" name="role">
                             <option selected>{{ trans('main_trans.open_menu') }}</option>
@@ -251,7 +326,7 @@ thead.bg-light {
                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}

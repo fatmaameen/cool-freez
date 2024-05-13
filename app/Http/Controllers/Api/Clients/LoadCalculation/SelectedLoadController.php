@@ -19,7 +19,7 @@ class SelectedLoadController extends Controller
             } while (loadCalculation::where('code', $code)->exists());
             $data['code'] = $code;
             $newRow = loadCalculation::create($data);
-            sendNotification::loadNotify($newRow);
+            sendNotification::serviceNotify($newRow);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'something went wrong: ' . $e->getMessage()], 500);

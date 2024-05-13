@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\MainDashboard\admins;
+namespace App\Http\Requests\Dashboard\CompanyDashboard\Technician;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateAdminRequest extends FormRequest
+class UpdateTechnicianRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    // public function authorize(): bool
-    // {
-    //     return false;
-    // }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,13 +22,13 @@ class UpdateAdminRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('admin');
+        $technicianId = $this->route('technician');
         return [
             'name' => ['nullable', 'string', 'max:250'],
-            'email' => ['nullable', 'email', Rule::unique('users', 'email')->ignore($userId)],
+            'email' => ['nullable', 'email', Rule::unique('technicians', 'email')->ignore($technicianId)],
             'password' => ['nullable', 'string', 'max:250'],
-            'phone_number' => ['nullable', Rule::unique('users', 'phone_number')->ignore($userId)],
-            'image' => ['image', 'mimes:jpg,bmp,png'],
+            'phone_number' => ['nullable', Rule::unique('technicians', 'phone_number')->ignore($technicianId)],
+            'image' => ['nullable', 'image', 'mimes:jpeg,bmp,png'],
         ];
     }
 }

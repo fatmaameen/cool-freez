@@ -45,7 +45,7 @@ class PricingController extends Controller
                 $new_pricing->drawing_of_building = $pdf_name;
                 $new_pricing->save();
             }
-            sendNotification::pricingNotify($pricing);
+            sendNotification::serviceNotify($pricing);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'something went wrong' . $e->getMessage()]);

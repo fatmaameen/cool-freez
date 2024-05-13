@@ -4,10 +4,18 @@ namespace App\Http\Controllers\Dashboard\MainDashboard\clients;
 
 use App\Models\Role;
 use App\Models\Client;
+use App\Models\review;
+use App\Models\pricing;
+use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use App\Models\loadCalculation;
 use App\Traits\ImageUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
+use App\Http\Resources\Api\Clients\ordersHistory\loadHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\reviewHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\pricingHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\maintenanceHistoryResource;
 
 class AdminClientsController extends Controller
 {
@@ -20,9 +28,9 @@ class AdminClientsController extends Controller
     public function index()
     {
         $clients = Client::all();
-
         return view('MainDashboard.clients.client_list', compact('clients'));
     }
+
     public function banned(Request $request, Client $client)
     {
         $request->validate([
@@ -68,18 +76,52 @@ class AdminClientsController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function orderHistory($id)
     {
-        $request->validate([
-            'search' => ['required', 'string'],
-        ]);
-        $search = $request->search;
-        $clients = Client::where('name', 'LIKE', '%' . $search . '%')
-            ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
-        if ($clients) {
-            return redirect()->back()->with($clients);
-        } else {
-            return redirect()->back()->with(['Message' => "No Data Found"]);
+        $maintenances = Maintenance::where('client_id', $id)->with('service')->get();
+        $pricing = pricing::where('client_id', $id)->with('service')->get();
+        $reviews = review::where('client_id', $id)->get();
+        $loads = loadCalculation::where('client_id', $id)->with('service')->get();
+
+        $maintenances = maintenanceHistoryResource::collection($maintenances);
+        $pricing = pricingHistoryResource::collection($pricing);
+        $reviews = reviewHistoryResource::collection($reviews);
+        $loads = loadHistoryResource::collection($loads);
+
+        $mergedData = [];
+        foreach ($maintenances as $maintenance) {
+            $mergedData[] =  $maintenance;
+        }
+        foreach ($pricing as $pricing) {
+            $mergedData[] = $pricing;
+        }
+        foreach ($reviews as $review) {
+            $mergedData[] = $review;
+        }
+        foreach ($loads as $load) {
+            $mergedData[] = $load;
+        }
+
+        usort($mergedData, function ($a, $b) {
+            return strcmp($b->created_at, $a->created_at);
+        });
+
+        return response()->json($mergedData);
+    }
+
+    public function search($search)
+    {
+        if ($search!='null') {
+            $clients = Client::where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+            if ($clients) {
+                return response()->json($clients);
+            } else {
+                return response()->json(['Message' => "No Data Found"]);
+            }
+        } elseif($search === 'null') {
+            $clients = Client::all();
+            return response()->json($clients);
         }
     }
 }

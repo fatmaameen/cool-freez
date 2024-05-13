@@ -33,6 +33,146 @@
             background-color: #E0F7FA;
             /* Light cyan */
         }
+
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+
+        #td {
+            text-align: center;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .checkbox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .checkbox:after,
+        .checkbox:before {
+            font-family: FontAwesome;
+            font-feature-settings: normal;
+            -webkit-font-kerning: auto;
+            font-kerning: auto;
+            font-language-override: normal;
+            font-stretch: normal;
+            font-style: normal;
+            font-synthesis: weight style;
+            font-variant: normal;
+            font-weight: normal;
+            text-rendering: auto;
+        }
+
+        .checkbox label {
+            width: 68px;
+            height: 18px;
+            background: #cccccc;
+            position: relative;
+            display: inline-block;
+            border-radius: 46px;
+            transition: 0.4s;
+            margin: 0 !important;
+        }
+
+        .checkbox label:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            left: 0;
+            top: -5px;
+            z-index: 2;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: 0.4s;
+        }
+
+        .checkbox input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkbox input:hover+label:after {
+            box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .checkbox input:checked+label:after {
+            left: 40px;
+        }
+
+        .model-7 .checkbox label {
+            background: none;
+            border: 2.5px solid #555;
+            height: 19.5px;
+        }
+
+        .model-7 .checkbox label:after {
+            background: #555;
+            box-shadow: none;
+            top: 2px;
+            left: 2px;
+            width: 12px;
+            height: 12px;
+        }
+
+        .model-7 .checkbox input:checked+label {
+            border-color: #329043;
+        }
+
+        .model-7 .checkbox input:checked+label:after {
+            background: #3fb454;
+            left: 50px;
+        }
+
+        #search-btn {
+            background-color: #fff;
+            color: #91c5d0;
+            margin-right: 3px !important;
+            transition: 0.3s ease-in-out;
+            border: 1px solid #91c5d0;
+        }
+
+        #search-btn:hover {
+            background-color: #91c5d0;
+            color: #fff;
+        }
+
+        #reset-btn {
+            background-color: #fff;
+            color: #a82626;
+            transition: 0.3s ease-in-out;
+            border: 1px solid #a82626;
+        }
+
+        #reset-btn:hover {
+            background-color: #a82626;
+            color: #fff;
+        }
+
+        #searchInput {
+            padding: 13px !important;
+            margin-right: 3px !important;
+            margin-left: 3px !important;
+        }
+
+        .col-md-6 {
+            display: flex !important;
+            flex-direction: row !important;
+        }
     </style>
 @endsection
 
@@ -65,6 +205,16 @@
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
+                    <div class="row d-flex justify-content-center align-items-center ">
+                        <div class="col-xm-10 col-sm-5 col-md-6">
+                            <input type="text" class="form-control p-3" id="searchInput"
+                                placeholder="Search by code ...">
+                            <button id="search-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="search()"
+                                type="submit">Search</button>
+                            <button id="reset-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="allData()"
+                                type="reset">Reset</button>
+                        </div>
+                    </div>
                     <div id="messageContainer"></div>
                     @if (session('message'))
                         <div class="alert alert-success">
@@ -89,7 +239,7 @@
                     </div>
 
 
-                    <table class="table table-bordered  ">
+                    <table class="table table-bordered" id="maintenanceTable">
                         <thead class="bg-light">
                             <tr>
                                 <th>#</th>
@@ -127,100 +277,6 @@
                                             style="font-size: 20px">{{ $maintenance->admin_status }}</span>
                                     </td>
                                     <td id="td">
-                                        <style>
-                                            *,
-                                            *:after,
-                                            *:before {
-                                                box-sizing: border-box;
-                                            }
-                                            #td {
-                                                text-align: center;
-                                            }
-                                            section {
-                                                display: flex;
-                                                justify-content: center;
-                                                align-items: center;
-                                            }
-
-                                            .checkbox {
-                                                position: relative;
-                                                display: inline-block;
-                                            }
-
-                                            .checkbox:after,
-                                            .checkbox:before {
-                                                font-family: FontAwesome;
-                                                font-feature-settings: normal;
-                                                -webkit-font-kerning: auto;
-                                                font-kerning: auto;
-                                                font-language-override: normal;
-                                                font-stretch: normal;
-                                                font-style: normal;
-                                                font-synthesis: weight style;
-                                                font-variant: normal;
-                                                font-weight: normal;
-                                                text-rendering: auto;
-                                            }
-                                            .checkbox label {
-                                                width: 68px;
-                                                height: 18px;
-                                                background: #cccccc;
-                                                position: relative;
-                                                display: inline-block;
-                                                border-radius: 46px;
-                                                transition: 0.4s;
-                                                margin: 0 !important;
-                                            }
-                                            .checkbox label:after {
-                                                content: '';
-                                                position: absolute;
-                                                width: 50px;
-                                                height: 50px;
-                                                border-radius: 100%;
-                                                left: 0;
-                                                top: -5px;
-                                                z-index: 2;
-                                                background: #fff;
-                                                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-                                                transition: 0.4s;
-                                            }
-                                            .checkbox input {
-                                                position: absolute;
-                                                left: 0;
-                                                top: 0;
-                                                width: 100%;
-                                                height: 100%;
-                                                z-index: 5;
-                                                opacity: 0;
-                                                cursor: pointer;
-                                            }
-                                            .checkbox input:hover+label:after {
-                                                box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
-                                            }
-                                            .checkbox input:checked+label:after {
-                                                left: 40px;
-                                            }
-                                            .model-7 .checkbox label {
-                                                background: none;
-                                                border: 2.5px solid #555;
-                                                height: 19.5px;
-                                            }
-                                            .model-7 .checkbox label:after {
-                                                background: #555;
-                                                box-shadow: none;
-                                                top: 2px;
-                                                left: 2px;
-                                                width: 12px;
-                                                height: 12px;
-                                            }
-                                            .model-7 .checkbox input:checked+label {
-                                                border-color: #329043;
-                                            }
-                                            .model-7 .checkbox input:checked+label:after {
-                                                background: #3fb454;
-                                                left: 50px;
-                                            }
-                                        </style>
                                         <section class="model-7">
                                             <div class="checkbox">
                                                 <input type="checkbox" id="switchCheckDefault{{ $maintenance->id }}"
@@ -230,64 +286,6 @@
                                                 <label></label>
                                             </div>
                                         </section>
-
-                                        <script>
-                                            function updateColumn(checkbox) {
-                                                var maintenanceId = checkbox.dataset.maintenanceId;
-                                                var assignedValue = checkbox.checked ? 1 : 0;
-
-                                                fetch('{{ route('maintenance.assign', ['maintenance' => '__maintenance_id__']) }}'.replace(
-                                                        '__maintenance_id__', maintenanceId), {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'Content-Type': 'application/json',
-                                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                                        },
-                                                        body: JSON.stringify({
-                                                            assigned: assignedValue
-                                                        })
-                                                    })
-                                                    .then(response => {
-                                                        if (!response.ok) {
-                                                            throw new Error('Network response was not ok');
-                                                        }
-                                                        return response.json();
-                                                    })
-                                                    .then(data => {
-                                                        var messageContainer = document.getElementById('messageContainer');
-                                                        messageContainer.innerHTML = '';
-                                                        var messageDiv = document.createElement('div');
-                                                        messageDiv.classList.add('alert');
-                                                        if (data.error) {
-                                                            messageDiv.classList.add('alert-danger');
-                                                            messageDiv.textContent = 'Update failed. Please try again later.';
-                                                        } else {
-                                                            messageDiv.classList.add('alert-success');
-                                                            messageDiv.textContent = data.message;
-                                                        }
-                                                        messageContainer.appendChild(messageDiv);
-                                                        setTimeout(function() {
-                                                            messageDiv.remove();
-                                                        }, 5000);
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error:', error);
-                                                        var messageContainer = document.getElementById('messageContainer');
-                                                        messageContainer.innerHTML = '';
-                                                        var messageDiv = document.createElement('div');
-                                                        messageDiv.classList.add('alert');
-                                                        messageDiv.classList.add('alert-danger');
-                                                        messageDiv.textContent = 'Update failed. Please try again later.';
-                                                        messageContainer.appendChild(messageDiv);
-                                                        setTimeout(function() {
-                                                            messageDiv.remove();
-                                                        }, 5000);
-                                                    });
-                                            }
-                                        </script>
-
-
-
                                     </td>
                                     @php
                                         // Fetch the technician with the given id
@@ -302,10 +300,6 @@
                                         <span class="text-success"
                                             style="font-size: 20px">{{ $maintenance->technical_status }}</span>
                                     </td>
-
-
-
-
                                     <td>
                                         <a href="#editModal{{ $maintenance->id }}" data-toggle="modal"><i
                                                 class="fas fa-pen-to-square fa-2xl"></i></a>
@@ -313,7 +307,6 @@
                                         <a href="#" class="btn btn-danger"
                                             onclick="openDeleteModal('{{ $maintenance->id }}')"><i
                                                 class="fa-solid fa-trash-can"></i></a>
-                                    </td>
                                     </td>
                                 </tr>
                             @endforeach
@@ -421,23 +414,23 @@
     </script>
 
     <script>
-        const passwordInput = document.getElementById('password-input');
-        const eyeIcon = document.getElementById('eye-icon');
+        // const passwordInput = document.getElementById('password-input');
+        // const eyeIcon = document.getElementById('eye-icon');
 
-        // Add event listener to toggle password visibility
-        eyeIcon.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+        // // Add event listener to toggle password visibility
+        // eyeIcon.addEventListener('click', function() {
+        //     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        //     passwordInput.setAttribute('type', type);
 
-            // Change eye icon based on password visibility
-            if (type === 'password') {
-                eyeIcon.classList.remove('ri-eye-off-fill');
-                eyeIcon.classList.add('ri-eye-fill');
-            } else {
-                eyeIcon.classList.remove('ri-eye-fill');
-                eyeIcon.classList.add('ri-eye-off-fill');
-            }
-        });
+        //     // Change eye icon based on password visibility
+        //     if (type === 'password') {
+        //         eyeIcon.classList.remove('ri-eye-off-fill');
+        //         eyeIcon.classList.add('ri-eye-fill');
+        //     } else {
+        //         eyeIcon.classList.remove('ri-eye-fill');
+        //         eyeIcon.classList.add('ri-eye-off-fill');
+        //     }
+        // });
     </script>
 
 
@@ -447,7 +440,7 @@
             $(deleteModalId).modal('show');
         }
     </script>
-    <script>
+    {{-- <script>
         // Get the checkbox element
         var assignedCheckbox = document.getElementById('assignedCheckbox');
         // Add event listener to checkbox change
@@ -457,6 +450,139 @@
             // Update the value based on checkbox state
             assignedInput.value = this.checked ? 1 : 0;
         });
+    </script> --}}
+    <script>
+        function updateColumn(checkbox) {
+            var maintenanceId = checkbox.dataset.maintenanceId;
+            var assignedValue = checkbox.checked ? 1 : 0;
+
+            fetch('/main-dashboard/maintenance/assign/' + maintenanceId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        assigned: assignedValue
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var messageContainer = document.getElementById('messageContainer');
+                    messageContainer.innerHTML = '';
+                    var messageDiv = document.createElement('div');
+                    messageDiv.classList.add('alert');
+                    if (data.error) {
+                        messageDiv.classList.add('alert-danger');
+                        messageDiv.textContent = 'Update failed. Please try again later.';
+                    } else {
+                        messageDiv.classList.add('alert-success');
+                        messageDiv.textContent = data.message;
+                    }
+                    messageContainer.appendChild(messageDiv);
+                    setTimeout(function() {
+                        messageDiv.remove();
+                    }, 5000);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    var messageContainer = document.getElementById('messageContainer');
+                    messageContainer.innerHTML = '';
+                    var messageDiv = document.createElement('div');
+                    messageDiv.classList.add('alert');
+                    messageDiv.classList.add('alert-danger');
+                    messageDiv.textContent = 'Update failed. Please try again later.';
+                    messageContainer.appendChild(messageDiv);
+                    setTimeout(function() {
+                        messageDiv.remove();
+                    }, 5000);
+                });
+        }
+    </script>
+    <script>
+        function search() {
+            var input = document.getElementById("searchInput");
+            var searchText = input.value.trim();
+            if (searchText != '') {
+                fetch('/main-dashboard/maintenance/search/' + searchText)
+                    .then(response => response.json())
+                    .then(data => {
+                        updateTable(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        function allData() {
+            var input = document.getElementById("searchInput");
+            if (input.value != '') {
+                input.value = '';
+                fetch('/main-dashboard/maintenance/search/null')
+                    .then(response => response.json())
+                    .then(data => {
+                        updateTable(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        function updateTable(data) {
+            var table = document.getElementById("maintenanceTable");
+            var tbody = table.getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            data.forEach(function(maintenance, index) {
+                var row = tbody.insertRow();
+                row.innerHTML = `
+                                <td>${index + 1}</td>
+                                <td>${maintenance.code}</td>
+                                <td>${maintenance.address}</td>
+                                <td>${maintenance.street_address}</td>
+                                <td>${maintenance.phone_number}</td>
+                                <td>${maintenance.device_type}</td>
+                                <td>${maintenance.type_of_malfunction}</td>
+                                <td>
+                                    <span class="text-success"style="font-size: 20px">${maintenance.admin_status}</span>
+                                </td>
+                                <td id="td">
+                                    <section class="model-7">
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="switchCheckDefault${maintenance.id}"
+                                                    ${maintenance.assigned ? 'checked' : '' }
+                                                    data-maintenance-id="${maintenance.id}"
+                                                    onchange="updateColumn(this)" />
+                                                <label></label>
+                                            </div>
+                                        </section>
+                                </td>
+                                <td>${maintenance.technical_id}</td>
+                                    <td>
+                                        <span class="text-success"
+                                            style="font-size: 20px">${maintenance.company_status}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-success"
+                                            style="font-size: 20px">${maintenance.technical_status}</span>
+                                    </td>
+                                    <td>
+                                        <a href="#editModal${maintenance.id}" data-toggle="modal"><i
+                                                class="fas fa-pen-to-square fa-2xl"></i></a>
+
+                                        <a href="#" class="btn btn-danger"
+                                            onclick="openDeleteModal('${maintenance.id}')"><i
+                                                class="fa-solid fa-trash-can"></i></a>
+                                    </td>
+                            `;
+            });
+        }
     </script>
 
 @endsection

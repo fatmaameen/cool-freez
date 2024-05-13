@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
 use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
 use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
+use App\Http\Controllers\Api\Clients\search\SearchController;
 use App\Http\Controllers\Api\Technicians\Auth\AuthTechnicianController;
 use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
 use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
@@ -142,7 +143,12 @@ Route::get('/technicians/maintenance/{id}', [TechnicianMaintenanceController::cl
 ;
 
 // Technician update maintenance --------------------------------------------------------------
-Route::post('/technicians/maintenance/{$maintenance}', [TechnicianMaintenanceController::class, 'update'])
+Route::post('/technicians/maintenance/{maintenance}', [TechnicianMaintenanceController::class, 'update'])
+    // ->middleware('auth:sanctum')
+;
+
+// Technician update maintenance --------------------------------------------------------------
+Route::get('/technicians/history/{id}', [TechnicianMaintenanceController::class, 'history'])
     // ->middleware('auth:sanctum')
 ;
 
@@ -155,5 +161,9 @@ Route::post('/clients/selected-load', [SelectedLoadController::class, 'store'])
 ;
 
 Route::get('/clients/history/{id}', [HistoryController::class, 'index']);
+    // ->middleware('auth:sanctum')
+;
+
+Route::post('/clients/search', [SearchController::class, 'search']);
     // ->middleware('auth:sanctum')
 ;

@@ -57,4 +57,20 @@ class AdminMaintenanceController extends Controller
         $maintenance->delete();
         return redirect()->back()->with(['message' => 'Deleted successfully']);
     }
+
+    public function search($search)
+    {
+        if ($search!='null') {
+            $search = strtoupper($search);
+            $maintenance = Maintenance::where('code', 'LIKE', '%' . $search . '%')->get();
+            if ($maintenance) {
+                return response()->json($maintenance);
+            } else {
+                return response()->json(['Message' => "No Data Found"]);
+            }
+        } elseif($search === 'null') {
+            $maintenances = Maintenance::all();
+            return response()->json($maintenances);
+        }
+    }
 }

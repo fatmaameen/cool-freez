@@ -68,6 +68,7 @@ class LoadCalculationController extends Controller
                 'model' => $model->model,
                 'btu' => $model->btu,
                 'cfm' => $model->cfm,
+                'cfmPerSqM' => $cfmPerSqM,
                 'made_in' => $model->made_in,
                 'rate' => self::getRate($cfmPerSqM),
             ];
@@ -89,13 +90,15 @@ class LoadCalculationController extends Controller
         }
     }
 
-    private static function getType($id){
+    private static function getType($id)
+    {
         $type = type::where('id', $id)->first();
         $type = $type->getTranslation('type', 'en');
         return $type;
     }
 
-    private static function getBrand($id){
+    private static function getBrand($id)
+    {
         $brand = brand::where('id', $id)->first();
         $brand = $brand->getTranslation('brand', 'en');
         return $brand;

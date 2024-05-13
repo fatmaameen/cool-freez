@@ -142,15 +142,19 @@
                             <source src="{{ asset('assets/notify.wav') }}" type="audio/mpeg">
                         </audio>
                             @foreach (auth()->user()->unreadNotifications as $notification)
+                             @if (isset($notification->data['image']))
                                 <div class="dropdown-item" style="display: flex; align-items: center;">
-                                    @if ($notification->data['image'])
                                     <img src="{{ $notification->data['image'] }}" width="30px" alt=""
                                         srcset="">
-                                    @endif
                                     <a href="{{ $notification->data['url'] }}">
                                         {{ $notification->data['message'] }}
                                     </a>
                                 </div>
+                                @else
+                                <a class="dropdown-item" href="{{ $notification->data['url'] }}">
+                                    {{ $notification->data['message'] }}
+                                </a>
+                                @endif
                             @endforeach
                             <div class="text-center bg-secondary">
                                 <a href="{{ route('markAsRead', auth()->user()->id) }}" class="dropdown-item">

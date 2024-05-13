@@ -56,17 +56,16 @@ Route::group(
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
             Route::get('/', [AdminsController::class, 'index'])->name('users.user_list');
-            // Route::get('/{id}', [userController::class, 'show'])->middleware('Admin');
             Route::post('/store', [AdminsController::class, 'store'])->name('users.store');
-            Route::post('/update/{id}', [AdminsController::class, 'update'])->name('users.update');
-            Route::post('/updateRole/{admin}', [AdminsController::class, 'updateRole']);
+            Route::post('/update/{admin}', [AdminsController::class, 'update'])->name('users.updateInfo');
+            Route::post('/updateRole/{admin}', [AdminsController::class, 'updateRole'])->name('users.updateRole');
             Route::delete('/{admin}', [AdminsController::class, 'destroy'])->name('users.delete');
         });
 
         Route::group(
             [
                 'prefix' => 'main-dashboard',
-                // 'middleware' => ['auth', 'Admin']
+                'middleware' => ['auth', 'Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,7 +78,8 @@ Route::group(
                     Route::post('/{id}', [AdminClientsController::class, 'update'])->name('clients.update');
                     Route::post('/banned/{client}', [AdminClientsController::class, 'banned'])->name('clients.assign');
                     Route::delete('/{client}', [AdminClientsController::class, 'destroy']);
-                    Route::post('/search', [AdminClientsController::class, 'search']);
+                    Route::get('/search/{search}', [AdminClientsController::class, 'search']);
+                    Route::get('/history/{id}', [AdminClientsController::class,'orderHistory'])->name('clients.orderHistory');
                 });
                 // Admin maintenance routes --------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group(['prefix' => 'maintenance'], function () {
@@ -87,6 +87,7 @@ Route::group(
                     Route::post('/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update');
                     Route::post('/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign');
                     Route::delete('/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+                    Route::get('/search/{search}', [AdminMaintenanceController::class,'search']);
                 });
                 // Admin pricing routes ------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
@@ -105,6 +106,7 @@ Route::group(
                     Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
                     Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
                     Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
+                    Route::get('/search/{search}', [AdminReviewsController::class,'search']);
                 });
                 // Admin consultants routes ---------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
@@ -192,7 +194,7 @@ Route::group(
                     Route::get('/{id}', [AdminLoadCalculationsController::class, 'show'])->name('loadCalculation.show');
                     Route::post('/{load}', [AdminLoadCalculationsController::class, 'update'])->name('loadCalculation.update');
                     Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy'])->name('loadCalculation.destroy');
-                    Route::post('/search', [AdminLoadCalculationsController::class, 'search']);
+                    Route::get('/search/{search}', [AdminLoadCalculationsController::class,'search']);
                 });
 
 

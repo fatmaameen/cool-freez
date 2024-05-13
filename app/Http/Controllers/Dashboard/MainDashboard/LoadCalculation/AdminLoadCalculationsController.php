@@ -47,17 +47,19 @@ class AdminLoadCalculationsController extends Controller
         return redirect()->back()->with(['message' => 'deleted successfully']);
     }
 
-    public function search(Request $request)
+    public function search($search)
     {
-        $request->validate([
-            'search' => ['required', 'string'],
-        ]);
-        $search = $request->search;
-        $load = loadCalculation::where('code', 'LIKE', '%' . $search . '%')->first();
-        if ($load) {
-            return response()->json($load);
-        } else {
-            return response()->json(['Message' => "No Data Found"]);
+        if ($search!='null') {
+            $search = strtoupper($search);
+            $loads = loadCalculation::where('code', 'LIKE', '%' . $search . '%')->get();
+            if ($loads) {
+                return response()->json($loads);
+            } else {
+                return response()->json(['Message' => "No Data Found"]);
+            }
+        } elseif($search === 'null') {
+            $loads = loadCalculation::all();
+            return response()->json($loads);
         }
     }
 }
