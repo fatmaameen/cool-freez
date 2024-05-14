@@ -218,7 +218,7 @@
                         </div>
                     </div>
                     <div id="messageContainer"></div>
-                    @if (session('message'))
+                    {{-- @if (session('message'))
                         <div class="alert alert-success">
                             {{ session('message') }}
                         </div>

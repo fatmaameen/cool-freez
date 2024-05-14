@@ -36,13 +36,16 @@
 
              /* تكبير حجم الزر */
              .dropdown-button {
-                 background-color: #ADD8E6; /* لون الخلفية */
-                 color: #110202; /* لون النص */
-                 padding: 12px 24px; /* تكبير padding للزر */
-                 border: none;
-                 cursor: pointer;
-                 border-radius: 4px;
-                 font-size: 1.2rem; /* تكبير حجم الخط */
+                    /* background-color: #ADD8E6; لون الخلفية */
+                    color: #110202;
+                    /* لون النص */
+                    padding: 5px 10px;
+                    /*تكبير padding للزر*/
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 1.2rem;
+                    /* تكبير حجم الخط */
              }
 
              .dropdown-menu {
