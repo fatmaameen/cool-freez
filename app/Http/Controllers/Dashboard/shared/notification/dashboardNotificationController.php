@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Dashboard\shared\notification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 
-// use Illuminate\Notifications\Notification;
 
 class dashboardNotificationController extends Controller
 {

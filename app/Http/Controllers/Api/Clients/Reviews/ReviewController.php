@@ -24,7 +24,7 @@ class ReviewController extends Controller
             $data['code'] = $code;
             $data['building_files'] = json_encode($pdf_names);;
             $newRow = review::create($data);
-            sendNotification::reviewNotify($newRow);
+            sendNotification::serviceNotify($newRow);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'something went wrong' . $e->getMessage()], 500);

@@ -52,7 +52,7 @@ Route::group(
                     Route::post('/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
                     Route::post('/banned/{technician}', [AdminTechnicianController::class, 'banned'])->name('technician.assign');
                     Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');
-                    Route::post('/search', [AdminTechnicianController::class, 'search'])->name('technician.search');
+                    Route::get('/search/{search}', [AdminTechnicianController::class, 'search']);
                 });
             }
         );

@@ -27,61 +27,72 @@
 
             <!-- top bar right -->
             <ul class="nav navbar-nav ml-auto">
-                <style>
+                  <style>
                     /* أنماط القائمة المنسدلة */
-             .language-selector {
-                 position: relative;
-                 display: inline-block;
-             }
+                    .language-selector {
+                        position: relative;
+                        display: inline-block;
+                    }
 
-             /* تكبير حجم الزر */
-             .dropdown-button {
-                 background-color: #ADD8E6; /* لون الخلفية */
-                 color: #110202; /* لون النص */
-                 padding: 12px 24px; /* تكبير padding للزر */
-                 border: none;
-                 cursor: pointer;
-                 border-radius: 4px;
-                 font-size: 1.2rem; /* تكبير حجم الخط */
-             }
+                    /* تكبير حجم الزر */
+                    .dropdown-button {
+                        /* background-color: #ADD8E6; لون الخلفية */
+                        color: #110202;
+                        /* لون النص */
+                        padding: 5px 10px;
+                        /*تكبير padding للزر*/
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        font-size: 1.2rem;
+                        /* تكبير حجم الخط */
+                    }
 
-             .dropdown-menu {
-                 display: none; /* إخفاء القائمة افتراضيًا */
-                 position: absolute;
-                 top: 100%; /* وضع القائمة أسفل الزر */
-                 left: 0;
-                 min-width: 180px; /* زيادة عرض القائمة */
-                 border: 1px solid #a19e9e; /* حدود القائمة */
-                 background-color: 89cff0;
-                 border-radius: 4px;
-                 z-index: 1000;
-             }
+                    .dropdown-menu {
+                        display: none;
+                        /* إخفاء القائمة افتراضيًا */
+                        position: absolute;
+                        top: 100%;
+                        /* وضع القائمة أسفل الزر */
+                        left: 0;
+                        min-width: 180px;
+                        /* زيادة عرض القائمة */
+                        border: 1px solid #a19e9e;
+                        /* حدود القائمة */
+                        background-color: 89cff0;
+                        border-radius: 4px;
+                        z-index: 1000;
+                    }
 
-             /* تكبير حجم الاختيارات */
-             .dropdown-menu li {
-                 list-style: none; /* إزالة النقاط من القائمة */
-             }
+                    /* تكبير حجم الاختيارات */
+                    .dropdown-menu li {
+                        list-style: none;
+                        /* إزالة النقاط من القائمة */
+                    }
 
-             .dropdown-menu a {
-                 display: block; /* لجعل الروابط تظهر بشكل مناسب */
-                 padding: 10px 20px; /* زيادة padding */
-                 color: #89cff0; /* لون بيبي بلو */
-                 text-decoration: none;
-                 font-size: 1.2rem; /* تكبير حجم الخط */
-             }
+                    .dropdown-menu a {
+                        display: block;
+                        /* لجعل الروابط تظهر بشكل مناسب */
+                        padding: 10px 20px;
+                        /* زيادة padding */
+                        color: #89cff0;
+                        /* لون بيبي بلو */
+                        text-decoration: none;
+                        font-size: 1.2rem;
+                        /* تكبير حجم الخط */
+                    }
 
-             .dropdown-menu a:hover {
-                 background-color: #f0f0f0; /* لون الخلفية عند المرور فوق العنصر */
-             }
+                    .dropdown-menu a:hover {
+                        background-color: #f0f0f0;
+                        /* لون الخلفية عند المرور فوق العنصر */
+                    }
 
-             /* عرض القائمة عند النقر على الزر */
-             .language-selector:hover .dropdown-menu,
-             .language-selector:focus-within .dropdown-menu {
-                 display: block;
-             }
-
-
-             </style>
+                    /* عرض القائمة عند النقر على الزر */
+                    .language-selector:hover .dropdown-menu,
+                    .language-selector:focus-within .dropdown-menu {
+                        display: block;
+                    }
+                </style>
                          <!-- top bar right -->
                          <ul class="nav navbar-nav ml-auto">
                              <div class="language-selector">

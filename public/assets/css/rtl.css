@@ -21316,7 +21316,7 @@ ul.list-unstyled li {
       display: block;
       color: rgb(6 6 6 / 70%);
       padding: 12px 20px 12px 15px;
-      font-size: 16px; }
+      font-size: 20px; }
       .side-menu-fixed .side-menu li a .pull-left {
         float: right; }
         .side-menu-fixed .side-menu li a .pull-left i {
@@ -21361,7 +21361,7 @@ ul.list-unstyled li {
   padding: 7px 50px 7px 15px;
   display: block;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300; }
   .side-menu-fixed .side-menu li ul li a:hover {
     background: rgba(0, 0, 0, 0.3);

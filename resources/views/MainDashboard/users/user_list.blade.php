@@ -25,7 +25,7 @@
         font-size: 16px; /* لتكبير حجم النص داخل العنصر */
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 <style>/* Customize the table's border color and row colors */
 .table-bordered {
     border-color: #12aee2; /* Light blue */
@@ -73,6 +73,7 @@ thead.bg-light {
     <div class="col-md-15 mb-30">
         <div class="card card-statistics h-70">
             <div class="card-body">
+                <div id="messageContainer"></div>
                 {{-- @if (session('success'))
                 <div class="alert alert-success">
                 {{ session('success') }}
@@ -126,7 +127,82 @@ thead.bg-light {
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone_number }}</td>
-                            <td>{{ App\Models\Role::where('id', $user->role_id)->value('role') }}</td>
+                            {{-- <td>{{ App\Models\Role::where('id', $user->role_id)->value('role') }}</td> --}}
+                            <style>
+                                .form-select{
+                                    background-color: #94deec;
+                                    padding: 5px !important;
+                                }
+                            </style>
+                            <td>
+                                <select id="select_{{ $user->id }}" class="form-select form-select-sm" aria-label="Small select example" onchange="updateUserRole({{ $user->id }})">
+                                    @if ($user->role_id == 1)
+                                        <option id="option" value="1" selected>SuperAdmin</option>
+                                    @else
+                                        <option id="option" value="1">SuperAdmin</option>
+                                    @endif
+                                    @if ($user->role_id == 2)
+                                        <option id="option" value="2" selected>Admin</option>
+                                    @else
+                                        <option id="option" value="2">Admin</option>
+                                    @endif
+                                    @if ($user->role_id == 3)
+                                        <option id="option" value="3" selected>CompanyAdmin</option>
+                                    @else
+                                        <option id="option" value="3">CompanyAdmin</option>
+                                    @endif
+                                </select>
+
+                                <script>
+                                    function updateUserRole(userId) {
+                                        var role = document.getElementById('select_' + userId).value;
+                                        fetch('/dash/admins/updateRole/'+userId, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                            },
+                                            body: JSON.stringify({ role_id: role })
+                                        })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                                        var messageContainer = document.getElementById('messageContainer');
+                                                        messageContainer.innerHTML = '';
+                                                        var messageDiv = document.createElement('div');
+                                                        messageDiv.classList.add('alert');
+                                                        if (data.error) {
+                                                            messageDiv.classList.add('alert-danger');
+                                                            messageDiv.textContent = 'Update failed. Please try again later.';
+                                                        } else {
+                                                            messageDiv.classList.add('alert-success');
+                                                            messageDiv.textContent = data.message;
+                                                        }
+                                                        messageContainer.appendChild(messageDiv);
+                                                        setTimeout(function() {
+                                                            messageDiv.remove();
+                                                        }, 5000);
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        var messageContainer = document.getElementById('messageContainer');
+                                                        messageContainer.innerHTML = '';
+                                                        var messageDiv = document.createElement('div');
+                                                        messageDiv.classList.add('alert');
+                                                        messageDiv.classList.add('alert-danger');
+                                                        messageDiv.textContent = 'Update failed. Please try again later.';
+                                                        messageContainer.appendChild(messageDiv);
+                                                        setTimeout(function() {
+                                                            messageDiv.remove();
+                                                        }, 5000);
+                                                    });
+                                    }
+                                </script>
+                            </td>
                             <td>
                                 <a href="#editModal{{ $user->id }}"  data-toggle="modal">
                                     <i class="fas fa-pen-to-square fa-2xl" ></i>

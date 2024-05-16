@@ -13,7 +13,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
-                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.companyMaintenance') }}</span></div>
+                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.maintenance') }}</span></div>
                             <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
                             <div class="clearfix"></div>
                         </a>

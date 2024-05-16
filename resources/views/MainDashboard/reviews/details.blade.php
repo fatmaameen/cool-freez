@@ -2,7 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 <style>.circular-link {
     display: inline-block;
     width: 40px; /* يمكنك ضبط العرض حسب رغبتك */
@@ -155,12 +155,16 @@
 
                                                 $files = json_decode($review->building_files, true);
                                                 @endphp
-                                                @foreach ($files as $file)
-                                                <a href="{{$file}}" class="circular-link" target="_blank">
-                                                    <i class="fa-solid fa-file"></i>
-                                                </a>
 
-                                                @endforeach
+                                                @if($files)
+                    @foreach ($files as $file)
+                        <a href="{{$file}}" class="circular-link" target="_blank">
+                            <i class="fa-solid fa-file"></i>
+                        </a>
+                    @endforeach
+                @else
+                    <p>Dont have files...</p>
+                @endif
 
 
 

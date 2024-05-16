@@ -16,7 +16,9 @@ use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
 use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
-
+use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
+use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
+use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,9 +59,9 @@ Route::group(
         // services route ---------------------------------------------------------------------------------------------------------------
         Route::get('/services', [ServicesController::class, 'index']);
         // brands route -----------------------------------------------------------------------------------------------------------------
-        Route::get('/brands', [BrandsController::class, 'index']);
+        Route::get('/brands/{appLocale}', [BrandsController::class, 'index']);
         // types route ------------------------------------------------------------------------------------------------------------------
-        Route::get('/types', [TypesController::class, 'index']);
+        Route::get('/types/{appLocale}', [TypesController::class, 'index']);
         // offers route -----------------------------------------------------------------------------------------------------------------
         Route::get('/offers', [OffersController::class, 'index']);
         // consultant route -------------------------------------------------------------------------------------------------------------
@@ -67,9 +69,9 @@ Route::group(
         // BuildingTypes rout -----------------------------------------------------------------------------------------------------------
         Route::get('/BuildingTypes', [BuildingTypeController::class, 'index']);
         // floors rout ------------------------------------------------------------------------------------------------------------------
-        Route::get('/floors', [floorsController::class, 'index']);
+        Route::get('/floors/{appLocale}', [floorsController::class, 'index']);
         // usings rout ------------------------------------------------------------------------------------------------------------------
-        Route::get('/usings', [usingsController::class, 'index']);
+        Route::get('/usings/{appLocale}', [usingsController::class, 'index']);
         // maintenance routs ------------------------------------------------------------------------------------------------------------
         Route::post('/maintenance', [maintenanceController::class, 'store']);
         Route::get('/maintenance/{id}', [maintenanceController::class, 'show']);
@@ -79,5 +81,11 @@ Route::group(
         Route::post('/review', [ReviewController::class, 'store']);
         // Customer Service route -------------------------------------------------------------------------------------------------------
         Route::post('/customer-service', [CustomerServiceController::class, 'store']);
+        // load calculation route -------------------------------------------------------------------------------------------------------
+        Route::post('/load-calculation', [LoadCalculationController::class, 'loadCalculation']);
+        // Selected Load route ----------------------------------------------------------------------------------------------------------
+        Route::post('/selected-load', [SelectedLoadController::class, 'store']);
+        // Order history route ----------------------------------------------------------------------------------------------------------
+        Route::get('/history/{id}', [HistoryController::class, 'index']);
     }
 );

@@ -63,4 +63,20 @@ class AdminReviewsController extends Controller
             return redirect()->back()->with(['message' => 'Something went wrong']);
         }
     }
+
+    public function search($search)
+    {
+        if ($search!='null') {
+            $search = strtoupper($search);
+            $reviews = review::where('code', 'LIKE', '%' . $search . '%')->get();
+            if ($reviews) {
+                return response()->json($reviews);
+            } else {
+                return response()->json(['Message' => "No Data Found"]);
+            }
+        } elseif($search === 'null') {
+            $reviews = review::all();
+            return response()->json($reviews);
+        }
+    }
 }

@@ -21,7 +21,7 @@ class maintenanceController extends Controller
             } while (Maintenance::where('code', $code)->exists());
             $data['code'] = $code;
             $newRow = Maintenance::create($data);
-            sendNotification::maintenanceNotify($newRow);
+            sendNotification::serviceNotify($newRow);
             return response()->json(['message' => 'Created successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error adding maintenance'. $e->getMessage()], 500);

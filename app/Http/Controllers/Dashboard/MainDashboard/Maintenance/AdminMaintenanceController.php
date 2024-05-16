@@ -67,4 +67,20 @@ class AdminMaintenanceController extends Controller
             );
               return redirect()->back()->with($notification);  
     }
+
+    public function search($search)
+    {
+        if ($search!='null') {
+            $search = strtoupper($search);
+            $maintenance = Maintenance::where('code', 'LIKE', '%' . $search . '%')->get();
+            if ($maintenance) {
+                return response()->json($maintenance);
+            } else {
+                return response()->json(['Message' => "No Data Found"]);
+            }
+        } elseif($search === 'null') {
+            $maintenances = Maintenance::all();
+            return response()->json($maintenances);
+        }
+    }
 }

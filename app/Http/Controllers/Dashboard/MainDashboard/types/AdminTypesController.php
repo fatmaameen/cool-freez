@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\MainDashboard\types;
 
+use App\Models\type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\MainDashboard\types\TypesRequest;
-use App\Models\type;
-use Illuminate\Http\Request;
 
 class AdminTypesController extends Controller
 {
