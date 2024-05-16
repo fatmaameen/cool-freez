@@ -155,12 +155,16 @@
 
                                                 $files = json_decode($review->building_files, true);
                                                 @endphp
-                                                @foreach ($files as $file)
-                                                <a href="{{$file}}" class="circular-link" target="_blank">
-                                                    <i class="fa-solid fa-file"></i>
-                                                </a>
 
-                                                @endforeach
+                                                @if($files)
+                    @foreach ($files as $file)
+                        <a href="{{$file}}" class="circular-link" target="_blank">
+                            <i class="fa-solid fa-file"></i>
+                        </a>
+                    @endforeach
+                @else
+                    <p>Dont have files...</p>
+                @endif
 
 
 

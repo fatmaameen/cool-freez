@@ -137,20 +137,15 @@
                         <div class="row d-flex justify-content-center align-items-center ">
                             <div class="col-xm-10 col-sm-5 col-md-6">
                                 <input type="text" class="form-control p-3" id="searchInput"
-                                    placeholder="Search by code ...">
+                                    placeholder="{{ trans('main_trans.search_code') }} ...">
                                 <button id="search-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="searchOnKeyUp()"
-                                    type="submit">Search</button>
+                                    type="submit">{{ trans('main_trans.search') }}</button>
                                 <button id="reset-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="allData()"
-                                    type="reset">Reset</button>
+                                    type="reset">{{ trans('main_trans.reset') }}</button>
                             </div>
                         </div>
-                        @if (session('message'))
-                            <div class="alert alert-success">
-                                <div id="messageContainer"></div>
-                                {{ session('message') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
+
+                        {{-- @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -159,7 +154,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <br><br>
+                        <br><br> --}}
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->

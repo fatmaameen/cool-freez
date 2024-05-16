@@ -1,6 +1,34 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+<style>
+    .status {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .status-waiting {
+        background-color: #ffc107; /* لون أصفر فاتح */
+        color: #fffefe; /* نص أسود لتباين جيد */
+    }
+
+    .status-cancelled {
+        background-color: #ff4d4d; /* لون أحمر فاتح */
+        color: #fff; /* نص أبيض لتباين جيد */
+    }
+
+    .status-confirmed {
+        background-color: #28a745; /* لون أخضر فاتح */
+        color: #fff; /* نص أبيض لتباين جيد */
+    }
+
+    .status-icon {
+        margin-right: 5px;
+    }
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -138,20 +166,15 @@
                         <div class="row d-flex justify-content-center align-items-center ">
                             <div class="col-xm-10 col-sm-5 col-md-6">
                                 <input type="text" class="form-control p-3" id="searchInput"
-                                    placeholder="Search by code...">
+                                    placeholder="{{ trans('main_trans.search_code') }}...">
                                 <button id="search-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="searchOnKeyUp()"
-                                    type="submit">Search</button>
+                                    type="submit">{{ trans('main_trans.search') }}</button>
                                 <button id="reset-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="allData()"
-                                    type="reset">Reset</button>
+                                    type="reset">{{ trans('main_trans.reset') }}</button>
                             </div>
                         </div>
-                        @if (session('message'))
-                            <div class="alert alert-success">
-                                <div id="messageContainer"></div>
-                                {{ session('message') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
+
+                        {{-- @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -162,7 +185,7 @@
                         @endif
                         <br><br>
 
-
+ --}}
 
 
                         <table class="table table-bordered  w-100" id="loadsTable">
@@ -186,7 +209,25 @@
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
-                                        <td>{{ $data->admin_status }}</td>
+
+                                    <td>
+                                        @if ($data->admin_status == 'waiting')
+                                            <span class="status status-waiting">
+                                                <i class="status-icon fas fa-clock"></i>
+                                                Waiting
+                                            </span>
+                                        @elseif ($data->admin_status == 'cancelled')
+                                            <span class="status status-cancelled">
+                                                <i class="status-icon fas fa-times-circle"></i>
+                                                Cancelled
+                                            </span>
+                                        @elseif ($data->admin_status == 'confirmed')
+                                            <span class="status status-confirmed">
+                                                <i class="status-icon fas fa-check-circle"></i>
+                                                Confirmed
+                                            </span>
+                @endif
+                                    </td>
                                         <!-- Edit Button -->
                                         <td> <a href="#" data-toggle="modal"
                                                 data-target="#editModal{{ $data->id }}">

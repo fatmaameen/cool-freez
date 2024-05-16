@@ -24,11 +24,11 @@ return [
 'inactive'=>'inactive',
 'editing'=>'Modified Successfully',
 'deleting'=>'Deleted Successfully',
+'search_code'=>'Search by Code',
+'create_at'=>'Create At',
+'reset'=>'Reset',
 
-
-
-
-
+'search_by'=>'Search by Name or Email',
 
 
 'role'=>'role',

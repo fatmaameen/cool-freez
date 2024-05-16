@@ -22,11 +22,11 @@ class ConsultantsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'job_title' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
-            'phone_number' => ['required', 'string'],
-            'rate'=>['required'],
+            'name' => ['required', 'string' ,'min:2', 'max:50'],
+            'job_title' => ['required', 'string', 'min:2', 'max:50'],
+            'email' => ['required', 'email', 'unique:App\Models\Consultant,email'],
+            'phone_number' => ['required', 'string', 'regex:/^[0-9]{10}$/'],
+            'rate' => ['required', 'numeric', 'max:5'],
             'image' => [
                 'required',
                 'image' => [
@@ -34,5 +34,6 @@ class ConsultantsRequest extends FormRequest
                 ]
             ],
         ];
+
     }
 }

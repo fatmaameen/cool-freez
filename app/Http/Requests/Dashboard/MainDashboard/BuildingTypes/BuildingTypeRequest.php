@@ -22,8 +22,8 @@ class BuildingTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_en' => ['required', 'string', 'max:50'],
-            'name_ar' => ['required', 'string', 'max:50'],
+            'name_en' => ['required', 'string', 'max:50','min:2'],
+            'name_ar' => ['required', 'string', 'max:50','min:2'],
         ];
     }
 }

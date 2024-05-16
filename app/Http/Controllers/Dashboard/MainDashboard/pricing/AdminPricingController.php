@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\MainDashboard\pricing;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Clients\ordersHistory\pricingHistoryResource;
 use App\Models\pricing;
 use App\Models\pricingDetail;
 use Illuminate\Http\Request;
@@ -15,6 +16,12 @@ class AdminPricingController extends Controller
     {
         $pricing = pricing::latest()->get();
         return view('MainDashboard.pricing.pricing_list' ,compact('pricing'));
+    }
+    public function getPricingDetails($id)
+    {
+        $pricing = Pricing::with('details')->findOrFail($id);
+        // Assuming you have a blade view to render pricing details
+        return view('pricing_details', ['pricing' => $pricing]);
     }
 
     public function show($id)
@@ -57,10 +64,28 @@ class AdminPricingController extends Controller
             }
         }
         $pricing->delete();
-        
+
         $notification = array(
             'message' => trans('main_trans.deleting'),
           'alert-type' => 'error'
             );
-              return redirect()->back()->with($notification);       }
+              return redirect()->back()->with($notification);
+
+            }
+            public function search($search)
+            {
+                if ($search!='null') {
+                    $search = strtoupper($search);
+                    $loads = pricing::where('code', 'LIKE', '%' . $search . '%')->get();
+                    if ($loads) {
+                        return response()->json($loads);
+                    } else {
+                        return response()->json(['Message' => "No Data Found"]);
+                    }
+                } elseif($search === 'null') {
+                    $loads = pricing::all();
+                    return response()->json($loads);
+                }
+            }
 }
+

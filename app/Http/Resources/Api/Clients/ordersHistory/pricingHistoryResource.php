@@ -24,6 +24,17 @@ class pricingHistoryResource extends JsonResource
             'service' => [
                 'service_name' => $this->service->service_name,
             ],
+            'details' => $this->whenLoaded('details', function () {
+                return $this->details->map(function($detail) {
+                    return [
+                        'building_type' => $detail->building_type,
+                        'floor' => $detail->floor,
+                        'brand' => $detail->brand,
+                        'air_conditioning_type' => $detail->air_conditioning_type,
+                        'drawing_of_building' => $detail->drawing_of_building,
+                    ];
+                });
+            }),
         ];
     }
 }

@@ -114,7 +114,13 @@ class AdminsController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number
         ]);
-        return redirect()->back()->with(['message' => 'Successfully updated']);
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+             );
+
+
+        return redirect()->back()->with($notification);
     }
 
     /**

@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
 use App\Models\loadCalculation;
 use App\Traits\ImageUploadTrait;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
 use App\Http\Resources\Api\Clients\ordersHistory\loadHistoryResource;
-use App\Http\Resources\Api\Clients\ordersHistory\reviewHistoryResource;
-use App\Http\Resources\Api\Clients\ordersHistory\pricingHistoryResource;
 use App\Http\Resources\Api\Clients\ordersHistory\maintenanceHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\pricingHistoryResource;
+use App\Http\Resources\Api\Clients\ordersHistory\reviewHistoryResource;
+use Illuminate\Support\Facades\Config;
+
+use App\Http\Resources\Dashboard\MainDashboard\loadCalculation\loadInfoResource;
 
 class AdminClientsController extends Controller
 {
@@ -30,6 +32,10 @@ class AdminClientsController extends Controller
         $clients = Client::all();
         return view('MainDashboard.clients.client_list', compact('clients'));
     }
+
+
+
+
 
     public function banned(Request $request, Client $client)
     {
@@ -90,36 +96,28 @@ class AdminClientsController extends Controller
 
     public function history($id)
     {
+        // Retrieve data from the database
         $maintenances = Maintenance::where('client_id', $id)->with('service')->get();
-        $pricing = pricing::where('client_id', $id)->with('service')->get();
-        $reviews = review::where('client_id', $id)->get();
-        $loads = loadCalculation::where('client_id', $id)->with('service')->get();
+        $pricings = Pricing::where('client_id', $id)->with(['service', 'details'])->get();
+        $reviews = Review::where('client_id', $id)->with('service')->get();
+        $loads = LoadCalculation::where('client_id', $id)->with('service')->get();
 
-        $maintenances = maintenanceHistoryResource::collection($maintenances);
-        $pricing = pricingHistoryResource::collection($pricing);
-        $reviews = reviewHistoryResource::collection($reviews);
-        $loads = loadHistoryResource::collection($loads);
+        // Collect data from different models into resource collections
+        $maintenances = MaintenanceHistoryResource::collection($maintenances);
+        $pricings = PricingHistoryResource::collection($pricings);
+        $reviews = ReviewHistoryResource::collection($reviews);
+        $loads = LoadHistoryResource::collection($loads);
 
-        $mergedData = [];
-        foreach ($maintenances as $maintenance) {
-            $mergedData[] =  $maintenance;
-        }
-        foreach ($pricing as $pricing) {
-            $mergedData[] = $pricing;
-        }
-        foreach ($reviews as $review) {
-            $mergedData[] = $review;
-        }
-        foreach ($loads as $load) {
-            $mergedData[] = $load;
-        }
+        // Merge all data into a single array
+        $mergedData = $maintenances->merge($pricings)->merge($reviews)->merge($loads);
 
-        usort($mergedData, function ($a, $b) {
-            return strcmp($b->created_at, $a->created_at);
-        });
-
-        return response()->json($mergedData);
+        // Sort the merged data by created_at field
+        $mergedData = $mergedData->sortByDesc('created_at');
+//return $mergedData;
+        return view('MainDashboard.clients.details', compact('mergedData'));
     }
+
+
 
     public function search($search)
     {

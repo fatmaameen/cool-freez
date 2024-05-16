@@ -20,6 +20,7 @@ use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingType
 use App\Http\Controllers\Dashboard\MainDashboard\UsingFloors\AdminUsingFloorDataController;
 use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
 use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
+use Flasher\Laravel\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +101,9 @@ Route::group(
                     Route::post('/{pricing}', [AdminPricingController::class, 'update'])->name('pricing.update');
                     Route::delete('/{pricing}', [AdminPricingController::class, 'destroy'])->name('pricing.destroy');
                     Route::get('/{id}', [AdminPricingController::class, 'show'])->name('pricing.show');
+                    Route::get('/search/{search}', [AdminPricingController::class,'search']);
                 });
+               // Route::get('/{id}', [AdminClientsController::class, 'show'])->name('history_details');
                 // Admin reviews routes -------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'reviews'
@@ -111,6 +114,11 @@ Route::group(
                     Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
                     Route::get('/search/{search}', [AdminReviewsController::class,'search']);
                 });
+
+
+
+
+
                 // Admin consultants routes ---------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'consultant'

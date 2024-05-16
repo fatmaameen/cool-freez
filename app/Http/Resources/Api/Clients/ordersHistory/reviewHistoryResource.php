@@ -19,6 +19,7 @@ class reviewHistoryResource extends JsonResource
             'code' => $this->code,
             'client_id' => $this->client_id,
             'service_id' => $this->service_id,
+            'consultant_id'=>$this->consultant_id,
             'admin_status' => $this->admin_status,
             'created_at' => $this->created_at,
             'service' => [

@@ -221,14 +221,14 @@
                         <div class="row d-flex justify-content-center align-items-center ">
                             <div class="col-xm-10 col-sm-5 col-md-6">
                                 <input type="text" class="form-control p-3" id="searchInput"
-                                    placeholder="Search by name or email ...">
+                                    placeholder="{{ trans('main_trans.search_by') }} ...">
                                 <button id="search-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="searchOnKeyUp()"
-                                    type="submit">Search</button>
+                                    type="submit">{{ trans('main_trans.search') }}</button>
                                 <button id="reset-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="allData()"
-                                    type="reset">Reset</button>
+                                    type="reset">{{ trans('main_trans.reset') }}</button>
                             </div>
                         </div>
-                        <div id="messageContainer"></div>
+                        {{-- <div id="messageContainer"></div>
                         @if (session('message'))
                             <div class="alert alert-success">
                                 <div id="messageContainer"></div>
@@ -243,7 +243,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
+                        @endif --}}
                         <br><br>
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
@@ -261,6 +261,7 @@
                                     <th scope="col">{{ trans('main_trans.phone') }}</th>
                                     <th scope="col">{{ trans('main_trans.address') }}</th>
                                     <th id="td" scope="col">{{ trans('main_trans.status') }}</th>
+                                    <th scope="col">{{ trans('main_trans.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -287,6 +288,14 @@
                                                     <label></label>
                                                 </div>
                                             </section>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('clients.history', $client->id) }}" class="circular-link">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger" onclick="openDeleteModal('{{ $client->id }}')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

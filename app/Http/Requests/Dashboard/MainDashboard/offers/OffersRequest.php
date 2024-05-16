@@ -28,7 +28,7 @@ class OffersRequest extends FormRequest
                     'extensions' => ['jpeg', 'jpg', 'png', 'gif']
                 ]
             ],
-            'link' => ['required', 'string', 'url', 'max:250'],
+            'link' => ['required', 'string', 'url', 'max:250','min:2'],
         ];
     }
 }
