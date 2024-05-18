@@ -5,6 +5,14 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+       .error-message {
+            font-size: 1.1rem;
+            /* يمكنك تعديل حجم الخط حسب الحاجة */
+            color: red;
+            /* أو أي لون تفضله */
+            /* أي خصائص أخرى تريدها */
+        }
+
     .blue-button {
         background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
         color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
@@ -14,12 +22,12 @@
         cursor: pointer; /* لإظهار مؤشر اليد */
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 <style>/* Customize the table's border color and row colors */
     .table-bordered {
         border-color: #ADD8E6; /* Light blue */
     }
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         .blue-button {
             background-color: #94deec;
@@ -215,9 +223,9 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.technician') }}</li>
+                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.technician') }}</li></h6>
                 </ol>
             </div>
         </div>
@@ -316,6 +324,7 @@
 
     <!-- Create User Modal -->
     <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
+<<<<<<< HEAD
         aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -364,15 +373,119 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 {{ trans('main_trans.close') }}
+=======
+            aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+>>>>>>> bb7d02e7fef3dbd7fa22925c1c0cd6d9cf527cf7
                             </button>
-                            <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form id="createUserForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="name">{{ trans('main_trans.user_name') }}</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                                <span class="error-message" id="name-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">{{ trans('main_trans.email') }}</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
+                                <div class="position-relative auth-pass-inputgroup">
+                                    <input type="password" class="form-control pe-5 password-input"
+                                        placeholder="{{ trans('main_trans.enter_password') }}" name="password"
+                                        id="password-input">
+                                    <button
+                                        class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                        type="button" id="password-addon">
+                                        <i class="ri-eye-fill align-middle" id="eye-icon"></i>
+                                    </button>
+                                </div>
+                                <span class="error-message" id="password-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                                <input type="number" class="form-control" id="phone_number" name="phone_number">
+                                <span class="error-message" id="phone_number-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">{{ trans('main_trans.avatar') }}</label>
+                                <input type="file" class="form-control" id="image" name="image">
+                                <span class="error-message" id="image-error"></span>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                    {{ trans('main_trans.close') }}
+                                    </button>
+                                <button type="button" class="btn btn-primary"
+                                    id="submitForm">{{ trans('main_trans.save') }}</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
         </div>
-    </div>
     <!-- Create User Modal -->
+    <script>
+        document.getElementById('submitForm').addEventListener('click', function() {
+            var formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+
+            formData.append('email', document.getElementById('email').value);
+            formData.append('password', document.getElementById('password-input').value);
+            formData.append('phone_number', document.getElementById('phone_number').value);
+            formData.append('image', document.getElementById('image').files[0]);
+
+            fetch('{{ route('technician.store') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => Promise.reject(data));
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
+                    setTimeout(function() {
+                        window.location.href = "{{ route('technician') }}";
+                    }, 2000); // Wait for 2 seconds before redirecting
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                if (error.errors) {
+                    for (const field in error.errors) {
+                        const errorMessage = error.errors[field][0];
+                        document.getElementById(`${field}-error`).textContent = errorMessage;
+                    }
+                } else {
+                    alert('{{ trans('main_trans.error') }}');
+                }
+            });
+        });
+    </script>
     @foreach ($technicians as $technician)
         <!-- Edit Modal -->
         <div class="modal fade" id="editModal{{ $technician->id }}" tabindex="-1"

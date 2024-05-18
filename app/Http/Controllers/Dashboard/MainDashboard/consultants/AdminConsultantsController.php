@@ -28,16 +28,14 @@ class AdminConsultantsController extends Controller
             $image_info = $request->file('image');
             $image = $this->upload($image_info, "consultants");
             $data['image'] = $image;
-            consultant::create($data);
-            $notification = array(
-                'message' => trans('main_trans.adding'),
-                'alert-type' => 'success'
-                 );
+           $consultant= consultant::create($data);
 
 
-            return redirect()->back()->with($notification);        } catch (\Exception $e) {
-            Log::error("Error adding consultant: " . $e->getMessage());
-            return redirect()->back()->with(['message' => 'Error adding consultant'], 500);
+           return response()->json(['success' => true, 'message' => 'Created Successfully', 'consultant' => $consultant], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['success' => false, 'errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => 'Something went wrong: ' . $e->getMessage()], 500);
         }
     }
 

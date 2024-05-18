@@ -28,6 +28,10 @@
 
 </style>
 <style>
+     body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
 .table-bordered {
     border-color: #ADD8E6; /* Light blue */
 }
@@ -201,9 +205,9 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.clients') }}</li>
+                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.clients') }}</li></h6>
                 </ol>
             </div>
         </div>
@@ -228,23 +232,7 @@
                                     type="reset">{{ trans('main_trans.reset') }}</button>
                             </div>
                         </div>
-                        {{-- <div id="messageContainer"></div>
-                        @if (session('message'))
-                            <div class="alert alert-success">
-                                <div id="messageContainer"></div>
-                                {{ session('message') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif --}}
-                        <br><br>
+
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->

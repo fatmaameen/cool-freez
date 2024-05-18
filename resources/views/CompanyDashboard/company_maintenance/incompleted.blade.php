@@ -2,37 +2,77 @@
 
 @section('css')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-    .blue-button {
-        background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
-        color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
-        border: none; /* لإزالة الحدود */
-        padding: 10px 20px; /* يمكنك تعديل حجم الوسادة */
-        border-radius: 5px; /* يمكنك تعديل نصف القطر للإطار */
-        cursor: pointer; /* لإظهار مؤشر اليد */
-    }
-</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<style>/* Customize the table's border color and row colors */
-    .table-bordered {
-        border-color: #ADD8E6; /* Light blue */
-    }
 
-    .table-bordered th,
-    .table-bordered td {
-        border-color: #ADD8E6; /* Light blue */
-    }
+<style>
+.status {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
 
-    /* Customize the header background color */
-    thead.bg-light {
-        background-color: #E0F7FA; /* Light cyan */
-    }
-    </style>
-{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
+.status-pending {
+    background-color: #ffc107;
+    color: #fffefe;
+}
+
+.status-cancelled {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.status-confirmed {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-out-to-service {
+    background-color: #17a2b8; /* Info blue */
+    color: #fff;
+}
+
+.status-completed {
+    background-color: #28a745; /* Success green */
+    color: #fff;
+}
+
+.status-icon {
+    margin-right: 5px;
+}
+
+/* Hide horizontal scrollbar */
+.container {
+    overflow-x: hidden;
+}
+
+.blue-button {
+    background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
+    color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
+    border: none; /* لإزالة الحدود */
+    padding: 10px 20px; /* يمكنك تعديل حجم الوسادة */
+    border-radius: 5px; /* يمكنك تعديل نصف القطر للإطار */
+    cursor: pointer; /* لإظهار مؤشر اليد */
+}
+
+/* Customize the table's border color and row colors */
+.table-bordered {
+    border-color: #ADD8E6; /* Light blue */
+}
+
+.table-bordered th,
+.table-bordered td {
+    border-color: #ADD8E6; /* Light blue */
+}
+
+/* Customize the header background color */
+thead.bg-light {
+    background-color: #E0F7FA; /* Light cyan */
+}
+</style>
 @endsection
-
 
 @section('title')
 {{ trans('main_trans.Incomplete_maintenance') }}
@@ -62,16 +102,7 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
 
-                {{-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif --}}
-                <br><br>
+
 
                 <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                     <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -80,8 +111,8 @@
                 </div>
 
 
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
                         <tr>
                             <th>#</th>
                             <th scope="col">{{ trans('main_trans.code') }} </th>
@@ -122,12 +153,46 @@
                             <td>{{ $maintenance->expected_service_date }}</td>
 
                             <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->company_status}}</span>
-                               </td>
-                               <td>
-                                <span class="text-success" style="font-size: 20px">{{ $maintenance->technical_status}}</span>
-                               </td>
-
+                                @if ($maintenance->company_status == 'pending')
+                                <span class="status status-pending">
+                                    <i class="status-icon fas fa-clock"></i>
+                                    Pending
+                                </span>
+                                @elseif ($maintenance->company_status == 'cancelled')
+                                <span class="status status-cancelled">
+                                    <i class="status-icon fas fa-times-circle"></i>
+                                    Cancelled
+                                </span>
+                                @elseif ($maintenance->company_status == 'confirmed')
+                                <span class="status status-confirmed">
+                                    <i class="status-icon fas fa-check-circle"></i>
+                                    Confirmed
+                                </span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($maintenance->technical_status == 'pending')
+                                <span class="status status-pending">
+                                    <i class="status-icon fas fa-clock"></i>
+                                    Pending
+                                </span>
+                                @elseif ($maintenance->technical_status == 'confirmed')
+                                <span class="status status-confirmed">
+                                    <i class="status-icon fas fa-check-circle"></i>
+                                    Confirmed
+                                </span>
+                                @elseif ($maintenance->technical_status == 'out to service')
+                                <span class="status status-out-to-service">
+                                    <i class="status-icon fas fa-wrench"></i>
+                                    Out to Service
+                                </span>
+                                @elseif ($maintenance->technical_status == 'completed')
+                                <span class="status status-completed">
+                                    <i class="status-icon fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                                @endif
+                            </td>
 
 
 

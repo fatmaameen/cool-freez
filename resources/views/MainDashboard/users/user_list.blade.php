@@ -37,7 +37,11 @@
     </style>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <style>
-        /* Customize the table's border color and row colors */
+   body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
+
         .table-bordered {
             border-color: #12aee2;
             /* Light blue */
@@ -71,9 +75,9 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.admins') }}</li>
+                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.admins') }}</li></h6>
                 </ol>
             </div>
         </div>
@@ -88,27 +92,8 @@
             <div class="col-md-15 mb-30">
                 <div class="card card-statistics h-70">
                     <div class="card-body">
-                        <div id="messageContainer"></div>
-                        {{-- @if (session('success'))
-                <div class="alert alert-success">
-                {{ session('success') }}
-                </div>
-               @endif
-               @if (session('error'))
-               <div class="alert alert-error">
-                   {{ session('error') }}
-               </div>
-               @endif --}}
-                        {{-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif --}}
-                        <br><br>
+
+
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -167,55 +152,36 @@
                                             </select>
 
                                             <script>
-                                                function updateUserRole(userId) {
-                                                    var role = document.getElementById('select_' + userId).value;
-                                                    fetch('/dash/admins/updateRole/' + userId, {
-                                                            method: 'POST',
-                                                            headers: {
-                                                                'Content-Type': 'application/json',
-                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                                            },
-                                                            body: JSON.stringify({
-                                                                role_id: role
-                                                            })
-                                                        })
-                                                        .then(response => {
-                                                            if (!response.ok) {
-                                                                throw new Error('Network response was not ok');
-                                                            }
-                                                            return response.json();
-                                                        })
-                                                        .then(data => {
-                                                            var messageContainer = document.getElementById('messageContainer');
-                                                            messageContainer.innerHTML = '';
-                                                            var messageDiv = document.createElement('div');
-                                                            messageDiv.classList.add('alert');
-                                                            if (data.error) {
-                                                                messageDiv.classList.add('alert-danger');
-                                                                messageDiv.textContent = 'Update failed. Please try again later.';
-                                                            } else {
-                                                                messageDiv.classList.add('alert-success');
-                                                                messageDiv.textContent = data.message;
-                                                            }
-                                                            messageContainer.appendChild(messageDiv);
-                                                            setTimeout(function() {
-                                                                messageDiv.remove();
-                                                            }, 5000);
-                                                        })
-                                                        .catch(error => {
-                                                            console.error('Error:', error);
-                                                            var messageContainer = document.getElementById('messageContainer');
-                                                            messageContainer.innerHTML = '';
-                                                            var messageDiv = document.createElement('div');
-                                                            messageDiv.classList.add('alert');
-                                                            messageDiv.classList.add('alert-danger');
-                                                            messageDiv.textContent = 'Update failed. Please try again later.';
-                                                            messageContainer.appendChild(messageDiv);
-                                                            setTimeout(function() {
-                                                                messageDiv.remove();
-                                                            }, 5000);
-                                                        });
-                                                }
+                                               function updateUserRole(userId) {
+    var role = document.getElementById('select_' + userId).value;
+    fetch('/dash/admins/updateRole/' + userId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            role_id: role
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.alertType === 'success') {
+            toastr.success(data.message);
+        } else {
+            toastr.error(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        toastr.error('Update failed. Please try again later.');
+    });
+}
                                             </script>
                                         </td>
                                         <td>
@@ -236,92 +202,7 @@
                 </div>
             </div>
         </div>
-        <!-- row closed -->
 
-        <!-- Create User Modal -->
-        {{-- <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">{{ trans('main_trans.user_name') }}</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
-                        @error('name')
-                            <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="email">{{ trans('main_trans.email') }}</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email">
-                        @error('email')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
-                        <div class="position-relative auth-pass-inputgroup">
-                            <input type="password" class="form-control pe-5 password-input @error('password') is-invalid @enderror" placeholder="{{ trans('main_trans.enter_password') }}"  name="password" id="password-input">
-                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
-                                <i class="ri-eye-fill align-middle" id="eye-icon"></i>
-                            </button>
-                        </div>
-                        @error('password')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone">
-                        @error('phone')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image">{{ trans('main_trans.avatar') }}</label>
-                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                        @error('image')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <h6><label for="role">{{ trans('main_trans.role') }}</label></h6>
-                        <select class="form-select @error('role') is-invalid @enderror" aria-label="Default select example" name="role">
-                            <option selected>{{ trans('main_trans.open_menu') }}</option>
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->role }}</option>
-                            @endforeach
-                        </select>
-                        @error('role')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            {{ trans('main_trans.close') }}
-                        </button>
-                        <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div> --}}
         <!-- Create User Modal -->
 
         <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
@@ -413,37 +294,41 @@
                 formData.append('image', document.getElementById('image').files[0]);
 
                 fetch('{{ route('users.store') }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(data => Promise.reject(data));
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => Promise.reject(data));
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
+                        setTimeout(function() {
                             window.location.href = "{{ route('users.user_list') }}";
+                        }, 2000); // Wait for 2 seconds before redirecting
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                    if (error.errors) {
+                        for (const field in error.errors) {
+                            const errorMessage = error.errors[field][0];
+                            document.getElementById(`${field}-error`).textContent = errorMessage;
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                        if (error.errors) {
-                            for (const field in error.errors) {
-                                const errorMessage = error.errors[field][0];
-                                document.getElementById(`${field}-error`).textContent = errorMessage;
-                            }
-                        } else {
-                            alert('An error occurred. Please try again later.');
-                        }
-                    });
+                    } else {
+                        alert('An error occurred. Please try again later.');
+                    }
+                });
             });
         </script>
+
 
         <!-- Edit User Modals -->
         @foreach ($users as $user)

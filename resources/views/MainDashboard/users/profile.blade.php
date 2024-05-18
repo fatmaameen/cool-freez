@@ -88,7 +88,7 @@ thead.bg-light {
                             <div class="form-group row width-50">
                                 <label class="col-5 control-label">{{ trans('main_trans.password') }}</label>
                                 <div class="col-7">
-                                    <input type="password" class="col-6 form-control" name="password">
+                                    <input type="password" class="col-6 form-control" name="password"  value="{{ $user->password }}">
                                 </div>
                             </div>
                             <!-- Phone Number -->

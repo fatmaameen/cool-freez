@@ -17,8 +17,10 @@
 .button-container {
     text-align: center; /* لمحاذاة العنصر إلى اليمين داخل العنصر */
 }
-
-
+body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
 
 /* إضافة تأثير التحويم (hover) لتحسين التصميم */
 .circular-link {

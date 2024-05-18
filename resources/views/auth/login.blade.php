@@ -129,70 +129,61 @@
     color: #91c5d0;
 }
 </style>
-        <section id="login_id" class="height-100vh d-flex align-items-center page-section-ptb login">
-            <div class="container">
-                <div class="row justify-content-center no-gutters vertical-align">
-                    <div class="col-lg-4 col-md-6 login-fancy-bg bg">
-                        <div class="login-fancy">
-                            <h2 class="text-white mb-20">Cool Freez</h2>
-                            {{-- <p class="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose
-                                responsive template along with powerful features.</p> --}}
-                            {{-- <ul class="list-unstyled  pos-bot pb-30">
-                                <li class="list-inline-item"><a class="text-white" href="#"> Terms of Use</a> </li>
-                                <li class="list-inline-item"><a class="text-white" href="#"> Privacy Policy</a></li>
-                            </ul> --}}
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 bg-white">
-                        <div class="login-fancy pb-40 clearfix">
-                            <h3 class="mb-30">{{ __('Login') }}</h3>
-
-                            <form method="POST" action="{{ route('login') }}">
-                                @csrf
-
-                                <div class="section-field mb-20">
-                                    <label class="mb-10" for="name">{{ __('Email Address') }}</label>
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                </div>
-
-                                <div class="section-field mb-20">
-                                    <label class="mb-10" for="Password">{{ __('Password') }}</label>
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                </div>
-                                {{-- <div class="section-field">
-                                    <div class="remember-checkbox mb-30">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-
-                                        <a href="{{ route('forgotPassword') }}" class="float-right">{{ __('Forgot Your Password') }}</a>
-                                    </div>
-                                </div> --}}
-                                <button class="button login_btn"><span> {{ __('Login') }}</span></button>
-                            </form>
-                        </div>
-                    </div>
+<section id="login_id" class="height-100vh d-flex align-items-center page-section-ptb login">
+    <div class="container">
+        <div class="row justify-content-center no-gutters vertical-align">
+            <div class="col-lg-6 col-md-6 login-fancy-bg bg" style="background-color: #91c5d0; display: flex; align-items: center; justify-content: center;">
+                <div class="login-fancy">
+                    <h2 class="text-white mb-40">Cool Freez</h2>
                 </div>
             </div>
-        </section>
+
+            <div class="col-lg-6 col-md-6 bg-white">
+                <div class="login-fancy pb-40 clearfix">
+
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        <div class="section-field mb-30">
+                           <h4> <label class="mb-10" for="name" style="color: #91c5d0;">Email Address</label></h4>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="section-field mb-30">
+                           <h4> <label class="mb-10" for="Password" style="color: #91c5d0;">Password</label></h4>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{-- Uncomment this section if you want to add Remember Me feature --}}
+                        {{-- <div class="section-field">
+                            <div class="remember-checkbox mb-30">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                                <a href="{{ route('forgotPassword') }}" class="float-right" style="color: #91c5d0;">{{ __('Forgot Your Password') }}</a>
+                            </div>
+                        </div> --}}
+
+                        <button class="button login_btn" style="background-color: #91c5d0;"><span>{{ __('Login') }}</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
         <!--=================================
  login-->
