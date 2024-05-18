@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Auth\ForgotPasswordController;
+use Flasher\Laravel\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
-use App\Http\Controllers\Dashboard\Auth\ResetPasswordController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\Dashboard\Auth\ResetPasswordController;
+use App\Http\Controllers\Dashboard\Auth\ForgotPasswordController;
 use App\Http\Controllers\Dashboard\MainDashboard\Admins\AdminsController;
 use App\Http\Controllers\Dashboard\MainDashboard\types\AdminTypesController;
+use App\Http\Controllers\Dashboard\MainDashboard\Companies\CompanyController;
 use App\Http\Controllers\Dashboard\MainDashboard\brands\AdminBrandsController;
 use App\Http\Controllers\Dashboard\MainDashboard\offers\AdminOffersController;
 use App\Http\Controllers\Dashboard\MainDashboard\clients\AdminClientsController;
 use App\Http\Controllers\Dashboard\MainDashboard\pricing\AdminPricingController;
 use App\Http\Controllers\Dashboard\MainDashboard\Reviews\AdminReviewsController;
 use App\Http\Controllers\Dashboard\MainDashboard\cfmRates\AdminCfmRatesController;
+use App\Http\Controllers\Dashboard\MainDashboard\Companies\CompanyAdminsController;
 use App\Http\Controllers\Dashboard\MainDashboard\DataSheet\AdminDataSheetController;
 use App\Http\Controllers\Dashboard\MainDashboard\consultants\AdminConsultantsController;
 use App\Http\Controllers\Dashboard\MainDashboard\Maintenance\AdminMaintenanceController;
@@ -20,7 +23,6 @@ use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingType
 use App\Http\Controllers\Dashboard\MainDashboard\UsingFloors\AdminUsingFloorDataController;
 use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
 use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
-use Flasher\Laravel\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +49,13 @@ Route::group(
             return redirect()->route('login');
         });
         Route::group(['prefix' => 'password'], function () {
-            Route::get('/reset', [ForgotPasswordController::class,'showLinkRequestForm'])->name('forgotPassword');
-            Route::post('/email', [ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
-            Route::get('/reset/{token}', [ResetPasswordController::class,'showResetForm'])->name('password.reset');
-            Route::post('/reset', [ResetPasswordController::class,'reset'])->name('password.update');
+            Route::get('/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgotPassword');
+            Route::post('/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+            Route::get('/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+            Route::post('/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
         });
 
- Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
+        Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
 
 
 
@@ -69,11 +71,11 @@ Route::group(
         Route::group(
             [
                 'prefix' => 'main-dashboard',
-                'middleware' => ['auth', 'Admin']
+                // 'middleware' => ['auth', 'Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
-                Route::get('/', function (){
+                Route::get('/', function () {
                     return view('MainDashboard.dashboard');
                 })->name('dashboard');
                 // Admin clients routes ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +85,7 @@ Route::group(
                     Route::post('/banned/{client}', [AdminClientsController::class, 'banned'])->name('clients.assign');
                     Route::delete('/{client}', [AdminClientsController::class, 'destroy'])->name('clients.delete');
                     Route::get('/search/{search}', [AdminClientsController::class, 'search']);
-                    Route::get('/history/{id}', [AdminClientsController::class,'history'])->name('clients.history');
+                    Route::get('/history/{id}', [AdminClientsController::class, 'history'])->name('clients.history');
                 });
                 // Admin maintenance routes --------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group(['prefix' => 'maintenance'], function () {
@@ -91,7 +93,7 @@ Route::group(
                     Route::post('/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update');
                     Route::post('/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign');
                     Route::delete('/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
-                    Route::get('/search/{search}', [AdminMaintenanceController::class,'search']);
+                    Route::get('/search/{search}', [AdminMaintenanceController::class, 'search']);
                 });
                 // Admin pricing routes ------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
@@ -101,9 +103,9 @@ Route::group(
                     Route::post('/{pricing}', [AdminPricingController::class, 'update'])->name('pricing.update');
                     Route::delete('/{pricing}', [AdminPricingController::class, 'destroy'])->name('pricing.destroy');
                     Route::get('/{id}', [AdminPricingController::class, 'show'])->name('pricing.show');
-                    Route::get('/search/{search}', [AdminPricingController::class,'search']);
+                    Route::get('/search/{search}', [AdminPricingController::class, 'search']);
                 });
-               // Route::get('/{id}', [AdminClientsController::class, 'show'])->name('history_details');
+                // Route::get('/{id}', [AdminClientsController::class, 'show'])->name('history_details');
                 // Admin reviews routes -------------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'reviews'
@@ -112,13 +114,8 @@ Route::group(
                     Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
                     Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
                     Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
-                    Route::get('/search/{search}', [AdminReviewsController::class,'search']);
+                    Route::get('/search/{search}', [AdminReviewsController::class, 'search']);
                 });
-
-
-
-
-
                 // Admin consultants routes ---------------------------------------------------------------------------------------------------------------------------------------------------
                 Route::group([
                     'prefix' => 'consultant'
@@ -205,10 +202,26 @@ Route::group(
                     Route::get('/{id}', [AdminLoadCalculationsController::class, 'show'])->name('loadCalculation.show');
                     Route::post('/{load}', [AdminLoadCalculationsController::class, 'update'])->name('loadCalculation.update');
                     Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy'])->name('loadCalculation.destroy');
-                    Route::get('/search/{search}', [AdminLoadCalculationsController::class,'search']);
+                    Route::get('/search/{search}', [AdminLoadCalculationsController::class, 'search']);
                 });
-
-
+                // companies routes --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'companies'
+                ], function () {
+                    Route::get('/', [CompanyController::class, 'index'])->name('companies');
+                    Route::post('/', [CompanyController::class, 'store'])->name('companies.store');
+                    Route::post('/{company}', [CompanyController::class, 'update'])->name('companies.update');
+                    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+                });
+                // Admins companies routes ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'companies-admins'
+                ], function () {
+                    Route::get('/', [CompanyAdminsController::class, 'index'])->name('companyAdmins');
+                    Route::post('/', [CompanyAdminsController::class, 'store'])->name('companyAdmins.store');
+                    Route::post('/{admin}', [CompanyAdminsController::class, 'update'])->name('companyAdmins.update');
+                    Route::delete('/{admin}', [CompanyAdminsController::class, 'destroy'])->name('companyAdmins.destroy');
+                });
             }
         );
     }

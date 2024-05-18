@@ -20,7 +20,6 @@ class AdminPricingController extends Controller
     public function getPricingDetails($id)
     {
         $pricing = Pricing::with('details')->findOrFail($id);
-        // Assuming you have a blade view to render pricing details
         return view('pricing_details', ['pricing' => $pricing]);
     }
 

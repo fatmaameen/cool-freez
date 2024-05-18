@@ -31,6 +31,7 @@ class MaintenanceRequest extends FormRequest
             'lat'=>['required'],
             'long'=>['required'],
             'phone_number'=>['required', 'string'],
+            'brand'=>['required', 'string'],
             'device_type'=>['required', 'string'],
             'type_of_malfunction'=>['required','string'],
         ];

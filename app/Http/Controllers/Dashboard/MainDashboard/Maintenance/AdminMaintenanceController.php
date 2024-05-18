@@ -6,33 +6,34 @@ use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\sendNotification;
+use App\Models\company;
 
 class AdminMaintenanceController extends Controller
 {
     public function index()
     {
         $maintenances = Maintenance::all();
-        return view('MainDashboard.maintenance.maintenance_list' ,compact('maintenances'));
+        $companies = company::all();
+        return view('MainDashboard.maintenance.maintenance_list' ,compact('maintenances', 'companies'));
     }
 
     public function assign(Request $request, Maintenance $maintenance)
     {
-        $request->validate([
-            'assigned' => ['required'],
-        ]);
-
         try {
-            $maintenance->update([
-                'assigned' => $request->assigned,
+        if ($request->has('company_id')) {
+             $maintenance->update([
+                'company_id' => $request->company_id
             ]);
-            sendNotification::assignNotify();
-            $notification = array(
-                'message' => trans('main_trans.editing'),
-              'alert-type' => 'success'
-                );
-                  return redirect()->back()->with($notification);
+            sendNotification::assignNotify($request->company_id);
+            return response()->json(['message' => __('main_trans.successfully_updated')]);
+        };
+            // $notification = array(
+            //     'message' => trans('main_trans.editing'),
+            //   'alert-type' => 'success'
+            //     );
+                //   return redirect()->back()->with($notification);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 500);
+            return response()->json(['error' => __('main_trans.something_error') . $e->getMessage()], 500);
         }
     }
 
@@ -65,7 +66,7 @@ class AdminMaintenanceController extends Controller
             'message' => trans('main_trans.deleting'),
           'alert-type' => 'error'
             );
-              return redirect()->back()->with($notification);  
+              return redirect()->back()->with($notification);
     }
 
     public function search($search)

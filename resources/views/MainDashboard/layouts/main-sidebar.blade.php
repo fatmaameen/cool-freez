@@ -86,6 +86,26 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
+                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.companies_info') }}</span></div>
+                            <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="{{ route('companies') }}">
+                                    <i class="fa-regular fa-building"></i> {{ trans('main_trans.companies') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('companyAdmins') }}">
+                                    <i class="fa-solid fa-user-tie"></i> {{ trans('main_trans.companies_admins') }}
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
 
                 </ul>
             </div>

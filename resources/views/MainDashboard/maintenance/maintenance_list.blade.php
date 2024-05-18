@@ -1,36 +1,42 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
-<style>
-    .status {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 5px 10px;
-        border-radius: 5px;
-        display: inline-block;
-    }
+    <style>
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
 
-    .status-waiting {
-        background-color: #ffc107; /* لون أصفر فاتح */
-        color: #fffefe; /* نص أسود لتباين جيد */
-    }
+        .status-waiting {
+            background-color: #ffc107;
+            /* لون أصفر فاتح */
+            color: #fffefe;
+            /* نص أسود لتباين جيد */
+        }
 
-    .status-cancelled {
-        background-color: #ff4d4d; /* لون أحمر فاتح */
-        color: #fff; /* نص أبيض لتباين جيد */
-    }
+        .status-cancelled {
+            background-color: #ff4d4d;
+            /* لون أحمر فاتح */
+            color: #fff;
+            /* نص أبيض لتباين جيد */
+        }
 
-    .status-confirmed {
-        background-color: #28a745; /* لون أخضر فاتح */
-        color: #fff; /* نص أبيض لتباين جيد */
-    }
+        .status-confirmed {
+            background-color: #28a745;
+            /* لون أخضر فاتح */
+            color: #fff;
+            /* نص أبيض لتباين جيد */
+        }
 
-    .status-icon {
-        margin-right: 5px;
-    }
-</style>
+        .status-icon {
+            margin-right: 5px;
+        }
+    </style>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -204,6 +210,11 @@
             display: flex !important;
             flex-direction: row !important;
         }
+
+        .form-select {
+            background-color: #94deec;
+            padding: 5px !important;
+        }
     </style>
 @endsection
 
@@ -245,8 +256,9 @@
                             <button id="reset-btn" class="btn pr-4 pl-4 pt-2 pb-2" onclick="allData()"
                                 type="reset">{{ trans('main_trans.reset') }}</button>
                         </div>
-                    </div>
 
+                    </div>
+<div class='m-3' id="messageContainer"></div>
 
                     <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                         <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -264,13 +276,12 @@
                                 <th scope="col">{{ trans('main_trans.address') }}</th>
                                 <th scope="col">{{ trans('main_trans.street_address') }}</th>
                                 <th scope="col">{{ trans('main_trans.phone') }}</th>
+                                <th scope="col">{{ trans('main_trans.brand_name') }}</th>
                                 <th scope="col">{{ trans('main_trans.device_type') }}</th>
                                 <th scope="col">{{ trans('main_trans.type_of_malfunction') }}</th>
                                 <th scope="col">{{ trans('main_trans.admin_status') }}</th>
-
-                                <th scope="col">{{ trans('main_trans.assigned') }}</th>
+                                <th scope="col">{{ trans('main_trans.company_name') }}</th>
                                 <th scope="col">{{ trans('main_trans.technical') }}</th>
-
                                 <th scope="col">{{ trans('main_trans.company_status') }}</th>
                                 <th scope="col"> {{ trans('main_trans.technical_status') }}</th>
                                 <th scope="col">{{ trans('main_trans.actions') }}</th>
@@ -285,6 +296,7 @@
                                     <td>{{ $maintenance->address }}</td>
                                     <td>{{ $maintenance->street_address }}</td>
                                     <td>{{ $maintenance->phone_number }}</td>
+                                    <td>{{ $maintenance->brand }}</td>
                                     <td>{{ $maintenance->device_type }}</td>
                                     <td>{{ $maintenance->type_of_malfunction }}</td>
 
@@ -304,28 +316,35 @@
                                                 <i class="status-icon fas fa-check-circle"></i>
                                                 Confirmed
                                             </span>
-                @endif
-                                    </td>
-                                    <td id="td">
-                                        <section class="model-7">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="switchCheckDefault{{ $maintenance->id }}"
-                                                    {{ $maintenance->assigned ? 'checked' : '' }}
-                                                    data-maintenance-id="{{ $maintenance->id }}"
-                                                    onchange="updateColumn(this)" />
-                                                <label></label>
-                                            </div>
-                                        </section>
-                                        <td>
-                                            @if($maintenance->technical_id)
-                                                @php
-                                                    $name=App\Models\technician::where('id' ,$maintenance->technical_id)->first();
-                                                @endphp
-                                                {{ $name->name }}
-                                            @else
-                                                {{ trans('main_trans.dont_have') }}
+                                        @endif
+                                    <td>
+                                        <select id="select_{{ $maintenance->id }}" class="form-select form-select-sm"
+                                            aria-label="Small select example"
+                                            onchange="updateMaintenance({{ $maintenance->id }})">
+                                            @if (!$maintenance->company_id)
+                                            <option selected value="null">{{ trans('main_trans.not_assigned') }}</option>
                                             @endif
-                                        </td>
+                                            @foreach ($companies as $company)
+                                                @if ($maintenance->company_id == $company->id)
+                                                    <option selected value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @else
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    <td>
+                                        @if ($maintenance->technical_id)
+                                            @php
+                                                $name = App\Models\technician::where(
+                                                    'id',
+                                                    $maintenance->technical_id,
+                                                )->first();
+                                            @endphp
+                                            {{ $name->name }}
+                                        @else
+                                            {{ trans('main_trans.dont_have') }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="text-success"
                                             style="font-size: 20px">{{ $maintenance->company_status }}</span>
@@ -466,59 +485,7 @@
             assignedInput.value = this.checked ? 1 : 0;
         });
     </script> --}}
-    <script>
-        function updateColumn(checkbox) {
-            var maintenanceId = checkbox.dataset.maintenanceId;
-            var assignedValue = checkbox.checked ? 1 : 0;
 
-            fetch('/main-dashboard/maintenance/assign/' + maintenanceId, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        assigned: assignedValue
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    var messageContainer = document.getElementById('messageContainer');
-                    messageContainer.innerHTML = '';
-                    var messageDiv = document.createElement('div');
-                    messageDiv.classList.add('alert');
-                    if (data.error) {
-                        messageDiv.classList.add('alert-danger');
-                        messageDiv.textContent = 'Update failed. Please try again later.';
-                    } else {
-                        messageDiv.classList.add('alert-success');
-                        messageDiv.textContent = data.message;
-                    }
-                    messageContainer.appendChild(messageDiv);
-                    setTimeout(function() {
-                        messageDiv.remove();
-                    }, 5000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    var messageContainer = document.getElementById('messageContainer');
-                    messageContainer.innerHTML = '';
-                    var messageDiv = document.createElement('div');
-                    messageDiv.classList.add('alert');
-                    messageDiv.classList.add('alert-danger');
-                    messageDiv.textContent = 'Update failed. Please try again later.';
-                    messageContainer.appendChild(messageDiv);
-                    setTimeout(function() {
-                        messageDiv.remove();
-                    }, 5000);
-                });
-        }
-    </script>
     <script>
         function search() {
             var input = document.getElementById("searchInput");
@@ -600,31 +567,82 @@
         }
     </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'error') }}";
+            toastr.options.timeOut = 10000;
+            var message = "{{ Session::get('message') }}";
+
+            switch (type) {
+                case 'info':
+                    toastr.info(message);
+                    break;
+                case 'success':
+                    toastr.success(message);
+                    break;
+                case 'warning':
+                    toastr.warning(message);
+                    break;
+                case 'error':
+                    toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+                    var audio = new Audio('audio.mp3');
+                    audio.play();
+                    break;
+            }
+        @endif
+    </script>
 
 <script>
-    @if (Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'error') }}";
-    toastr.options.timeOut = 10000;
-    var message = "{{ Session::get('message') }}";
-
-    switch (type) {
-        case 'info':
-            toastr.info(message);
-            break;
-        case 'success':
-            toastr.success(message);
-            break;
-        case 'warning':
-            toastr.warning(message);
-            break;
-        case 'error':
-            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
-            var audio = new Audio('audio.mp3');
-            audio.play();
-            break;
+    function updateMaintenance(maintenanceId) {
+        var company_id = document.getElementById('select_' + maintenanceId).value;
+        fetch('/main-dashboard/maintenance/assign/' + maintenanceId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    company_id: company_id
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var messageContainer = document.getElementById('messageContainer');
+                messageContainer.innerHTML = '';
+                var messageDiv = document.createElement('div');
+                messageDiv.classList.add('alert');
+                if (data.error) {
+                    messageDiv.classList.add('alert-danger');
+                    messageDiv.textContent = 'Update failed. Please try again later.';
+                } else {
+                    messageDiv.classList.add('alert-success');
+                    messageDiv.textContent = data.message;
+                }
+                messageContainer.appendChild(messageDiv);
+                setTimeout(function() {
+                    messageDiv.remove();
+                }, 5000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var messageContainer = document.getElementById('messageContainer');
+                messageContainer.innerHTML = '';
+                var messageDiv = document.createElement('div');
+                messageDiv.classList.add('alert');
+                messageDiv.classList.add('alert-danger');
+                messageDiv.textContent = 'Update failed. Please try again later.';
+                messageContainer.appendChild(messageDiv);
+                setTimeout(function() {
+                    messageDiv.remove();
+                }, 5000);
+            });
     }
-@endif
-
 </script>
 @endsection

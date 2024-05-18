@@ -36,8 +36,8 @@ Route::group(
                 Route::group([
                     'prefix' => 'maintenance'
                 ], function () {
-                    Route::get('/', [CompanyMaintenanceController::class, 'index'])->name('incomplete_maintenance');
-                    Route::get('/completed', [CompanyMaintenanceController::class, 'completed'])->name('complete_maintenance');
+                    Route::get('/{companyId}', [CompanyMaintenanceController::class, 'index'])->middleware('checkCompany')->name('incomplete_maintenance');
+                    Route::get('/completed/{companyId}', [CompanyMaintenanceController::class, 'completed'])->middleware('checkCompany')->name('complete_maintenance');
                     Route::post('/{maintenance}', [CompanyMaintenanceController::class, 'update'])->name('company_maintenance.update');
                 });
                 Route::get('/profile', [AdminTechnicianController::class, 'profile'])->name('company_profile');
@@ -47,8 +47,8 @@ Route::group(
                 Route::group([
                     'prefix' => 'technician'
                 ], function () {
-                    Route::get('/', [AdminTechnicianController::class, 'index'])->name('technician');
-                    Route::post('/', [AdminTechnicianController::class, 'store'])->name('technician.store');
+                    Route::get('/{companyId}', [AdminTechnicianController::class, 'index'])->middleware('checkCompany')->name('technician');
+                    Route::post('/{companyId}', [AdminTechnicianController::class, 'store'])->name('technician.store');
                     Route::post('/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
                     Route::post('/banned/{technician}', [AdminTechnicianController::class, 'banned'])->name('technician.assign');
                     Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');

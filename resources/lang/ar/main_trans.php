@@ -32,9 +32,11 @@ return [
 'inactive'=>' غير نشط',
 'status'=>'حالة',
 'role'=>'دور',
+'company'=>'الشركة',
 'Assign_Role'=>'تحديد الدور',
-'open_menu'=>'اختر دور',
-'edit'=>'  تعديل هذا العنصر',
+'open_menu'=>'اختر عنصر',
+'open_companies_menu'=>'اختر الشركة',
+'edit'=>'تعديل هذا العنصر',
 'delete'=>'حذف ',
 'create'=>'اضافة جديد',
 'save'=>'حفظ',
@@ -146,9 +148,14 @@ return [
 'adding'=>'تمت الاضافة بنجاح',
 'editing'=>'تم التعديل بنجاح',
 'deleting'=>'تم الحذف بنجاح',
-
-
-
+'companies_info' => 'بيانات الشركات',
+'companies' => 'الشركات',
+'companies_admins' => 'مدراء الشركات',
+'company_name' => 'اسم الشركة',
+'something_error' => 'حدث خطأ ما',
+'not_assigned' => 'لم تخصص بعد',
+'brand_name' => 'اسم البراند',
+'offer_type' => 'نوع العرض',
 
 
 

@@ -14,6 +14,7 @@ class pricing extends Model
         'code',
         'admin_status',
         'service_id',
+        'drawing_of_building',
     ];
 
     public function client(){

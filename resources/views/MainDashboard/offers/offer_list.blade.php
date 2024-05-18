@@ -87,6 +87,7 @@
                         <tr>
                             <th>#</th>
                             <th scope="col">  {{ trans('main_trans.offer_image') }}</th>
+                            <th scope="col">  {{ trans('main_trans.offer_type') }}</th>
                             <th scope="col">  {{ trans('main_trans.offer_link') }}</th>
                             <th scope="col">{{ trans('main_trans.actions') }}</th>
                         </tr>
@@ -106,7 +107,7 @@
 >
                             </div>
                         </td>
-
+                        <td>{{ $offer->type }}</td>
                             <td>{{ $offer->link }}</td>
                             <td>
                                 <a href="#editModal{{ $offer->id }}"
@@ -132,7 +133,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUserModalLabel">  {{ trans('main_trans.create') }}</h5>
+                <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,7 +151,13 @@
                         <input type="url" class="form-control" id="link" name="link">
                     </div>
 
-
+                    <div class="form-group">
+                        <label for="offer">{{ trans('main_trans.offer_type') }}</label>
+                        <select id="select" class="form-select form-select-sm" name="type" aria-label="Small select example">
+                            <option value="Latest Offers">Latest Offers</option>
+                            <option value="Limited Offers">Limited Offers</option>
+                        </select>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

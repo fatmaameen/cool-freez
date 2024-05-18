@@ -39,8 +39,6 @@ class AdminTypesController extends Controller
             'message' => trans('main_trans.adding'),
             'alert-type' => 'success'
              );
-
-
         return redirect()->back()->with($notification);
     }
 
@@ -55,8 +53,6 @@ class AdminTypesController extends Controller
             'message' => trans('main_trans.editing'),
             'alert-type' => 'success'
              );
-
-
         return redirect()->back()->with($notification);
     }
 

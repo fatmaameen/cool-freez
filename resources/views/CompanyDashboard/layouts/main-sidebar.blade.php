@@ -19,12 +19,12 @@
                         </a>
                         <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
                             <li>
-                                <a href="{{ route('complete_maintenance') }}">
+                                <a href="{{ route('complete_maintenance',Auth::user()->company_id) }}">
                                     <i class="fa fa-check-circle"></i> {{ trans('main_trans.complete_maintenance') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('incomplete_maintenance') }}">
+                                <a href="{{ route('incomplete_maintenance',Auth::user()->company_id) }}">
                                     <i class="fa fa-exclamation-triangle"></i> {{ trans('main_trans.Incomplete_maintenance') }}
                                 </a>
                             </li>
@@ -37,7 +37,7 @@
 
 
                     <li>
-                        <a href="{{ route('technician') }}"><i class="fa fa-cogs"></i><span class="right-nav-text">{{ trans('main_trans.technician') }}</span></a>
+                        <a href="{{ route('technician',Auth::user()->company_id) }}"><i class="fa fa-cogs"></i><span class="right-nav-text">{{ trans('main_trans.technician') }}</span></a>
                     </li>
 
 

@@ -12,6 +12,7 @@ use App\Traits\ImageUploadTrait;
 use App\Http\Requests\Dashboard\MainDashboard\admins\AddAdminRequest;
 use App\Http\Requests\Dashboard\MainDashboard\admins\UpdateAdminRequest;
 use App\Http\Resources\Dashboard\MainDashboard\admins\AdminInfoResource;
+use App\Models\company;
 use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
@@ -31,24 +32,10 @@ class AdminsController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::whereNull('company_id')->get();
         $roles = Role::all();
         return view('MainDashboard.users.user_list', compact('users', 'roles'));
     }
-
-    // public function store(AddAdminRequest $request)
-    // {
-    //     try {
-    //         $data = $request->validated();
-    //         $image = $request->file('image');
-    //         $image = $this->upload($image, 'admins_images');
-    //         $data['image'] = $image;
-    //         User::create($data);
-    //         return redirect()->back()->with(['message' => 'Created Successfully']);
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with(['error' => 'Something went wrong' . $e->getMessage()]);
-    //     }
-    // }
 
     public function store(Request $request)
     {
@@ -59,7 +46,7 @@ class AdminsController extends Controller
 
             $data = $request->validate([
                 'name' => ['required', 'string', 'max:250'],
-                'role_id' => ['required', 'integer',],
+                'role_id' => ['required', 'integer'],
                 'email' => ['required', 'email', 'unique:App\Models\User,email'],
                 'password' => ['required', 'nullable', 'string', 'max:250'],
                 'phone_number' => ['required', 'unique:App\Models\User,phone_number'],
@@ -117,7 +104,7 @@ class AdminsController extends Controller
         $notification = array(
             'message' => trans('main_trans.editing'),
             'alert-type' => 'success'
-             );
+        );
 
 
         return redirect()->back()->with($notification);

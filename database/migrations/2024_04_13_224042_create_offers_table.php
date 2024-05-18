@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('offer');
+            $table->enum('type',  ['Latest Offers','Limited Offers'])->default('Latest Offers');
             $table->string('link');
             $table->timestamps();
         });

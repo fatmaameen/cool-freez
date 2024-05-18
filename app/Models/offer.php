@@ -11,6 +11,7 @@ class offer extends Model
     protected $fillable = [
         'id',
         'offer',
+        'type',
         'link',
     ];
 }

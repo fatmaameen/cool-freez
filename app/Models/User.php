@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'role_id',
+        'company_id',
         'email',
         'email_confirmation_token',
         'password',
@@ -56,4 +57,9 @@ class User extends Authenticatable
         {
             return $this->hasOne(Role::class);
 	}
+
+    public function company()
+    {
+        return $this->belongsTo(company::class);
+    }
 }

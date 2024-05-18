@@ -32,8 +32,10 @@ return [
 
 
 'role'=>'role',
+'company'=>'company',
 'Assign_Role'=>'Assign_Role',
-'open_menu'=>'Select role',
+'open_menu'=>'Select one',
+'open_companies_menu'=>'Select company',
 'edit'=>'Edit this element...',
 'delete'=>'Delete',
 'create'=>'Add New',
@@ -137,5 +139,12 @@ return [
 'no_messages'=>'There are no messages',
 'mark_as'=>'Mark as readed',
 'no_notification'=>'You have no unread notifications',
-
+'companies_info' => 'Companies Info',
+'companies' => 'Companies',
+'companies_admins' => 'Companies Admins',
+'company_name' => 'Company Name',
+'something_error' => 'Something went wrong',
+'not_assigned' => 'Not assigned yet',
+'brand_name' => 'Brand Name',
+'offer_type' => 'Offer Type',
 ];

@@ -11,14 +11,13 @@ use App\Http\Requests\Dashboard\CompanyDashboard\Technician\UpdateTechnicianRequ
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class AdminTechnicianController extends Controller
 {
     use ImageUploadTrait;
-    public function index()
+    public function index($companyId)
     {
-        $technicians = technician::latest()->get();
+        $technicians = technician::where('company_id',$companyId)->latest()->get();
         return view('CompanyDashboard.technician.technician_list', compact('technicians'));
     }
 
@@ -79,13 +78,14 @@ class AdminTechnicianController extends Controller
 
 
 
-    public function store(TechnicianRequest $request)
+    public function store(TechnicianRequest $request,$companyId)
     {
         try {
             $data = $request->validated();
             $image = $request->file('image');
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
+            $data['company_id'] = $companyId;
             technician::create($data);
             $notification = array(
                 'message' => trans('main_trans.adding'),

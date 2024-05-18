@@ -28,6 +28,7 @@ class AdminOffersController extends Controller
 
             Offer::create([
                 'offer' => $offer,
+                'type' => $data['type'],
                 'link' => $data['link'],
             ]);
 
@@ -40,7 +41,7 @@ class AdminOffersController extends Controller
             return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             Log::error("Error adding offer: " . $e->getMessage());
-            return redirect()->back()->with(['message' => 'Error adding offer'], 500); // Internal Server Error
+            return redirect()->back()->with(['message' => 'Error adding offer'], 500);
         }
     }
 
@@ -53,6 +54,7 @@ class AdminOffersController extends Controller
             $new_offer = $this->upload($image, 'offers');
             $offer->update([
                 'offer' => $new_offer,
+                'type' => $data['type'],
                 'link' => $data['link'],
             ]);
             $notification = array(

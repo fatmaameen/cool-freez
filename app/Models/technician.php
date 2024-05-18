@@ -13,6 +13,7 @@ class technician extends Authenticatable
     protected $fillable = [
         'name',
         'role_id',
+        'company_id',
         'email',
         'email_confirmation_token',
         'password',
@@ -35,5 +36,10 @@ class technician extends Authenticatable
 
     public function maintenance(){
         return $this->hasMany(Maintenance::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(company::class);
     }
 }

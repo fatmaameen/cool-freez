@@ -7,12 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Clients\pricing\pricingRequest;
 use App\Models\pricing;
 use App\Models\pricingDetail;
-use App\Traits\ImageUploadTrait;
 use App\Helpers\sendNotification;
+use App\Traits\PDFUploadTrait;
 
 class PricingController extends Controller
 {
-    use ImageUploadTrait;
+    use PDFUploadTrait;
     public function store(pricingRequest $request, $client, $service)
     {
         try {
@@ -31,18 +31,18 @@ class PricingController extends Controller
             $pricing_info['code'] = $code;
             $pricing_info['client_id'] = $client;
             $pricing_info['service_id'] = $service;
+            $pdf = $request->file('drawing_of_building');
+            $pdf_names = $this->uploadPDF($pdf, "pricing_files");
+            $pricing_info['drawing_of_building'] = json_encode($pdf_names);;
             $pricing = pricing::create($pricing_info);
 
             for ($i = 0; $i < $length; $i++) {
-                $pdf = $data['drawing_of_building'][$i];
-                $pdf_name = $this->upload($pdf, "pricing_files");
                 $new_pricing = new pricingDetail();
                 $new_pricing->pricing_id = $pricing->id;
                 $new_pricing->building_type = $data['building_type'][$i];
                 $new_pricing->floor = $data['floor'][$i];
                 $new_pricing->brand = $data['brand'][$i];
                 $new_pricing->air_conditioning_type = $data['air_conditioning_type'][$i];
-                $new_pricing->drawing_of_building = $pdf_name;
                 $new_pricing->save();
             }
             sendNotification::serviceNotify($pricing);

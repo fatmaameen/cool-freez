@@ -33,11 +33,11 @@ class sendNotification
         self::notify($admins, $notifyData);
     }
 
-    public static function assignNotify()
+    public static function assignNotify($company_id)
     {
         $notifyData['message'] = 'New maintenance assigned';
-        $notifyData['url'] = route('incomplete_maintenance');
-        $admins = self::getCompanyAdmins();
+        $notifyData['url'] = route('incomplete_maintenance', $company_id);
+        $admins = self::getCompanyAdmins($company_id);
         self::notify($admins, $notifyData);
     }
 
@@ -56,9 +56,11 @@ class sendNotification
         return $admins;
     }
 
-    private static function getCompanyAdmins()
+    private static function getCompanyAdmins($company_id)
     {
-        $admins = User::where('role_id', '=', 3)->get();
+        $admins = User::where('role_id', '=', 3)
+            ->where('company_id', '=', $company_id)
+            ->get();
         return $admins;
     }
 

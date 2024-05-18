@@ -22,7 +22,7 @@ class ReviewController extends Controller
                 $code = CodeGeneration::generateCode();
             } while (review::where('code', $code)->exists());
             $data['code'] = $code;
-            $data['building_files'] = json_encode($pdf_names);;
+            $data['building_files'] = json_encode($pdf_names);
             $newRow = review::create($data);
             sendNotification::serviceNotify($newRow);
             return response()->json(['message' => 'Created successfully']);

@@ -144,7 +144,6 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone_number }}</td>
-                                        {{-- <td>{{ App\Models\Role::where('id', $user->role_id)->value('role') }}</td> --}}
                                         <style>
                                             .form-select {
                                                 background-color: #94deec;
@@ -164,11 +163,6 @@
                                                     <option id="option" value="2" selected>Admin</option>
                                                 @else
                                                     <option id="option" value="2">Admin</option>
-                                                @endif
-                                                @if ($user->role_id == 3)
-                                                    <option id="option" value="3" selected>CompanyAdmin</option>
-                                                @else
-                                                    <option id="option" value="3">CompanyAdmin</option>
                                                 @endif
                                             </select>
 
@@ -388,7 +382,9 @@
                                     id="role_id">
                                     <option value="null">{{ trans('main_trans.open_menu') }}</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                    @if ($role->id != 3)
+                                    <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 <span class="error-message" id="role_id-error"></span>
@@ -463,7 +459,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('users.update', $user->id) }}" method="POST"
+                            <form action="{{ route('users.updateInfo', $user->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
@@ -502,10 +498,10 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="phone">{{ trans('main_trans.phone') }}</label>
-                                    <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                        id="phone" name="phone" value="{{ old('phone', $user->phone_number) }}">
-                                    @error('phone')
+                                    <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                                    <input type="number" class="form-control @error('phone_number') is-invalid @enderror"
+                                        id="phone_number" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}">
+                                    @error('phone_number')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -514,20 +510,6 @@
                                     <input type="file" class="form-control @error('image') is-invalid @enderror"
                                         id="image" name="image">
                                     @error('image')
-                                        <span class="error-message">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="role">{{ trans('main_trans.role') }}</label>
-                                    <select class="form-select @error('role') is-invalid @enderror"
-                                        aria-label="Default select example" name="role">
-                                        <option selected>{{ trans('main_trans.open_menu') }}</option>
-                                        @foreach ($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('role')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
                                 </div>

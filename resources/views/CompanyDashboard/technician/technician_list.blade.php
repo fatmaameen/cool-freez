@@ -243,7 +243,7 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
                                 <button type="button" class="blue-button" data-bs-toggle="modal"
@@ -326,7 +326,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('technician.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('technician.store',Auth::user()->company_id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">{{ trans('main_trans.user_name') }}</label>

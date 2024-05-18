@@ -19,14 +19,14 @@ class Maintenance extends Model
         'lat',
         'long',
         'phone_number',
+        'brand',
         'device_type',
         'type_of_malfunction',
-        'assigned',
+        'company_id',
         'admin_status',
         'company_status',
         'technical_id',
         'technical_status',
-        'assigned',
         'expected_service_date',
     ];
 
@@ -43,5 +43,10 @@ class Maintenance extends Model
     public function service()
     {
         return $this->belongsTo(service::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(company::class);
     }
 }

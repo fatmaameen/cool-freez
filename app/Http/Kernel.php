@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'SuperAdmin' => \App\Http\Middleware\IsSuperAdmin::class,
         'Admin' => \App\Http\Middleware\IsAdmin::class,
         'CompanyAdmin' => \App\Http\Middleware\IsCompanyAdmin::class,
+        'checkCompany' => \App\Http\Middleware\authCompanyAdmin::class,
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,

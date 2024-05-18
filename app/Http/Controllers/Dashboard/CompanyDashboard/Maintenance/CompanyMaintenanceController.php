@@ -10,9 +10,9 @@ use App\Models\technician;
 
 class CompanyMaintenanceController extends Controller
 {
-    public function index()
+    public function index($companyId)
     {
-        $maintenances = Maintenance::where('assigned', true)
+        $maintenances = Maintenance::where('company_id', $companyId)
         ->where('technical_status', '!=','completed')
         ->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
@@ -20,9 +20,10 @@ class CompanyMaintenanceController extends Controller
         return view('CompanyDashboard.company_maintenance/incompleted' ,compact('maintenanceResources'));
     }
 
-    public function completed()
+    public function completed($companyId)
     {
-        $maintenances = Maintenance::where('technical_status', 'completed')->get();
+        $maintenances = Maintenance::where('company_id', $companyId)
+        ->where('technical_status', 'completed')->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
         return view('CompanyDashboard.company_maintenance/completed', compact('maintenanceResources'));
     }
@@ -30,11 +31,8 @@ class CompanyMaintenanceController extends Controller
 
 public function update(Request $request, Maintenance $maintenance)
 {
-    // قم بتحويل التاريخ من تنسيق المستخدم إلى التنسيق الصحيح (YYYY-MM-DD)
     $expectedServiceDate = Carbon::createFromFormat('d-m-Y', $request->input('expected_service_date'))->format('Y-m-d');
-
     try {
-        // قم بتحديث maintenance باستخدام التاريخ الذي تم تحويله
         $maintenance->update([
             'company_status' => $request->input('company_status'),
             'technical_id' => $request->input('technical'),
@@ -45,7 +43,6 @@ public function update(Request $request, Maintenance $maintenance)
             'message' => trans('main_trans.editing'),
             'alert-type' => 'success'
              );
-
 
         return redirect()->back()->with($notification);
     } catch (\Exception $e) {

@@ -29,6 +29,7 @@ class OffersRequest extends FormRequest
                 ]
             ],
             'link' => ['required', 'string', 'url', 'max:250','min:2'],
+            'type' => ['required','string'],
         ];
     }
 }

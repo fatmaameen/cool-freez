@@ -15,7 +15,6 @@ class pricingDetail extends Model
         'floor',
         'brand',
         'air_conditioning_type',
-        'drawing_of_building',
     ];
 
     public function pricing(){
