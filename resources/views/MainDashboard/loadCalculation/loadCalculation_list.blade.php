@@ -72,6 +72,10 @@
             cursor: pointer;
             /* لإظهار مؤشر اليد */
         }
+        body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
     </style>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <style>
@@ -145,12 +149,11 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.loadCalculation') }}</li>
+                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.loadCalculation') }}</li></h6>
                 </ol>
             </div>
-
         </div>
     </div>
     <!-- breadcrumb -->
@@ -174,18 +177,12 @@
                             </div>
                         </div>
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <br><br>
 
- --}}
+                        <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
+                            <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
+
+                            </div>
+                        </div>
 
 
                         <table class="table table-bordered  w-100" id="loadsTable">

@@ -24,7 +24,10 @@
 .circular-link {
     margin-right: 40px; /* تضيف مساحة على اليمين */
 }
-
+body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
 
 </style>
 <style>
@@ -124,19 +127,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">{{  $data->model->brand}}</td>
-                                    <td scope="row">{{ $data->model->type }}</td>
-                                    <td scope="row">{{ $data->model->model }}</td>
-                                    <td scope="row">{{ $data->model->btu }}</td>
-                                    <td scope="row">{{ $data->model->cfm }}</td>
-                                    <td scope="row">{{ $data->model->gas }}</td>
-                                    <td scope="row">{{ $data->model->made_in }}</td>
+                                @php
+                                    if($data)
+                                    {
+                                        echo '<tr>';
+                                        echo '<td scope="row">' . ($data->model->brand ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->type ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->model ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->btu ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->cfm ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->gas ?? 'No Data') . '</td>';
+                                        echo '<td scope="row">' . ($data->model->made_in ?? 'No Data') . '</td>';
+                                        echo '</tr>';
+                                    }
+                                    else
+                                    {
+                                        echo '<tr><td colspan="7">No data available</td></tr>';
+                                    }
+                                @endphp
+                            </tbody>
 
-
-                        </tr>
-
-                    </tbody>
                 </table>
                                                                                       </div>
                             </div>

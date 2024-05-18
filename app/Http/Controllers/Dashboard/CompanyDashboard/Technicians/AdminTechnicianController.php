@@ -86,16 +86,15 @@ class AdminTechnicianController extends Controller
             $image = $request->file('image');
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
-            technician::create($data);
-            $notification = array(
-                'message' => trans('main_trans.adding'),
-                'alert-type' => 'success'
-                 );
-            return redirect()->back()->with($notification);
-        } catch (\Exception $e) {
-            return redirect()->back()->with(['error' => 'Something went wrong' . $e->getMessage()]);
-        }
-    }
+           $technician= technician::create($data);
+
+                 return response()->json(['success' => true, 'message' => 'Created Successfully', 'technician' => $technician], 201);
+                } catch (\Illuminate\Validation\ValidationException $e) {
+                    return response()->json(['success' => false, 'errors' => $e->errors()], 422);
+                } catch (\Exception $e) {
+                    return response()->json(['success' => false, 'error' => 'Something went wrong: ' . $e->getMessage()], 500);
+                }
+            }
 
     public function update(TechnicianUpdateTechnicianRequest $request, Technician $technician)
     {

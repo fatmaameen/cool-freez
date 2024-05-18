@@ -58,7 +58,7 @@ class AdminsController extends Controller
             ];
 
             $data = $request->validate([
-                'name' => ['required', 'string', 'max:250'],
+                'name' => ['required', 'string', 'max:250','min:2'],
                 'role_id' => ['required', 'integer',],
                 'email' => ['required', 'email', 'unique:App\Models\User,email'],
                 'password' => ['required', 'nullable', 'string', 'max:250'],
@@ -132,9 +132,15 @@ class AdminsController extends Controller
             $admin->update([
                 'role_id' => $request->role_id
             ]);
-            return response()->json(['message' => 'Successfully updated']);
-        };
+
+            // Return JSON response with alert type and message
+            return response()->json([
+                'message' => trans('main_trans.editing'),
+                'alertType' => 'success'
+            ]);
+        }
     }
+
 
     /**
      * SuperAdmin Remove Admin.

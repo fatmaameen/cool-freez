@@ -21,7 +21,10 @@
         thead.bg-light {
             background-color: #E0F7FA; /* Light cyan */
         }
-
+        body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
         /* Button styles */
         .blue-button {
             background-color: #94deec; /* Light blue */
@@ -39,21 +42,20 @@
 @stop
 
 @section('page-header')
-    <!-- Breadcrumb -->
-    <div class="page-title">
-        <div class="row">
-            <div class="col-sm-6">
-                <h4 class="mb-0">{{ trans('main_trans.dataSheet') }}</h4>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.dataSheet') }}</li>
-                </ol>
-            </div>
+<div class="page-title">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="mb-0">{{ trans('main_trans.dataSheet') }}</h4>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
+               <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                        class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+            <h6><li class="breadcrumb-item active">/{{ trans('main_trans.dataSheet') }}</li></h6>
+            </ol>
         </div>
     </div>
-    <!-- End breadcrumb -->
+</div>
 @endsection
 
 @section('content')
@@ -63,23 +65,7 @@
             <div class="col-md-12 mb-30">
                 <div class="card card-statistics h-100">
                     <div class="card-body">
-                        <!-- Display success message if any -->
-                        @if(session('message'))
-                            <div class="alert alert-success">
-                                {{ session('message') }}
-                            </div>
-                        @endif
 
-                        <!-- Display validation errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
 
                         <form action="{{ route('dataSheet.search') }}" method="POST" class="mb-3">
                             @csrf

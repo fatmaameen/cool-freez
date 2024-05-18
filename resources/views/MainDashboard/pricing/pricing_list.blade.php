@@ -123,7 +123,10 @@
     .table-bordered td {
         border-color: #ADD8E6; /* Light blue */
     }
-
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
     /* Customize the header background color */
     thead.bg-light {
         background-color: #E0F7FA; /* Light cyan */
@@ -144,8 +147,9 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.pricing') }}</li>
+               <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                        class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+            <h6><li class="breadcrumb-item active">/{{ trans('main_trans.pricing') }}</li></h6>
             </ol>
         </div>
     </div>
@@ -170,17 +174,13 @@
                             type="reset">{{ trans('main_trans.reset') }}</button>
                     </div>
                 </div>
-                {{-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+
+
+                <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
+                    <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
+
+                    </div>
                 </div>
-                @endif --}}
-
-
 
 
                 <table class="table table-bordered  w-100" id="pricingtable">

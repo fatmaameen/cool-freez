@@ -10,7 +10,10 @@
     .table-bordered {
         border-color: #ADD8E6; /* Light blue */
     }
-
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
     .table-bordered th,
     .table-bordered td {
         border-color: #ADD8E6; /* Light blue */
@@ -37,8 +40,9 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="default-color">{{ trans('main_trans.Dashboard')}}</a></li>
-                <li class="breadcrumb-item active">{{ trans('main_trans.customer_service') }}</li>
+               <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                        class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+            <h6><li class="breadcrumb-item active">/{{ trans('main_trans.customer_service') }}</li></h6>
             </ol>
         </div>
     </div>

@@ -1,5 +1,4 @@
 @extends('MainDashboard.layouts.master')
-
 @section('css')
 <style>
     .circular-link {
@@ -41,9 +40,25 @@
     .status-icon {
         margin-right: 5px;
     }
-</style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    /* Hide horizontal scrollbar */
+    .container {
+        overflow-x: hidden;
+    }
+
+    /* Ensure the body has no unwanted margin or padding */
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Ensure tables don't cause horizontal scroll */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 @endsection
@@ -159,14 +174,14 @@
                                         @endif
                                     </td>
                                     <td>{{ $pricing->created_at }}</td>
-                                    <td>
+
                                         <td>
                                             <a href="#pricingModal{{ $pricing->id }}" data-toggle="modal" class="circular-link">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
 
-                                    </td>
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -466,5 +481,4 @@
 @section('js')
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

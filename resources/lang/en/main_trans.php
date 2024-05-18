@@ -117,6 +117,7 @@ return [
 'type'=>'Type',
 'details'=>'Details',
 'model'=>'Model',
+'error'=>'Please re-enter the data correctly',
 'search'=>'Search',
 'btu'=>'BTU',
 'cfm'=>'CFM',

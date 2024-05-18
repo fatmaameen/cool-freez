@@ -2,7 +2,47 @@
 
 @section('css')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+<style>
+    .circular-link {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        background-color: lightblue;
+        color: rgb(17, 17, 17);
+        text-align: center;
+        text-decoration: none;
+        margin-right: 40px;
+    }
 
+    .status {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .status-waiting {
+        background-color: #ffc107;
+        color: #fffefe;
+    }
+
+    .status-cancelled {
+        background-color: #ff4d4d;
+        color: #fff;
+    }
+
+    .status-confirmed {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .status-icon {
+        margin-right: 5px;
+    }
+</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>.circular-link {
     display: inline-block;
@@ -58,7 +98,10 @@
             border-color: #ADD8E6;
             /* Light blue */
         }
-
+        body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
         /* Customize the header background color */
         thead.bg-light {
             background-color: #E0F7FA;
@@ -117,9 +160,9 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('main_trans.reviews') }}</li>
+                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.reviews') }}</li></h6>
                 </ol>
             </div>
         </div>
@@ -145,16 +188,7 @@
                             </div>
                         </div>
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <br><br> --}}
+
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -200,7 +234,24 @@
                                 {{-- <a href="{{'http://127.0.0.1:8000/reviews_files/'. json_decode($review->building_files, true)}}" class="btn btn-primary">{{ trans('main_trans.show') }}</a> --}}
                                         {{-- </td> --}}
 
-                                        <td>{{ $review->admin_status }}</td>
+                                        <td>
+                                            @if ($review->admin_status == 'waiting')
+                                            <span class="status status-waiting">
+                                                <i class="status-icon fas fa-clock"></i>
+                                                Waiting
+                                            </span>
+                                            @elseif ($review->admin_status == 'cancelled')
+                                            <span class="status status-cancelled">
+                                                <i class="status-icon fas fa-times-circle"></i>
+                                                Cancelled
+                                            </span>
+                                            @elseif ($review->admin_status == 'confirmed')
+                                            <span class="status status-confirmed">
+                                                <i class="status-icon fas fa-check-circle"></i>
+                                                Confirmed
+                                            </span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="#editModal{{ $review->id }}" data-toggle="modal"><i
                                                     class="fas fa-pen-to-square fa-2xl"></i></a>
