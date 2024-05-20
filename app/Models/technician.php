@@ -12,11 +12,10 @@ class technician extends Authenticatable
 
     protected $fillable = [
         'name',
-        'role_id',
         'company_id',
         'email',
         'email_confirmation_token',
-        'password',
+        'password', // تعديل هنا
         'phone_number',
         'phone_confirmation_token',
         'phone_confirmed',
@@ -31,9 +30,9 @@ class technician extends Authenticatable
     ];
 
     protected $casts = [
+        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
     public function maintenance(){
         return $this->hasMany(Maintenance::class);
     }

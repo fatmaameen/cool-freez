@@ -293,7 +293,7 @@
                 formData.append('phone_number', document.getElementById('phone_number').value);
                 formData.append('image', document.getElementById('image').files[0]);
 
-                fetch('{{ route('users.store') }}', {
+                fetch('/dash/admins/store', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -309,9 +309,7 @@
                 .then(data => {
                     if (data.success) {
                         toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
-                        setTimeout(function() {
-                            window.location.href = "{{ route('users.user_list') }}";
-                        }, 2000); // Wait for 2 seconds before redirecting
+                        window.location.href = "/dash/admins"; // Redirect immediately
                     }
                 })
                 .catch(error => {
@@ -327,8 +325,7 @@
                     }
                 });
             });
-        </script>
-
+            </script>
 
         <!-- Edit User Modals -->
         @foreach ($users as $user)
@@ -444,7 +441,7 @@
                 </div>
             </div>
         @endforeach
-        <!-- Edit User Modals -->
+       
     @endsection
     @section('js')
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

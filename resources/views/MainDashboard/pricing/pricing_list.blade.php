@@ -212,19 +212,7 @@
 
 
 
-                            {{-- <td>
-                                <a href="#consModal{{ $review->id }}" class="btn btn-primary" data-toggle="modal">{{ trans('main_trans.show') }}</a>
-                            </td>
-                            <td>
-                                @php
-                                $files = json_decode($review->building_files, true);
-                                @endphp
-                                @foreach ($files as $file)
-                                <a href="{{'http://127.0.0.1:8000/reviews_files/'.$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
-                                @endforeach
 
-                                {{-- <a href="{{'http://127.0.0.1:8000/reviews_files/'. json_decode($review->building_files, true)}}" class="btn btn-primary">{{ trans('main_trans.show') }}</a> --}}
-                            {{-- </td> --}}
 
                             <td>
                                 @if ($one->admin_status == 'waiting')
@@ -251,7 +239,7 @@
 
                        <a href="#" class="btn btn-danger"
                        onclick="openDeleteModal('{{ $one->id }}')">   <i class="fa-solid fa-trash-can"></i></a>
-<td>
+
 
 
 

@@ -260,7 +260,7 @@
                                 </button>
                             </div>
                         </div>
-                        <table class="table table-bordered  w-100" id="technicianTable">
+                        <table class="table table-bordered  w-100">
                             <thead class="bg-light">
                                 <tr>
                                     <th>#</th>
@@ -318,62 +318,12 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+
+
     <!-- row closed -->
 
     <!-- Create User Modal -->
     <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
-<<<<<<< HEAD
-        aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('technician.store',Auth::user()->company_id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">{{ trans('main_trans.user_name') }}</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">{{ trans('main_trans.email') }}</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
-                            <div class="position-relative auth-pass-inputgroup">
-                                <input type="password" class="form-control pe-5 password-input"
-                                    placeholder="{{ trans('main_trans.enter_password') }}" name="password"
-                                    id="password-input">
-                                <button
-                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                    type="button" id="password-addon">
-                                    <i class="ri-eye-fill align-middle" id="eye-icon"></i>
-                                </button>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="phone_number">{{ trans('main_trans.phone') }}</label>
-                            <input type="number" class="form-control" id="phone_number" name="phone_number">
-                        </div>
-                        <div class="form-group">
-                            <label for="image">{{ trans('main_trans.avatar') }}</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                {{ trans('main_trans.close') }}
-=======
             aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -381,7 +331,6 @@
                         <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
->>>>>>> bb7d02e7fef3dbd7fa22925c1c0cd6d9cf527cf7
                             </button>
 
                     </div>
@@ -426,7 +375,7 @@
                                 <span class="error-message" id="image-error"></span>
                             </div>
 
-
+                          
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">
@@ -440,52 +389,50 @@
                     </div>
                 </div>
         </div>
-    <!-- Create User Modal -->
-    <script>
-        document.getElementById('submitForm').addEventListener('click', function() {
-            var formData = new FormData();
-            formData.append('name', document.getElementById('name').value);
+        <script>
+            document.getElementById('submitForm').addEventListener('click', function() {
+                var formData = new FormData();
+                formData.append('name', document.getElementById('name').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('password', document.getElementById('password-input').value);
+                formData.append('phone_number', document.getElementById('phone_number').value);
+                formData.append('image', document.getElementById('image').files[0]);
 
-            formData.append('email', document.getElementById('email').value);
-            formData.append('password', document.getElementById('password-input').value);
-            formData.append('phone_number', document.getElementById('phone_number').value);
-            formData.append('image', document.getElementById('image').files[0]);
-
-            fetch('{{ route('technician.store') }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => Promise.reject(data));
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
-                    setTimeout(function() {
-                        window.location.href = "{{ route('technician') }}";
-                    }, 2000); // Wait for 2 seconds before redirecting
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                if (error.errors) {
-                    for (const field in error.errors) {
-                        const errorMessage = error.errors[field][0];
-                        document.getElementById(`${field}-error`).textContent = errorMessage;
+                var companId={{ auth()->user()->company_id }}
+                  fetch('/technician/store',$companId {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => Promise.reject(data));
                     }
-                } else {
-                    alert('{{ trans('main_trans.error') }}');
-                }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
+                        window.location.href = "/technician/"; // Redirect immediately
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                    if (error.errors) {
+                        for (const field in error.errors) {
+                            const errorMessage = error.errors[field][0];
+                            document.getElementById(`${field}-error`).textContent = errorMessage;
+                        }
+                    } else {
+                        return error.errors ;
+                    }
+                });
             });
-        });
-    </script>
+            </script>
+
     @foreach ($technicians as $technician)
         <!-- Edit Modal -->
         <div class="modal fade" id="editModal{{ $technician->id }}" tabindex="-1"
@@ -574,48 +521,11 @@
         </div>
     @endforeach
 
+
 @endsection
 @section('js')
 
 
-    {{-- <script>
-        const passwordInput = document.getElementById('password-input');
-        const eyeIcon = document.getElementById('eye-icon');
-
-        // Add event listener to toggle password visibility
-        eyeIcon.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-
-            // Change eye icon based on password visibility
-            if (type === 'password') {
-                eyeIcon.classList.remove('ri-eye-off-fill');
-                eyeIcon.classList.add('ri-eye-fill');
-            } else {
-                eyeIcon.classList.remove('ri-eye-fill');
-                eyeIcon.classList.add('ri-eye-off-fill');
-            }
-        });
-    </script> --}}
-    {{-- <script>
-        // Get the checkbox element
-        var assignedCheckbox = document.getElementById('assignedCheckbox');
-
-        // Add event listener to checkbox change
-        assignedCheckbox.addEventListener('change', function() {
-            // Get the hidden input element
-            var assignedInput = document.querySelector('input[name="is_banned"]');
-
-            // Update the value based on checkbox state
-            assignedInput.value = this.checked ? 1 : 0;
-
-            // Get the form element
-            var updateForm = document.getElementById('updateForm');
-
-            // Submit the form
-            updateForm.submit();
-        });
-    </script> --}}
 
 
     <script>
@@ -750,7 +660,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    const passwordInput = document.getElementById('password-input');
+    const eyeIcon = document.getElementById('eye-icon');
 
+    // Add event listener to toggle password visibility
+    eyeIcon.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Change eye icon based on password visibility
+        if (type === 'password') {
+            eyeIcon.classList.remove('ri-eye-off-fill');
+            eyeIcon.classList.add('ri-eye-fill');
+        } else {
+            eyeIcon.classList.remove('ri-eye-fill');
+            eyeIcon.classList.add('ri-eye-off-fill');
+        }
+    });
+</script>
 <script>
     @if (Session::has('message'))
     var type = "{{ Session::get('alert-type', 'error') }}";

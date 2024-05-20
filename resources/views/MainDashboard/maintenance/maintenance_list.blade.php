@@ -1,6 +1,7 @@
 @extends('MainDashboard.layouts.master')
 
 @section('css')
+
     <style>
         .status {
             font-size: 20px;
@@ -8,6 +9,13 @@
             padding: 5px 10px;
             border-radius: 5px;
             display: inline-block;
+        }
+
+        .status-pending {
+            background-color: #ffc107;
+            /* لون أصفر فاتح */
+            color: #fffefe;
+            /* نص أسود لتباين جيد */
         }
 
         .status-waiting {
@@ -262,7 +270,7 @@
                         </div>
 
                     </div>
-<div class='m-3' id="messageContainer"></div>
+
 
                     <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                         <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -275,6 +283,7 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>#</th>
+
 
                                 <th scope="col">{{ trans('main_trans.code') }}</th>
                                 <th scope="col">{{ trans('main_trans.address') }}</th>
@@ -321,22 +330,24 @@
                                                 Confirmed
                                             </span>
                                         @endif
-                                    <td>
-                                        <select id="select_{{ $maintenance->id }}" class="form-select form-select-sm"
-                                            aria-label="Small select example"
-                                            onchange="updateMaintenance({{ $maintenance->id }})">
-                                            @if (!$maintenance->company_id)
-                                            <option selected value="null">{{ trans('main_trans.not_assigned') }}</option>
-                                            @endif
-                                            @foreach ($companies as $company)
-                                                @if ($maintenance->company_id == $company->id)
-                                                    <option selected value="{{ $company->id }}">{{ $company->name }}</option>
-                                                @else
-                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        <td>
+
+                                            <select id="select_{{ $maintenance->id }}" class="form-select form-select-sm"
+                                                aria-label="Small select example"
+                                                onchange="updateMaintenance({{ $maintenance->id }})">
+                                                @if (!$maintenance->company_id)
+                                                <option selected value="null">{{ trans('main_trans.not_assigned') }}</option>
                                                 @endif
-                                            @endforeach
-                                        </select>
-                                    <td>
+                                                @foreach ($companies as $company)
+                                                    @if ($maintenance->company_id == $company->id)
+                                                        <option selected value="{{ $company->id }}">{{ $company->name }}</option>
+                                                    @else
+                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
                                         @if ($maintenance->technical_id)
                                             @php
                                                 $name = App\Models\technician::where(
@@ -350,8 +361,22 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <span class="text-success"
-                                            style="font-size: 20px">{{ $maintenance->company_status }}</span>
+                                        @if ($maintenance->company_status == 'pending')
+                                            <span class="status status-pending">
+                                                <i class="status-icon fas fa-clock"></i>
+                                                pending
+                                            </span>
+                                        @elseif ($maintenance->company_status == 'cancelled')
+                                            <span class="status status-cancelled">
+                                                <i class="status-icon fas fa-times-circle"></i>
+                                                Cancelled
+                                            </span>
+                                        @elseif ($maintenance->company_status == 'confirmed')
+                                            <span class="status status-confirmed">
+                                                <i class="status-icon fas fa-check-circle"></i>
+                                                Confirmed
+                                            </span>
+                                        @endif
                                     </td>
                                     <td>
                                         <span class="text-success"
@@ -397,14 +422,7 @@
                             @csrf
 
 
-                            <div class="form-group">
-                                <h4> <label for="status">{{ trans('main_trans.technical') }}</label></h4>
-                                <select class="form-select" aria-label="Default select example" name="admin_status">
-                                    <option value="waiting">waiting</option>
-                                    <option value="confirmed">confirmed</option>
-                                    <option value="cancelled">cancelled</option>
-                                </select>
-                            </div>
+
 
                             <div class="form-group">
                                 <h4> <label for="status">{{ trans('main_trans.admin_status') }}</label></h4>
@@ -597,8 +615,7 @@
             }
         @endif
     </script>
-
-<script>
+ <script>
     function updateMaintenance(maintenanceId) {
         var company_id = document.getElementById('select_' + maintenanceId).value;
         fetch('/main-dashboard/maintenance/assign/' + maintenanceId, {
@@ -618,34 +635,18 @@
                 return response.json();
             })
             .then(data => {
-                var messageContainer = document.getElementById('messageContainer');
-                messageContainer.innerHTML = '';
-                var messageDiv = document.createElement('div');
-                messageDiv.classList.add('alert');
                 if (data.error) {
-                    messageDiv.classList.add('alert-danger');
-                    messageDiv.textContent = 'Update failed. Please try again later.';
+                    // في حالة وجود خطأ، تُظهر رسالة توستر للفشل
+                    toastr.error('{{ trans('main_trans.deleting') }}', 'Success', {timeOut: 5000});
                 } else {
-                    messageDiv.classList.add('alert-success');
-                    messageDiv.textContent = data.message;
+                    // في حالة نجاح التحديث، تُظهر رسالة توستر للنجاح
+                    toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
                 }
-                messageContainer.appendChild(messageDiv);
-                setTimeout(function() {
-                    messageDiv.remove();
-                }, 5000);
             })
             .catch(error => {
                 console.error('Error:', error);
-                var messageContainer = document.getElementById('messageContainer');
-                messageContainer.innerHTML = '';
-                var messageDiv = document.createElement('div');
-                messageDiv.classList.add('alert');
-                messageDiv.classList.add('alert-danger');
-                messageDiv.textContent = 'Update failed. Please try again later.';
-                messageContainer.appendChild(messageDiv);
-                setTimeout(function() {
-                    messageDiv.remove();
-                }, 5000);
+                // في حالة وجود خطأ في الشبكة، تُظهر رسالة توستر للفشل
+                toastr.error('{{ trans('main_trans.deleting') }}', 'Success', {timeOut: 5000});
             });
     }
 </script>

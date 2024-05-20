@@ -85,6 +85,13 @@
                             <span>{{ trans('main_trans.cfmRates') }}</span>
                         </a>
                     </li>
+                    <style>
+                        #calendar-menu a {
+                            font-size: 1.2em; /* حجم النص */
+                        }
+
+
+                        </style>
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
@@ -104,7 +111,6 @@
                                 </a>
                             </li>
                         </ul>
-
                     </li>
 
                 </ul>
