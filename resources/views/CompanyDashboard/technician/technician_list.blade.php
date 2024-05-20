@@ -324,7 +324,6 @@
 
     <!-- Create User Modal -->
     <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
-<<<<<<< HEAD
         aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -373,15 +372,6 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 {{ trans('main_trans.close') }}
-=======
-            aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
->>>>>>> bb7d02e7fef3dbd7fa22925c1c0cd6d9cf527cf7
                             </button>
 
                     </div>
@@ -468,8 +458,8 @@
                 if (data.success) {
                     toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
                     setTimeout(function() {
-                        window.location.href = "{{ route('technician') }}";
-                    }, 2000); // Wait for 2 seconds before redirecting
+                       window.location.href = {{ route('technician.store', Auth::user()->company_id) }};
+                    }, 2000);
                 }
             })
             .catch(error => {
