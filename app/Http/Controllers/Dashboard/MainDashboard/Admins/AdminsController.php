@@ -140,7 +140,7 @@ class AdminsController extends Controller
 
             $notification = array(
                 'message' => trans('main_trans.deleting'),
-                'alert-type' => 'error'
+                'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         } else {

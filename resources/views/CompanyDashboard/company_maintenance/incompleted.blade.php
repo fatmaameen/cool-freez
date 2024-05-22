@@ -1,10 +1,14 @@
 @extends('CompanyDashboard.layouts.master')
 
 @section('css')
-<link rel="stylesheet"
-          href=
-"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
+
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
+
     label{margin-left: 20px;}
     #datepicker{width:180px;}
     #datepicker > span:hover{cursor: pointer;}
@@ -15,7 +19,7 @@
 
 <style>
 .status {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 5px;
@@ -133,7 +137,7 @@ thead.bg-light {
                             <th scope="col">{{ trans('main_trans.expected_service_date')}}</th>
                             <th scope="col">{{ trans('main_trans.company_status')}}</th>
                             <th scope="col"> {{ trans('main_trans.technical_status')}}</th>
-                            <th scope="col">{{ trans('main_trans.edit_status') }}</th>
+                            <th scope="col">{{ trans('main_trans.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -229,8 +233,7 @@ thead.bg-light {
 
 <!-- Edit User Modals -->
 @foreach ($maintenanceResources as $maintenance)
-<div class="modal fade" id="editModal{{ $maintenance->id }}" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}"
-    aria-hidden="true">
+<div class="modal fade" id="editModal{{ $maintenance->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $maintenance->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -248,6 +251,7 @@ thead.bg-light {
                             font-size: 16px; /* لتكبير حجم النص داخل العنصر */
                         }
                     </style>
+
                     <div class="form-group">
                         <h5><label for="status">{{ trans('main_trans.company_status')}}:</label></h5>
                         <select class="form-select" aria-label="Default select example" name="company_status">
@@ -269,16 +273,9 @@ thead.bg-light {
                         </select>
                     </div>
                     <div class="form-group">
-                    <div id="datepicker"
-                    class="input-group date"
-                    data-date-format="mm-dd-yyyy">
-                   <input class="form-control"
-                          type="text" name="expected_service_date" readonly />
-                   <span class="input-group-addon">
-                       <i class="glyphicon glyphicon-calendar"></i>
-                   </span>
-               </div>
-            </div>
+                        <h5><label>{{ trans('main_trans.expected_service_date') }}:</label></h5>
+                        <input class="form-control fc-datepicker" name="expected_service_date" placeholder="DD-MM-YYYY" type="text" required>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -328,26 +325,17 @@ thead.bg-light {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const passwordInput = document.getElementById('password-input');
-    const eyeIcon = document.getElementById('eye-icon');
-
-    // Add event listener to toggle password visibility
-    eyeIcon.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-
-        // Change eye icon based on password visibility
-        if (type === 'password') {
-            eyeIcon.classList.remove('ri-eye-off-fill');
-            eyeIcon.classList.add('ri-eye-fill');
-        } else {
-            eyeIcon.classList.remove('ri-eye-fill');
-            eyeIcon.classList.add('ri-eye-off-fill');
-        }
+    $(document).ready(function() {
+        $('.fc-datepicker').datepicker({
+            dateFormat: 'dd-mm-yy',  // تحديث تنسيق التاريخ هنا
+            showAnim: 'slideDown'
+        });
     });
-</script>
+    </script>
+
 <script>
     $(function () {
         $("#datepicker").datepicker({
@@ -357,7 +345,7 @@ thead.bg-light {
             title : "Geeksforgeeks datepicker"
         }).datepicker('update', new Date());
     });
-</script> 
+</script>
 
 <script>
 
@@ -366,17 +354,7 @@ thead.bg-light {
         $(deleteModalId).modal('show');
     }
 </script>
-<script>
-    // Get the checkbox element
-    var assignedCheckbox = document.getElementById('assignedCheckbox');
-    // Add event listener to checkbox change
-    assignedCheckbox.addEventListener('change', function() {
-        // Get the hidden input element
-        var assignedInput = document.querySelector('input[name="assigned"]');
-        // Update the value based on checkbox state
-        assignedInput.value = this.checked ? 1 : 0;
-    });
-</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

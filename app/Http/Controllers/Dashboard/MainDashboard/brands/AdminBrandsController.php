@@ -55,7 +55,7 @@ class AdminBrandsController extends Controller
         $brand->save();
         $notification = array(
             'message' => trans('main_trans.editing'),
-            'alert-type' => 'success'
+            'alert-type' => 'error'
              );
 
 
@@ -67,7 +67,7 @@ class AdminBrandsController extends Controller
         $brand->delete();
         $notification = array(
             'message' => trans('main_trans.deleting'),
-          'alert-type' => 'error'
+          'alert-type' => 'success'
             );
               return redirect()->back()->with($notification);
     }

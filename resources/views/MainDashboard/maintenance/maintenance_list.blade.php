@@ -4,7 +4,7 @@
 
     <style>
         .status {
-            font-size: 20px;
+            font-size: 15px;
             font-weight: bold;
             padding: 5px 10px;
             border-radius: 5px;
@@ -12,11 +12,10 @@
         }
 
         .status-pending {
-            background-color: #ffc107;
-            /* لون أصفر فاتح */
-            color: #fffefe;
-            /* نص أسود لتباين جيد */
-        }
+    background-color: #ffc107;
+    color: #fff;
+}
+
 
         .status-waiting {
             background-color: #ffc107;
@@ -38,6 +37,17 @@
             color: #fff;
             /* نص أبيض لتباين جيد */
         }
+
+.status-completed {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-out-to-service {
+    background-color: #28a745;
+    color: #fff;
+}
+
 
         .status-icon {
             margin-right: 5px;
@@ -379,9 +389,29 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <span class="text-success"
-                                            style="font-size: 20px">{{ $maintenance->technical_status }}</span>
+                                        @if ($maintenance->technical_status == 'pending')
+                                            <span class="status status-pending">
+                                                <i class="status-icon fas fa-clock"></i>
+                                                Pending
+                                            </span>
+                                        @elseif ($maintenance->technical_status == 'cancelled')
+                                            <span class="status status-cancelled">
+                                                <i class="status-icon fas fa-times-circle"></i>
+                                                Cancelled
+                                            </span>
+                                        @elseif ($maintenance->technical_status == 'completed')
+                                            <span class="status status-completed">
+                                                <i class="status-icon fas fa-check-circle"></i>
+                                                Completed
+                                            </span>
+                                        @elseif ($maintenance->technical_status == 'out to service')
+                                            <span class="status status-out-to-service">
+                                                <i class="status-icon fas fa-wrench"></i>
+                                                Out to Service
+                                            </span>
+                                        @endif
                                     </td>
+
                                     <td>
                                         <a href="#editModal{{ $maintenance->id }}" data-toggle="modal"><i
                                                 class="fas fa-pen-to-square fa-2xl"></i></a>
