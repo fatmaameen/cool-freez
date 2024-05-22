@@ -11,7 +11,10 @@
     .table-bordered {
         border-color: #ADD8E6; /* Light blue */
     }
-
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
     .table-bordered th,
     .table-bordered td {
         border-color: #ADD8E6; /* Light blue */

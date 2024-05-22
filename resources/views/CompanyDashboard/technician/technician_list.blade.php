@@ -5,6 +5,12 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
+
        .error-message {
             font-size: 1.1rem;
             /* يمكنك تعديل حجم الخط حسب الحاجة */
@@ -375,7 +381,7 @@
                                 <span class="error-message" id="image-error"></span>
                             </div>
 
-                          
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">

@@ -29,24 +29,39 @@ class CompanyMaintenanceController extends Controller
     }
 
 
-public function update(Request $request, Maintenance $maintenance)
-{
-    $expectedServiceDate = Carbon::createFromFormat('d-m-Y', $request->input('expected_service_date'))->format('Y-m-d');
-    try {
-        $maintenance->update([
-            'company_status' => $request->input('company_status'),
-            'technical_id' => $request->input('technical'),
-            'expected_service_date' => $expectedServiceDate,
+    public function update(Request $request, Maintenance $maintenance)
+    {
+        // Validate the request data first
+        $request->validate([
+            'expected_service_date' => 'required|date_format:m/d/Y',
+            'company_status' => 'required|string',
+            'technical' => 'required|integer',
         ]);
 
-        $notification = array(
-            'message' => trans('main_trans.editing'),
-            'alert-type' => 'success'
-             );
+        try {
+            // Convert the date format after validation
+            $expectedServiceDate = Carbon::createFromFormat('m/d/Y', $request->input('expected_service_date'))->format('Y-m-d');
 
-        return redirect()->back()->with($notification);
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
+            // Update the maintenance record
+            $maintenance->update([
+                'company_status' => $request->input('company_status'),
+                'technical_id' => $request->input('technical'),
+                'expected_service_date' => $expectedServiceDate,
+            ]);
+
+            // Prepare the success notification
+            $notification = [
+                'message' => trans('main_trans.editing'),
+                'alert-type' => 'success'
+            ];
+
+            // Redirect back with success notification
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Handle exceptions and redirect back with error message
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
-}
+
+
 }

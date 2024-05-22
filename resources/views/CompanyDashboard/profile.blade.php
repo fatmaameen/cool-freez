@@ -5,6 +5,12 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+
+    body {
+    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
+    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+}
+
     .blue-button {
         background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
         color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
