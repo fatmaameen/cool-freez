@@ -80,16 +80,7 @@
                     <div class="card-body">
 
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif --}}
-                        <br><br>
+                   
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->

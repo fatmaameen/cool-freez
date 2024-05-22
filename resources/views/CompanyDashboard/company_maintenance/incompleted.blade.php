@@ -1,6 +1,14 @@
 @extends('CompanyDashboard.layouts.master')
 
 @section('css')
+<link rel="stylesheet"
+          href=
+"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<style>
+    label{margin-left: 20px;}
+    #datepicker{width:180px;}
+    #datepicker > span:hover{cursor: pointer;}
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -252,21 +260,26 @@ thead.bg-light {
                         <h5><label for="role">{{ trans('main_trans.technical') }}:</label></h5>
                         <select class="form-select" aria-label="Default select example" name="technical">
                             @php
-                            $technicals = App\Models\technician::all();
+                            $technicals = App\Models\technician::where('company_id',Auth::user()->company_id)->get();
                             @endphp
                             @foreach ($technicals as $technical)
-                                <option value="{{ $technical->id }}">{{ $technical->name }}</option>
+                                <option value="{{ $technical->id }}">{{ $technical->name}}</option>
                             @endforeach
 
                         </select>
                     </div>
-
-
                     <div class="form-group">
-                        <h5><label> {{ trans('main_trans.expected_service_date')}}:</label></h5>
-                        <input class="form-control fc-datepicker" name="expected_service_date" placeholder="YYYY-MM-DD"
-                            type="text">
-                    </div>
+                    <div id="datepicker"
+                    class="input-group date"
+                    data-date-format="mm-dd-yyyy">
+                   <input class="form-control"
+                          type="text" name="expected_service_date" readonly />
+                   <span class="input-group-addon">
+                       <i class="glyphicon glyphicon-calendar"></i>
+                   </span>
+               </div>
+            </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}
@@ -335,7 +348,16 @@ thead.bg-light {
         }
     });
 </script>
-
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn : "linked",
+            title : "Geeksforgeeks datepicker"
+        }).datepicker('update', new Date());
+    });
+</script> 
 
 <script>
 

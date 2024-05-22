@@ -136,6 +136,7 @@ return [
 'last_clients'=>'احدث العملاء',
 'en_name'=>'الإسم بالإنجليزية',
 'ar_name'=>'الإسم بالعربية',
+'no_files'=>'لا توجد ملفات',
 'successfully_updated'=>'تم التحديث بنجاح',
 'successfully_deleted'=>'تم الحذف بنجاح',
 'successfully_added'=>'تمت الإضافة بنجاح',

@@ -222,11 +222,17 @@ body {
                             @php
                             $files = json_decode($pricing->drawing_of_building, true);
                             @endphp
-                            @foreach ($files as $file)
-                            <a href="{{ $file }}" class="circular-link m-1" target="_blank">
-                                <i class="fa-solid fa-file"></i></a>
-                            @endforeach
+                            @if (empty($files))
+                                <h4>{{ trans('main_trans.no_files') }}</h4>
+                            @else
+                                @foreach ($files as $file)
+                                <a href="{{ $file }}" class="circular-link m-1" target="_blank">
+                                    <i class="fa-solid fa-file"></i>
+                                </a>
+                                @endforeach
+                            @endif
                         </div>
+
                 </div>
             </div>
         </div>

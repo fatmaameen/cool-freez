@@ -203,6 +203,22 @@
                         <input type="url" class="form-control" id="link" name="link" value="{{ $offer->link }}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="offer">{{ trans('main_trans.offer_type') }}</label>
+                        <select id="select" class="form-select form-select-sm" name="type" aria-label="Small select example">
+                            @if ($offer->type == 'Latest Offers')
+                            <option selected value="Latest Offers">Latest Offers</option>
+                            @else
+                            <option value="Latest Offers">Latest Offers</option>
+                            @endif
+                            @if ($offer->type == 'Limited Offers')
+                            <option selected value="Limited Offers">Limited Offers</option>
+                            @else
+                            <option value="Limited Offers">Limited Offers</option>
+                            @endif
+                        </select>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             {{ trans('main_trans.close') }}

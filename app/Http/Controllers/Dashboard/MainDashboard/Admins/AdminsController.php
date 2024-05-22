@@ -59,7 +59,7 @@ class AdminsController extends Controller
 
             $user = User::create($data);
 
-            return response()->json(['success' => true, 'message' => 'Created Successfully', 'user' => $user], 201);
+            return response()->json(['success' => true, 'message' => 'Created Successfully', 'user' => $user], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['success' => false, 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {

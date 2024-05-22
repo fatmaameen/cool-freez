@@ -1,11 +1,11 @@
 @extends('CompanyDashboard.layouts.master')
 
 @section('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-       .error-message {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .error-message {
             font-size: 1.1rem;
             /* يمكنك تعديل حجم الخط حسب الحاجة */
             color: red;
@@ -13,23 +13,30 @@
             /* أي خصائص أخرى تريدها */
         }
 
-    .blue-button {
-        background-color: #94deec; /* لتغيير لون الخلفية إلى الأزرق */
-        color: rgb(19, 18, 18); /* لتغيير لون النص إلى الأبيض */
-        border: none; /* لإزالة الحدود */
-        padding: 10px 20px; /* يمكنك تعديل حجم الوسادة */
-        border-radius: 5px; /* يمكنك تعديل نصف القطر للإطار */
-        cursor: pointer; /* لإظهار مؤشر اليد */
-    }
-</style>
-{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-<style>/* Customize the table's border color and row colors */
-    .table-bordered {
-        border-color: #ADD8E6; /* Light blue */
-    }
-
-    <style>
         .blue-button {
+            background-color: #94deec;
+            /* لتغيير لون الخلفية إلى الأزرق */
+            color: rgb(19, 18, 18);
+            /* لتغيير لون النص إلى الأبيض */
+            border: none;
+            /* لإزالة الحدود */
+            padding: 10px 20px;
+            /* يمكنك تعديل حجم الوسادة */
+            border-radius: 5px;
+            /* يمكنك تعديل نصف القطر للإطار */
+            cursor: pointer;
+            /* لإظهار مؤشر اليد */
+        }
+    </style>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
+    <style>
+        /* Customize the table's border color and row colors */
+        .table-bordered {
+            border-color: #ADD8E6;
+            /* Light blue */
+        }
+
+        <style>.blue-button {
             background-color: #94deec;
             /* لتغيير لون الخلفية إلى الأزرق */
             color: rgb(19, 18, 18);
@@ -223,9 +230,13 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
-                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.technician') }}</li></h6>
+                    <h6>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                                class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
+                    </h6>
+                    <h6>
+                        <li class="breadcrumb-item active">/{{ trans('main_trans.technician') }}</li>
+                    </h6>
                 </ol>
             </div>
         </div>
@@ -250,8 +261,7 @@
                                     type="reset">{{ trans('main_trans.reset') }}</button>
                             </div>
                         </div>
-
-
+                        <div id="messageContainer"></div>
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
                                 <button type="button" class="blue-button" data-bs-toggle="modal"
@@ -260,7 +270,7 @@
                                 </button>
                             </div>
                         </div>
-                        <table class="table table-bordered  w-100" id="technicianTable">
+                        <table class="table table-bordered  w-100"  id="technicianTable">
                             <thead class="bg-light">
                                 <tr>
                                     <th>#</th>
@@ -318,61 +328,20 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <!-- row closed -->
-
-    <!-- Create User Modal -->
-    <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('technician.store',Auth::user()->company_id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">{{ trans('main_trans.user_name') }}</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">{{ trans('main_trans.email') }}</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
-                            <div class="position-relative auth-pass-inputgroup">
-                                <input type="password" class="form-control pe-5 password-input"
-                                    placeholder="{{ trans('main_trans.enter_password') }}" name="password"
-                                    id="password-input">
-                                <button
-                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                    type="button" id="password-addon">
-                                    <i class="ri-eye-fill align-middle" id="eye-icon"></i>
-                                </button>
-                            </div>
-                        </div>
 
 
-                        <div class="form-group">
-                            <label for="phone_number">{{ trans('main_trans.phone') }}</label>
-                            <input type="number" class="form-control" id="phone_number" name="phone_number">
-                        </div>
-                        <div class="form-group">
-                            <label for="image">{{ trans('main_trans.avatar') }}</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
+        <!-- row closed -->
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                {{ trans('main_trans.close') }}
-                            </button>
+        <!-- Create User Modal -->
+        <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
+            aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
 
                     </div>
                     <div class="modal-body">
@@ -418,288 +387,241 @@
 
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     {{ trans('main_trans.close') }}
-                                    </button>
+                                </button>
                                 <button type="button" class="btn btn-primary"
                                     id="submitForm">{{ trans('main_trans.save') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('submitForm').addEventListener('click', function() {
+                var formData = new FormData();
+                formData.append('name', document.getElementById('name').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('password', document.getElementById('password-input').value);
+                formData.append('phone_number', document.getElementById('phone_number').value);
+                formData.append('image', document.getElementById('image').files[0]);
+
+                var companyId = {{ Auth::user()->company_id }}
+                console.log(companyId, document.getElementById('name').value, document.getElementById('email').value,
+                    formData['password'], formData[
+                        'phone_number']);
+                fetch('/company-dashboard/technician/store/' + companyId, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => Promise.reject(data));
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('{{ trans('main_trans.adding') }}', 'Success', {
+                                timeOut: 5000
+                            });
+                            window.location.href = "/technician/";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                        if (error.errors) {
+                            for (const field in error.errors) {
+                                const errorMessage = error.errors[field][0];
+                                document.getElementById(`${field}-error`).textContent = errorMessage;
+                            }
+                        } else {
+                            alert('An error occurred. Please try again later.');
+                        }
+                    });
+            });
+        </script>
+
+        @foreach ($technicians as $technician)
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editModal{{ $technician->id }}" tabindex="-1"
+                aria-labelledby="editModalLabel{{ $technician->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel{{ $technician->id }}">
+                                {{ trans('main_trans.edit') }}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('technician.update', $technician->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">{{ trans('main_trans.user_name') }}</label>
+                                    <input type="text" class="form-control" id="name{{ $technician->id }}"
+                                        name="name" value="{{ $technician->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">{{ trans('main_trans.email') }}</label>
+                                    <input type="email" class="form-control" id="email{{ $technician->id }}"
+                                        name="email" value="{{ $technician->email }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"
+                                        for="password-input">{{ trans('main_trans.password') }}</label>
+                                    <div class="position-relative auth-pass-inputgroup">
+                                        <input type="password" class="form-control pe-5 password-input" name="password"
+                                            id="password-input{{ $technician->id }}">
+                                        <button
+                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                            type="button" id="password-addon{{ $technician->id }}">
+                                            <i class="ri-eye-fill align-middle" id="eye-icon{{ $technician->id }}"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                                    <input type="number" class="form-control" id="phone_number{{ $technician->id }}"
+                                        name="phone_number" value="{{ $technician->phone_number }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">{{ trans('main_trans.avatar') }}</label>
+                                    <input type="file" class="form-control" id="image{{ $technician->id }}"
+                                        name="image">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                                    <button type="submit"
+                                        class="btn btn-primary">{{ trans('main_trans.save') }}</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-        </div>
-    <!-- Create User Modal -->
-    <script>
-        document.getElementById('submitForm').addEventListener('click', function() {
-            var formData = new FormData();
-            formData.append('name', document.getElementById('name').value);
+            </div>
 
-            formData.append('email', document.getElementById('email').value);
-            formData.append('password', document.getElementById('password-input').value);
-            formData.append('phone_number', document.getElementById('phone_number').value);
-            formData.append('image', document.getElementById('image').files[0]);
-
-            fetch('{{ route('technician.store') }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => Promise.reject(data));
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
-                    setTimeout(function() {
-                       window.location.href = {{ route('technician.store', Auth::user()->company_id) }};
-                    }, 2000);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                if (error.errors) {
-                    for (const field in error.errors) {
-                        const errorMessage = error.errors[field][0];
-                        document.getElementById(`${field}-error`).textContent = errorMessage;
-                    }
-                } else {
-                    alert('{{ trans('main_trans.error') }}');
-                }
-            });
-        });
-    </script>
-    @foreach ($technicians as $technician)
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal{{ $technician->id }}" tabindex="-1"
-            aria-labelledby="editModalLabel{{ $technician->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel{{ $technician->id }}">{{ trans('main_trans.edit') }}
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('technician.update', $technician->id) }}" method="POST"  enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <label for="name">{{ trans('main_trans.user_name') }}</label>
-                                <input type="text" class="form-control" id="name{{ $technician->id }}" name="name"
-                                    value="{{ $technician->name }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">{{ trans('main_trans.email') }}</label>
-                                <input type="email" class="form-control" id="email{{ $technician->id }}" name="email"
-                                    value="{{ $technician->email }}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="password-input">{{ trans('main_trans.password') }}</label>
-                                <div class="position-relative auth-pass-inputgroup">
-                                    <input type="password" class="form-control pe-5 password-input" name="password"
-                                        id="password-input{{ $technician->id }}">
-                                    <button
-                                        class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                        type="button" id="password-addon{{ $technician->id }}">
-                                        <i class="ri-eye-fill align-middle" id="eye-icon{{ $technician->id }}"></i>
-                                    </button>
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteModal{{ $technician->id }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel{{ $technician->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel{{ $technician->id }}"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>{{ trans('main_trans.delete_text') }}</h5>
+                            <form action="{{ route('technician.delete', $technician->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                                    <button type="submit"
+                                        class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
                                 </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="phone_number">{{ trans('main_trans.phone') }}</label>
-                                <input type="number" class="form-control" id="phone_number{{ $technician->id }}" name="phone_number"
-                                    value="{{ $technician->phone_number }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="image">{{ trans('main_trans.avatar') }}</label>
-                                <input type="file" class="form-control" id="image{{ $technician->id }}" name="image">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">{{ trans('main_trans.close') }}</button>
-                                <button type="submit" class="btn btn-primary">{{ trans('main_trans.save') }}</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteModal{{ $technician->id }}" tabindex="-1"
-            aria-labelledby="deleteModalLabel{{ $technician->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel{{ $technician->id }}"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>{{ trans('main_trans.delete_text') }}</h5>
-                        <form action="{{ route('technician.delete', $technician->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">{{ trans('main_trans.close') }}</button>
-                                <button type="submit" class="btn btn-danger">{{ trans('main_trans.delete') }}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
-@endsection
-@section('js')
+        @endforeach
 
 
-    {{-- <script>
-        const passwordInput = document.getElementById('password-input');
-        const eyeIcon = document.getElementById('eye-icon');
-
-        // Add event listener to toggle password visibility
-        eyeIcon.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-
-            // Change eye icon based on password visibility
-            if (type === 'password') {
-                eyeIcon.classList.remove('ri-eye-off-fill');
-                eyeIcon.classList.add('ri-eye-fill');
-            } else {
-                eyeIcon.classList.remove('ri-eye-fill');
-                eyeIcon.classList.add('ri-eye-off-fill');
-            }
-        });
-    </script> --}}
-    {{-- <script>
-        // Get the checkbox element
-        var assignedCheckbox = document.getElementById('assignedCheckbox');
-
-        // Add event listener to checkbox change
-        assignedCheckbox.addEventListener('change', function() {
-            // Get the hidden input element
-            var assignedInput = document.querySelector('input[name="is_banned"]');
-
-            // Update the value based on checkbox state
-            assignedInput.value = this.checked ? 1 : 0;
-
-            // Get the form element
-            var updateForm = document.getElementById('updateForm');
-
-            // Submit the form
-            updateForm.submit();
-        });
-    </script> --}}
+    @endsection
+    @section('js')
 
 
-    <script>
-        function updateColumn(checkbox) {
-            var technicianId = checkbox.dataset.technicianId;
-            var assignedValue = checkbox.checked ? 1 : 0;
 
-            fetch('/company-dashboard/technician/banned/' + technicianId, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        is_banned: assignedValue
+
+        <script>
+            function updateColumn(checkbox) {
+                var technicianId = checkbox.dataset.technicianId;
+                var assignedValue = checkbox.checked ? 1 : 0;
+
+                fetch('/company-dashboard/technician/banned/' + technicianId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            is_banned: assignedValue
+                        })
                     })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    var messageContainer = document.getElementById('messageContainer');
-                    messageContainer.innerHTML = '';
-                    var messageDiv = document.createElement('div');
-                    messageDiv.classList.add('alert');
-                    if (data.error) {
-                        messageDiv.classList.add('alert-danger');
-                        messageDiv.textContent = 'Update failed. Please try again later.';
-                    } else {
-                        messageDiv.classList.add('alert-success');
-                        messageDiv.textContent = data.message;
-                    }
-                    messageContainer.appendChild(messageDiv);
-                    setTimeout(function() {
-                        messageDiv.remove();
-                    }, 5000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    var messageContainer = document.getElementById('messageContainer');
-                    messageContainer.innerHTML = '';
-                    var messageDiv = document.createElement('div');
-                    messageDiv.classList.add('alert');
-                    messageDiv.classList.add('alert-danger');
-                    messageDiv.textContent = 'Update failed. Please try again later.';
-                    messageContainer.appendChild(messageDiv);
-                    setTimeout(function() {
-                        messageDiv.remove();
-                    }, 5000);
-                });
-        }
-    </script>
-
-    <script>
-        function searchOnKeyUp() {
-            var input = document.getElementById("searchInput");
-            var searchText = input.value.trim();
-            if (searchText != '') {
-                fetch('/company-dashboard/technician/search/' + searchText)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
                     .then(data => {
-                        updateTable(data);
+                        if (data.alertType === 'success') {
+                            toastr.success(data.message);
+                        } else {
+                            toastr.success(data.message);
+                        }
                     })
                     .catch(error => {
                         console.error('Error:', error);
+                        toastr.error('Update failed. Please try again later.');
                     });
             }
-        }
+        </script>
 
-        function allData() {
-            var input = document.getElementById("searchInput");
-            if (input.value != '') {
-                input.value = '';
-                fetch('/company-dashboard/technician/search/null')
-                    .then(response => response.json())
-                    .then(data => {
-                        updateTable(data);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+        <script>
+            function searchOnKeyUp() {
+                var input = document.getElementById("searchInput");
+                var searchText = input.value.trim();
+                console.log(searchText);
+                if (searchText != '') {
+                    fetch('/company-dashboard/technician/search/' + searchText)
+                        .then(response => response.json())
+                        .then(data => {
+                            updateTable(data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
             }
-        }
 
-        function updateTable(data) {
-            var table = document.getElementById("technicianTable");
-            var tbody = table.getElementsByTagName('tbody')[0];
-            tbody.innerHTML = '';
-            data.forEach(function(technician, index) {
-                var row = tbody.insertRow();
-                row.innerHTML = `
+            function allData() {
+                var input = document.getElementById("searchInput");
+                if (input.value != '') {
+                    input.value = '';
+                    fetch('/company-dashboard/technician/search/null')
+                        .then(response => response.json())
+                        .then(data => {
+                            updateTable(data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            }
+
+            function updateTable(data) {
+                var table = document.getElementById("technicianTable");
+                var tbody = table.getElementsByTagName('tbody')[0];
+                tbody.innerHTML = '';
+                data.forEach(function(technician, index) {
+                    var row = tbody.insertRow();
+                    row.innerHTML = `
                             <td>${index + 1}</td>
                             <td>
                             <div class="ul-widget-app__profile-pic">
@@ -734,37 +656,54 @@
                                 </a>
                             </td>
                         `;
+                });
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script>
+            const passwordInput = document.getElementById('password-input');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            // Add event listener to toggle password visibility
+            eyeIcon.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Change eye icon based on password visibility
+                if (type === 'password') {
+                    eyeIcon.classList.remove('ri-eye-off-fill');
+                    eyeIcon.classList.add('ri-eye-fill');
+                } else {
+                    eyeIcon.classList.remove('ri-eye-fill');
+                    eyeIcon.classList.add('ri-eye-off-fill');
+                }
             });
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        </script>
+        <script>
+            @if (Session::has('message'))
+                var type = "{{ Session::get('alert-type', 'error') }}";
+                toastr.options.timeOut = 10000;
+                var message = "{{ Session::get('message') }}";
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+                switch (type) {
+                    case 'info':
+                        toastr.info(message);
+                        break;
+                    case 'success':
+                        toastr.success(message);
+                        break;
+                    case 'warning':
+                        toastr.warning(message);
+                        break;
+                    case 'error':
+                        toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
+                        var audio = new Audio('audio.mp3');
+                        audio.play();
+                        break;
+                }
+            @endif
+        </script>
 
-<script>
-    @if (Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'error') }}";
-    toastr.options.timeOut = 10000;
-    var message = "{{ Session::get('message') }}";
-
-    switch (type) {
-        case 'info':
-            toastr.info(message);
-            break;
-        case 'success':
-            toastr.success(message);
-            break;
-        case 'warning':
-            toastr.warning(message);
-            break;
-        case 'error':
-            toastr.error(message); // هنا قمنا بتغيير اللون إلى الأحمر في حالة الخطأ
-            var audio = new Audio('audio.mp3');
-            audio.play();
-            break;
-    }
-@endif
-
-</script>
-
-@endsection
+    @endsection

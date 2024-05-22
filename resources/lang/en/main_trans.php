@@ -109,6 +109,7 @@ return [
 'upload'=>'Upload File',
 'App Visits Growth'=>'App Visits Growth',
 'file'=>'File',
+'no_files'=>'There are no files',
 'summary'=>'Summary',
 'text'=>'note : If you upload a new file, the old file will be deleted and replaced with it.',
 'download'=>'Download',
@@ -148,4 +149,5 @@ return [
 'not_assigned' => 'Not assigned yet',
 'brand_name' => 'Brand Name',
 'offer_type' => 'Offer Type',
+
 ];
