@@ -121,7 +121,7 @@ Route::group(
                     'prefix' => 'consultant'
                 ], function () {
                     Route::get('/', [AdminConsultantsController::class, 'index'])->name('consultant.consultant');
-                    Route::post('/', [AdminConsultantsController::class, 'store'])->name('consultant.store');
+                    Route::post('/store', [AdminConsultantsController::class, 'store'])->name('consultant.store');
                     Route::post('/{consultant}', [AdminConsultantsController::class, 'update'])->name('consultant.update');
                     Route::delete('/{consultant}', [AdminConsultantsController::class, 'destroy'])->name('consultant.delete');
                 });

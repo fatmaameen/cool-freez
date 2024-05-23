@@ -20,7 +20,7 @@ class AdminOffersController extends Controller
 
     public function store(OffersRequest $request)
     {
-        try {
+         try {
             $data = $request->validated();
 
             $image = $request->file('offer');
@@ -28,8 +28,8 @@ class AdminOffersController extends Controller
 
             Offer::create([
                 'offer' => $offer,
-                'type' => $data['type'],
                 'link' => $data['link'],
+                'type' => $data['type'],
             ]);
 
             $notification = array(
@@ -42,7 +42,7 @@ class AdminOffersController extends Controller
         } catch (\Exception $e) {
             Log::error("Error adding offer: " . $e->getMessage());
             return redirect()->back()->with(['message' => 'Error adding offer'], 500);
-        }
+         }
     }
 
     public function update(OffersRequest $request, offer $offer)

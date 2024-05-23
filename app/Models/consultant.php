@@ -11,11 +11,12 @@ class consultant extends Model
     protected $fillable = [
         // 'id',
         'name',
-        'job_title',
         'email',
+        'job_title',
         'phone_number',
-        'image',
         'rate',
+        'image',
+
     ];
 
     public function review(){
