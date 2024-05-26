@@ -139,112 +139,112 @@
 
 <!-- Create brand Modal -->
 <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
-aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
-
-        </div>
-            <div class="modal-body">
-                <form id="createUserForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">{{ trans('main_trans.user_name') }}</label>
-                        <input type="text" class="form-control" id="name" name="name">
-                        <span class="error-message" id="name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="job_title">{{ trans('main_trans.job_title') }}</label>
-                        <input type="text" class="form-control" id="job_title" name="job_title">
-                        <span class="error-message" id="job_title-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">{{ trans('main_trans.email') }}</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                        <span class="error-message" id="email-error"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">{{ trans('main_trans.phone') }}</label>
-                        <input type="number" class="form-control" id="phone_number" name="phone_number">
-                        <span class="error-message" id="phone_number-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">{{ trans('main_trans.rate') }}</label>
-                        <input type="number" class="form-control" id="rate" name="rate">
-                        <span class="error-message" id="rate-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="image">{{ trans('main_trans.avatar') }}</label>
-                        <input type="file" class="form-control" id="image" name="image">
-                        <span class="error-message" id="image-error"></span>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">
-                            {{ trans('main_trans.close') }}
+            aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
                             </button>
-                        <button type="button" class="btn btn-primary"
-                            id="submitForm">{{ trans('main_trans.save') }}</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form id="createUserForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="name">{{ trans('main_trans.user_name') }}</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                                <span class="error-message" id="name-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">{{ trans('main_trans.email') }}</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="job_title">{{ trans('main_trans.job_title') }}</label>
+                                <input type="text" class="form-control" id="job_title" name="job_title">
+                                <span class="error-message" id="job_title-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone_number">{{ trans('main_trans.phone') }}</label>
+                                <input type="number" class="form-control" id="phone_number" name="phone_number">
+                                <span class="error-message" id="phone_number-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="rate">{{ trans('main_trans.rate') }}</label>
+                                <input type="number" class="form-control" id="rate" name="rate">
+                                <span class="error-message" id="rate-error"></span>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="image">{{ trans('main_trans.avatar') }}</label>
+                                <input type="file" class="form-control" id="image" name="image">
+                                <span class="error-message" id="image-error"></span>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                    {{ trans('main_trans.close') }}
+                                    </button>
+                                <button type="button" class="btn btn-primary"
+                                    id="submitForm">{{ trans('main_trans.save') }}</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-
-            </div>
+                    </div>
+                </div>
         </div>
-    </div>
-</div>
+        <script>
+           document.getElementById('submitForm').addEventListener('click', function() {
+    var formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('job_title', document.getElementById('job_title').value);
+    formData.append('phone_number', document.getElementById('phone_number').value);
+    formData.append('rate', document.getElementById('rate').value);
+    formData.append('image', document.getElementById('image').files[0]);
 
-
-<script>
-    document.getElementById('submitForm').addEventListener('click', function() {
-        var formData = new FormData();
-        formData.append('name', document.getElementById('name').value);
-        formData.append('job_title', document.getElementById('job_title').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('phone_number', document.getElementById('phone_number').value);
-        formData.append('rate', document.getElementById('rate').value);
-        formData.append('image', document.getElementById('image').files[0]);
-
-        fetch('{{ route('consultant.store') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(data => Promise.reject(data));
+    fetch('/main-dashboard/consultant/store', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => Promise.reject(data));
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            toastr.success('{{ trans('main_trans.adding') }}', 'Success', { timeOut: 5000 });
+            window.location.href = "/main-dashboard/consultant";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        if (error.errors) {
+            for (const field in error.errors) {
+                const errorMessage = error.errors[field][0];
+                document.getElementById(`${field}-error`).textContent = errorMessage;
             }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
-                setTimeout(function() {
-                    window.location.href = "{{ route('consultant.consultant') }}";
-                }, 2000); // Wait for 2 seconds before redirecting
-            }
-        })
-        .catch(error => {
-                    console.error('Error:', error);
-                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                    if (error.errors) {
-                        for (const field in error.errors) {
-                            const errorMessage = error.errors[field][0];
-                            document.getElementById(`${field}-error`).textContent = errorMessage;
-                        }
-                    } else {
-                        alert('{{ trans('main_trans.error') }}');
-                    }
-                });
-            });
-        </script>
+        } else {
+            alert('An error occurred. Please try again later.');
+        }
+    });
+});
+
+            </script>
+
 
 <!-- Edit User Modals -->
 @foreach ($consultants as $consultant)
@@ -346,6 +346,9 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
         var deleteModalId = '#deleteModal' + maintenanceId;
         $(deleteModalId).modal('show');
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>

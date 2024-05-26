@@ -131,6 +131,7 @@ return [
 'language'=>'Language',
 'last_clients'=>'Last Clients',
 'en_name'=>'Name In English',
+'Notifications'=>'Notifications',
 'ar_name'=>'Name In Arabic',
 'successfully_updated'=>'Successfully updated',
 'successfully_deleted'=>'Successfully deleted',

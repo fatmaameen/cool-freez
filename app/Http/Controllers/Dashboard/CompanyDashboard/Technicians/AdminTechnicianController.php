@@ -141,7 +141,7 @@ class AdminTechnicianController extends Controller
             $technician->delete();
             $notification = array(
                 'message' => trans('main_trans.deleting'),
-                'alert-type' => 'error'
+                'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         } else {

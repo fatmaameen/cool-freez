@@ -486,7 +486,7 @@
 
         <script>
             @if (Session::has('message'))
-                var type = "{{ Session::get('alert-type', 'error') }}";
+                var type = "{{ Session::get('alert-type', 'success') }}";  // تغيير القيمة الافتراضية إلى 'success'
                 toastr.options.timeOut = 10000;
                 var message = "{{ Session::get('message') }}";
 
@@ -508,5 +508,6 @@
                 }
             @endif
         </script>
+
 
     @endsection

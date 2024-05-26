@@ -134,6 +134,7 @@ return [
 'nagative'=>'سلبي',
 'language'=>'اللغة',
 'last_clients'=>'احدث العملاء',
+'Notifications'=>'الاشعارات',
 'en_name'=>'الإسم بالإنجليزية',
 'ar_name'=>'الإسم بالعربية',
 'no_files'=>'لا توجد ملفات',

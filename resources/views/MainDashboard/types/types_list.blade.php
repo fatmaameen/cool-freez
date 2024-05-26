@@ -80,16 +80,7 @@
                 <div class="card card-statistics h-100">
                     <div class="card-body">
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif --}}
-                        <br><br>
+
 
                         <div class="row mb-3"> <!-- إضافة مسافة تحتية للعنصر -->
                             <div class="col-md-6"> <!-- استخدام العمود لتحديد عرض العنصر -->
@@ -152,9 +143,9 @@
                     <form action="{{ route('types.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="type">{{ trans('main_trans.en_name') }}</label>
+                            <h5><label for="type">{{ trans('main_trans.en_name') }}</label></h5>
                             <input type="text" class="form-control" id="type" name="type_en">
-                            <label for="type">{{ trans('main_trans.ar_name') }}</label>
+                            <h5><label for="type">{{ trans('main_trans.ar_name') }}</label></h5>
                             <input type="text" class="form-control" id="type" name="type_ar">
                         </div>
 
@@ -191,9 +182,9 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="type">{{ trans('main_trans.en_name') }}</label>
+                       <h5> <label for="type">{{ trans('main_trans.en_name') }}</label></h5>
                         <input type="text" class="form-control" id="type_en" name="type_en" value="{{ $type['type_en'] }}">
-                        <label for="type">{{ trans('main_trans.ar_name') }}</label>
+                       <h5> <label for="type">{{ trans('main_trans.ar_name') }}</label></h5>
                         <input type="text" class="form-control" id="type_ar" name="type_ar" value="{{ $type['type_ar'] }}">
                     </div>
 

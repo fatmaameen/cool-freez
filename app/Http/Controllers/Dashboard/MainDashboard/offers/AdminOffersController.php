@@ -21,7 +21,7 @@ class AdminOffersController extends Controller
 
     public function store(OffersRequest $request)
     {
-        try {
+         try {
             $data = $request->validated();
 
             $image = $request->file('offer');
@@ -29,8 +29,8 @@ class AdminOffersController extends Controller
 
             Offer::create([
                 'offer' => $offer,
-                'type' => $data['type'],
                 'link' => $data['link'],
+                'type' => $data['type'],
             ]);
 
             $notification = array(
@@ -56,48 +56,48 @@ class AdminOffersController extends Controller
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
-        }
+         }
     }
 
-    public function update(OffersUpdateRequest $request, offer $offer)
-    {
-        try {
-            $data = $request->validated();
-            if ($request->has('offer')) {
-                $old_image = $offer->offer;
-                if ($this->remove($old_image)) {
-                    $image = $request->file('offer');
-                    $new_offer = $this->upload($image, 'offers');
-                    $offer->update([
-                        'offer' => $new_offer,
-                        'type' => $data['type'],
-                        'link' => $data['link'],
-                    ]);
-                    $notification = array(
-                        'message' => trans('main_trans.successfully_updated'),
-                        'alert-type' => 'success'
-                    );
-                    return redirect()->back()->with($notification);
-                }
-            } else {
+    public function update(OffersUpdateRequest $request, Offer $offer)
+{
+    try {
+        $data = $request->validated();
+        if ($request->has('offer')) {
+            $old_image = $offer->offer;
+            if ($this->remove($old_image)) {
+                $image = $request->file('offer');
+                $new_offer = $this->upload($image, 'offers');
                 $offer->update([
+                    'offer' => $new_offer,
                     'type' => $data['type'],
                     'link' => $data['link'],
-                ]);
+                ]); 
                 $notification = array(
-                    'message' => trans('main_trans.successfully_updated'),
+                    'message' => trans('main_trans.editing'),
                     'alert-type' => 'success'
                 );
                 return redirect()->back()->with($notification);
             }
-        } catch (\Exception $e) {
+        } else {
+            $offer->update([
+                'type' => $data['type'],
+                'link' => $data['link'],
+            ]);
             $notification = array(
-                'message' => trans('main_trans.something_error'),
-                'alert-type' => 'error'
+                'message' => trans('main_trans.editing'),
+                'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         }
+    } catch (\Exception $e) {
+        $notification = array(
+            'message' => trans('main_trans.something_error'),
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
     }
+}
 
     public function destroy(offer $offer)
     {
