@@ -12,8 +12,8 @@ class FCMService
 
     public function __construct()
     {
-        $factory = (new Factory)->withServiceAccount(storage_path('service-account.json'));
-        $this->messaging = $factory->createMessaging();
+        // $factory = (new Factory)->withServiceAccount(storage_path('service-account.json'));
+        // $this->messaging = $factory->createMessaging();
     }
 
     public function sendNotification($data)
