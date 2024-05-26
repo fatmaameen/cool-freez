@@ -50,9 +50,9 @@ return [
              *
              */
 
-            'credentials' => [
-                'file' => storage_path('service-account.json'),
-            ],
+            // 'credentials' => [
+            //     'file' => storage_path('service-account.json'),
+            // ],
 
             /*
              * ------------------------------------------------------------------------
