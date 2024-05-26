@@ -35,7 +35,8 @@ class CompanyMaintenanceController extends Controller
         $request->validate([
             'expected_service_date' => 'required|date_format:m/d/Y',
             'company_status' => 'required|string',
-            'technical' => 'required|integer',
+            'technical' => 'nullable|integer',
+            'technical_status'=>'required',
         ]);
 
         try {
@@ -47,6 +48,7 @@ class CompanyMaintenanceController extends Controller
                 'company_status' => $request->input('company_status'),
                 'technical_id' => $request->input('technical'),
                 'expected_service_date' => $expectedServiceDate,
+                'technical_status'=>$request->input('technical_status')
             ]);
 
             // Prepare the success notification

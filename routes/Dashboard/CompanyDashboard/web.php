@@ -25,7 +25,8 @@ Route::group(
     function () {
         Route::group(
             [
-                'prefix' => 'company-dashboard', 'middleware' => ['auth', 'CompanyAdmin']
+                'prefix' => 'company-dashboard',
+                // 'middleware' => ['auth', 'CompanyAdmin']
             ],
             function () {
                 // Company dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,20 +45,16 @@ Route::group(
                 Route::post('/update/{id}', [AdminTechnicianController::class, 'update_user'])->name('users.update');
 
                 // Company dashboard technicians routes----------------------------------------------------------------------------------------------------------------------------------------------
-
-            }
-
-        );
-        Route::group([
-            'prefix' => 'technician'
-        ], function () {
-            Route::get('/{companyId}', [AdminTechnicianController::class, 'index'])->middleware('checkCompany')->name('technician');
-            Route::post('/store/{companyId}', [AdminTechnicianController::class, 'store'])->name('technician.store');
-
-            Route::post('/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
-            Route::post('/banned/{technician}', [AdminTechnicianController::class, 'banned'])->name('technician.assign');
-            Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');
-            Route::get('/search/{search}', [AdminTechnicianController::class, 'search']);
-        });
+                Route::group([
+                    'prefix' => 'technician'
+                ], function () {
+                    Route::get('/{companyId}', [AdminTechnicianController::class, 'index'])->middleware('checkCompany')->name('technician');
+                    Route::post('/store/{companyId}', [AdminTechnicianController::class, 'store'])->name('technician.store');
+                    Route::post('/update/{technician}', [AdminTechnicianController::class, 'update'])->name('technician.update');
+                    Route::post('/banned/{technician}', [AdminTechnicianController::class, 'banned'])->name('technician.assign');
+                    Route::delete('/{technician}', [AdminTechnicianController::class, 'destroy'])->name('technician.delete');
+                    Route::get('/search/{search}', [AdminTechnicianController::class, 'search']);
+                });
+            });
     }
 );

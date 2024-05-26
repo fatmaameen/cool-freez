@@ -37,10 +37,12 @@
     </style>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <style>
-   body {
-    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
-    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
-}
+        body {
+            overflow-x: hidden;
+            /* لإخفاء شريط التمرير الأفقي فقط */
+            overflow-y: auto;
+            /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+        }
 
         .table-bordered {
             border-color: #12aee2;
@@ -75,9 +77,13 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-                   <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
-                            class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
-                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.admins') }}</li></h6>
+                    <h6>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
+                                class="default-color">{{ trans('main_trans.Dashboard') }}</a></li>
+                    </h6>
+                    <h6>
+                        <li class="breadcrumb-item active">/{{ trans('main_trans.admins') }}</li>
+                    </h6>
                 </ol>
             </div>
         </div>
@@ -152,36 +158,36 @@
                                             </select>
 
                                             <script>
-                                               function updateUserRole(userId) {
-    var role = document.getElementById('select_' + userId).value;
-    fetch('/dash/admins/updateRole/' + userId, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            role_id: role
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.alertType === 'success') {
-            toastr.success(data.message);
-        } else {
-            toastr.error(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        toastr.error('Update failed. Please try again later.');
-    });
-}
+                                                function updateUserRole(userId) {
+                                                    var role = document.getElementById('select_' + userId).value;
+                                                    fetch('/dash/admins/updateRole/' + userId, {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                            },
+                                                            body: JSON.stringify({
+                                                                role_id: role
+                                                            })
+                                                        })
+                                                        .then(response => {
+                                                            if (!response.ok) {
+                                                                throw new Error('Network response was not ok');
+                                                            }
+                                                            return response.json();
+                                                        })
+                                                        .then(data => {
+                                                            if (data.alertType === 'success') {
+                                                                toastr.success(data.message);
+                                                            } else {
+                                                                toastr.error(data.message);
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            console.error('Error:', error);
+                                                            toastr.error('Update failed. Please try again later.');
+                                                        });
+                                                }
                                             </script>
                                         </td>
                                         <td>
@@ -213,7 +219,7 @@
                         <h5 class="modal-title" id="createUserModalLabel">{{ trans('main_trans.create') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
-                            </button>
+                        </button>
 
                     </div>
                     <div class="modal-body">
@@ -263,25 +269,24 @@
                                     id="role_id">
                                     <option value="null">{{ trans('main_trans.open_menu') }}</option>
                                     @foreach ($roles as $role)
-                                    @if ($role->id != 3)
-                                    <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                    @endif
+                                        @if ($role->id != 3)
+                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <span class="error-message" id="role_id-error"></span>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     {{ trans('main_trans.close') }}
-                                    </button>
+                                </button>
                                 <button type="button" class="btn btn-primary"
                                     id="submitForm">{{ trans('main_trans.save') }}</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
         </div>
         <script>
             document.getElementById('submitForm').addEventListener('click', function() {
@@ -294,38 +299,40 @@
                 formData.append('image', document.getElementById('image').files[0]);
 
                 fetch('/dash/admins/store', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(data => Promise.reject(data));
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        toastr.success('{{ trans('main_trans.adding') }}', 'Success', {timeOut: 5000});
-                        window.location.href = "/dash/admins"; // Redirect immediately
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                    if (error.errors) {
-                        for (const field in error.errors) {
-                            const errorMessage = error.errors[field][0];
-                            document.getElementById(`${field}-error`).textContent = errorMessage;
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => Promise.reject(data));
                         }
-                    } else {
-                        alert('An error occurred. Please try again later.');
-                    }
-                });
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('{{ trans('main_trans.adding') }}', 'Success', {
+                                timeOut: 5000
+                            });
+                            window.location.href = "/dash/admins"; // Redirect immediately
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                        if (error.errors) {
+                            for (const field in error.errors) {
+                                const errorMessage = error.errors[field][0];
+                                document.getElementById(`${field}-error`).textContent = errorMessage;
+                            }
+                        } else {
+                            alert('An error occurred. Please try again later.');
+                        }
+                    });
             });
-            </script>
+        </script>
 
         <!-- Edit User Modals -->
         @foreach ($users as $user)
@@ -382,7 +389,8 @@
                                 <div class="form-group">
                                     <label for="phone_number">{{ trans('main_trans.phone') }}</label>
                                     <input type="number" class="form-control @error('phone_number') is-invalid @enderror"
-                                        id="phone_number" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}">
+                                        id="phone_number" name="phone_number"
+                                        value="{{ old('phone_number', $user->phone_number) }}">
                                     @error('phone_number')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -441,7 +449,7 @@
                 </div>
             </div>
         @endforeach
-       
+
     @endsection
     @section('js')
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -478,7 +486,7 @@
 
         <script>
             @if (Session::has('message'))
-                var type = "{{ Session::get('alert-type', 'error') }}";
+                var type = "{{ Session::get('alert-type', 'success') }}";  // تغيير القيمة الافتراضية إلى 'success'
                 toastr.options.timeOut = 10000;
                 var message = "{{ Session::get('message') }}";
 
@@ -500,5 +508,6 @@
                 }
             @endif
         </script>
+
 
     @endsection

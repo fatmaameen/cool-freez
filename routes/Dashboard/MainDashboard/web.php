@@ -140,7 +140,7 @@ Route::group(
                 ], function () {
                     Route::get('/', [AdminOffersController::class, 'index'])->name('offer.offer');
                     Route::post('/', [AdminOffersController::class, 'store'])->name('offer.store');
-                    Route::post('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
+                    Route::put('/{offer}', [AdminOffersController::class, 'update'])->name('offer.update');
                     Route::delete('/{offer}', [AdminOffersController::class, 'destroy'])->name('offer.delete');
                 });
                 // Admin brands routes --------------------------------------------------------------------------------------------------------------------------------------------------------------

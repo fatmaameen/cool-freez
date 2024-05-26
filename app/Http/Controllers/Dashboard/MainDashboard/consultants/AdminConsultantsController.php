@@ -20,16 +20,28 @@ class AdminConsultantsController extends Controller
         return view('MainDashboard.consultants.consultant_list' ,compact('consultants'));
     }
 
-    public function store(ConsultantsRequest $request)
+    public function store(Request $request)
     {
 
         try {
 
-            $data = $request->validated();
+            $data = $request->validate([
+                'name' => ['required', 'string' ,'min:2', 'max:50'],
+                'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
+                'job_title' => ['required', 'string', 'min:2', 'max:50'],
+                'phone_number' => ['required', 'string', 'regex:/^[0-9]{10}$/'],
+                'rate' => ['required', 'numeric', 'max:5'],
+                'image' => [
+                    'required',
+                    'image' => [
+                        'extensions' => ['jpeg', 'jpg', 'png', 'gif']
+                    ]]
+            ]);
+
             $image_info = $request->file('image');
             $image = $this->upload($image_info, 'consultants');
             $data['image'] = $image;
-            
+
            $consultant= consultant::create($data);
 
            return response()->json(['success' => true, 'message' => 'Created Successfully', 'consultant' => $consultant], 201);

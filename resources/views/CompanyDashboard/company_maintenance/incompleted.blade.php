@@ -211,11 +211,11 @@ thead.bg-light {
                             <td>
                                 <a href="#editModal{{ $maintenance->id }}"
                                     data-toggle="modal"> <i class="fas fa-pen-to-square fa-2xl" ></i></a>
- <!-- Delete Button -->
- <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{  $maintenance->id}}">
-    <i class="fa-solid fa-trash-can"></i>
-</a>
-</td>
+                           <!-- Delete Button -->
+                      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{  $maintenance->id}}">
+                       <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                            </td>
                             </td>
                         </tr>
                         @endforeach
@@ -270,6 +270,15 @@ thead.bg-light {
                                 <option value="{{ $technical->id }}">{{ $technical->name}}</option>
                             @endforeach
 
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h5><label for="technical_status">{{ trans('main_trans.technical_status')}}:</label></h5>
+                        <select class="form-select" aria-label="Default select example" name="technical_status">
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="confirmed">Out To Service</option>
+                            <option value="cancelled">completed</option>
                         </select>
                     </div>
                     <div class="form-group">

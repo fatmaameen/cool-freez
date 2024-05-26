@@ -17,8 +17,7 @@ class AdminTechnicianController extends Controller
     use ImageUploadTrait;
     public function index($companyId)
     {
-
-        $technicians = technician::where('company_id',$companyId)->latest()->get();
+        $technicians = technician::where('company_id', $companyId)->latest()->get();
         return view('CompanyDashboard.technician.technician_list', compact('technicians'));
     }
 
@@ -68,10 +67,10 @@ class AdminTechnicianController extends Controller
         // Save the updated user to the database
         $admin->save();
 
-                $notification = array(
-                    'message' => trans('main_trans.editing'),
-                    'alert-type' => 'success'
-                     );
+        $notification = array(
+            'message' => trans('main_trans.editing'),
+            'alert-type' => 'success'
+        );
 
 
         return redirect()->back()->with($notification);
@@ -79,44 +78,29 @@ class AdminTechnicianController extends Controller
 
 
 
-    public function store(Request $request ,$companyId )
+    public function store(Request $request, $companyId)
     {
         try {
-
-
             $data = $request->validate([
-                'name' => ['required', 'string', 'max:250','min:2'],
-                'email' => ['required', 'email', 'unique:App\Models\technicians,email'],
-                'password' => ['required', 'nullable', 'string', 'max:250'],
-                'phone_number' => ['required', 'unique:App\Models\technicians,phone_number'],
+                'name' => ['required', 'string', 'max:250', 'min:2'],
+                'email' => ['required', 'email', 'unique:App\Models\technician,email'],
+                'password' => ['required', 'string', 'max:250', 'min:8'],
+                'phone_number' => ['required', 'unique:App\Models\technician,phone_number'],
                 'image' => ['required', 'image', 'mimes:jpg,bmp,png,jpeg'],
-                'company_id' => ['required', 'integer'],
-
-
             ]);
-
             $image = $request->file('image');
             $image = $this->upload($image, 'technicians_images');
             $data['image'] = $image;
+            $data['company_id'] = $companyId;
+            $technician = technician::create($data);
 
-
-$technician = technician ::create([
-    'name' => $data['name'],
-    'email' => $data['email'],
-    'password' => $data['password'],
-    'phone_number' => $data['phone_number'],
-    'image' => $data['image'],
-    'company_id' => $companyId,
-]);
-
-            return response()->json(['success' => true, 'message' => 'Created Successfully', 'technician' => $technician], 201);
+            return response()->json(['success' => true, 'message' => 'Created Successfully', 'technician' => $technician], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['success' => false, 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'Something went wrong: ' . $e->getMessage()], 500);
-         }
-
         }
+    }
 
     public function update(TechnicianUpdateTechnicianRequest $request, Technician $technician)
     {
@@ -146,9 +130,8 @@ $technician = technician ::create([
         $notification = array(
             'message' => trans('main_trans.editing'),
             'alert-type' => 'success'
-             );
+        );
         return redirect()->back()->with($notification);
-
     }
 
     public function destroy(technician $technician)
@@ -158,8 +141,8 @@ $technician = technician ::create([
             $technician->delete();
             $notification = array(
                 'message' => trans('main_trans.deleting'),
-                'alert-type' => 'error'
-                 );
+                'alert-type' => 'success'
+            );
             return redirect()->back()->with($notification);
         } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);

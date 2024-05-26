@@ -28,7 +28,7 @@ class UpdateAdminRequest extends FormRequest
             'email' => ['nullable', 'email', Rule::unique('users', 'email')->ignore($userId)],
             'password' => ['nullable', 'string', 'max:250'],
             'phone_number' => ['nullable', Rule::unique('users', 'phone_number')->ignore($userId)],
-            'image' => ['image', 'mimes:jpg,bmp,png'],
+            'image' => ['nullable','image', 'mimes:jpg,bmp,png'],
         ];
     }
 }
