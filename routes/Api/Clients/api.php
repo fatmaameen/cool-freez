@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
 use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
 use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
+use App\Http\Controllers\Api\Clients\Notifications\notificationController;
 use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
 use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
 
@@ -87,5 +88,8 @@ Route::group(
         Route::post('/selected-load', [SelectedLoadController::class, 'store']);
         // Order history route ----------------------------------------------------------------------------------------------------------
         Route::get('/history/{id}', [HistoryController::class, 'index']);
+        // notification route -----------------------------------------------------------------------------------------------------------
+        Route::get('/un-read/{user}', [notificationController::class, 'getUnread']);
+        Route::post('/mark-as-read/{user}', [notificationController::class, 'markAsRead']);
     }
 );

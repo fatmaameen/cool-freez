@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Dashboard\MainDashboard\offers;
 
 use App\Models\offer;
-use Illuminate\Http\Request;
+use App\Models\Client;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Support\Facades\Log;
+use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\MainDashboard\offers\OffersRequest;
 use App\Http\Requests\Dashboard\MainDashboard\offers\OffersUpdateRequest;
@@ -37,6 +37,15 @@ class AdminOffersController extends Controller
                 'message' => trans('main_trans.adding'),
                 'alert-type' => 'success'
             );
+
+            // send notification to all clients
+            $data_['title'] = config('app.name');
+            $data_['body'] = 'New Offer added check it now';
+            $deviceTokens = Client::whereNotNull('device_token')->pluck('device_token');
+            foreach ($deviceTokens as $deviceToken) {
+                $data_['device_token'] = $deviceToken;
+                SendNotificationJob::dispatch($data_);
+            }
 
             return redirect()->back()->with($notification);
         } catch (\Exception $e) {

@@ -149,5 +149,6 @@ return [
 'not_assigned' => 'Not assigned yet',
 'brand_name' => 'Brand Name',
 'offer_type' => 'Offer Type',
+'notification' => 'Notifications',
 
 ];

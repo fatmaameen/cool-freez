@@ -8,21 +8,22 @@ use App\Http\Controllers\Api\Clients\types\TypesController;
 use App\Http\Controllers\Api\Clients\brands\BrandsController;
 use App\Http\Controllers\Api\Clients\floors\floorsController;
 use App\Http\Controllers\Api\Clients\offers\OffersController;
+use App\Http\Controllers\Api\Clients\search\SearchController;
 use App\Http\Controllers\Api\Clients\usings\usingsController;
 use App\Http\Controllers\Api\Clients\Reviews\ReviewController;
 use App\Http\Controllers\Api\Clients\pricing\PricingController;
 use App\Http\Controllers\Api\Clients\Profile\profileController;
 use App\Http\Controllers\Api\Clients\services\ServicesController;
+use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
 use App\Http\Controllers\Api\Clients\Consultants\ConsultantsController;
 use App\Http\Controllers\Api\Clients\Maintenance\maintenanceController;
-use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
-use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
-use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
-use App\Http\Controllers\Api\Clients\ordersHistory\HistoryController;
-use App\Http\Controllers\Api\Clients\search\SearchController;
 use App\Http\Controllers\Api\Technicians\Auth\AuthTechnicianController;
-use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
+use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
+use App\Http\Controllers\Api\Clients\Notifications\notificationController;
 use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
+use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
+use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
+use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -167,3 +168,6 @@ Route::get('/clients/history/{id}', [HistoryController::class, 'index']);
 Route::post('/clients/search', [SearchController::class, 'search']);
     // ->middleware('auth:sanctum')
 ;
+
+Route::get('/clients/un-read/{client}', [notificationController::class, 'getUnread']);
+Route::post('/clients/mark-as-read/{client}', [notificationController::class, 'markAsRead']);

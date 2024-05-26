@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Technicians\Maintenance;
 
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use App\Notifications\newNotify;
+use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Technicians\Maintenance\TechnicianHistoryResource;
 use App\Http\Resources\Api\Technicians\Maintenance\TechnicianMaintenanceResource;
@@ -63,7 +65,18 @@ class TechnicianMaintenanceController extends Controller
                 'technical_status' => $request->technical_status,
             ]);
 
-            // Notification here
+            /*
+                App notification
+            */
+            //stored notification
+            $notifyData['message'] = 'your maintenance order has been' . ' ' . $request->technical_status;
+            $maintenance->client->notify(new newNotify($notifyData));
+            //fly notification
+            $token = $maintenance->client->device_token;
+            $data['device_token'] = $token;
+            $data['title'] = config('app.name');
+            $data['body'] = 'your maintenance order has been' . ' ' . $request->technical_status;
+            SendNotificationJob::dispatch($data);
 
             return response()->json(['message' => 'Updated successfully']);
         } catch (\Exception $e) {

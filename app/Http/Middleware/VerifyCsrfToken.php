@@ -36,9 +36,10 @@ class VerifyCsrfToken extends Middleware
         'http://127.0.0.1:8000/usingFloors',
         'http://127.0.0.1:8000/dataSheet',
         'http://127.0.0.1:8000/search',
-        'http://127.0.0.1:8000/fff',
+        'http://127.0.0.1:8000/main-dashboard/maintenance/1',
         'http://127.0.0.1:8000/main-dashboard/maintenance/assign/18',
         'http://127.0.0.1:8000/main-dashboard/reviews/search/LDW4',
         'http://127.0.0.1:8000/company-dashboard/technician/store/2',
+        'http://127.0.0.1:8000/en/main-dashboard/notification'
     ];
 }

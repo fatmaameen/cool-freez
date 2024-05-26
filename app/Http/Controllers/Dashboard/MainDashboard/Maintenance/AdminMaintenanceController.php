@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\MainDashboard\Maintenance;
 
+use App\Models\company;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Notifications\newNotify;
 use App\Helpers\sendNotification;
-use App\Models\company;
+use App\Jobs\SendNotificationJob;
+use App\Http\Controllers\Controller;
 
 class AdminMaintenanceController extends Controller
 {
@@ -14,24 +16,19 @@ class AdminMaintenanceController extends Controller
     {
         $maintenances = Maintenance::all();
         $companies = company::all();
-        return view('MainDashboard.maintenance.maintenance_list' ,compact('maintenances', 'companies'));
+        return view('MainDashboard.maintenance.maintenance_list', compact('maintenances', 'companies'));
     }
 
     public function assign(Request $request, Maintenance $maintenance)
     {
         try {
-        if ($request->has('company_id')) {
-             $maintenance->update([
-                'company_id' => $request->company_id
-            ]);
-            sendNotification::assignNotify($request->company_id);
-            return response()->json(['message' => __('main_trans.successfully_updated')]);
-        };
-            // $notification = array(
-            //     'message' => trans('main_trans.editing'),
-            //   'alert-type' => 'success'
-            //     );
-                //   return redirect()->back()->with($notification);
+            if ($request->has('company_id')) {
+                $maintenance->update([
+                    'company_id' => $request->company_id
+                ]);
+                sendNotification::assignNotify($request->company_id);
+                return response()->json(['message' => __('main_trans.successfully_updated')]);
+            };
         } catch (\Exception $e) {
             return response()->json(['error' => __('main_trans.something_error') . $e->getMessage()], 500);
         }
@@ -50,9 +47,22 @@ class AdminMaintenanceController extends Controller
 
             $notification = array(
                 'message' => trans('main_trans.editing'),
-              'alert-type' => 'success'
-                );
-                  return redirect()->back()->with($notification);
+                'alert-type' => 'success'
+            );
+            /*
+                App notification
+            */
+            //stored notification
+            $notifyData['message'] = 'your maintenance order has been' . ' ' . $request->admin_status;
+            $maintenance->client->notify(new newNotify($notifyData));
+            //fly notification
+            $token = $maintenance->client->device_token;
+            $data['device_token'] = $token;
+            $data['title'] = config('app.name');
+            $data['body'] = 'your maintenance order has been' . ' ' . $request->admin_status;
+            SendNotificationJob::dispatch($data);
+
+            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             return  redirect()->back()->with(['message' => 'Update failed: ' . $e->getMessage()]);
         }
@@ -64,14 +74,14 @@ class AdminMaintenanceController extends Controller
         $maintenance->delete();
         $notification = array(
             'message' => trans('main_trans.deleting'),
-          'alert-type' => 'error'
-            );
-              return redirect()->back()->with($notification);
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
     }
 
     public function search($search)
     {
-        if ($search!='null') {
+        if ($search != 'null') {
             $search = strtoupper($search);
             $maintenance = Maintenance::where('code', 'LIKE', '%' . $search . '%')->get();
             if ($maintenance) {
@@ -79,7 +89,7 @@ class AdminMaintenanceController extends Controller
             } else {
                 return response()->json(['Message' => "No Data Found"]);
             }
-        } elseif($search === 'null') {
+        } elseif ($search === 'null') {
             $maintenances = Maintenance::all();
             return response()->json($maintenances);
         }

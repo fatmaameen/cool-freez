@@ -1,29 +1,32 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard\CompanyDashboard\Maintenance;
+
 use Carbon\Carbon;
+use App\Models\technician;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use App\Notifications\newNotify;
+use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CompanyDashboard\Maintenance\CompanyMaintenanceResource;
-use App\Models\technician;
 
 class CompanyMaintenanceController extends Controller
 {
     public function index($companyId)
     {
         $maintenances = Maintenance::where('company_id', $companyId)
-        ->where('technical_status', '!=','completed')
-        ->get();
+            ->where('technical_status', '!=', 'completed')
+            ->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
 
-        return view('CompanyDashboard.company_maintenance/incompleted' ,compact('maintenanceResources'));
+        return view('CompanyDashboard.company_maintenance/incompleted', compact('maintenanceResources'));
     }
 
     public function completed($companyId)
     {
         $maintenances = Maintenance::where('company_id', $companyId)
-        ->where('technical_status', 'completed')->get();
+            ->where('technical_status', 'completed')->get();
         $maintenanceResources = CompanyMaintenanceResource::collection($maintenances);
         return view('CompanyDashboard.company_maintenance/completed', compact('maintenanceResources'));
     }
@@ -43,7 +46,7 @@ class CompanyMaintenanceController extends Controller
             $expectedServiceDate = Carbon::createFromFormat('m/d/Y', $request->input('expected_service_date'))->format('Y-m-d');
 
             // Update the maintenance record
-            $maintenance->update([
+            $update = $maintenance->update([
                 'company_status' => $request->input('company_status'),
                 'technical_id' => $request->input('technical'),
                 'expected_service_date' => $expectedServiceDate,
@@ -55,6 +58,19 @@ class CompanyMaintenanceController extends Controller
                 'alert-type' => 'success'
             ];
 
+            /*
+                App notification
+            */
+            //stored notification
+            $notifyData['message'] = 'You have new maintenance check it now';
+            $maintenance->client->notify(new newNotify($notifyData));
+            //fly notification
+            $token = $maintenance->technician->device_token;
+            $data['device_token'] = $token;
+            $data['title'] = config('app.name');
+            $data['body'] = 'You have new maintenance check it now';
+            SendNotificationJob::dispatch($data);
+
             // Redirect back with success notification
             return redirect()->back()->with($notification);
         } catch (\Exception $e) {
@@ -62,6 +78,4 @@ class CompanyMaintenanceController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
-
 }

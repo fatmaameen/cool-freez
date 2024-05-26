@@ -18,8 +18,8 @@ class PricingController extends Controller
         try {
             $data = $request->validated();
             $length = count($data['building_type']);
-            foreach ($data as $item) {
-                if (count($item) !== $length) {
+            foreach ($data as $key => $item) {
+                if ($key !== 'drawing_of_building' && count($item) !== $length) {
                     return response()->json(['message' => 'Not completed data']);
                 }
             }

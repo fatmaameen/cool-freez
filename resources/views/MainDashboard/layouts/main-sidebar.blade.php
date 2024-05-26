@@ -111,8 +111,13 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
 
+                    </li>
+                    <li>
+                        <a href="{{ route('notifications') }}">
+                            <i class="fa-solid fa-bell"></i> {{ trans('main_trans.notification') }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -20,6 +20,7 @@ class Client extends Authenticatable
         'phone_confirmation_token',
         'address',
         'image',
+        'device_token',
         'is_active',
         'is_banned',
     ];

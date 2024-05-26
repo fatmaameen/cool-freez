@@ -29,7 +29,7 @@ class newNotify extends Notification
      */
     public function via(object $notifiable): array
     {
-        return['database'];
+        return ['database'];
         // return ['mail'];
     }
 
@@ -44,21 +44,26 @@ class newNotify extends Notification
     //                 ->line('Thank you for using our application!');
     // }
 
-    public function toDatabase(object $notifiable){
-        if(isset($this->data['image'])){
+    public function toDatabase(object $notifiable)
+    {
+        if (isset($this->data['image'])) {
             return [
                 'message' => $this->data['message'],
                 'image' => $this->data['image'],
                 'url' => $this->data['url'],
             ];
-        }else{
+        } elseif (isset($this->data['url'])) {
             return [
                 'message' => $this->data['message'],
                 'url' => $this->data['url'],
             ];
+        } else {
+            return [
+                'message' => $this->data['message'],
+            ];
         }
-
     }
+
 
     /**
      * Get the array representation of the notification.

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\MainDashboard\Reviews;
 use App\Models\review;
 use Illuminate\Http\Request;
 use App\Traits\PDFUploadTrait;
+use App\Notifications\newNotify;
+use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 
 class AdminReviewsController extends Controller
@@ -20,7 +22,7 @@ class AdminReviewsController extends Controller
     {
         $review = review::where('id', $id)->with('client', 'consultant')->first();
 
-      return view('MainDashboard.reviews.details', compact('review'));
+        return view('MainDashboard.reviews.details', compact('review'));
     }
 
     public function update(Request $request, review $review)
@@ -34,13 +36,23 @@ class AdminReviewsController extends Controller
                 'admin_status' => $request->admin_status,
             ]);
 
-            // Notification here
-
             $notification = array(
                 'message' => trans('main_trans.editing'),
                 'alert-type' => 'success'
-                 );
+            );
 
+            /*
+                App notification
+            */
+            //stored notification
+            $notifyData['message'] = 'your review order has been' . ' ' . $request->admin_status;
+            $review->client->notify(new newNotify($notifyData));
+            //fly notification
+            $token = $review->client->device_token;
+            $data['device_token'] = $token;
+            $data['title'] = config('app.name');
+            $data['body'] = 'your review order has been' . ' ' . $request->admin_status;
+            SendNotificationJob::dispatch($data);
 
             return redirect()->back()->with($notification);
         } catch (\Exception $e) {
@@ -56,9 +68,9 @@ class AdminReviewsController extends Controller
 
             $notification = array(
                 'message' => trans('main_trans.deleting'),
-              'alert-type' => 'error'
-                );
-                  return redirect()->back()->with($notification);
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         } else {
             return redirect()->back()->with(['message' => 'Something went wrong']);
         }
@@ -66,7 +78,7 @@ class AdminReviewsController extends Controller
 
     public function search($search)
     {
-        if ($search!='null') {
+        if ($search != 'null') {
             $search = strtoupper($search);
             $reviews = review::where('code', 'LIKE', '%' . $search . '%')->get();
             if ($reviews) {
@@ -74,7 +86,7 @@ class AdminReviewsController extends Controller
             } else {
                 return response()->json(['Message' => "No Data Found"]);
             }
-        } elseif($search === 'null') {
+        } elseif ($search === 'null') {
             $reviews = review::all();
             return response()->json($reviews);
         }

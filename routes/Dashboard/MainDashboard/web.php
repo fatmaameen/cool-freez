@@ -23,6 +23,7 @@ use App\Http\Controllers\Dashboard\MainDashboard\BuildingTypes\AdminBuildingType
 use App\Http\Controllers\Dashboard\MainDashboard\UsingFloors\AdminUsingFloorDataController;
 use App\Http\Controllers\Dashboard\MainDashboard\CustomerService\AdminCustomerServiceController;
 use App\Http\Controllers\Dashboard\MainDashboard\LoadCalculation\AdminLoadCalculationsController;
+use App\Http\Controllers\Dashboard\MainDashboard\Notification\AdminNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,8 +57,6 @@ Route::group(
         });
 
         Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
-
-
 
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
@@ -221,6 +220,13 @@ Route::group(
                     Route::post('/', [CompanyAdminsController::class, 'store'])->name('companyAdmins.store');
                     Route::post('/{admin}', [CompanyAdminsController::class, 'update'])->name('companyAdmins.update');
                     Route::delete('/{admin}', [CompanyAdminsController::class, 'destroy'])->name('companyAdmins.destroy');
+                });
+                // Admins notification routes ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                Route::group([
+                    'prefix' => 'notification'
+                ], function () {
+                    Route::get('/', [AdminNotificationController::class, 'create'])->name('notifications');
+                    Route::post('/', [AdminNotificationController::class, 'sendNotification']);
                 });
             }
         );

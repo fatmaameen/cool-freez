@@ -435,7 +435,8 @@
                             toastr.success('{{ trans('main_trans.adding') }}', 'Success', {
                                 timeOut: 5000
                             });
-                            window.location.href = "/technician/";
+                            var companyId = {{ Auth::user()->company_id }}
+                            window.location.href = `${companyId}`;
                         }
                     })
                     .catch(error => {

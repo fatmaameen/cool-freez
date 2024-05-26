@@ -26,19 +26,35 @@ class SearchController extends Controller
         switch ($table) {
             case'maintenance':
                 $maintenance = Maintenance::where('code', 'like', '%'. $input. '%')->first();
-                $data = maintenanceHistoryResource::make($maintenance);
+                if($maintenance){
+                    $data = maintenanceHistoryResource::make($maintenance);
+                }else{
+                    return response()->json(['message' => 'No Data Found']);
+                }
                 break;
             case 'pricing':
                 $pricing = pricing::where('code', 'like', '%'. $input. '%')->first();
-                $data = pricingHistoryResource::make($pricing);
+                if($pricing){
+                    $data = pricingHistoryResource::make($pricing);
+                }else{
+                    return response()->json(['message' => 'No Data Found']);
+                }
                 break;
             case 'review':
                 $review = review::where('code', 'like', '%'. $input. '%')->first();
-                $data = reviewHistoryResource::make($review);
+                if($review){
+                    $data = reviewHistoryResource::make($review);
+                }else{
+                    return response()->json(['message' => 'No Data Found']);
+                }
                 break;
             case 'load calculation':
                 $load = loadCalculation::where('code', 'like', '%'. $input. '%')->first();
-                $data = loadHistoryResource::make($load);
+                if($load){
+                    $data = loadHistoryResource::make($load);
+                }else{
+                    return response()->json(['message' => 'No Data Found']);
+                }
                 break;
             default:
                 return response()->json(['message' => 'Invalid Service']);
