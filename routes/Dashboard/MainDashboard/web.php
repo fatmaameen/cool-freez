@@ -98,6 +98,8 @@ Route::group(
                     'prefix' => 'pricing'
                 ], function () {
                     Route::get('/', [AdminPricingController::class, 'index'])->name('pricing.pricing');
+                    Route::get('/new', [AdminPricingController::class, 'new'])->name('pricing.new');
+                    Route::get('/confirmed', [AdminPricingController::class, 'confirmed'])->name('pricing.confirmed');
                     Route::post('/{pricing}', [AdminPricingController::class, 'update'])->name('pricing.update');
                     Route::delete('/{pricing}', [AdminPricingController::class, 'destroy'])->name('pricing.destroy');
                     Route::get('/{id}', [AdminPricingController::class, 'show'])->name('pricing.show');
@@ -197,6 +199,8 @@ Route::group(
                     'prefix' => 'loadCalculation'
                 ], function () {
                     Route::get('/', [AdminLoadCalculationsController::class, 'index'])->name('loadCalculation');
+                    Route::get('/new', [AdminLoadCalculationsController::class, 'new'])->name('loadCalculation.new');
+                    Route::get('/confirmed', [AdminLoadCalculationsController::class, 'confirmed'])->name('loadCalculation.confirmed');
                     Route::get('/{id}', [AdminLoadCalculationsController::class, 'show'])->name('loadCalculation.show');
                     Route::post('/{load}', [AdminLoadCalculationsController::class, 'update'])->name('loadCalculation.update');
                     Route::delete('/{load}', [AdminLoadCalculationsController::class, 'destroy'])->name('loadCalculation.destroy');

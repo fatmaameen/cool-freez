@@ -160,7 +160,12 @@ return [
 'offer_type' => 'نوع العرض',
 'error'=>'من فضلك اعد ادخال البيانات بشكل صحيح',
 'notification' => 'الإشعارات',
-
+'all_pricing' => 'التسعير',
+'new_pricing' => 'التسعير الجديد',
+'confirmed_pricing' => 'التسعير المؤكد',
+'all_loads' => 'جميع الأحمال',
+'new_loads' => 'الأحمال الجديده',
+'confirmed_loads' => 'الأحمال المؤكده'
 
 
 ];

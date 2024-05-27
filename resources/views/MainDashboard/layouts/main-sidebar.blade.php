@@ -58,10 +58,29 @@
                         <a href="{{ route('buildingTypes.buildingTypes') }}"><i class="ti-home"></i><span class="right-nav-text">{{ trans('main_trans.buildingTypes') }}</span></a>
                     </li>
 
-
                     <li>
-                        <a href="{{ route('pricing.pricing') }}"><i class="ti-tag"></i><span class="right-nav-text">{{ trans('main_trans.pricing') }}
-                        </span></a>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#pricing-menu">
+                            <div class="pull-left"><i class="fa-solid fa-hand-holding-dollar"></i><span class="right-nav-text">{{ trans('main_trans.pricing') }}</span></div>
+                            <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="pricing-menu" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="{{ route('pricing.pricing') }}">
+                                    <i class="fa-solid fa-money-check-dollar"></i> {{ trans('main_trans.all_pricing') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pricing.new') }}">
+                                    <i class="fa-solid fa-tags"></i> {{ trans('main_trans.new_pricing') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pricing.confirmed') }}">
+                                    <i class="fa-solid fa-award"></i> {{ trans('main_trans.confirmed_pricing') }}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{ route('customer_service.customer_service') }}"><i class="ti-headphone"></i><span class="right-nav-text">{{ trans('main_trans.customer_service') }}
@@ -76,8 +95,28 @@
                         </span></a>
                     </li>
                     <li>
-                        <a href="{{ route('loadCalculation') }}"><i class="ti-email"></i><span class="ti-calculator">{{ trans('main_trans.loadCalculation') }}
-                        </span></a>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#load-menu">
+                            <div class="pull-left"><i class="fa-solid fa-calculator"></i><span class="right-nav-text">{{ trans('main_trans.loadCalculation') }}</span></div>
+                            <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="load-menu" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="{{ route('loadCalculation') }}">
+                                    <i class="fa-solid fa-calculator"></i>{{ trans('main_trans.all_loads') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('loadCalculation.new') }}">
+                                    <i class="fa-solid fa-tags"></i> {{ trans('main_trans.new_loads') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('loadCalculation.confirmed') }}">
+                                    <i class="fa-solid fa-award"></i> {{ trans('main_trans.confirmed_loads') }}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{ route('cfmRates') }}">
@@ -111,7 +150,6 @@
                                 </a>
                             </li>
                         </ul>
-
                     </li>
                     <li>
                         <a href="{{ route('notifications') }}">

@@ -17,6 +17,18 @@ class AdminLoadCalculationsController extends Controller
         return view('MainDashboard.loadCalculation.loadCalculation_list', compact('loads'));
     }
 
+    public function new()
+    {
+        $loads = loadCalculation::where('admin_status', 'waiting')->latest()->get();
+        return view('MainDashboard.loadCalculation.new_list', compact('loads'));
+    }
+
+    public function confirmed()
+    {
+        $loads = loadCalculation::where('admin_status', 'confirmed')->latest()->get();
+        return view('MainDashboard.loadCalculation.confirmed_list', compact('loads'));
+    }
+
     public function show($id)
     {
         $load = loadCalculation::where('id', $id)->with(['client', 'model'])->first();

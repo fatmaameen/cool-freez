@@ -151,5 +151,10 @@ return [
 'brand_name' => 'Brand Name',
 'offer_type' => 'Offer Type',
 'notification' => 'Notifications',
-
+'all_pricing' => 'All Pricing',
+'new_pricing' => 'New Pricing',
+'confirmed_pricing' => 'Confirmed Pricing',
+'all_loads' => 'All Loads',
+'new_loads' => 'New Loads',
+'confirmed_loads' => 'Confirmed Loads'
 ];

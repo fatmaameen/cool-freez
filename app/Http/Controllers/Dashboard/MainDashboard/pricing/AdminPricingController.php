@@ -19,6 +19,19 @@ class AdminPricingController extends Controller
         $pricing = pricing::latest()->get();
         return view('MainDashboard.pricing.pricing_list', compact('pricing'));
     }
+
+    public function new()
+    {
+        $pricing = pricing::where('admin_status', 'waiting')->latest()->get();
+        return view('MainDashboard.pricing.new_list', compact('pricing'));
+    }
+
+    public function confirmed()
+    {
+        $pricing = pricing::where('admin_status', 'confirmed')->latest()->get();
+        return view('MainDashboard.pricing.confirmed_list', compact('pricing'));
+    }
+
     public function getPricingDetails($id)
     {
         $pricing = Pricing::with('details')->findOrFail($id);
