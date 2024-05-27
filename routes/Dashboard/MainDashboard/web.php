@@ -91,6 +91,8 @@ Route::group(
                     Route::post('/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update');
                     Route::post('/assign/{maintenance}', [AdminMaintenanceController::class, 'assign'])->name('maintenance.assign');
                     Route::delete('/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenance.delete');
+                    Route::get('/new', [AdminMaintenanceController::class, 'new'])->name('new_maintenance');
+                    Route::get('/comfirmed', [AdminMaintenanceController::class, 'comfirmed'])->name('comfirmed_maintenance');
                     Route::get('/search/{search}', [AdminMaintenanceController::class, 'search']);
                 });
                 // Admin pricing routes ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,6 +114,8 @@ Route::group(
                     Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
                     Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
                     Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
+                    Route::get('/new', [AdminReviewsController::class, 'new'])->name('new_review');
+                    Route::get('/comfirmed', [AdminReviewsController::class, 'comfirmed'])->name('comfirmed_review');
                     Route::get('/search/{search}', [AdminReviewsController::class, 'search']);
                 });
                 // Admin consultants routes ---------------------------------------------------------------------------------------------------------------------------------------------------

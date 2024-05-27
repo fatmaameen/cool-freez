@@ -132,7 +132,15 @@ return [
 'last_clients'=>'Last Clients',
 'en_name'=>'Name In English',
 'Notifications'=>'Notifications',
+'new_maintenance'=>'New Maintenance',
+'comfirmed_maintenance'=>'Comfirmed',
+'all_maintenance'=>'All Maintenance',
 'ar_name'=>'Name In Arabic',
+'all_review'=>'All Reviews',
+'new_review'=>'New Reviews',
+'comfirmed_review'=>'Comfirmed Reviews',
+
+
 'successfully_updated'=>'Successfully updated',
 'successfully_deleted'=>'Successfully deleted',
 'successfully_added'=>'Successfully added',
