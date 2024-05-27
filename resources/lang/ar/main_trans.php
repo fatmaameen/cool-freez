@@ -108,8 +108,9 @@ return [
 'file'=>'ملف',
 'reset'=>'حذف',
 'search_code'=>'البحث باستخدام الكود',
-
-
+'all_maintenance'=>'جميع الطلبات',
+'comfirmed_maintenance'=>'الطلبات المقبولة',
+'new_maintenance'=>'الطلبات الجديدة',
 'search_by'=>'البحث باستخدام الاسم اوالبريد الالكتروني',
 'create_at'=>' أنشئت في',
 'text'=>' ملحوظة : إذا قمت برفع ملف جديد، سيتم حذف الملف القديم واستبداله به.',
@@ -118,9 +119,11 @@ return [
 'dataSheet'=>'مجموعة البيانات',
 'loadCalculation'=>'حساب الأحمال',
 'details'=>'تفاصيل ',
+'new_review'=>'مراجعات جديدة',
+'comfirmed_review'=>'مراجعات مكتملة',
 'type'=>'نوع',
 'model'=>'نموذج',
-
+'all_review'=>'جميع المراجعات',
 'income'=>'دخل',
 'outcome'=>'خرج',
 'btu'=>'BTU',

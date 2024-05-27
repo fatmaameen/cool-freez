@@ -18,6 +18,19 @@ class AdminMaintenanceController extends Controller
         $companies = company::all();
         return view('MainDashboard.maintenance.maintenance_list', compact('maintenances', 'companies'));
     }
+    public function comfirmed()
+    {
+        $maintenances = Maintenance::where('admin_status' ,'comfirmed')->get();
+        $companies = company::all();
+        return view('MainDashboard.maintenance.comfirmed_maintenance', compact('maintenances', 'companies'));
+    }
+
+    public function new()
+    {
+        $maintenances = Maintenance::where('admin_status' ,'waiting')->get();
+        $companies = company::all();
+        return view('MainDashboard.maintenance.new_maintenance', compact('maintenances', 'companies'));
+    }
 
     public function assign(Request $request, Maintenance $maintenance)
     {

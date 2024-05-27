@@ -23,10 +23,34 @@
                         <a href="{{ route('clients') }}"><i class="fa fa-users"></i><span class="right-nav-text">{{ trans('main_trans.clients') }}</span></a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('maintenance') }}"><i class="fa fa-hammer"></i><span class="right-nav-text">{{ trans('main_trans.maintenance') }}</span></a>
-                    </li>
+                    </li> --}}
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
+                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.maintenance') }}</span></div>
+                            <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="{{ route('maintenance') }}">
+                                    <i class="fa fa-wrench"></i> {{ trans('main_trans.all_maintenance') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('new_maintenance') }}">
+                                    <i class="fa fa-plus-circle"></i> {{ trans('main_trans.new_maintenance') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('comfirmed_maintenance') }}">
+                                    <i class="fa fa-check-circle"></i> {{ trans('main_trans.comfirmed_maintenance') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
 
                     <li>
@@ -46,14 +70,31 @@
                         <a href="{{ route('consultant.consultant') }}"><i class="ti-user"></i><span class="right-nav-text">{{ trans('main_trans.consultant') }}
                         </span></a>
                     </li>
+
                     <li>
-                        <a href="{{ route('reviews.reviews') }}"><i class="ti-comment-alt"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}
-                        </span></a>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#caler-menu">
+                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}</span></div>
+                            <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="caler-menu" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="{{ route('reviews.reviews') }}">
+                                    <i class="fa fa-wrench"></i> {{ trans('main_trans.all_review') }}
+                                </a>
+                            </li>
+                         <li>
+                                <a href="{{ route('new_review') }}">
+                                    <i class="fa fa-plus-circle"></i> {{ trans('main_trans.new_review') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('comfirmed_review') }}">
+                                    <i class="fa fa-check-circle"></i> {{ trans('main_trans.comfirmed_review') }}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    {{-- <li>
-                        <a href="{{ route('floors.floors') }}"><i class="ti-email"></i><span class="right-nav-text">{{ trans('main_trans.floors') }}
-                        </span></a>
-                    </li> --}}
                     <li>
                         <a href="{{ route('buildingTypes.buildingTypes') }}"><i class="ti-home"></i><span class="right-nav-text">{{ trans('main_trans.buildingTypes') }}</span></a>
                     </li>
