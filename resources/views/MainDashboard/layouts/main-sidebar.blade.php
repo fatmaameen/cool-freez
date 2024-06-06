@@ -73,28 +73,29 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#caler-menu">
-                            <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}</span></div>
+                            <div class="pull-left"><i class="fa fa-comments"></i><span class="right-nav-text">{{ trans('main_trans.reviews') }}</span></div>
                             <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="caler-menu" class="collapse" data-parent="#sidebarnav">
                             <li>
                                 <a href="{{ route('reviews.reviews') }}">
-                                    <i class="fa fa-wrench"></i> {{ trans('main_trans.all_review') }}
+                                    <i class="fa fa-list"></i> {{ trans('main_trans.all_review') }}
                                 </a>
                             </li>
-                         <li>
+                            <li>
                                 <a href="{{ route('new_review') }}">
-                                    <i class="fa fa-plus-circle"></i> {{ trans('main_trans.new_review') }}
+                                    <i class="fa fa-star"></i> {{ trans('main_trans.new_review') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('comfirmed_review') }}">
-                                    <i class="fa fa-check-circle"></i> {{ trans('main_trans.comfirmed_review') }}
+                                    <i class="fa fa-check"></i> {{ trans('main_trans.comfirmed_review') }}
                                 </a>
                             </li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="{{ route('buildingTypes.buildingTypes') }}"><i class="ti-home"></i><span class="right-nav-text">{{ trans('main_trans.buildingTypes') }}</span></a>
                     </li>
@@ -174,12 +175,20 @@
                         </style>
 
                     <li>
+<<<<<<< HEAD
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#companies-menu">
+=======
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#lendar-menu">
+>>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                             <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.companies_info') }}</span></div>
                             <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
                             <div class="clearfix"></div>
                         </a>
+<<<<<<< HEAD
                         <ul id="companies-menu" class="collapse" data-parent="#sidebarnav">
+=======
+                        <ul id="lendar-menu" class="collapse" data-parent="#sidebarnav">
+>>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                             <li>
                                 <a href="{{ route('companies') }}">
                                     <i class="fa-regular fa-building"></i> {{ trans('main_trans.companies') }}

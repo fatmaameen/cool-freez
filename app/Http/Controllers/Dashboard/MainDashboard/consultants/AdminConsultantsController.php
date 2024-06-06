@@ -27,7 +27,7 @@ class AdminConsultantsController extends Controller
                 'name' => ['required', 'string' ,'min:2', 'max:50'],
                 'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
                 'job_title' => ['required', 'string', 'min:2', 'max:50'],
-                'phone_number' => ['required', 'string', 'regex:/^[0-9]{10}$/'],
+                'phone_number' => ['required', 'unique:App\Models\consultant,phone_number'],
                 'rate' => ['required', 'numeric', 'max:5'],
                 'image' => [
                     'required',
@@ -95,7 +95,7 @@ class AdminConsultantsController extends Controller
             $consultant->delete();
             $notification = array(
                 'message' => trans('main_trans.deleting'),
-              'alert-type' => 'error'
+              'alert-type' => 'success'
                 );
                   return redirect()->back()->with($notification);           } else {
             return  redirect()->back()->with(['message' => 'Something went wrong']);

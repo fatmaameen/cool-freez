@@ -34,7 +34,9 @@ use App\Http\Controllers\Dashboard\MainDashboard\Notification\AdminNotificationC
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', function () {
+    return view('index');
+})->name('index');
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -45,9 +47,8 @@ Route::group(
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('/login', [LoginController::class, 'login']);
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-        Route::get('/', function () {
-            return redirect()->route('login');
-        });
+
+
         Route::group(['prefix' => 'password'], function () {
             Route::get('/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgotPassword');
             Route::post('/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -56,6 +57,7 @@ Route::group(
         });
 
         Route::get('/profile', [AdminsController::class, 'profile'])->name('profile');
+
 
         // SuperAdmin Admins routs ----------------------------------------------------------------------------------------------------------------------------------------------------------
         Route::group(['prefix' => 'dash/admins', 'middleware' => ['auth', 'SuperAdmin']], function () {
@@ -224,7 +226,7 @@ Route::group(
                     'prefix' => 'companies-admins'
                 ], function () {
                     Route::get('/', [CompanyAdminsController::class, 'index'])->name('companyAdmins');
-                    Route::post('/', [CompanyAdminsController::class, 'store'])->name('companyAdmins.store');
+                    Route::post('/store', [CompanyAdminsController::class, 'store'])->name('companyAdmins.store');
                     Route::post('/{admin}', [CompanyAdminsController::class, 'update'])->name('companyAdmins.update');
                     Route::delete('/{admin}', [CompanyAdminsController::class, 'destroy'])->name('companyAdmins.destroy');
                 });
@@ -237,5 +239,21 @@ Route::group(
                 });
             }
         );
-    }
+
+}
 );
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
+Route::get('/pricing', function () {
+    return view('pricing_file');
+})->name('pricing');
+Route::get('/load_calculation info', function () {
+    return view('load_calculation');
+})->name('load_calculation');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');

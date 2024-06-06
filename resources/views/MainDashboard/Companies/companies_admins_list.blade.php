@@ -154,6 +154,7 @@
         <!-- row closed -->
 
         <!-- Create User Modal -->
+
         <div class="modal fade" id="createUserModal" data-bs-backdrop="static" tabindex="-1"
             aria-labelledby="createUserModalLabel" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog">
@@ -163,6 +164,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
+
                     </div>
                     <div class="modal-body">
                         <form id="createUserForm" enctype="multipart/form-data">
@@ -206,12 +208,14 @@
                             </div>
 
                             <div class="form-group">
-                                <h6><label for="company_id">{{ trans('main_trans.company_name') }}</label></h6>
+                                <h6><label for="company_id">{{ trans('main_trans.companies') }}</label></h6>
                                 <select class="form-select" aria-label="Default select example" name="company_id"
                                     id="company_id">
                                     <option value="null">{{ trans('main_trans.open_menu') }}</option>
                                     @foreach ($companies as $company)
-                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+
                                     @endforeach
                                 </select>
                                 <span class="error-message" id="company_id-error"></span>
@@ -238,7 +242,7 @@
                 formData.append('phone_number', document.getElementById('phone_number').value);
                 formData.append('image', document.getElementById('image').files[0]);
 
-                fetch('{{ route('companyAdmins.store') }}', {
+                fetch('/main-dashboard/companies-admins/store', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -253,8 +257,15 @@
                     })
                     .then(data => {
                         if (data.success) {
+<<<<<<< HEAD
                             sessionStorage.setItem('showToastr', 'true');
                             window.location.href = "{{ route('companyAdmins') }}";
+=======
+                            toastr.success('{{ trans('main_trans.adding') }}', 'Success', {
+                                timeOut: 5000
+                            });
+                            window.location.href = "/main-dashboard/companies-admins"; // Redirect immediately
+>>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                         }
                     })
                     .catch(error => {
