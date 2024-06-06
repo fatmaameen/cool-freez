@@ -23,6 +23,7 @@ class CompanyAdminsController extends Controller
 
     public function store(Request $request)
     {
+
         try {
             $customMessages = [
                 'company_id.integer' => 'Please select a valid company.',
@@ -31,7 +32,7 @@ class CompanyAdminsController extends Controller
             $data = $request->validate([
                 'name' => ['required', 'string', 'max:250'],
                 'email' => ['required', 'email', 'unique:App\Models\User,email'],
-                'password' => ['required', 'nullable', 'string', 'max:250'],
+                'password' => ['required', 'string', 'max:250'],
                 'phone_number' => ['required', 'unique:App\Models\User,phone_number'],
                 'image' => ['required', 'image', 'mimes:jpg,bmp,png,jpeg'],
                 'company_id' => ['required', 'integer'],
@@ -42,7 +43,15 @@ class CompanyAdminsController extends Controller
             $data['image'] = $image;
             $data['role_id'] = 3;
 
-            $user = User::create($data);
+            $user = User::create([
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>$data['password'],
+            'phone_number'=>$data['phone_number'],
+            'image'=>$data['image'],
+            'company_id'=>$data['company_id'],
+            'role_id'=>3,
+            ]);
 
             return response()->json(['success' => true, 'message' => 'Created Successfully', 'user' => $user], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {

@@ -66,7 +66,7 @@ thead.bg-light {
             <div class="card card-statistics h-70">
                 <div class="card-body">
                     <!-- Profile Form -->
-                    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('users.updateInfo', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf <!-- Add CSRF token -->
 
                         <!-- Profile Details -->
@@ -105,10 +105,10 @@ thead.bg-light {
                                     <input type="file" class="col-6 form-control" name="image">
                                     <!-- Display current image if available -->
                                     @if($user->image)
-                                        <img src="{{ $user->image }}" alt="Avatar" style="max-width: 100px;">
+                                        <img src="{{ $user->image }}"  style="max-width: 100px;">
                                     @else
                                         <!-- Placeholder image if no image is available -->
-                                        <img src="{{ asset('placeholder-image.jpg') }}" alt="Avatar" style="max-width: 100px;">
+                                        <img src="{{ asset('logo.png') }}" alt="Avatar" style="max-width: 100px;">
                                     @endif
                                 </div>
                             </div>
