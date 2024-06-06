@@ -48,7 +48,7 @@ return [
 'client_create'=>'New Client',
 'address'=>'Address',
 'edit_status'=>'Edit Status',
-'block'=>'Bolck',
+'block'=>'Block',
 'maintenance'=>'Maintenance',
 'code'=>'Code',
 'device_type'=>'Device Type',
@@ -154,7 +154,7 @@ return [
 'companies' => 'Companies',
 'companies_admins' => 'Companies Admins',
 'company_name' => 'Company Name',
-'something_error' => 'Something went wrong',
+'something_error' => 'Something went wrong on server',
 'not_assigned' => 'Not assigned yet',
 'brand_name' => 'Brand Name',
 'offer_type' => 'Offer Type',
@@ -164,5 +164,6 @@ return [
 'confirmed_pricing' => 'Confirmed Pricing',
 'all_loads' => 'All Loads',
 'new_loads' => 'New Loads',
-'confirmed_loads' => 'Confirmed Loads'
+'confirmed_loads' => 'Confirmed Loads',
+
 ];

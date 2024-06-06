@@ -26,7 +26,7 @@ Route::group(
         Route::group(
             [
                 'prefix' => 'company-dashboard',
-                // 'middleware' => ['auth', 'CompanyAdmin']
+                'middleware' => ['auth', 'CompanyAdmin']
             ],
             function () {
                 // Company dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------

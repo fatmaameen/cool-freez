@@ -51,10 +51,15 @@ class AdminUsingFloorDataController extends Controller
                     $rowData[] = $cell->getValue();
                 }
                 if ($row->getRowIndex() > 1) {
-                    // if (array_filter($rowData, null) === []) {
-                    //     $this->upload($file, 'usingFloorsExcelFile');
-                    //     return response()->json(['message' => 'Data imported successfully']);
-                    // } else {
+                    if (array_filter($rowData, null) === []) {
+                        $this->upload($file, 'usingFloorsExcelFile');
+                        // return response()->json(['message' => 'Data imported successfully']);
+                        $notification = array(
+                            'message' => trans('main_trans.adding'),
+                            'alert-type' => 'success'
+                            );
+                              return redirect()->back()->with($notification);
+                    } else {
                     $usingFloor = new UsingFloor();
                     $usingFloor
                         ->setTranslation('floor', 'en', $rowData[0])
@@ -63,17 +68,22 @@ class AdminUsingFloorDataController extends Controller
                         ->setTranslation('using', 'ar', $rowData[3]);
                     $usingFloor->value = $rowData[4];
                     $usingFloor->save();
-                    // }
+                    }
                 }
             }
             $this->upload($file, 'usingFloorsExcelFile');
             $notification = array(
                 'message' => trans('main_trans.adding'),
-              'alert-type' => 'success'
+                'alert-type' => 'success'
                 );
                   return redirect()->back()->with($notification);
         } catch (\Exception $e) {
-            return redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
+            // return redirect()->back()->with(['message' => 'something went wrong', 'errors' => $e->getMessage()]);
+            $notification = array(
+                'message' => trans('main_trans.something_error'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -83,7 +93,12 @@ class AdminUsingFloorDataController extends Controller
         if ($file) {
             return response()->download($file);
         } else {
-            return redirect()->back()->with(['error' => 'No files found in the folder']);
+            // return redirect()->back()->with(['error' => 'No files found in the folder']);
+            $notification = array(
+                'message' => trans('main_trans.no_files'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 }

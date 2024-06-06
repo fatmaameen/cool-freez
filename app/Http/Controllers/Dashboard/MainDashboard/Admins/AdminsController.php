@@ -105,8 +105,6 @@ class AdminsController extends Controller
             'message' => trans('main_trans.editing'),
             'alert-type' => 'success'
         );
-
-
         return redirect()->back()->with($notification);
     }
 

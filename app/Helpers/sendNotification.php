@@ -33,9 +33,33 @@ class sendNotification
         self::notify($admins, $notifyData);
     }
 
+    public static function newRegisterNotify()
+    {
+        $notifyData['message'] = 'New client registered';
+        $notifyData['url'] = route('clients');
+        $admins = self::getMainAdmins();
+        self::notify($admins, $notifyData);
+    }
+
+    public static function CompanyUpdateMaintenance()
+    {
+        $notifyData['message'] = 'Company Updated a Maintenance check it!';
+        $notifyData['url'] = route('new_maintenance');
+        $admins = self::getMainAdmins();
+        self::notify($admins, $notifyData);
+    }
+
     public static function assignNotify($company_id)
     {
         $notifyData['message'] = 'New maintenance assigned';
+        $notifyData['url'] = route('incomplete_maintenance', $company_id);
+        $admins = self::getCompanyAdmins($company_id);
+        self::notify($admins, $notifyData);
+    }
+
+    public static function technicalUpdateMaintenanceNotify($company_id)
+    {
+        $notifyData['message'] = 'Technical Update a Maintenance check it!';
         $notifyData['url'] = route('incomplete_maintenance', $company_id);
         $admins = self::getCompanyAdmins($company_id);
         self::notify($admins, $notifyData);

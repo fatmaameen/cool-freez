@@ -284,6 +284,7 @@
                                     <th scope="col">{{ trans('main_trans.user_name') }}</th>
                                     <th scope="col">{{ trans('main_trans.email') }}</th>
                                     <th scope="col">{{ trans('main_trans.phone') }}</th>
+                                    <th scope="col">{{ trans('main_trans.rate') }}</th>
                                     <th scope="col">{{ trans('main_trans.status') }}</th>
                                     <th scope="col">{{ trans('main_trans.actions') }}</th>
                                 </tr>
@@ -301,6 +302,7 @@
                                         <td>{{ $technician->name }}</td>
                                         <td>{{ $technician->email }}</td>
                                         <td>{{ $technician->phone_number }}</td>
+                                        <td>{{ $technician->rate }}</td>
                                         <td id="td">
                                             <section class="model-7">
                                                 <div class="checkbox">

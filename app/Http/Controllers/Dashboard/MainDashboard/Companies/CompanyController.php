@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\MainDashboard\Companies;
 use App\Http\Controllers\Controller;
 use App\Models\company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;;
 
 class CompanyController extends Controller
 {
@@ -33,6 +35,7 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
+        try {
         $data = $request->validate([
             'name_ar' => 'required',
             'name_en' => 'required',
@@ -51,6 +54,16 @@ class CompanyController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    } catch (ValidationException $e) {
+        $errors = $e->validator->errors()->all();
+        $errorMessages = implode('<br>', $errors);
+
+        $notification = array(
+            'message' => $errorMessages,
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
+    }
     }
 
     public function update(Request $request, company $company)

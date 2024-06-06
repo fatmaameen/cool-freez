@@ -7,6 +7,7 @@ use App\Models\technician;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Notifications\newNotify;
+use App\Helpers\sendNotification;
 use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CompanyDashboard\Maintenance\CompanyMaintenanceResource;
@@ -39,7 +40,7 @@ class CompanyMaintenanceController extends Controller
             'expected_service_date' => 'required|date_format:m/d/Y',
             'company_status' => 'required|string',
             'technical' => 'nullable|integer',
-            'technical_status'=>'required',
+            'technical_status' => 'required',
         ]);
 
         try {
@@ -47,11 +48,11 @@ class CompanyMaintenanceController extends Controller
             $expectedServiceDate = Carbon::createFromFormat('m/d/Y', $request->input('expected_service_date'))->format('Y-m-d');
 
             // Update the maintenance record
-            $update = $maintenance->update([
+            $maintenance->update([
                 'company_status' => $request->input('company_status'),
                 'technical_id' => $request->input('technical'),
                 'expected_service_date' => $expectedServiceDate,
-                'technical_status'=>$request->input('technical_status')
+                'technical_status' => $request->input('technical_status')
             ]);
 
             // Prepare the success notification
@@ -65,9 +66,11 @@ class CompanyMaintenanceController extends Controller
             */
             //stored notification
             $notifyData['message'] = 'You have new maintenance check it now';
-            $maintenance->client->notify(new newNotify($notifyData));
+            $technician = technician::where('id', $request->input('technical'))->first();
+            $technician->notify(new newNotify($notifyData));
+            sendNotification::CompanyUpdateMaintenance();
             //fly notification
-            $token = $maintenance->technician->device_token;
+            $token = $technician->device_token;
             $data['device_token'] = $token;
             $data['title'] = config('app.name');
             $data['body'] = 'You have new maintenance check it now';

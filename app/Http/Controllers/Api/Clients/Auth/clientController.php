@@ -6,12 +6,13 @@ use App\Mail\mailer;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Helpers\TwilioHelper;
+use App\Helpers\sendNotification;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Api\Clients\AddNewClientRequest;
 use App\Http\Resources\Api\Clients\ClientInfoResource;
-use Illuminate\Support\Facades\Auth;
 
 class clientController extends Controller
 {
@@ -29,6 +30,7 @@ class clientController extends Controller
         // };
         $token = $client->createToken('auth_token', ['server:update'])->plainTextToken;
         $client_info = ClientInfoResource::make($client);
+        sendNotification::newRegisterNotify();
         return response()->json(['token' => $token, 'message' => 'Successfully registered', 'client' => $client_info]);
     }
 

@@ -69,7 +69,7 @@ Route::group(
         Route::group(
             [
                 'prefix' => 'main-dashboard',
-                // 'middleware' => ['auth', 'Admin']
+                'middleware' => ['auth', 'Admin']
             ],
             function () {
                 // dashboard home page -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,9 +115,9 @@ Route::group(
                     Route::get('/', [AdminReviewsController::class, 'index'])->name('reviews.reviews');
                     Route::post('/{review}', [AdminReviewsController::class, 'update'])->name('reviews.update');
                     Route::delete('/{review}', [AdminReviewsController::class, 'destroy'])->name('reviews.destroy');
-                    Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
-                    Route::get('/new', [AdminReviewsController::class, 'new'])->name('new_review');
+                    Route::get('/news', [AdminReviewsController::class, 'news'])->name('new_review');
                     Route::get('/comfirmed', [AdminReviewsController::class, 'comfirmed'])->name('comfirmed_review');
+                    Route::get('/{id}', [AdminReviewsController::class, 'show_details'])->name('details');
                     Route::get('/search/{search}', [AdminReviewsController::class, 'search']);
                 });
                 // Admin consultants routes ---------------------------------------------------------------------------------------------------------------------------------------------------

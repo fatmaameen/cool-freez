@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('email_confirmation_token')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable();
+            $table->string('rate')->default('0');
             $table->string('phone_confirmation_token')->nullable();
             $table->string('image')->default($this->appUrl . '/' . 'defaults_images' . '/' . 'image.png');
             $table->boolean('is_active')->default(true);

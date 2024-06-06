@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Shared\TechnicianRateController;
 use App\Http\Controllers\Api\Clients\Auth\clientController;
 use App\Http\Controllers\Api\Clients\types\TypesController;
 use App\Http\Controllers\Api\Clients\brands\BrandsController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Api\Clients\BuildingTypes\BuildingTypeController;
 use App\Http\Controllers\Api\Clients\Notifications\notificationController;
 use App\Http\Controllers\Shared\LoadCalculations\LoadCalculationController;
 use App\Http\Controllers\Api\Clients\LoadCalculation\SelectedLoadController;
+use App\Http\Controllers\Api\Technicians\Profile\TechnicianProfileController;
 use App\Http\Controllers\Api\Clients\CustomerService\CustomerServiceController;
 use App\Http\Controllers\Api\Technicians\Maintenance\TechnicianMaintenanceController;
 
@@ -55,23 +57,24 @@ Route::post('/clients/check', [clientController::class, 'checkCode']);
 Route::post('/clients/reset', [clientController::class, 'resetPassword']);
 Route::post('/clients/otp', [clientController::class, 'sendOTP']);
 
-Route::group(['prefix' => 'clients',
-// 'middleware' => 'auth:sanctum'
-],
- function () {
-    Route::get('/profile/{id}', [profileController::class, 'show']);
-    Route::post('/update/{client}', [profileController::class, 'update']);
-    Route::delete('/{client}', [profileController::class, 'destroy']);
-});
+Route::group(
+    [
+        'prefix' => 'clients',
+        // 'middleware' => 'auth:sanctum'
+    ],
+    function () {
+        Route::get('/profile/{id}', [profileController::class, 'show']);
+        Route::post('/update/{client}', [profileController::class, 'update']);
+        Route::delete('/{client}', [profileController::class, 'destroy']);
+    }
+);
 
 
 Route::post('/clients/maintenance', [maintenanceController::class, 'store'])
-    ->middleware('auth:sanctum')
-;
+    ->middleware('auth:sanctum');
 
 Route::get('/clients/maintenance/{id}', [maintenanceController::class, 'show'])
-    ->middleware('auth:sanctum')
-;
+    ->middleware('auth:sanctum');
 
 // services ---------------------------------------------------------------------
 Route::get('/clients/services', [ServicesController::class, 'index'])
@@ -148,12 +151,26 @@ Route::post('/technicians/maintenance/{maintenance}', [TechnicianMaintenanceCont
     // ->middleware('auth:sanctum')
 ;
 
-// Technician update maintenance --------------------------------------------------------------
+// Technician  history --------------------------------------------------------------------
 Route::get('/technicians/history/{id}', [TechnicianMaintenanceController::class, 'history'])
     // ->middleware('auth:sanctum')
 ;
 
+// Technician update profile --------------------------------------------------------------
+Route::post('/technicians/profile/{technician}', [TechnicianProfileController::class, 'update'])
+    // ->middleware('auth:sanctum')
+;
 
+// Technician add device token --------------------------------------------------------------
+Route::post('/technicians/token/{technician}', [TechnicianProfileController::class, 'add_device_token'])
+    // ->middleware('auth:sanctum')
+;
+
+Route::post('/clients/token/{client}', [profileController::class, 'add_device_token'])
+    // ->middleware('auth:sanctum')
+;
+
+// client add device token after login --------------------------------------------------------------
 Route::post('/clients/load-calculation', [LoadCalculationController::class, 'loadCalculation']);
 
 
@@ -171,3 +188,5 @@ Route::post('/clients/search', [SearchController::class, 'search']);
 
 Route::get('/clients/un-read/{client}', [notificationController::class, 'getUnread']);
 Route::post('/clients/mark-as-read/{client}', [notificationController::class, 'markAsRead']);
+
+Route::post('/clients/rate-technician', [TechnicianRateController::class, 'store']);

@@ -51,9 +51,19 @@ class AdminDataSheetController extends Controller
                               return redirect()->back()->with($notification);
                     } elseif (!in_array(strtolower($rowData[0]), $brands) || !in_array(strtolower($rowData[1]), $types)) {
                         if ($this->restore()) {
-                            return redirect()->back()->withErrors(['errors' => __('main_trans.brand_or_type_not_found')]);
+                            // return redirect()->back()->withErrors(['errors' => __('main_trans.brand_or_type_not_found')]);
+                            $notification = array(
+                                'message' => trans('main_trans.brand_or_type_not_found'),
+                                'alert-type' => 'error'
+                            );
+                            return redirect()->back()->with($notification);
                         } else {
-                            return redirect()->back()->withErrors(['errors' => __('main_trans.upload_valid_file')]);
+                            // return redirect()->back()->withErrors(['errors' => __('main_trans.upload_valid_file')]);
+                            $notification = array(
+                                'message' => trans('main_trans.upload_valid_file'),
+                                'alert-type' => 'error'
+                            );
+                            return redirect()->back()->with($notification);
                         }
                     } else {
                         DataSheet::create([
@@ -69,7 +79,12 @@ class AdminDataSheetController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with(['errors' => 'something went wrong' . $e->getMessage()]);
+            // return redirect()->back()->with(['errors' => 'something went wrong' . $e->getMessage()]);
+            $notification = array(
+                'message' => trans('main_trans.something_error'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -79,7 +94,12 @@ class AdminDataSheetController extends Controller
         if ($file) {
             return response()->download($file);
         } else {
-            return redirect()->back()->with(['error' => 'No files found in the folder']);
+            // return redirect()->back()->with(['error' => 'No files found in the folder']);
+            $notification = array(
+                'message' => trans('main_trans.no_files'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -92,9 +112,14 @@ class AdminDataSheetController extends Controller
         $models = DataSheet::where('model', 'LIKE', '%' . strtolower($search) . '%')
             ->orWhere('brand', 'LIKE', '%' . strtolower($search) . '%')->get();
         if ($models) {
-            return redirect()->back()->with($$models);
+            return redirect()->back()->with($models);
         } else {
-            return redirect()->back()->with(['Message' => "No Data Found"]);
+            // return redirect()->back()->with(['Message' => "No Data Found"]);
+            $notification = array(
+                'message' => trans('main_trans.no_files'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 

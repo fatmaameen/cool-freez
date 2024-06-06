@@ -148,7 +148,7 @@
 @endsection
 
 @section('title')
-    {{ trans('main_trans.comfirmed_review') }}
+    {{ trans('main_trans.reviews') }}
 @stop
 
 @section('page-header')
@@ -156,13 +156,13 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="mb-0">{{ trans('main_trans.comfirmed_review') }}</h4>
+                <h4 class="mb-0">{{ trans('main_trans.reviews') }}</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                    <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                             class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
-                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.comfirmed_review') }}</li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.reviews') }}</li></h6>
                 </ol>
             </div>
         </div>
@@ -220,6 +220,19 @@
                                             </a>
                                         </td>
 
+                                        {{-- <td>
+                                <a href="#consModal{{ $review->id }}" class="btn btn-primary" data-toggle="modal">{{ trans('main_trans.show') }}</a>
+                            </td>
+                            <td>
+                                @php
+                                $files = json_decode($review->building_files, true);
+                                @endphp
+                                @foreach ($files as $file)
+                                <a href="{{'http://127.0.0.1:8000/reviews_files/'.$file}}" class="btn btn-primary" target="_blank">{{ trans('main_trans.show') }}</a>
+                                @endforeach
+
+                                {{-- <a href="{{'http://127.0.0.1:8000/reviews_files/'. json_decode($review->building_files, true)}}" class="btn btn-primary">{{ trans('main_trans.show') }}</a> --}}
+                                        {{-- </td> --}}
 
                                         <td>
                                             @if ($review->admin_status == 'waiting')
@@ -316,7 +329,7 @@
 </div> --}}
 
 
-        <div class="modal fade" id="exampleModal{{ $review->id }}" tabindex="-1" role="dialog"
+        {{-- <div class="modal fade" id="exampleModal{{ $review->id }}" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel{{ $review->id }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -361,10 +374,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
-
+{{--
         <div class="modal fade" id="consModal{{ $review->id }}" tabindex="-1" role="dialog"
             aria-labelledby="consModalLabel{{ $review->id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -398,11 +411,11 @@
                                 @if ($review->consultant)
                                     <tr>
                                         <td>{{ $review->consultant->job_title }}</td>
-                                        <td>{{ $review->consultant->name }}</td>
+
+                                       <td>{{ $review->consultant->name }}</td>
                                         <td>{{ $review->consultant->email }}</td>
                                         <td>{{ $review->consultant->phone_number }}</td>
-
-                                        <td><img class="rounded-circle" src="{{ $review->consultant->image }}"
+                      <td><img class="rounded-circle" src="{{ $review->consultant->image }}"
                                                 width="60" height="60"></td>
                                         <td>{{ $review->consultant->rate }}</td>
                                     </tr>
@@ -412,7 +425,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Edit User Modals -->
         <div class="modal fade" id="editModal{{ $review->id }}" id="staticBackdrop" data-backdrop="static"

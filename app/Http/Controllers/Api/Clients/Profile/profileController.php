@@ -73,4 +73,15 @@ class profileController extends Controller
             }
         }
     }
+
+    public function add_device_token(Request $request, Client $client)
+    {
+        $request->validate([
+            'device_token' => 'required|string'
+        ]);
+        $client->update([
+            'device_token' => $request->device_token
+        ]);
+        return response()->json(['message' => 'Successfully updated']);
+    }
 }

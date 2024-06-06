@@ -127,7 +127,7 @@ thead.bg-light {
                         <th scope="col">{{ trans('main_trans.expected_service_date') }}</th>
                         <th scope="col">{{ trans('main_trans.company_status') }}</th>
                         <th scope="col">{{ trans('main_trans.technical_status') }}</th>
-                        <th scope="col">{{ trans('main_trans.actions') }}</th>
+                        {{-- <th scope="col">{{ trans('main_trans.actions') }}</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -192,14 +192,14 @@ thead.bg-light {
                             </span>
                             @endif
                         </td>
-                        <td>
-                            {{-- <a href="#editModal{{ $maintenance->id }}" data-toggle="modal">
+                        {{-- <td>
+                            <a href="#editModal{{ $maintenance->id }}" data-toggle="modal">
                                 <i class="fas fa-pen-to-square fa-2xl"></i>
-                            </a> --}}
+                            </a>
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $maintenance->id }}">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

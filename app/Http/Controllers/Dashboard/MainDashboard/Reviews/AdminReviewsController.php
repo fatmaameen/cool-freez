@@ -17,21 +17,20 @@ class AdminReviewsController extends Controller
         $reviews = review::with('client', 'consultant')->get();
         return view('MainDashboard.reviews/reviews_list', compact('reviews'));
     }
-    public function new()
+    public function news()
     {
-        $reviews = review::with('client', 'consultant')->where('admin_status' , 'waiting')->get();
-        return view('MainDashboard.reviews/new_list', compact('reviews'));
+        $reviews = review::where('admin_status', 'waiting')->get();
+        return view('MainDashboard.reviews.new_list', compact('reviews'));
     }
     public function comfirmed()
     {
-        $reviews = review::with('client', 'consultant')->where('admin_status','comfirmed')->get();
-        return view('MainDashboard.reviews/comfirmed_list', compact('reviews'));
+        $reviews = review::where('admin_status', 'confirmed')->get();
+        return view('MainDashboard.reviews.comfirmed_list', compact('reviews'));
     }
 
     public function show_details($id)
     {
         $review = review::where('id', $id)->with('client', 'consultant')->first();
-
         return view('MainDashboard.reviews.details', compact('review'));
     }
 

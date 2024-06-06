@@ -212,9 +212,9 @@ thead.bg-light {
                                 <a href="#editModal{{ $maintenance->id }}"
                                     data-toggle="modal"> <i class="fas fa-pen-to-square fa-2xl" ></i></a>
                            <!-- Delete Button -->
-                      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{  $maintenance->id}}">
+                      {{-- <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{  $maintenance->id}}">
                        <i class="fa-solid fa-trash-can"></i>
-                            </a>
+                            </a> --}}
                             </td>
                             </td>
                         </tr>

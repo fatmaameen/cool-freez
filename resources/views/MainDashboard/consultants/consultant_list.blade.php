@@ -225,7 +225,8 @@
     })
     .then(data => {
         if (data.success) {
-            toastr.success('{{ trans('main_trans.adding') }}', 'Success', { timeOut: 5000 });
+            // toastr.success('{{ trans('main_trans.adding') }}', 'Success', { timeOut: 5000 });
+            sessionStorage.setItem('showToastr', 'true');
             window.location.href = "/main-dashboard/consultant";
         }
     })
@@ -375,5 +376,14 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
     }
 @endif
 
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (sessionStorage.getItem('showToastr') === 'true') {
+            toastr.success('{{ trans('main_trans.adding') }}', { timeOut: 5000 });
+            sessionStorage.removeItem('showToastr');
+        }
+    });
 </script>
 @endsection

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\Technicians\Maintenance;
 
+use App\Models\technician;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Notifications\newNotify;
+use App\Helpers\sendNotification;
 use App\Jobs\SendNotificationJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Technicians\Maintenance\TechnicianHistoryResource;
@@ -15,7 +17,7 @@ class TechnicianMaintenanceController extends Controller
     public function index($id)
     {
         $maintenances = Maintenance::where('company_status', 'confirmed')
-            ->where('admin_status','confirmed')
+            ->where('admin_status', 'confirmed')
             ->where('technical_id', $id)
             ->where('technical_status', '!=', 'completed')
             ->get();
@@ -33,9 +35,9 @@ class TechnicianMaintenanceController extends Controller
     public function history($id)
     {
         $maintenances = Maintenance::where('technical_id', $id)
-        ->where('admin_status','!=','waiting')
-        ->where('company_status', '!=', 'pending')
-        ->get();
+            ->where('admin_status', '!=', 'waiting')
+            ->where('company_status', '!=', 'pending')
+            ->get();
 
         if (count($maintenances) === 0) {
             return response()->json([
@@ -69,8 +71,12 @@ class TechnicianMaintenanceController extends Controller
                 App notification
             */
             //stored notification
+            $technician = technician::where('id', $maintenance->technical_id)->first();
             $notifyData['message'] = 'your maintenance order has been' . ' ' . $request->technical_status;
             $maintenance->client->notify(new newNotify($notifyData));
+
+
+            sendNotification::technicalUpdateMaintenanceNotify($technician->company_id);
             //fly notification
             $token = $maintenance->client->device_token;
             $data['device_token'] = $token;

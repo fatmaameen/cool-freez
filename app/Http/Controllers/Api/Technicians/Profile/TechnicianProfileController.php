@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Technicians\profile\UpdateTechnicianRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Traits\ImageUploadTrait;
 use App\Http\Resources\Api\Technicians\Auth\technicianResource;
 
 class TechnicianProfileController extends Controller
 {
+    use ImageUploadTrait;
     public function show(technician $technician)
     {
         return technicianResource::make($technician);
@@ -42,6 +44,17 @@ class TechnicianProfileController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number
+        ]);
+        return response()->json(['message' => 'Successfully updated']);
+    }
+
+    public function add_device_token(Request $request, technician $technician)
+    {
+        $request->validate([
+            'device_token' => 'required|string'
+        ]);
+        $technician->update([
+            'device_token' => $request->device_token
         ]);
         return response()->json(['message' => 'Successfully updated']);
     }

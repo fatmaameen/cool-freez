@@ -135,7 +135,7 @@
 @endsection
 
 @section('title')
-{{ trans('main_trans.pricing') }}
+{{ trans('main_trans.all_pricing') }}
 @stop
 
 @section('page-header')
@@ -143,13 +143,13 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('main_trans.pricing') }}</h4>
+            <h4 class="mb-0">{{ trans('main_trans.all_pricing') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                         class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
-            <h6><li class="breadcrumb-item active">/{{ trans('main_trans.pricing') }}</li></h6>
+            <h6><li class="breadcrumb-item active">/{{ trans('main_trans.all_pricing') }}</li></h6>
             </ol>
         </div>
     </div>

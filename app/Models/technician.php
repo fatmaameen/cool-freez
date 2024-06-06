@@ -15,11 +15,13 @@ class technician extends Authenticatable
         'company_id',
         'email',
         'email_confirmation_token',
-        'password', // تعديل هنا
+        'password',
         'phone_number',
+        'rate',
         'phone_confirmation_token',
         'phone_confirmed',
         'image',
+        'device_token',
         'is_active',
         'is_banned'
     ];

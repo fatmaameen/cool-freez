@@ -329,7 +329,7 @@
 </div> --}}
 
 
-        <div class="modal fade" id="exampleModal{{ $review->id }}" tabindex="-1" role="dialog"
+        {{-- <div class="modal fade" id="exampleModal{{ $review->id }}" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel{{ $review->id }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -374,10 +374,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
-
+{{--
         <div class="modal fade" id="consModal{{ $review->id }}" tabindex="-1" role="dialog"
             aria-labelledby="consModalLabel{{ $review->id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -411,11 +411,11 @@
                                 @if ($review->consultant)
                                     <tr>
                                         <td>{{ $review->consultant->job_title }}</td>
-                                        <td>{{ $review->consultant->name }}</td>
+
+                                       <td>{{ $review->consultant->name }}</td>
                                         <td>{{ $review->consultant->email }}</td>
                                         <td>{{ $review->consultant->phone_number }}</td>
-
-                                        <td><img class="rounded-circle" src="{{ $review->consultant->image }}"
+                      <td><img class="rounded-circle" src="{{ $review->consultant->image }}"
                                                 width="60" height="60"></td>
                                         <td>{{ $review->consultant->rate }}</td>
                                     </tr>
@@ -425,7 +425,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Edit User Modals -->
         <div class="modal fade" id="editModal{{ $review->id }}" id="staticBackdrop" data-backdrop="static"

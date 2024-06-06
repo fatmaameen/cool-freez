@@ -22,9 +22,7 @@ class AdminConsultantsController extends Controller
 
     public function store(Request $request)
     {
-
         try {
-
             $data = $request->validate([
                 'name' => ['required', 'string' ,'min:2', 'max:50'],
                 'email' => ['required', 'email', 'unique:App\Models\consultant,email'],
@@ -37,13 +35,10 @@ class AdminConsultantsController extends Controller
                         'extensions' => ['jpeg', 'jpg', 'png', 'gif']
                     ]]
             ]);
-
             $image_info = $request->file('image');
             $image = $this->upload($image_info, 'consultants');
             $data['image'] = $image;
-
            $consultant= consultant::create($data);
-
            return response()->json(['success' => true, 'message' => 'Created Successfully', 'consultant' => $consultant], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['success' => false, 'errors' => $e->errors()], 422);
@@ -56,7 +51,6 @@ class AdminConsultantsController extends Controller
     public function update(UpdateConsultantsRequest $request, consultant $consultant)
     {
         $data = $request->validated();
-
         if ($request->has('image')) {
             $old_image = $consultant->image;
             if ($this->remove($old_image)) {
@@ -74,8 +68,6 @@ class AdminConsultantsController extends Controller
                     'message' => trans('main_trans.editing'),
                     'alert-type' => 'success'
                      );
-
-
                 return redirect()->back()->with($notification);
             } else {
                 return  redirect()->back()->with(['message' => 'Something went wrong']);

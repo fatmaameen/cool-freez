@@ -21,12 +21,13 @@ class UpdateTechnicianRequest extends FormRequest
      */
     public function rules(): array
     {
+        $technician = $this->route('technician');
         return [
             'name' => ['required', 'string', 'max:250'],
-            'email' => ['required', 'email'],
-            'password' => ['nullable','string','min:8', 'max:250'],
-            'phone_number' => ['nullable'],
-            'image' => ['nullable','image', 'mimes:jpg,bmp,png'],
+            'email' => ['required', 'email', 'unique:technicians,email,' . $technician->id],
+            'password' => ['nullable', 'string', 'min:8', 'max:250'],
+            'phone_number' => ['nullable', 'unique:technicians,phone_number,' . $technician->id],
+            'image' => ['nullable', 'image', 'mimes:jpg,bmp,png'],
         ];
     }
 }

@@ -137,7 +137,7 @@
 @endsection
 
 @section('title')
-    {{ trans('main_trans.loadCalculation') }}
+    {{ trans('main_trans.confirmed_loads') }}
 @stop
 
 @section('page-header')
@@ -145,13 +145,13 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="mb-0">{{ trans('main_trans.loadCalculation') }}</h4>
+                <h4 class="mb-0">{{ trans('main_trans.confirmed_loads') }}</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                    <h6><li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                             class="default-color">{{ trans('main_trans.Dashboard') }}</a></li></h6>
-                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.loadCalculation') }}</li></h6>
+                <h6><li class="breadcrumb-item active">/{{ trans('main_trans.confirmed_loads') }}</li></h6>
                 </ol>
             </div>
         </div>

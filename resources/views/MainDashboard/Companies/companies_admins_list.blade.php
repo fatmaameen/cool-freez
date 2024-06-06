@@ -11,10 +11,14 @@
             /* أو أي لون تفضله */
             /* أي خصائص أخرى تريدها */
         }
+
         body {
-    overflow-x: hidden; /* لإخفاء شريط التمرير الأفقي فقط */
-    overflow-y: auto; /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
-}
+            overflow-x: hidden;
+            /* لإخفاء شريط التمرير الأفقي فقط */
+            overflow-y: auto;
+            /* السماح بظهور شريط التمرير الرأسي عند الحاجة */
+        }
+
         .blue-button {
             background-color: #94deec;
             /* لتغيير لون الخلفية إلى الأزرق */
@@ -249,6 +253,7 @@
                     })
                     .then(data => {
                         if (data.success) {
+                            sessionStorage.setItem('showToastr', 'true');
                             window.location.href = "{{ route('companyAdmins') }}";
                         }
                     })
@@ -440,6 +445,16 @@
                         break;
                 }
             @endif
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (sessionStorage.getItem('showToastr') === 'true') {
+                    toastr.success('{{ trans('main_trans.adding') }}', {
+                        timeOut: 5000
+                    });
+                    sessionStorage.removeItem('showToastr');
+                }
+            });
         </script>
 
     @endsection
