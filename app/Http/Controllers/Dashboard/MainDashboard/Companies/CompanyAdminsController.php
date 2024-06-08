@@ -86,7 +86,8 @@ class CompanyAdminsController extends Controller
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number
+            'phone_number' => $request->phone_number,
+            'company_id' => $request->company_id,
         ]);
         $notification = array(
             'message' => trans('main_trans.successfully_updated'),

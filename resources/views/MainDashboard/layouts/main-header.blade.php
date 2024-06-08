@@ -171,25 +171,24 @@ header start-->
                     <a id="logout-link" class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="text-danger ti-unlock"></i>{{ trans('main_trans.logout') }}
                     </a>
-                </div>
+                    </div>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
+
             </li>
         </ul>
     </nav>
 
     <script>
-        // Get the logout link element
         var logoutLink = document.getElementById('logout-link');
 
-        // Add event listener to update href attribute
+        // تحديث الكود لحذف التعديل على href
         logoutLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            this.href = '{{ route('login') }}'; // Set the href to the login route
             document.getElementById('logout-form').submit();
         });
     </script>
+
 
     <style>
         .notification-container {

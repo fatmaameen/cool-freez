@@ -38,7 +38,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login'); // تأكيد إعادة التوجيه إلى صفحة تسجيل الدخول
+    }
     protected function authenticated(Request $request, $user)
     {
         if ($user->role_id === 1 || $user->role_id ===2) {
