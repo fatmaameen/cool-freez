@@ -245,9 +245,9 @@ Route::group(
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-Route::get('/maintenance', function () {
+Route::get('/file_maintenance', function () {
     return view('maintenance');
-})->name('maintenance');
+})->name('file_maintenance');
 Route::get('/pricing', function () {
     return view('pricing_file');
 })->name('pricing');

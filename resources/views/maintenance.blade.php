@@ -46,7 +46,7 @@
 
 						<li class="menu-has-children"><a href="">Services</a>
 							<ul>
-								<li><a href="{{ route('maintenance') }}">Maintenance</a></li>
+								<li><a href="{{ route('file_maintenance') }}">Maintenance</a></li>
                                 <li><a href="{{ route('pricing') }}">Pricing</a></li>
                                 <li><a href="{{ route('load_calculation') }}">Load Calculation</a></li>
 							</ul>
@@ -87,7 +87,7 @@
 	<!-- End banner Area -->
 
 	<!-- Start Sample Area -->
-	
+
 
 			<footer class="footer-area section-gap">
                 <div class="container">
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="col-lg-2 col-md-6 single-footer-widget">
-                            <h4><a href="{{ route('maintenance') }}">Maintenance</a></h4>
+                            <h4><a href="{{ route('file_maintenance') }}">Maintenance</a></h4>
 
                         </div>
                         <div class="col-lg-2 col-md-6 single-footer-widget">
