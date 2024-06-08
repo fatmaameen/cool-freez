@@ -257,15 +257,10 @@
                     })
                     .then(data => {
                         if (data.success) {
-<<<<<<< HEAD
-                            sessionStorage.setItem('showToastr', 'true');
-                            window.location.href = "{{ route('companyAdmins') }}";
-=======
                             toastr.success('{{ trans('main_trans.adding') }}', 'Success', {
                                 timeOut: 5000
                             });
                             window.location.href = "/main-dashboard/companies-admins"; // Redirect immediately
->>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                         }
                     })
                     .catch(error => {

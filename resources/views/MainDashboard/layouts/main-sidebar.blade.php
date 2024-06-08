@@ -175,20 +175,12 @@
                         </style>
 
                     <li>
-<<<<<<< HEAD
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#companies-menu">
-=======
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#lendar-menu">
->>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                             <div class="pull-left"><i class="fa fa-gear"></i><span class="right-nav-text">{{ trans('main_trans.companies_info') }}</span></div>
                             <div class="pull-right"><i class="fa fa-chevron-down"></i></div>
                             <div class="clearfix"></div>
                         </a>
-<<<<<<< HEAD
                         <ul id="companies-menu" class="collapse" data-parent="#sidebarnav">
-=======
-                        <ul id="lendar-menu" class="collapse" data-parent="#sidebarnav">
->>>>>>> 6ed226f07b0fcf3446b8ddd7b1475c0f1100c5d1
                             <li>
                                 <a href="{{ route('companies') }}">
                                     <i class="fa-regular fa-building"></i> {{ trans('main_trans.companies') }}
