@@ -10,7 +10,8 @@ return [
 'cfmRates'=>'نسبة CFM',
 'email'=>'البريد الكتروني',
 'actions'=>'العمليات',
-'send '=>'ارسال',
+
+'Title'=>'عنوان',
 
 'dont_have'=>'لا يوجد',
 
@@ -21,12 +22,7 @@ return [
 'excellent_from'=>'ممتاز من',
 'excellent_to'=>' ممتاز الي',
 
-
-
-
-
-
-
+'send '=>'ارسال',
 
 'active'=>'نشط',
 'inactive'=>' غير نشط',
@@ -122,6 +118,7 @@ return [
 'new_review'=>'مراجعات جديدة',
 'comfirmed_review'=>'مراجعات مكتملة',
 'type'=>'نوع',
+'dont_have_files'=>'',
 'model'=>'نموذج',
 'all_review'=>'جميع المراجعات',
 'income'=>'دخل',

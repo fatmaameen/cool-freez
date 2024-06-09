@@ -176,7 +176,7 @@
                                             </a>
                                         @endforeach
                                     @else
-                                        <p>Dont have files...</p>
+                                        <p> {{ trans('main_trans.no_files') }}...</p>
                                     @endif
 
 

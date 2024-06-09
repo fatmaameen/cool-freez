@@ -100,6 +100,7 @@ return [
 'title'=>'Title',
 'subject'=>'Subject',
 'massage'=>'Massage',
+
 'send'=>'Send',
 'send_reply'=>'Send Reply',
 'technician'=>'Technician',
@@ -140,7 +141,7 @@ return [
 'new_review'=>'New Reviews',
 'comfirmed_review'=>'Comfirmed Reviews',
 
-
+'Title'=>'Title',
 'successfully_updated'=>'Successfully updated',
 'successfully_deleted'=>'Successfully deleted',
 'successfully_added'=>'Successfully added',

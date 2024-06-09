@@ -20544,13 +20544,18 @@ a.button-toggle-nav {
     visibility: hidden; }
 
 .slide-menu.sidebar-hover .navbar.navbar-inverse.navbar-fixed-top .nav-header {
-  width: 230px; }
+  width: 2px; }
   .slide-menu.sidebar-hover .navbar.navbar-inverse.navbar-fixed-top .nav-header .logo-wrap .brand-text {
     opacity: 1;
     visibility: visible; }
 
+    .slide-menu .side-menu-fixed .side-menu li.navigation-header span,
+    .slide-menu .side-menu-fixed .side-menu li.navigation-header i {
+      display: block; /* اظهار العناوين والأيقونات دائماً */
+    }
+
 .slide-menu .side-menu-fixed {
-  width: 44px; }
+  width: 230px; }
   .slide-menu .side-menu-fixed .side-menu li.navigation-header span {
     display: none; }
   .slide-menu .side-menu-fixed .side-menu li.navigation-header i {
